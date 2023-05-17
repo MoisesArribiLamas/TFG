@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="tfgEntities2">
+    <EntitySetMapping Name="Baterias">
+      <EntityTypeMapping TypeName="tfgModel.Bateria">
+        <MappingFragment StoreEntitySet="Bateria">
+          <ScalarProperty Name="bateriaId" ColumnName="bateriaId" />
+          <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
+          <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+          <ScalarProperty Name="precioMedio" ColumnName="precioMedio" />
+          <ScalarProperty Name="kwAlmacenados" ColumnName="kwAlmacenados" />
+          <ScalarProperty Name="almacenajeMaximoKw" ColumnName="almacenajeMaximoKw" />
+          <ScalarProperty Name="fechaDeAdquisicion" ColumnName="fechaDeAdquisicion" />
+          <ScalarProperty Name="marca" ColumnName="marca" />
+          <ScalarProperty Name="modelo" ColumnName="modelo" />
+          <ScalarProperty Name="ratioCarga" ColumnName="ratioCarga" />
+          <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
+          <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cargas">
+      <EntityTypeMapping TypeName="tfgModel.Carga">
+        <MappingFragment StoreEntitySet="Carga">
+          <ScalarProperty Name="cargaId" ColumnName="cargaId" />
+          <ScalarProperty Name="bateriaId" ColumnName="bateriaId" />
+          <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
+          <ScalarProperty Name="horaIni" ColumnName="horaIni" />
+          <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+          <ScalarProperty Name="kws" ColumnName="kws" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estadoes">
+      <EntityTypeMapping TypeName="tfgModel.Estado">
+        <MappingFragment StoreEntitySet="Estado">
+          <ScalarProperty Name="estadoId" ColumnName="estadoId" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeEncuentras">
+      <EntityTypeMapping TypeName="tfgModel.SeEncuentra">
+        <MappingFragment StoreEntitySet="SeEncuentra">
+          <ScalarProperty Name="seEncuentraId" ColumnName="seEncuentraId" />
+          <ScalarProperty Name="horaIni" ColumnName="horaIni" />
+          <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="bateriaId" ColumnName="bateriaId" />
+          <ScalarProperty Name="estadoId" ColumnName="estadoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suministras">
+      <EntityTypeMapping TypeName="tfgModel.Suministra">
+        <MappingFragment StoreEntitySet="Suministra">
+          <ScalarProperty Name="suministraId" ColumnName="suministraId" />
+          <ScalarProperty Name="bateriaId" ColumnName="bateriaId" />
+          <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
+          <ScalarProperty Name="horaIni" ColumnName="horaIni" />
+          <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+          <ScalarProperty Name="kws" ColumnName="kws" />
+          <ScalarProperty Name="ahorro" ColumnName="ahorro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tarifas">
+      <EntityTypeMapping TypeName="tfgModel.Tarifa">
+        <MappingFragment StoreEntitySet="Tarifa">
+          <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ubicacions">
+      <EntityTypeMapping TypeName="tfgModel.Ubicacion">
+        <MappingFragment StoreEntitySet="Ubicacion">
+          <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
+          <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+          <ScalarProperty Name="localidad" ColumnName="localidad" />
+          <ScalarProperty Name="calle" ColumnName="calle" />
+          <ScalarProperty Name="portal" ColumnName="portal" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="tfgModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

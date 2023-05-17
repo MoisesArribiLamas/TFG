@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{774A7E48-34F2-4CDB-BA74-6FD377620FD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DD16117-38DB-4D41-B75C-1056E1207E97}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
+	EndGlobalSection
+EndGlobal
