@@ -1,17 +1,14 @@
-﻿using Es.Udc.DotNet.PracticaMaD.Model.CategoryDao;
-using Es.Udc.DotNet.PracticaMaD.Model.CommentDao;
-using Es.Udc.DotNet.PracticaMaD.Model.CommentService;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageEntityDao;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageService;
-using Es.Udc.DotNet.PracticaMaD.Model.TagDao;
-using Es.Udc.DotNet.PracticaMaD.Model.TagService;
-using Es.Udc.DotNet.PracticaMaD.Model.UserProfileDao;
-using Es.Udc.DotNet.PracticaMaD.Model.UserService;
-using Ninject;
+﻿using Ninject;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 
-namespace Es.Udc.DotNet.PracticaMaD.Test
+namespace Es.Udc.DotNet.TFG.Test
 {
     public class TestManager
     {
@@ -21,44 +18,34 @@ namespace Es.Udc.DotNet.PracticaMaD.Test
         /// <returns>The NInject kernel</returns>
         public static IKernel ConfigureNInjectKernel()
         {
-            NinjectSettings settings = new NinjectSettings() { LoadExtensions = true };
+            #region Option A : configuration via sourcecode
 
-            IKernel kernel = new StandardKernel(settings);
+            IKernel kernel = new StandardKernel();
 
-            kernel.Bind<IUserProfileDao>().
-                To<UserProfileDaoEntityFramework>();
+                       
+            kernel.Bind<IEstadoDao>().To<EstadoDaoEntitFramework>();
 
-            kernel.Bind<ICategoryDao>().
-                To<CategoryDaoEntityFramework>();
-
-            kernel.Bind<IImageEntityDao>().
-                To<ImageEntityDaoEntityFramework>();
-
-            kernel.Bind<ICommentDao>().
-                To<CommentDaoEntityFramework>();
-
-            kernel.Bind<ITagDao>().
-                To<TagDaoEntityFramework>();
-
-            kernel.Bind<IUserService>().
-                To<UserService>();
-
-            kernel.Bind<IImageService>().
-                To<ImageService>();
-
-            kernel.Bind<ICommentService>().
-                To<CommentService>();
-
-            kernel.Bind<ITagService>().
-                To<TagService>();
 
             string connectionString =
-                ConfigurationManager.ConnectionStrings["photogramEntities"].ConnectionString;
+                ConfigurationManager.ConnectionStrings["tfgEntities"].ConnectionString;
 
             kernel.Bind<DbContext>().
                 ToSelf().
                 InSingletonScope().
                 WithConstructorArgument("nameOrConnectionString", connectionString);
+
+            #endregion Option A : configuration via sourcecode
+
+
+            #region Option B: configuration via external XML configuration file
+
+            // The kernel should automatically load extensions at startup
+            //NinjectSettings settings = new NinjectSettings() { LoadExtensions = false };
+            //IKernel kernel = new StandardKernel(settings, new Ninject.Extensions.Xml.XmlExtensionModule());
+
+            // kernel.Load("Ninject_Config.xml");
+
+            #endregion Option B: configuration via external XML configuration file
 
             return kernel;
         }
@@ -70,9 +57,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Test
         /// <returns>The NInject kernel</returns>
         public static IKernel ConfigureNInjectKernel(string moduleFilename)
         {
-            NinjectSettings settings = new NinjectSettings() { LoadExtensions = true };
-            IKernel kernel = new StandardKernel(settings);
-
+            IKernel kernel = new StandardKernel();
             kernel.Load(moduleFilename);
 
             return kernel;

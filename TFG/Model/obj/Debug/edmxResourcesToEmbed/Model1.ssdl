@@ -1,247 +1,359 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="tfgModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Bateria">
+<Schema Namespace="MaD20_DevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categoria">
     <Key>
-      <PropertyRef Name="bateriaId" />
+      <PropertyRef Name="id_categoria" />
     </Key>
-    <Property Name="bateriaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ubicacionId" Type="bigint" Nullable="false" />
-    <Property Name="usuarioId" Type="bigint" Nullable="false" />
-    <Property Name="precioMedio" Type="float" Nullable="false" />
-    <Property Name="kwAlmacenados" Type="float" Nullable="false" />
-    <Property Name="almacenajeMaximoKw" Type="float" Nullable="false" />
-    <Property Name="fechaDeAdquisicion" Type="datetime" Nullable="false" />
-    <Property Name="marca" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="modelo" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="ratioCarga" Type="float" Nullable="false" />
-    <Property Name="ratioCompra" Type="float" Nullable="false" />
-    <Property Name="ratioUso" Type="float" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Carga">
-    <Key>
-      <PropertyRef Name="cargaId" />
-    </Key>
-    <Property Name="cargaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="bateriaId" Type="bigint" Nullable="false" />
-    <Property Name="tarifaId" Type="bigint" Nullable="false" />
-    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-    <Property Name="kws" Type="float" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Estado">
-    <Key>
-      <PropertyRef Name="estadoId" />
-    </Key>
-    <Property Name="estadoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SeEncuentra">
-    <Key>
-      <PropertyRef Name="seEncuentraId" />
-    </Key>
-    <Property Name="seEncuentraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="false" />
-    <Property Name="bateriaId" Type="bigint" Nullable="false" />
-    <Property Name="estadoId" Type="bigint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Suministra">
-    <Key>
-      <PropertyRef Name="suministraId" />
-    </Key>
-    <Property Name="suministraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="bateriaId" Type="bigint" Nullable="false" />
-    <Property Name="tarifaId" Type="bigint" Nullable="false" />
-    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-    <Property Name="kws" Type="float" Nullable="false" />
-    <Property Name="ahorro" Type="float" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Tarifa">
-    <Key>
-      <PropertyRef Name="tarifaId" />
-    </Key>
-    <Property Name="tarifaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="precio" Type="bigint" Nullable="false" />
-    <Property Name="hora" Type="bigint" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Ubicacion">
-    <Key>
-      <PropertyRef Name="ubicacionId" />
-    </Key>
-    <Property Name="ubicacionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="codigoPostal" Type="bigint" Nullable="false" />
-    <Property Name="localidad" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="portal" Type="bigint" Nullable="false" />
-    <Property Name="numero" Type="bigint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Usuario">
-    <Key>
-      <PropertyRef Name="usuarioId" />
-    </Key>
-    <Property Name="usuarioId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_categoria" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="apellido2" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="contraseña" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="referencia_a" Type="bigint" />
   </EntityType>
-  <Association Name="FK_BATERIA_CARGA">
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
+  <EntityType Name="comentario_etiqueta">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="id_comentario" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="id_comentario" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="comentarios">
+    <Key>
+      <PropertyRef Name="id_comentario" />
+    </Key>
+    <Property Name="id_comentario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="usuario" Type="bigint" Nullable="false" />
+    <Property Name="producto" Type="bigint" Nullable="false" />
+    <Property Name="contenido" Type="varchar" MaxLength="500" />
+    <Property Name="fecha" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="etiquetas">
+    <Key>
+      <PropertyRef Name="nombre" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="counter" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="libro">
+    <Key>
+      <PropertyRef Name="id_producto" />
+    </Key>
+    <Property Name="id_producto" Type="bigint" Nullable="false" />
+    <Property Name="isbn" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="linea_pedido">
+    <Key>
+      <PropertyRef Name="id_linea_pedido" />
+    </Key>
+    <Property Name="id_linea_pedido" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="producto" Type="bigint" Nullable="false" />
+    <Property Name="pedido" Type="bigint" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+    <Property Name="a_envolver" Type="bit" Nullable="false" />
+    <Property Name="precio" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pedido">
+    <Key>
+      <PropertyRef Name="id_pedido" />
+    </Key>
+    <Property Name="id_pedido" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="direccion" Type="varchar" MaxLength="200" />
+    <Property Name="precio" Type="float" Nullable="false" />
+    <Property Name="tarjeta" Type="varchar" MaxLength="24" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pelicula">
+    <Key>
+      <PropertyRef Name="id_producto" />
+    </Key>
+    <Property Name="id_producto" Type="bigint" Nullable="false" />
+    <Property Name="sinopsis" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="duracion" Type="varchar" MaxLength="30" />
+    <Property Name="año" Type="varchar" MaxLength="4" />
+    <Property Name="director" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="producto">
+    <Key>
+      <PropertyRef Name="id_producto" />
+    </Key>
+    <Property Name="id_producto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" />
+    <Property Name="precio" Type="float" Nullable="false" />
+    <Property Name="fecha_alta" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="categoria" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="producto" />
+    </Key>
+    <Property Name="producto" Type="bigint" Nullable="false" />
+    <Property Name="unidades_Stock" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tarjeta_credito">
+    <Key>
+      <PropertyRef Name="numero" />
+    </Key>
+    <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="24" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="cvv" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="pertenece_a" Type="bigint" Nullable="false" />
+    <Property Name="por_defecto" Type="bit" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="30" />
+    <Property Name="contraseña" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="codigo_postal" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="tipo_usuario" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="idioma" Type="varchar" MaxLength="30" />
+    <Property Name="pais" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="FK__categoria__refer__02084FDA">
+    <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+    <End Role="categoria1" Type="Self.categoria" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Bateria">
-        <PropertyRef Name="bateriaId" />
+      <Principal Role="categoria">
+        <PropertyRef Name="id_categoria" />
       </Principal>
-      <Dependent Role="Carga">
-        <PropertyRef Name="bateriaId" />
+      <Dependent Role="categoria1">
+        <PropertyRef Name="referencia_a" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BATERIA_SEENCUENTRA">
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SeEncuentra" Type="Self.SeEncuentra" Multiplicity="*" />
+  <Association Name="FK__libro__producto__5165187F">
+    <End Role="producto" Type="Self.producto" Multiplicity="1" />
+    <End Role="libro" Type="Self.libro" Multiplicity="0..1" />
     <ReferentialConstraint>
-      <Principal Role="Bateria">
-        <PropertyRef Name="bateriaId" />
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
       </Principal>
-      <Dependent Role="SeEncuentra">
-        <PropertyRef Name="bateriaId" />
+      <Dependent Role="libro">
+        <PropertyRef Name="id_producto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BATERIA_SUMINISTRA">
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Suministra" Type="Self.Suministra" Multiplicity="*" />
+  <Association Name="FK__linea_ped__pedid__35BCFE0A">
+    <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+    <End Role="linea_pedido" Type="Self.linea_pedido" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Bateria">
-        <PropertyRef Name="bateriaId" />
+      <Principal Role="pedido">
+        <PropertyRef Name="id_pedido" />
       </Principal>
-      <Dependent Role="Suministra">
-        <PropertyRef Name="bateriaId" />
+      <Dependent Role="linea_pedido">
+        <PropertyRef Name="pedido" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BATERIA_UBICACION">
-    <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="*" />
+  <Association Name="FK__pedido__tarjeta__14270015">
+    <End Role="tarjeta_credito" Type="Self.tarjeta_credito" Multiplicity="1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Ubicacion">
-        <PropertyRef Name="ubicacionId" />
+      <Principal Role="tarjeta_credito">
+        <PropertyRef Name="numero" />
       </Principal>
-      <Dependent Role="Bateria">
-        <PropertyRef Name="ubicacionId" />
+      <Dependent Role="pedido">
+        <PropertyRef Name="tarjeta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BATERIA_USUARIO">
-    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="*" />
+  <Association Name="FK__pelicula__id_pro__4BAC3F29">
+    <End Role="producto" Type="Self.producto" Multiplicity="1" />
+    <End Role="pelicula" Type="Self.pelicula" Multiplicity="0..1" />
     <ReferentialConstraint>
-      <Principal Role="Usuario">
-        <PropertyRef Name="usuarioId" />
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
       </Principal>
-      <Dependent Role="Bateria">
-        <PropertyRef Name="usuarioId" />
+      <Dependent Role="pelicula">
+        <PropertyRef Name="id_producto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ESTADO_SEENCUENTRA">
-    <End Role="Estado" Type="Self.Estado" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SeEncuentra" Type="Self.SeEncuentra" Multiplicity="*" />
+  <Association Name="FK__producto__catego__04E4BC85">
+    <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+    <End Role="producto" Type="Self.producto" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Estado">
-        <PropertyRef Name="estadoId" />
+      <Principal Role="categoria">
+        <PropertyRef Name="id_categoria" />
       </Principal>
-      <Dependent Role="SeEncuentra">
-        <PropertyRef Name="estadoId" />
+      <Dependent Role="producto">
+        <PropertyRef Name="categoria" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TARIFA_CARGA">
-    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
+  <Association Name="FK__stock__producto__4D94879B">
+    <End Role="producto" Type="Self.producto" Multiplicity="1" />
+    <End Role="stock" Type="Self.stock" Multiplicity="0..1" />
     <ReferentialConstraint>
-      <Principal Role="Tarifa">
-        <PropertyRef Name="tarifaId" />
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
       </Principal>
-      <Dependent Role="Carga">
-        <PropertyRef Name="tarifaId" />
+      <Dependent Role="stock">
+        <PropertyRef Name="producto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TARIFA_SUMINISTRA">
-    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Suministra" Type="Self.Suministra" Multiplicity="*" />
+  <Association Name="FK__tarjeta_c__perte__02FC7413">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+    <End Role="tarjeta_credito" Type="Self.tarjeta_credito" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Tarifa">
-        <PropertyRef Name="tarifaId" />
+      <Principal Role="usuario">
+        <PropertyRef Name="id_usuario" />
       </Principal>
-      <Dependent Role="Suministra">
-        <PropertyRef Name="tarifaId" />
+      <Dependent Role="tarjeta_credito">
+        <PropertyRef Name="pertenece_a" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="tfgModelStoreContainer">
-    <EntitySet Name="Bateria" EntityType="Self.Bateria" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Carga" EntityType="Self.Carga" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SeEncuentra" EntityType="Self.SeEncuentra" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Suministra" EntityType="Self.Suministra" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tarifa" EntityType="Self.Tarifa" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_BATERIA_CARGA" Association="Self.FK_BATERIA_CARGA">
-      <End Role="Bateria" EntitySet="Bateria" />
-      <End Role="Carga" EntitySet="Carga" />
+  <Association Name="FK_categoriarefer_02084FDA">
+    <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+    <End Role="categoria1" Type="Self.categoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="categoria1">
+        <PropertyRef Name="referencia_a" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_comentario">
+    <End Role="comentarios" Type="Self.comentarios" Multiplicity="1" />
+    <End Role="comentario_etiqueta" Type="Self.comentario_etiqueta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="comentarios">
+        <PropertyRef Name="id_comentario" />
+      </Principal>
+      <Dependent Role="comentario_etiqueta">
+        <PropertyRef Name="id_comentario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_etiqueta">
+    <End Role="etiquetas" Type="Self.etiquetas" Multiplicity="1" />
+    <End Role="comentario_etiqueta" Type="Self.comentario_etiqueta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="etiquetas">
+        <PropertyRef Name="nombre" />
+      </Principal>
+      <Dependent Role="comentario_etiqueta">
+        <PropertyRef Name="nombre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineaProducto">
+    <End Role="stock" Type="Self.stock" Multiplicity="1" />
+    <End Role="linea_pedido" Type="Self.linea_pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="producto" />
+      </Principal>
+      <Dependent Role="linea_pedido">
+        <PropertyRef Name="producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoId">
+    <End Role="producto" Type="Self.producto" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
+      </Principal>
+      <Dependent Role="comentarios">
+        <PropertyRef Name="producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserId">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="comentarios">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MaD20_DevModelStoreContainer">
+    <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="comentario_etiqueta" EntityType="Self.comentario_etiqueta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="comentarios" EntityType="Self.comentarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="etiquetas" EntityType="Self.etiquetas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="libro" EntityType="Self.libro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="linea_pedido" EntityType="Self.linea_pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pedido" EntityType="Self.pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pelicula" EntityType="Self.pelicula" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tarjeta_credito" EntityType="Self.tarjeta_credito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__categoria__refer__02084FDA" Association="Self.FK__categoria__refer__02084FDA">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="categoria1" EntitySet="categoria" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_SEENCUENTRA" Association="Self.FK_BATERIA_SEENCUENTRA">
-      <End Role="Bateria" EntitySet="Bateria" />
-      <End Role="SeEncuentra" EntitySet="SeEncuentra" />
+    <AssociationSet Name="FK__libro__producto__5165187F" Association="Self.FK__libro__producto__5165187F">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="libro" EntitySet="libro" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_SUMINISTRA" Association="Self.FK_BATERIA_SUMINISTRA">
-      <End Role="Bateria" EntitySet="Bateria" />
-      <End Role="Suministra" EntitySet="Suministra" />
+    <AssociationSet Name="FK__linea_ped__pedid__35BCFE0A" Association="Self.FK__linea_ped__pedid__35BCFE0A">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="linea_pedido" EntitySet="linea_pedido" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_UBICACION" Association="Self.FK_BATERIA_UBICACION">
-      <End Role="Ubicacion" EntitySet="Ubicacion" />
-      <End Role="Bateria" EntitySet="Bateria" />
+    <AssociationSet Name="FK__pedido__tarjeta__14270015" Association="Self.FK__pedido__tarjeta__14270015">
+      <End Role="tarjeta_credito" EntitySet="tarjeta_credito" />
+      <End Role="pedido" EntitySet="pedido" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_USUARIO" Association="Self.FK_BATERIA_USUARIO">
-      <End Role="Usuario" EntitySet="Usuario" />
-      <End Role="Bateria" EntitySet="Bateria" />
+    <AssociationSet Name="FK__pelicula__id_pro__4BAC3F29" Association="Self.FK__pelicula__id_pro__4BAC3F29">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="pelicula" EntitySet="pelicula" />
     </AssociationSet>
-    <AssociationSet Name="FK_ESTADO_SEENCUENTRA" Association="Self.FK_ESTADO_SEENCUENTRA">
-      <End Role="Estado" EntitySet="Estado" />
-      <End Role="SeEncuentra" EntitySet="SeEncuentra" />
+    <AssociationSet Name="FK__producto__catego__04E4BC85" Association="Self.FK__producto__catego__04E4BC85">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="producto" EntitySet="producto" />
     </AssociationSet>
-    <AssociationSet Name="FK_TARIFA_CARGA" Association="Self.FK_TARIFA_CARGA">
-      <End Role="Tarifa" EntitySet="Tarifa" />
-      <End Role="Carga" EntitySet="Carga" />
+    <AssociationSet Name="FK__stock__producto__4D94879B" Association="Self.FK__stock__producto__4D94879B">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="stock" EntitySet="stock" />
     </AssociationSet>
-    <AssociationSet Name="FK_TARIFA_SUMINISTRA" Association="Self.FK_TARIFA_SUMINISTRA">
-      <End Role="Tarifa" EntitySet="Tarifa" />
-      <End Role="Suministra" EntitySet="Suministra" />
+    <AssociationSet Name="FK__tarjeta_c__perte__02FC7413" Association="Self.FK__tarjeta_c__perte__02FC7413">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="tarjeta_credito" EntitySet="tarjeta_credito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_categoriarefer_02084FDA" Association="Self.FK_categoriarefer_02084FDA">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="categoria1" EntitySet="categoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_comentario" Association="Self.FK_comentario">
+      <End Role="comentarios" EntitySet="comentarios" />
+      <End Role="comentario_etiqueta" EntitySet="comentario_etiqueta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_etiqueta" Association="Self.FK_etiqueta">
+      <End Role="etiquetas" EntitySet="etiquetas" />
+      <End Role="comentario_etiqueta" EntitySet="comentario_etiqueta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineaProducto" Association="Self.FK_LineaProducto">
+      <End Role="stock" EntitySet="stock" />
+      <End Role="linea_pedido" EntitySet="linea_pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoId" Association="Self.FK_ProductoId">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="comentarios" EntitySet="comentarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="comentarios" EntitySet="comentarios" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

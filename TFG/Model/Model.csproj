@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{774A7E48-34F2-4CDB-BA74-6FD377620FD3}</ProjectGuid>
+    <ProjectGuid>{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Es.Udc.DotNet.PracticaMaD.Model</RootNamespace>
-    <AssemblyName>Model</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>Es.Udc.DotNet.TFG.Model</RootNamespace>
+    <AssemblyName>TFG.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -48,14 +51,18 @@
     <Reference Include="ModelUtil">
       <HintPath>..\Lib\ModelUtil.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Interception, Version=3.3.5.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.Extensions.Interception.3.3.5\lib\net45\Ninject.Extensions.Interception.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Interception, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Interception.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Interception.DynamicProxy, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Interception.DynamicProxy.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.DynamicProxy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -73,8 +80,7 @@
     <Compile Include="Carga.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Daos\EstadoDao\EstadoDaoEmtityFramework.cs" />
+    <Compile Include="Daos\EstadoDao\EstadoDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoDao\IEstadoDao.cs" />
     <Compile Include="Estado.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -98,6 +104,33 @@
     <Compile Include="SeEncuentra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\Carrito.cs" />
+    <Compile Include="Service\Comentarios\CategoriaDTO.cs" />
+    <Compile Include="Service\Comentarios\ComentarioModificarVista.cs" />
+    <Compile Include="Service\Comentarios\EtiquetaDTO.cs" />
+    <Compile Include="Service\Pedidos\LineaPedidoDTO.cs" />
+    <Compile Include="Service\Pedidos\ServicePedido.cs" />
+    <Compile Include="Service\Comentarios\ComentarioBlock.cs" />
+    <Compile Include="Service\Comentarios\ComentarioDTO.cs" />
+    <Compile Include="Service\IServiceCarrito.cs" />
+    <Compile Include="Service\Comentarios\IServiceComentarios.cs" />
+    <Compile Include="Service\Pedidos\IServicePedido.cs" />
+    <Compile Include="Service\Producto\IServiceProducto.cs" />
+    <Compile Include="Service\Usuario\IServiceUsuario.cs" />
+    <Compile Include="Service\Pedidos\PedidosDTO.cs" />
+    <Compile Include="Service\Producto\ProductoDetails.cs" />
+    <Compile Include="Service\Producto\ProductoDTO.cs" />
+    <Compile Include="Service\Producto\ProductoBlock.cs" />
+    <Compile Include="Service\Exceptions\IncorrectPasswordException.cs" />
+    <Compile Include="Service\Exceptions\SinStockException.cs" />
+    <Compile Include="Service\LineaCarrito.cs" />
+    <Compile Include="Service\Usuario\LoginResult.cs" />
+    <Compile Include="Service\ServiceCarrito.cs" />
+    <Compile Include="Service\Comentarios\ServiceComentarios.cs" />
+    <Compile Include="Service\Producto\ServiceProducto.cs" />
+    <Compile Include="Service\Usuario\ServiceUsuario.cs" />
+    <Compile Include="Service\Usuario\UserProfileDetails.cs" />
+    <Compile Include="Service\Util\PasswordEncrypter.cs" />
     <Compile Include="Suministra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -125,6 +158,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -135,20 +171,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Sql\SqlServerCreateDatabase.sql" />
-    <Content Include="Sql\SqlServerCreateTables.sql" />
+    <Content Include="Scripts\SqlServerCreateDatabase.sql" />
+    <Content Include="Scripts\SqlServerCreateTables.sql" />
+    <None Include="DiagramaClases.cd" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Daos\BateriaDao\" />
-    <Folder Include="Daos\CargaDao\" />
-    <Folder Include="Daos\SeEncuentraDao\" />
-    <Folder Include="Daos\SuministraDao\" />
-    <Folder Include="Daos\TarifaDao\" />
-    <Folder Include="Daos\UbicacionDao\" />
-    <Folder Include="Daos\UsuarioDao\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

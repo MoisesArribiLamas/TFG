@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Model
+namespace Es.Udc.DotNet.TFG.Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class tfgEntities2 : DbContext
+    public partial class tfgEntities : DbContext
     {
-        public tfgEntities2()
-            : base("name=tfgEntities2")
+        public tfgEntities()
+            : base("name=tfgEntities")
         {
         }
     

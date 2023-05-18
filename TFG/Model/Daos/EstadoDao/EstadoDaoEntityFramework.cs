@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.Daos.EstadoDao
+namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
 {
-    class EstadoDaoEmtityFramework : GenericDaoEntityFramework<Estado, Int64>, IEstadoDao
+    public class EstadoDaoEntitFramework : GenericDaoEntityFramework<Estado, Int64>, IEstadoDao
     {
         public List<Estado> FindAllEstados()
         {

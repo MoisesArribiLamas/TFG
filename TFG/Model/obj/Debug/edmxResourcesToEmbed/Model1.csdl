@@ -1,263 +1,306 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="tfgModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Bateria">
-    <Key>
-      <PropertyRef Name="bateriaId" />
-    </Key>
-    <Property Name="bateriaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ubicacionId" Type="Int64" Nullable="false" />
-    <Property Name="usuarioId" Type="Int64" Nullable="false" />
-    <Property Name="precioMedio" Type="Double" Nullable="false" />
-    <Property Name="kwAlmacenados" Type="Double" Nullable="false" />
-    <Property Name="almacenajeMaximoKw" Type="Double" Nullable="false" />
-    <Property Name="fechaDeAdquisicion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="marca" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="modelo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ratioCarga" Type="Double" Nullable="false" />
-    <Property Name="ratioCompra" Type="Double" Nullable="false" />
-    <Property Name="ratioUso" Type="Double" Nullable="false" />
-    <NavigationProperty Name="Cargas" Relationship="Self.FK_BATERIA_CARGA" FromRole="Bateria" ToRole="Carga" />
-    <NavigationProperty Name="SeEncuentras" Relationship="Self.FK_BATERIA_SEENCUENTRA" FromRole="Bateria" ToRole="SeEncuentra" />
-    <NavigationProperty Name="Suministras" Relationship="Self.FK_BATERIA_SUMINISTRA" FromRole="Bateria" ToRole="Suministra" />
-    <NavigationProperty Name="Ubicacion" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Bateria" ToRole="Ubicacion" />
-    <NavigationProperty Name="Usuario" Relationship="Self.FK_BATERIA_USUARIO" FromRole="Bateria" ToRole="Usuario" />
-  </EntityType>
-  <EntityType Name="Carga">
-    <Key>
-      <PropertyRef Name="cargaId" />
-    </Key>
-    <Property Name="cargaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="bateriaId" Type="Int64" Nullable="false" />
-    <Property Name="tarifaId" Type="Int64" Nullable="false" />
-    <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="kws" Type="Double" Nullable="false" />
-    <NavigationProperty Name="Bateria" Relationship="Self.FK_BATERIA_CARGA" FromRole="Carga" ToRole="Bateria" />
-    <NavigationProperty Name="Tarifa" Relationship="Self.FK_TARIFA_CARGA" FromRole="Carga" ToRole="Tarifa" />
-  </EntityType>
-  <EntityType Name="Estado">
-    <Key>
-      <PropertyRef Name="estadoId" />
-    </Key>
-    <Property Name="estadoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="SeEncuentras" Relationship="Self.FK_ESTADO_SEENCUENTRA" FromRole="Estado" ToRole="SeEncuentra" />
-  </EntityType>
-  <EntityType Name="SeEncuentra">
-    <Key>
-      <PropertyRef Name="seEncuentraId" />
-    </Key>
-    <Property Name="seEncuentraId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="bateriaId" Type="Int64" Nullable="false" />
-    <Property Name="estadoId" Type="Int64" Nullable="false" />
-    <NavigationProperty Name="Bateria" Relationship="Self.FK_BATERIA_SEENCUENTRA" FromRole="SeEncuentra" ToRole="Bateria" />
-    <NavigationProperty Name="Estado" Relationship="Self.FK_ESTADO_SEENCUENTRA" FromRole="SeEncuentra" ToRole="Estado" />
-  </EntityType>
-  <EntityType Name="Suministra">
-    <Key>
-      <PropertyRef Name="suministraId" />
-    </Key>
-    <Property Name="suministraId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="bateriaId" Type="Int64" Nullable="false" />
-    <Property Name="tarifaId" Type="Int64" Nullable="false" />
-    <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="kws" Type="Double" Nullable="false" />
-    <Property Name="ahorro" Type="Double" Nullable="false" />
-    <NavigationProperty Name="Bateria" Relationship="Self.FK_BATERIA_SUMINISTRA" FromRole="Suministra" ToRole="Bateria" />
-    <NavigationProperty Name="Tarifa" Relationship="Self.FK_TARIFA_SUMINISTRA" FromRole="Suministra" ToRole="Tarifa" />
-  </EntityType>
-  <EntityType Name="Tarifa">
-    <Key>
-      <PropertyRef Name="tarifaId" />
-    </Key>
-    <Property Name="tarifaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="precio" Type="Int64" Nullable="false" />
-    <Property Name="hora" Type="Int64" Nullable="false" />
-    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Cargas" Relationship="Self.FK_TARIFA_CARGA" FromRole="Tarifa" ToRole="Carga" />
-    <NavigationProperty Name="Suministras" Relationship="Self.FK_TARIFA_SUMINISTRA" FromRole="Tarifa" ToRole="Suministra" />
-  </EntityType>
-  <EntityType Name="Ubicacion">
-    <Key>
-      <PropertyRef Name="ubicacionId" />
-    </Key>
-    <Property Name="ubicacionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="codigoPostal" Type="Int64" Nullable="false" />
-    <Property Name="localidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="calle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="portal" Type="Int64" Nullable="false" />
-    <Property Name="numero" Type="Int64" Nullable="false" />
-    <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Ubicacion" ToRole="Bateria" />
-  </EntityType>
-  <EntityType Name="Usuario">
-    <Key>
-      <PropertyRef Name="usuarioId" />
-    </Key>
-    <Property Name="usuarioId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="apellido1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="apellido2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="contraseña" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_USUARIO" FromRole="Usuario" ToRole="Bateria" />
-  </EntityType>
-  <Association Name="FK_BATERIA_CARGA">
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bateria">
-        <PropertyRef Name="bateriaId" />
-      </Principal>
-      <Dependent Role="Carga">
-        <PropertyRef Name="bateriaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BATERIA_SEENCUENTRA">
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SeEncuentra" Type="Self.SeEncuentra" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bateria">
-        <PropertyRef Name="bateriaId" />
-      </Principal>
-      <Dependent Role="SeEncuentra">
-        <PropertyRef Name="bateriaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BATERIA_SUMINISTRA">
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Suministra" Type="Self.Suministra" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bateria">
-        <PropertyRef Name="bateriaId" />
-      </Principal>
-      <Dependent Role="Suministra">
-        <PropertyRef Name="bateriaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BATERIA_UBICACION">
-    <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ubicacion">
-        <PropertyRef Name="ubicacionId" />
-      </Principal>
-      <Dependent Role="Bateria">
-        <PropertyRef Name="ubicacionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BATERIA_USUARIO">
-    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Bateria" Type="Self.Bateria" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Usuario">
-        <PropertyRef Name="usuarioId" />
-      </Principal>
-      <Dependent Role="Bateria">
-        <PropertyRef Name="usuarioId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TARIFA_CARGA">
-    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Tarifa">
-        <PropertyRef Name="tarifaId" />
-      </Principal>
-      <Dependent Role="Carga">
-        <PropertyRef Name="tarifaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ESTADO_SEENCUENTRA">
-    <End Role="Estado" Type="Self.Estado" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SeEncuentra" Type="Self.SeEncuentra" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Estado">
-        <PropertyRef Name="estadoId" />
-      </Principal>
-      <Dependent Role="SeEncuentra">
-        <PropertyRef Name="estadoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TARIFA_SUMINISTRA">
-    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Suministra" Type="Self.Suministra" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Tarifa">
-        <PropertyRef Name="tarifaId" />
-      </Principal>
-      <Dependent Role="Suministra">
-        <PropertyRef Name="tarifaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="tfgEntities2" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Baterias" EntityType="Self.Bateria" />
-    <EntitySet Name="Cargas" EntityType="Self.Carga" />
-    <EntitySet Name="Estadoes" EntityType="Self.Estado" />
-    <EntitySet Name="SeEncuentras" EntityType="Self.SeEncuentra" />
-    <EntitySet Name="Suministras" EntityType="Self.Suministra" />
-    <EntitySet Name="Tarifas" EntityType="Self.Tarifa" />
-    <EntitySet Name="Ubicacions" EntityType="Self.Ubicacion" />
-    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
-    <AssociationSet Name="FK_BATERIA_CARGA" Association="Self.FK_BATERIA_CARGA">
-      <End Role="Bateria" EntitySet="Baterias" />
-      <End Role="Carga" EntitySet="Cargas" />
+<Schema Namespace="MaD20_DevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MaD20_Dev" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categoria" EntityType="MaD20_DevModel.categoria" />
+    <EntitySet Name="comentarios" EntityType="MaD20_DevModel.comentarios" />
+    <EntitySet Name="etiquetas" EntityType="MaD20_DevModel.etiquetas" />
+    <EntitySet Name="linea_pedido" EntityType="MaD20_DevModel.linea_pedido" />
+    <EntitySet Name="pedido" EntityType="MaD20_DevModel.pedido" />
+    <EntitySet Name="producto" EntityType="MaD20_DevModel.producto" />
+    <EntitySet Name="stock" EntityType="MaD20_DevModel.stock" />
+    <EntitySet Name="tarjeta_credito" EntityType="MaD20_DevModel.tarjeta_credito" />
+    <EntitySet Name="usuario" EntityType="MaD20_DevModel.usuario" />
+    <AssociationSet Name="FK__categoria__refer__02084FDA" Association="MaD20_DevModel.FK__categoria__refer__02084FDA">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="categoria1" EntitySet="categoria" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_SEENCUENTRA" Association="Self.FK_BATERIA_SEENCUENTRA">
-      <End Role="Bateria" EntitySet="Baterias" />
-      <End Role="SeEncuentra" EntitySet="SeEncuentras" />
+    <AssociationSet Name="FK__producto__catego__04E4BC85" Association="MaD20_DevModel.FK__producto__catego__04E4BC85">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="producto" EntitySet="producto" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_SUMINISTRA" Association="Self.FK_BATERIA_SUMINISTRA">
-      <End Role="Bateria" EntitySet="Baterias" />
-      <End Role="Suministra" EntitySet="Suministras" />
+    <AssociationSet Name="FK_categoriarefer_02084FDA" Association="MaD20_DevModel.FK_categoriarefer_02084FDA">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="categoria1" EntitySet="categoria" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_UBICACION" Association="Self.FK_BATERIA_UBICACION">
-      <End Role="Ubicacion" EntitySet="Ubicacions" />
-      <End Role="Bateria" EntitySet="Baterias" />
+    <AssociationSet Name="FK_ProductoId" Association="MaD20_DevModel.FK_ProductoId">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="comentarios" EntitySet="comentarios" />
     </AssociationSet>
-    <AssociationSet Name="FK_BATERIA_USUARIO" Association="Self.FK_BATERIA_USUARIO">
-      <End Role="Usuario" EntitySet="Usuarios" />
-      <End Role="Bateria" EntitySet="Baterias" />
+    <AssociationSet Name="FK_UserId" Association="MaD20_DevModel.FK_UserId">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="comentarios" EntitySet="comentarios" />
     </AssociationSet>
-    <AssociationSet Name="FK_TARIFA_CARGA" Association="Self.FK_TARIFA_CARGA">
-      <End Role="Tarifa" EntitySet="Tarifas" />
-      <End Role="Carga" EntitySet="Cargas" />
+    <AssociationSet Name="FK__linea_ped__pedid__35BCFE0A" Association="MaD20_DevModel.FK__linea_ped__pedid__35BCFE0A">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="linea_pedido" EntitySet="linea_pedido" />
     </AssociationSet>
-    <AssociationSet Name="FK_ESTADO_SEENCUENTRA" Association="Self.FK_ESTADO_SEENCUENTRA">
-      <End Role="Estado" EntitySet="Estadoes" />
-      <End Role="SeEncuentra" EntitySet="SeEncuentras" />
+    <AssociationSet Name="FK_LineaProducto" Association="MaD20_DevModel.FK_LineaProducto">
+      <End Role="stock" EntitySet="stock" />
+      <End Role="linea_pedido" EntitySet="linea_pedido" />
     </AssociationSet>
-    <AssociationSet Name="FK_TARIFA_SUMINISTRA" Association="Self.FK_TARIFA_SUMINISTRA">
-      <End Role="Tarifa" EntitySet="Tarifas" />
-      <End Role="Suministra" EntitySet="Suministras" />
+    <AssociationSet Name="FK__pedido__tarjeta__14270015" Association="MaD20_DevModel.FK__pedido__tarjeta__14270015">
+      <End Role="tarjeta_credito" EntitySet="tarjeta_credito" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__stock__producto__4D94879B" Association="MaD20_DevModel.FK__stock__producto__4D94879B">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="stock" EntitySet="stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tarjeta_c__perte__02FC7413" Association="MaD20_DevModel.FK__tarjeta_c__perte__02FC7413">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="tarjeta_credito" EntitySet="tarjeta_credito" />
+    </AssociationSet>
+    <AssociationSet Name="comentario_etiqueta" Association="MaD20_DevModel.comentario_etiqueta">
+      <End Role="comentarios" EntitySet="comentarios" />
+      <End Role="etiquetas" EntitySet="etiquetas" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="id_categoria" />
+    </Key>
+    <Property Name="id_categoria" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="referencia_a" Type="Int64" />
+    <NavigationProperty Name="categoria1" Relationship="MaD20_DevModel.FK__categoria__refer__02084FDA" FromRole="categoria" ToRole="categoria1" />
+    <NavigationProperty Name="categoria2" Relationship="MaD20_DevModel.FK__categoria__refer__02084FDA" FromRole="categoria1" ToRole="categoria" />
+    <NavigationProperty Name="producto" Relationship="MaD20_DevModel.FK__producto__catego__04E4BC85" FromRole="categoria" ToRole="producto" />
+    <NavigationProperty Name="categoria11" Relationship="MaD20_DevModel.FK_categoriarefer_02084FDA" FromRole="categoria" ToRole="categoria1" />
+    <NavigationProperty Name="categoria3" Relationship="MaD20_DevModel.FK_categoriarefer_02084FDA" FromRole="categoria1" ToRole="categoria" />
+  </EntityType>
+  <EntityType Name="comentarios">
+    <Key>
+      <PropertyRef Name="id_comentario" />
+    </Key>
+    <Property Name="id_comentario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario" Type="Int64" Nullable="false" />
+    <Property Name="producto" Type="Int64" Nullable="false" />
+    <Property Name="contenido" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="7" />
+    <NavigationProperty Name="producto1" Relationship="MaD20_DevModel.FK_ProductoId" FromRole="comentarios" ToRole="producto" />
+    <NavigationProperty Name="usuario1" Relationship="MaD20_DevModel.FK_UserId" FromRole="comentarios" ToRole="usuario" />
+    <NavigationProperty Name="etiquetas" Relationship="MaD20_DevModel.comentario_etiqueta" FromRole="comentarios" ToRole="etiquetas" />
+  </EntityType>
+  <EntityType Name="etiquetas">
+    <Key>
+      <PropertyRef Name="nombre" />
+    </Key>
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="counter" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="comentarios" Relationship="MaD20_DevModel.comentario_etiqueta" FromRole="etiquetas" ToRole="comentarios" />
+  </EntityType>
+  <EntityType Name="libro" BaseType="MaD20_DevModel.producto">
+    <Property Name="isbn" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="linea_pedido">
+    <Key>
+      <PropertyRef Name="id_linea_pedido" />
+    </Key>
+    <Property Name="id_linea_pedido" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="producto" Type="Int64" Nullable="false" />
+    <Property Name="pedido" Type="Int64" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="a_envolver" Type="Boolean" Nullable="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+    <NavigationProperty Name="pedido1" Relationship="MaD20_DevModel.FK__linea_ped__pedid__35BCFE0A" FromRole="linea_pedido" ToRole="pedido" />
+    <NavigationProperty Name="stock" Relationship="MaD20_DevModel.FK_LineaProducto" FromRole="linea_pedido" ToRole="stock" />
+  </EntityType>
+  <EntityType Name="pedido">
+    <Key>
+      <PropertyRef Name="id_pedido" />
+    </Key>
+    <Property Name="id_pedido" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+    <Property Name="tarjeta" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="linea_pedido" Relationship="MaD20_DevModel.FK__linea_ped__pedid__35BCFE0A" FromRole="pedido" ToRole="linea_pedido" />
+    <NavigationProperty Name="tarjeta_credito" Relationship="MaD20_DevModel.FK__pedido__tarjeta__14270015" FromRole="pedido" ToRole="tarjeta_credito" />
+  </EntityType>
+  <EntityType Name="pelicula" BaseType="MaD20_DevModel.producto">
+    <Property Name="sinopsis" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="duracion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="año" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="director" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="producto">
+    <Key>
+      <PropertyRef Name="id_producto" />
+    </Key>
+    <Property Name="id_producto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="categoria" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="categoria1" Relationship="MaD20_DevModel.FK__producto__catego__04E4BC85" FromRole="producto" ToRole="categoria" />
+    <NavigationProperty Name="comentarios" Relationship="MaD20_DevModel.FK_ProductoId" FromRole="producto" ToRole="comentarios" />
+    <NavigationProperty Name="stock" Relationship="MaD20_DevModel.FK__stock__producto__4D94879B" FromRole="producto" ToRole="stock" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="producto" />
+    </Key>
+    <Property Name="producto" Type="Int64" Nullable="false" />
+    <Property Name="unidades_Stock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="linea_pedido" Relationship="MaD20_DevModel.FK_LineaProducto" FromRole="stock" ToRole="linea_pedido" />
+    <NavigationProperty Name="producto1" Relationship="MaD20_DevModel.FK__stock__producto__4D94879B" FromRole="stock" ToRole="producto" />
+  </EntityType>
+  <EntityType Name="tarjeta_credito">
+    <Key>
+      <PropertyRef Name="numero" />
+    </Key>
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="cvv" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="pertenece_a" Type="Int64" Nullable="false" />
+    <Property Name="por_defecto" Type="Boolean" />
+    <NavigationProperty Name="pedido" Relationship="MaD20_DevModel.FK__pedido__tarjeta__14270015" FromRole="tarjeta_credito" ToRole="pedido" />
+    <NavigationProperty Name="usuario" Relationship="MaD20_DevModel.FK__tarjeta_c__perte__02FC7413" FromRole="tarjeta_credito" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="contraseña" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipo_usuario" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="idioma" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="comentarios" Relationship="MaD20_DevModel.FK_UserId" FromRole="usuario" ToRole="comentarios" />
+    <NavigationProperty Name="tarjeta_credito" Relationship="MaD20_DevModel.FK__tarjeta_c__perte__02FC7413" FromRole="usuario" ToRole="tarjeta_credito" />
+  </EntityType>
+  <Association Name="FK__categoria__refer__02084FDA">
+    <End Type="MaD20_DevModel.categoria" Role="categoria" Multiplicity="0..1" />
+    <End Type="MaD20_DevModel.categoria" Role="categoria1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="categoria1">
+        <PropertyRef Name="referencia_a" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__producto__catego__04E4BC85">
+    <End Type="MaD20_DevModel.categoria" Role="categoria" Multiplicity="1" />
+    <End Type="MaD20_DevModel.producto" Role="producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="producto">
+        <PropertyRef Name="categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_categoriarefer_02084FDA">
+    <End Type="MaD20_DevModel.categoria" Role="categoria" Multiplicity="0..1" />
+    <End Type="MaD20_DevModel.categoria" Role="categoria1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="categoria1">
+        <PropertyRef Name="referencia_a" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoId">
+    <End Type="MaD20_DevModel.producto" Role="producto" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MaD20_DevModel.comentarios" Role="comentarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
+      </Principal>
+      <Dependent Role="comentarios">
+        <PropertyRef Name="producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserId">
+    <End Type="MaD20_DevModel.usuario" Role="usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MaD20_DevModel.comentarios" Role="comentarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="comentarios">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__linea_ped__pedid__35BCFE0A">
+    <End Type="MaD20_DevModel.pedido" Role="pedido" Multiplicity="1" />
+    <End Type="MaD20_DevModel.linea_pedido" Role="linea_pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
+        <PropertyRef Name="id_pedido" />
+      </Principal>
+      <Dependent Role="linea_pedido">
+        <PropertyRef Name="pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineaProducto">
+    <End Type="MaD20_DevModel.stock" Role="stock" Multiplicity="1" />
+    <End Type="MaD20_DevModel.linea_pedido" Role="linea_pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="producto" />
+      </Principal>
+      <Dependent Role="linea_pedido">
+        <PropertyRef Name="producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedido__tarjeta__14270015">
+    <End Type="MaD20_DevModel.tarjeta_credito" Role="tarjeta_credito" Multiplicity="1" />
+    <End Type="MaD20_DevModel.pedido" Role="pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tarjeta_credito">
+        <PropertyRef Name="numero" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="tarjeta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__stock__producto__4D94879B">
+    <End Type="MaD20_DevModel.producto" Role="producto" Multiplicity="1" />
+    <End Type="MaD20_DevModel.stock" Role="stock" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
+      </Principal>
+      <Dependent Role="stock">
+        <PropertyRef Name="producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tarjeta_c__perte__02FC7413">
+    <End Type="MaD20_DevModel.usuario" Role="usuario" Multiplicity="1" />
+    <End Type="MaD20_DevModel.tarjeta_credito" Role="tarjeta_credito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="tarjeta_credito">
+        <PropertyRef Name="pertenece_a" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="comentario_etiqueta">
+    <End Type="MaD20_DevModel.comentarios" Role="comentarios" Multiplicity="*" />
+    <End Type="MaD20_DevModel.etiquetas" Role="etiquetas" Multiplicity="*" />
+  </Association>
 </Schema>
