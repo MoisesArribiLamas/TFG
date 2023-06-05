@@ -18,8 +18,8 @@
 USE [master]
 
 /****** Drop database if already exists  ******/
-IF  EXISTS (SELECT name FROM sys.databases WHERE name = 'tfg')
-DROP DATABASE [tfg]
+IF  EXISTS (SELECT name FROM sys.databases WHERE name = 'tfg_test')
+DROP DATABASE [tfg_test]
 
 
 
@@ -28,9 +28,9 @@ DROP DATABASE [tfg]
 DECLARE @sql nvarchar(500)
 
 SET @sql = 
-  N'CREATE DATABASE [tfg] 
-    ON PRIMARY ( NAME = tfg, FILENAME = "' + @Default_DB_Path + N'tfg.mdf")
-    LOG ON ( NAME = tfg_log, FILENAME = "' + @Default_DB_Path + N'tfg_log.ldf")'
+  N'CREATE DATABASE [tfg_test] 
+    ON PRIMARY ( NAME = tfg_test, FILENAME = "' + @Default_DB_Path + N'tfg_test.mdf")
+    LOG ON ( NAME = tfg_test_log, FILENAME = "' + @Default_DB_Path + N'tfg_test_log.ldf")'
 
 EXEC(@sql)
 PRINT N'Database created.'

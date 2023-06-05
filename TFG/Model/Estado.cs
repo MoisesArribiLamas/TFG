@@ -7,14 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Model
+namespace Es.Udc.DotNet.TFG.Model
 {
     using System;
-    using System.Text;
     using System.Collections.Generic;
     
     public partial class Estado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Estado()
         {
             this.SeEncuentras = new HashSet<SeEncuentra>();
@@ -23,92 +23,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model
         public long estadoId { get; set; }
         public string nombre { get; set; }
     
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_ESTADO_SEENCUENTRA
-        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SeEncuentra> SeEncuentras { get; set; }
-    
-    	/// <summary>
-    	/// A hash code for this instance, suitable for use in hashing algorithms and data structures 
-    	/// like a hash table. It uses the Josh Bloch implementation from "Effective Java"
-        /// Primary key of entity is not included in the hash calculation to avoid errors
-    	/// with Entity Framework creation of key values.
-    	/// </summary>
-    	/// <returns>
-    	/// Returns a hash code for this instance.
-    	/// </returns>
-    	public override int GetHashCode()
-    	{
-    	    unchecked
-    	    {
-    			int multiplier = 31;
-    			int hash = GetType().GetHashCode();
-    
-    			hash = hash * multiplier + (nombre == null ? 0 : nombre.GetHashCode());
-    
-    			return hash;
-    	    }
-    
-    	}
-        
-        /// <summary>
-        /// Compare this object against another instance using a value approach (field-by-field) 
-        /// </summary>
-        /// <remarks>See http://www.loganfranken.com/blog/687/overriding-equals-in-c-part-1/ for detailed info </remarks>
-    	public override bool Equals(object obj)
-    	{
-    
-            if (ReferenceEquals(null, obj)) return false;        // Is Null?
-            if (ReferenceEquals(this, obj)) return true;         // Is same object?
-            if (obj.GetType() != this.GetType()) return false;   // Is same type?
-    	    
-            Estado target = obj as Estado;
-    
-    		return true
-               &&  (this.estadoId == target.estadoId )       
-               &&  (this.nombre == target.nombre )       
-               ;
-    
-        }
-    
-    
-    	public static bool operator ==(Estado  objA, Estado  objB)
-        {
-            // Check if the objets are the same Estado entity
-            if(Object.ReferenceEquals(objA, objB))
-                return true;
-      
-            return objA.Equals(objB);
-    }
-    
-    
-    	public static bool operator !=(Estado  objA, Estado  objB)
-        {
-            return !(objA == objB);
-        }
-    
-    
-        /// <summary>
-        /// Returns a <see cref="T:System.String"></see> that represents the 
-        /// current <see cref="T:System.Object"></see>.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"></see> that represents the current 
-        /// <see cref="T:System.Object"></see>.
-        /// </returns>
-    	public override String ToString()
-    	{
-    	    StringBuilder strEstado = new StringBuilder();
-    
-    		strEstado.Append("[ ");
-           strEstado.Append(" estadoId = " + estadoId + " | " );       
-           strEstado.Append(" nombre = " + nombre + " | " );       
-            strEstado.Append("] ");    
-    
-    		return strEstado.ToString();
-        }
-    
-    
     }
 }

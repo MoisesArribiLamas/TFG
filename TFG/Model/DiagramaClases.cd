@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.CategoriaDao.CategoriaDaoEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CategoriaDao\CategoriaDaoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.LibroDao.LibroDaoEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LibroDao\LibroDaoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.Linea_pedidoDao.Linea_pedidoEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Linea_pedidoDao\Linea_pedidoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.categoria" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABASACEgAAAIAQAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.libro" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAABAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>libro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.linea_pedido" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAAAAAAQBAAAAEggAAAAAAAAAAAIAAAAAAAAAAAjA=</HashCode>
+      <FileName>linea_pedido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.pedido" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAIAAEggAAAAAQAAAAEKAAAAAAAACAAiA=</HashCode>
+      <FileName>pedido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.producto" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQBCEgAAAIAAAAAAAEIAAAAAAAgAAAiA=</HashCode>
+      <FileName>producto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.stock" Collapsed="true">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAEgAAAAAAAAAAAAIAAAgAAAACAAiA=</HashCode>
+      <FileName>stock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.tarjeta_credito" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAQAAAAAEgAAAAAAAAAAAAJQAAAEAQAAAAig=</HashCode>
+      <FileName>tarjeta_credito.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.usuario" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAQAAACkgACCAAAQABAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.PedidoDao.PedidoDaoEntityFramework" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PedidoDao\PedidoDaoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.ProductoDao.ProductoDaoEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ProductoDao\ProductoDaoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.Service.Carrito" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Carrito.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.Service.LineaCarrito" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAABAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\LineaCarrito.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.Service.LoginResult" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgQAAACkiAAAAAAAAAAAAIAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Service\LoginResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.Service.Servicio" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABEAAAAAhkAAAAAgIIAAAEAKRBAAAECEAACAAAA=</HashCode>
+      <FileName>Service\Servicio.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.StockDao.StockDaoEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StockDao\StockDaoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.Tarjeta_creditoDao.Tarjeta_creditoDaoEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAgAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tarjeta_creditoDao\Tarjeta_creditoDaoEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Es.Udc.DotNet.PracticaMaD.Model.UsuarioDao.UsuarioEntityFramework" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsuarioDao\UsuarioEntityFramework.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.CategoriaDao.ICategoriaDao" Collapsed="true">
+    <Position X="2.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CategoriaDao\ICategoriaDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.LibroDao.ILibroDao" Collapsed="true">
+    <Position X="4.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LibroDao\ILibroDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.Linea_pedidoDao.ILinea_pedidoDao" Collapsed="true">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Linea_pedidoDao\ILinea_pedidoDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.PedidoDao.IPedidoDao" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PedidoDao\IPedidoDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.ProductoDao.IProductoDao" Collapsed="true">
+    <Position X="13" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ProductoDao\IProductoDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.Service.IServicio" Collapsed="true">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAgkAAAAAgIAAAAEAABBAAAECEAAAAAAA=</HashCode>
+      <FileName>Service\IServicio.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.StockDao.IStockDao" Collapsed="true">
+    <Position X="6" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StockDao\IStockDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.Tarjeta_creditoDao.ITarjeta_creditoDao" Collapsed="true">
+    <Position X="9.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAgAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tarjeta_creditoDao\ITarjeta_creditoDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Es.Udc.DotNet.PracticaMaD.Model.UsuarioDao.IUsuarioDao" Collapsed="true">
+    <Position X="11.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsuarioDao\IUsuarioDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

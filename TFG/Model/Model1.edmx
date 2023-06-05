@@ -472,7 +472,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="tfgEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="tfgEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Baterias" EntityType="Self.Bateria" />
           <EntitySet Name="Cargas" EntityType="Self.Carga" />
           <EntitySet Name="Estadoes" EntityType="Self.Estado" />
@@ -519,7 +519,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="tfgEntities2">
+        <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="tfgEntities">
           <EntitySetMapping Name="Baterias">
             <EntityTypeMapping TypeName="tfgModel.Bateria">
               <MappingFragment StoreEntitySet="Bateria">

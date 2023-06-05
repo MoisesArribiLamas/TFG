@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.Daos.EstadoDao
+namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
 {
     public interface IEstadoDao : IGenericDao<Estado, Int64>
     {
