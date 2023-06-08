@@ -7,13 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.Pages.User
-{
-
-
-    public partial class Logout
-    {
-
+namespace Es.Udc.DotNet.TFG.Web.Pages.User {
+    
+    
+    public partial class Logout {
+        
         /// <summary>
         /// Control form1.
         /// </summary>

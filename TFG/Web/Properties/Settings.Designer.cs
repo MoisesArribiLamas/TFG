@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.Properties {
+namespace Es.Udc.DotNet.TFG.Web.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,64 +25,253 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int PracticaMaD_defaultCount {
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int TFG_defaultCount {
             get {
-                return ((int)(this["PracticaMaD_defaultCount"]));
+                return ((int)(this["TFG_defaultCount"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.PracticaMaD.Model.UserService.IUserService")]
-        public string ObjectDS_ProductService {
+        [global::System.Configuration.DefaultSettingValueAttribute("/TFG")]
+        public string TFG_applicationURL {
             get {
-                return ((string)(this["ObjectDS_ProductService"]));
+                return ((string)(this["TFG_applicationURL"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FindAllUsers")]
-        public string ObjectDS_SelectMethod {
+        [global::System.Configuration.DefaultSettingValueAttribute("buscarProductos")]
+        public string ObjectDS_ShowProducts_SelectMethod {
             get {
-                return ((string)(this["ObjectDS_SelectMethod"]));
+                return ((string)(this["ObjectDS_ShowProducts_SelectMethod"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CountAllUsers")]
-        public string ObjectDS_CountMethod {
+        [global::System.Configuration.DefaultSettingValueAttribute("GetNumberOfProducts")]
+        public string ObjectDS_ShowProducts_CountMethod {
             get {
-                return ((string)(this["ObjectDS_CountMethod"]));
+                return ((string)(this["ObjectDS_ShowProducts_CountMethod"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
-        public string ObjectDS_StartIndexParameter {
+        public string ObjectDS_ShowProducts_StartIndexParameter {
             get {
-                return ((string)(this["ObjectDS_StartIndexParameter"]));
+                return ((string)(this["ObjectDS_ShowProducts_StartIndexParameter"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("count")]
-        public string ObjectDS_CountParameter {
+        public string ObjectDS_ShowProducts_CountParameter {
             get {
-                return ((string)(this["ObjectDS_CountParameter"]));
+                return ((string)(this["ObjectDS_ShowProducts_CountParameter"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int ObjectDS_DefaultCount {
+        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.TFG.Model.Service.IServiceProducto")]
+        public string ObjectDS_ShowProducts_ProductService {
             get {
-                return ((int)(this["ObjectDS_DefaultCount"]));
+                return ((string)(this["ObjectDS_ShowProducts_ProductService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.TFG.Model.Service.Pedidos.IServicePedido")]
+        public string ObjectDS_ShowPedidos_PedidosService {
+            get {
+                return ((string)(this["ObjectDS_ShowPedidos_PedidosService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("verPedidos")]
+        public string ObjectDS_ShowPedidos_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowPedidos_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
+        public string ObjectDS_ShowPedidos_StartIndexParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowPedidos_StartIndexParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("count")]
+        public string ObjectDS_ShowPedidos_CountParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowPedidos_CountParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("verCarrito")]
+        public string ObjectDS_ShowCarrito_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowCarrito_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
+        public string ObjectDS_ShowCarrito_StartIndexParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowCarrito_StartIndexParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("contarCarrito")]
+        public string ObjectDS_ShowCarrito_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowCarrito_CountMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.TFG.Model.Service.IServiceCarrito")]
+        public string ObjectDS_ShowCarrito_CarritoService {
+            get {
+                return ((string)(this["ObjectDS_ShowCarrito_CarritoService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("count")]
+        public string ObjectDS_ShowCarrito_CountParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowCarrito_CountParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("contarPedidos")]
+        public string ObjectDS_ShowPedidos_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowPedidos_CountMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("contarLineasPedido")]
+        public string ObjectDS_ShowPedido_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowPedido_CountMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("getLineasFromPedido")]
+        public string ObjectDS_ShowPedido_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowPedido_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("count")]
+        public string ObjectDS_ShowPedido_CountParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowPedido_CountParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
+        public string ObjectDS_ShowPedido_StartIndexParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowPedido_StartIndexParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.TFG.Model.Service.IServiceComentarios")]
+        public string ObjectDS_ShowComentario_ComentarioService {
+            get {
+                return ((string)(this["ObjectDS_ShowComentario_ComentarioService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("verComentariosProducto")]
+        public string ObjectDS_ShowComentario_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowComentario_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
+        public string ObjectDS_ShowComentario_StartIndexParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowComentario_StartIndexParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("count")]
+        public string ObjectDS_ShowComentario_CountParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowComentario_CountParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("contarComentarios")]
+        public string ObjectDS_ShowComentario_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowComentario_CountMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("verComentariosUser")]
+        public string ObjectDS_ShowComentarioUser_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowComentarioUser_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("contarComentariosUser")]
+        public string ObjectDS_ShowComentarioUser_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowComentarioUser_CountMethod"]));
             }
         }
     }

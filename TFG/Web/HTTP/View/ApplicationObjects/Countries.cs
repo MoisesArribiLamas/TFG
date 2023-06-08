@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Web.UI.WebControls;
+using System.Linq;
+using System.Web;
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects
+namespace Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects
 {
     public class Countries
     {
-        /* 
-         * In a more realistic application, these values could be read from a 
+
+        /*
+         * In a more realistic application, these values could be read from a
          * database in the "static" constructor.
          */
         private static readonly ArrayList countries_es = new ArrayList();
@@ -16,12 +19,14 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects
         private static readonly ArrayList countrieCodes = new ArrayList();
         private static readonly Hashtable countries = new Hashtable();
 
-
         /* Access modifiers are not allowed on static constructors
-         * so if we want to prevent that anybody creates instances 
+         * so if we want to prevent that anybody creates instances
          * of this class we must do the following ...
          */
-        private Countries() { }
+
+        private Countries()
+        {
+        }
 
         static Countries()
         {
@@ -47,8 +52,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects
             countries.Add("en", countries_en);
             countries.Add("gl", countries_gl);
 
-            #endregion
-
+            #endregion set the countries
         }
 
         public static ICollection GetCountryCodes()

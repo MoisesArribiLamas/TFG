@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TFG.Master.cs" Inherits="Es.Udc.DotNet.TFG.Web.TFG" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>TFG </title>
+    <link href="~/Img/favicon.ico" rel="Shortcut Icon" />
+    <link href="~/Css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div id="window">
+
+        <!-- Body Header. -->
+
+        <div id="header">
+            <asp:Label ID="Label1" runat="server" Text="TFG"></asp:Label>
+            <asp:Localize ID="lclHeader" runat="server" meta:resourcekey="lclHeader" />
+        </div>
+
+
+        <!-- Main Content. -->
+        <div id="pageBody">
+
+            <div id="sidebar">
+
+
+                <!-- Menu. -->
+                <ul id="menu">
+                    <li id="menuWelcome">
+
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuWelcome" runat="server">
+                            <asp:Label ID="lblWelcome" runat="server" Text="Welcome" Font-Bold="true" ForeColor="White" Display="Dynamic" />
+                        </asp:ContentPlaceHolder>
+                    </li>
+                    <li>
+                        <asp:HyperLink ID="lnkHome" runat="server" Display="Dynamic"
+                            Text="Inicio" NavigateUrl="~/Pages/MainPage.aspx" />
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkCreateAccount" runat="server" Display="Dynamic"
+                            Text="Crear cuenta" NavigateUrl="~/Pages/User/CreateAccount.aspx" />
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkLogUser" runat="server" Display="Dynamic"
+                            Text="Iniciar sesión" NavigateUrl="~/Pages/User/LogUser.aspx" />
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkModifyUser" runat="server" Display="Dynamic"
+                            Text="Modificar mis datos" NavigateUrl="~/Pages/User/ModifyUser.aspx" />
+                    </li>
+
+
+
+                    <li>
+                        <asp:HyperLink ID="lnkFindProducts" runat="server" Display="Dynamic"
+                            Text="Buscar productos" NavigateUrl="~/Pages/Productos/FindProducts.aspx" />
+                    </li>
+                    <li>
+                        <asp:HyperLink ID="lnkVerCarrito" runat="server" Display="Dynamic"
+                            Text="Mi carrito" NavigateUrl="~/Pages/VerCarrito.aspx" />
+                    </li>
+                    <li>
+                        <asp:HyperLink ID="lnkVerPedidos" runat="server" Display="Dynamic"
+                            Text="Mis pedidos" NavigateUrl="~/Pages/Pedidos/VerPedidos.aspx" />
+                    </li>
+                    <li>
+                        <asp:HyperLink ID="lnkLogout" runat="server" Display="Dynamic"
+                            Text="Logout" NavigateUrl="~/Pages/User/Logout.aspx" />
+                    </li>
+                </ul>
+            </div>
+
+            <div id="content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+        <!-- Footer. -->
+        <div id="footer">
+
+            <asp:Localize ID="lclFooter" runat="server" meta:resourcekey="lclFooter" />
+        </div>
+    </div>
+</body>
+</html>

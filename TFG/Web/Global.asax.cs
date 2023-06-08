@@ -1,58 +1,62 @@
 ﻿using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.ModelUtil.Log;
-using Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session;
-using Es.Udc.DotNet.PracticaMaD.Web.HTTP.Util.IoC;
+using Es.Udc.DotNet.TFG.Model.Service;
+using Es.Udc.DotNet.TFG.Web.HTTP.Session;
+using Es.Udc.DotNet.TFG.Web.HTTP.Util.IoC;
 using Ninject;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.SessionState;
 
-namespace Es.Udc.DotNet.PracticaMaD.Web
+namespace Es.Udc.DotNet.TFG.Web
 {
     public class Global : System.Web.HttpApplication
     {
 
-        protected void Application_Start(object sender, EventArgs e)
-        {
-            Application.Lock();
+            protected void Application_Start(object sender, EventArgs e)
+            {
+                Application.Lock();
 
-            IIoCManager IoCManager = new IoCManagerNinject();
-            IoCManager.Configure();
+                IIoCManager IoCManager = new IoCManagerNinject();
+                IoCManager.Configure();
 
-            Application["managerIoC"] = IoCManager;
-            LogManager.RecordMessage("NInject kernel container started", MessageType.Info);
+                Application["managerIoC"] = IoCManager;
+                LogManager.RecordMessage("NInject kernel container started", MessageType.Info);
 
-            Application.UnLock();
-        }
+                Application.UnLock();
+            }
 
-        protected void Session_Start(object sender, EventArgs e)
-        {
-            SessionManager.TouchSession(Context);
-        }
+            protected void Session_Start(object sender, EventArgs e)
+            {
+                
+            }
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
+            protected void Application_BeginRequest(object sender, EventArgs e)
+            {
+            }
 
-        }
+            protected void Application_AuthenticateRequest(object sender, EventArgs e)
+            {
+            }
 
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
+            protected void Application_Error(object sender, EventArgs e)
+            {
+            }
 
-        }
+            protected void Session_End(object sender, EventArgs e)
+            {
+            }
 
-        protected void Application_Error(object sender, EventArgs e)
-        {
+            protected void Application_End(object sender, EventArgs e)
+            {
+                ((IKernel)Application["kernelIoC"]).Dispose();
 
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_End(object sender, EventArgs e)
-        {
-            ((IKernel)Application["kernelIoC"]).Dispose();
-
-            LogManager.RecordMessage("NInject kernel container disposed", MessageType.Info);
+                LogManager.RecordMessage("NInject kernel container disposed", MessageType.Info);
+            }
         }
     }
-}
+
+

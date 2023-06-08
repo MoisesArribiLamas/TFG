@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="tfgEntities2">
+  <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="TFGEntities">
     <EntitySetMapping Name="Baterias">
       <EntityTypeMapping TypeName="tfgModel.Bateria">
         <MappingFragment StoreEntitySet="Bateria">
@@ -96,6 +96,8 @@
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="contraseña" ColumnName="contraseña" />
           <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="idioma" ColumnName="idioma" />
+          <ScalarProperty Name="pais" ColumnName="pais" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Util
+namespace Es.Udc.DotNet.TFG.Web.HTTP.Util
 {
     public class CookiesManager
     {
+
         private const string LOGIN_NAME_COOKIE = "loginName";
         private const string ENCRYPTED_PASSWORD_COOKIE = "encryptedPassword";
 
@@ -83,5 +86,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Util
             else
                 return null;
         }
+
     }
 }

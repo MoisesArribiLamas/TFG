@@ -1,27 +1,30 @@
-﻿using Es.Udc.DotNet.PracticaMaD.Model.UserService;
-using Es.Udc.DotNet.PracticaMaD.Model.UserService.Exceptions;
-using Es.Udc.DotNet.PracticaMaD.Web.HTTP.Util;
-using Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects;
-using Es.Udc.DotNet.ModelUtil.Exceptions;
-using Es.Udc.DotNet.ModelUtil.IoC;
+﻿using Es.Udc.DotNet.ModelUtil.IoC;
+using Es.Udc.DotNet.TFG.Model.Service.Exceptions;
+using Es.Udc.DotNet.TFG.Model.Service;
+using Es.Udc.DotNet.TFG.Web.HTTP.Util;
+using Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
+
+
+namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
 {
     public class SessionManager
     {
-        public static readonly String LOCALE_SESSION_ATTRIBUTE = "locale";
-
+        public const String LOCALE_SESSION_ATTRIBUTE = "locale";
         public static readonly String USER_SESSION_ATTRIBUTE =
-               "userSession";
+              "userSession";
 
-        private static IUserService userService;
+        private static IServiceUsuario serviceUsuario;
 
-        public IUserService UserService
+        public IServiceUsuario ServiceUsuario
         {
-            set { userService = value; }
+            set { serviceUsuario = value; }
         }
 
         static SessionManager()
@@ -29,38 +32,30 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
             IIoCManager iocManager =
                 (IIoCManager)HttpContext.Current.Application["managerIoC"];
 
-            userService = iocManager.Resolve<IUserService>();
+            serviceUsuario = iocManager.Resolve<IServiceUsuario>();
         }
 
-        /// <summary>
-        /// Registers the user.
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
-        /// <param name="loginName">Username</param>
-        /// <param name="clearPassword">Password in clear text</param>
-        /// <param name="userProfileDetails">The user profile details.</param>
-        /// <exception cref="DuplicateInstanceException"/>
         public static void RegisterUser(HttpContext context,
-            String loginName, String clearPassword,
-            UserProfileDetails userProfileDetails)
+           String clearPassword,
+           UserProfileDetails userProfileDetails)
         {
             /* Register user. */
-            long usrId = userService.RegisterUser(loginName, clearPassword,
+            long usrId = serviceUsuario.registrarUsuario( clearPassword,
                 userProfileDetails);
 
             /* Insert necessary objects in the session. */
             UserSession userSession = new UserSession();
             userSession.UserProfileId = usrId;
-            userSession.FirstName = userProfileDetails.FirstName;
+            userSession.FirstName = userProfileDetails.nombre;
 
-            Locale locale = new Locale(userProfileDetails.Language,
-                userProfileDetails.Country);
+           Locale locale = new Locale(userProfileDetails.Language,
+               userProfileDetails.Country);
+           
 
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
 
-            FormsAuthentication.SetAuthCookie(loginName, false);
+            FormsAuthentication.SetAuthCookie(userProfileDetails.email, false);
         }
-
         /// <summary>
         /// Login method. Authenticates an user in the current context.
         /// </summary>
@@ -71,63 +66,46 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
         /// <exception cref="IncorrectPasswordException"/>
         /// <exception cref="InstanceNotFoundException"/>
         public static void Login(HttpContext context, String loginName,
-           String clearPassword, Boolean rememberMyPassword)
+          String clearPassword, Boolean rememberMyPassword)
         {
-            /* Try to login, and if successful, update session with the necessary
-             * objects for an authenticated user. */
-            LoginResult loginResult = DoLogin(context, loginName,
-                clearPassword, false, rememberMyPassword);
+         
+                /* Try to login, and if successful, update session with the necessary
+                 * objects for an authenticated user. */
+                LoginResult loginResult = DoLogin(context, loginName,
+                    clearPassword, false, rememberMyPassword);
 
-            /* Add cookies if requested. */
-            if (rememberMyPassword)
-            {
-                CookiesManager.LeaveCookies(context, loginName,
-                    loginResult.EncryptedPassword);
-            }
+                /* Add cookies if requested. */
+                if (rememberMyPassword)
+                {
+                    CookiesManager.LeaveCookies(context, loginName,
+                        loginResult.passEncriptada);
+                }
         }
 
-        /// <summary>
-        /// Tries to log in with the corresponding method of
-        /// <c>UserService</c>, and if successful, inserts in the
-        /// session the necessary objects for an authenticated user.
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
-        /// <param name="loginName">Username</param>
-        /// <param name="password">User Password</param>
-        /// <param name="passwordIsEncrypted">Password is either encrypted or
-        /// in clear text</param>
-        /// <param name="rememberMyPassword">Remember password to the next
-        /// logins</param>
-        /// <exception cref="IncorrectPasswordException"/>
-        /// <exception cref="InstanceNotFoundException"/>
         private static LoginResult DoLogin(HttpContext context,
              String loginName, String password, Boolean passwordIsEncrypted,
              Boolean rememberMyPassword)
         {
-            LoginResult loginResult =
-                userService.Login(loginName, password,
-                    passwordIsEncrypted);
+            
+                LoginResult loginResult =
+                    serviceUsuario.logearUsuario(loginName, password,
+                        passwordIsEncrypted);
 
-            /* Insert necessary objects in the session. */
+                /* Insert necessary objects in the session. */
 
-            UserSession userSession = new UserSession();
-            userSession.UserProfileId = loginResult.UserProfileId;
-            userSession.FirstName = loginResult.FirstName;
+                UserSession userSession = new UserSession();
+                userSession.UserProfileId = loginResult.userId;
+                userSession.FirstName = loginResult.nombre;
 
-            Locale locale =
-                new Locale(loginResult.Language, loginResult.Country);
+                Locale locale =
+                   new Locale(loginResult.Language, loginResult.Country);
 
-            UpdateSessionForAuthenticatedUser(context, userSession, locale);
+                UpdateSessionForAuthenticatedUser(context, userSession, locale);
 
-            return loginResult;
-        }
+                return loginResult;
+            }
+ 
 
-        /// <summary>
-        /// Updates the session values for an previously authenticated user
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
-        /// <param name="userSession">The user data stored in session.</param>
-        /// <param name="locale">The locale info.</param>
         private static void UpdateSessionForAuthenticatedUser(
             HttpContext context, UserSession userSession, Locale locale)
         {
@@ -136,14 +114,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
             context.Session.Add(LOCALE_SESSION_ATTRIBUTE, locale);
         }
 
-        /// <summary>
-        /// Determine if a user is authenticated
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
-        /// <returns>
-        /// 	<c>true</c> if is user authenticated
-        ///     <c>false</c> otherwise
-        /// </returns>
         public static Boolean IsUserAuthenticated(HttpContext context)
         {
             if (context.Session == null)
@@ -152,72 +122,41 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
             return (context.Session[USER_SESSION_ATTRIBUTE] != null);
         }
 
-        public static Locale GetLocale(HttpContext context)
-        {
-            Locale locale =
-                (Locale)context.Session[LOCALE_SESSION_ATTRIBUTE];
 
-            return locale;
+        public static void SetLocale(HttpContext context, Locale locale)
+        {
+            context.Session[LOCALE_SESSION_ATTRIBUTE] = locale;
         }
 
-        /// <summary>
-        /// Updates the user profile details.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="userProfileDetails">The user profile details.</param>
+        public static Locale GetLocale(HttpContext context)
+        {
+            Locale locale = (Locale)context.Session[LOCALE_SESSION_ATTRIBUTE];
+
+            return (locale);
+        }
+
         public static void UpdateUserProfileDetails(HttpContext context,
-            UserProfileDetails userProfileDetails)
+           UserProfileDetails userProfileDetails)
         {
             /* Update user's profile details. */
 
             UserSession userSession =
                 (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
 
-            userService.UpdateUserProfileDetails(userSession.UserProfileId,
-                userProfileDetails);
+            serviceUsuario.modificarUsuario(userSession.UserProfileId,
+               userProfileDetails);
 
             /* Update user's session objects. */
 
             Locale locale = new Locale(userProfileDetails.Language,
-                userProfileDetails.Country);
+              userProfileDetails.Country);
 
-            userSession.FirstName = userProfileDetails.FirstName;
+            userSession.FirstName = userProfileDetails.nombre;
 
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
         }
 
-        /// <summary>
-        /// Finds the user profile with the id stored in the session.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns></returns>
-        public static UserProfileDetails FindUserProfileDetails(HttpContext context)
-        {
-            UserSession userSession =
-                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
 
-            UserProfileDetails userProfileDetails =
-                userService.FindUserProfileDetails(userSession.UserProfileId);
-
-            return userProfileDetails;
-        }
-
-        public static UserInfo GetUserInfo(HttpContext context)
-        {
-            UserSession userSession =
-                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
-
-            UserInfo userInfo =
-                userService.GetUserInfo(userSession.UserProfileId);
-
-            return userInfo;
-        }
-
-        /// <summary>
-        /// Gets the user info stored in the session.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns></returns>
         public static UserSession GetUserSession(HttpContext context)
         {
             if (IsUserAuthenticated(context))
@@ -226,31 +165,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
                 return null;
         }
 
-        /// <summary>
-        /// Changes the user's password
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
-        /// <param name="oldClearPassword">The old password in clear text</param>
-        /// <param name="newClearPassword">The new password in clear text</param>
-        /// <exception cref="IncorrectPasswordException"/>
-        public static void ChangePassword(HttpContext context,
-               String oldClearPassword, String newClearPassword)
-        {
-            UserSession userSession =
-                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
-
-            userService.ChangePassword(userSession.UserProfileId,
-                oldClearPassword, newClearPassword);
-
-            /* Remove cookies. */
-            CookiesManager.RemoveCookies(context);
-        }
-
-        /// <summary>
-        /// Destroys the session, and removes the cookies if the user had
-        /// selected "remember my password".
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
         public static void Logout(HttpContext context)
         {
             /* Remove cookies. */
@@ -263,12 +177,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
             FormsAuthentication.SignOut();
         }
 
-        /// <sumary>
-        /// Guarantees that the session will have the necessary objects if the
-        /// user has been authenticated or had selected "remember my password"
-        /// in the past.
-        /// </sumary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
+
         public static void TouchSession(HttpContext context)
         {
             /* Check if "UserSession" object is in the session. */
@@ -278,6 +187,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
             {
                 userSession =
                     (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+                
 
                 // If userSession object is in the session, nothing should be doing.
                 if (userSession != null)
@@ -294,12 +204,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
              */
             UpdateSessionFromCookies(context);
         }
-
-        /// <summary>
-        /// Tries to login (inserting necessary objects in the session) by using
-        /// cookies (if present).
-        /// </summary>
-        /// <param name="context">Http Context includes request, response, etc.</param>
         private static void UpdateSessionFromCookies(HttpContext context)
         {
             HttpRequest request = context.Request;
@@ -335,6 +239,27 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.Session
             { // Incorrect loginName or encryptedPassword
                 return;
             }
+        }
+
+        public static void ChangePassword(HttpContext context,
+               String oldClearPassword, String newClearPassword)
+        {
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            serviceUsuario.modificarContraseña(userSession.UserProfileId,
+                oldClearPassword, newClearPassword);
+
+            /* Remove cookies. */
+            CookiesManager.RemoveCookies(context);
+        }
+
+        public static Boolean IsLocaleDefined(HttpContext context)
+        {
+            if (context.Session == null)
+                return false;
+            else
+                return (context.Session[LOCALE_SESSION_ATTRIBUTE] != null);
         }
     }
 }

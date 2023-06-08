@@ -7,10 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Model
+namespace Es.Udc.DotNet.TFG.Model
 {
     using System;
-    using System.Text;
     using System.Collections.Generic;
     
     public partial class Carga
@@ -22,109 +21,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model
         public System.TimeSpan horaFin { get; set; }
         public double kws { get; set; }
     
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_BATERIA_CARGA
-        /// </summary>
         public virtual Bateria Bateria { get; set; }
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_TARIFA_CARGA
-        /// </summary>
         public virtual Tarifa Tarifa { get; set; }
-    
-    	/// <summary>
-    	/// A hash code for this instance, suitable for use in hashing algorithms and data structures 
-    	/// like a hash table. It uses the Josh Bloch implementation from "Effective Java"
-        /// Primary key of entity is not included in the hash calculation to avoid errors
-    	/// with Entity Framework creation of key values.
-    	/// </summary>
-    	/// <returns>
-    	/// Returns a hash code for this instance.
-    	/// </returns>
-    	public override int GetHashCode()
-    	{
-    	    unchecked
-    	    {
-    			int multiplier = 31;
-    			int hash = GetType().GetHashCode();
-    
-    			hash = hash * multiplier + bateriaId.GetHashCode();
-    			hash = hash * multiplier + tarifaId.GetHashCode();
-    			hash = hash * multiplier + horaIni.GetHashCode();
-    			hash = hash * multiplier + horaFin.GetHashCode();
-    			hash = hash * multiplier + kws.GetHashCode();
-    
-    			return hash;
-    	    }
-    
-    	}
-        
-        /// <summary>
-        /// Compare this object against another instance using a value approach (field-by-field) 
-        /// </summary>
-        /// <remarks>See http://www.loganfranken.com/blog/687/overriding-equals-in-c-part-1/ for detailed info </remarks>
-    	public override bool Equals(object obj)
-    	{
-    
-            if (ReferenceEquals(null, obj)) return false;        // Is Null?
-            if (ReferenceEquals(this, obj)) return true;         // Is same object?
-            if (obj.GetType() != this.GetType()) return false;   // Is same type?
-    	    
-            Carga target = obj as Carga;
-    
-    		return true
-               &&  (this.cargaId == target.cargaId )       
-               &&  (this.bateriaId == target.bateriaId )       
-               &&  (this.tarifaId == target.tarifaId )       
-               &&  (this.horaIni == target.horaIni )       
-               &&  (this.horaFin == target.horaFin )       
-               &&  (this.kws == target.kws )       
-               ;
-    
-        }
-    
-    
-    	public static bool operator ==(Carga  objA, Carga  objB)
-        {
-            // Check if the objets are the same Carga entity
-            if(Object.ReferenceEquals(objA, objB))
-                return true;
-      
-            return objA.Equals(objB);
-    }
-    
-    
-    	public static bool operator !=(Carga  objA, Carga  objB)
-        {
-            return !(objA == objB);
-        }
-    
-    
-        /// <summary>
-        /// Returns a <see cref="T:System.String"></see> that represents the 
-        /// current <see cref="T:System.Object"></see>.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"></see> that represents the current 
-        /// <see cref="T:System.Object"></see>.
-        /// </returns>
-    	public override String ToString()
-    	{
-    	    StringBuilder strCarga = new StringBuilder();
-    
-    		strCarga.Append("[ ");
-           strCarga.Append(" cargaId = " + cargaId + " | " );       
-           strCarga.Append(" bateriaId = " + bateriaId + " | " );       
-           strCarga.Append(" tarifaId = " + tarifaId + " | " );       
-           strCarga.Append(" horaIni = " + horaIni + " | " );       
-           strCarga.Append(" horaFin = " + horaFin + " | " );       
-           strCarga.Append(" kws = " + kws + " | " );       
-            strCarga.Append("] ");    
-    
-    		return strCarga.ToString();
-        }
-    
-    
     }
 }

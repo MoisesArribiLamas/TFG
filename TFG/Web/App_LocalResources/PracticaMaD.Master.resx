@@ -117,34 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Hello.Text" xml:space="preserve">
-    <value>Hello</value>
+  <data name="lblDash1Resource1.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="lblDash1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblDash2Resource1.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="lblDash2Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblDash3Resource1.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="lblDash3Resource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Welcome to Photogram</value>
+    <value />
+  </data>
+  <data name="lblWelcome.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lclFooter.Text" xml:space="preserve">
-    <value>MaD project</value>
+    <value>Realizado por Daniel Díaz y Eloy Lago</value>
   </data>
   <data name="lclPageTitle.Text" xml:space="preserve">
-    <value>Photogram: Photograph Social Network</value>
+    <value />
   </data>
   <data name="lnkAuthenticate.Text" xml:space="preserve">
-    <value>Authentication</value>
+    <value />
+  </data>
+  <data name="lnkAuthenticate.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value />
   </data>
-  <data name="lnkMyProfile.Text" xml:space="preserve">
-    <value>My Profile</value>
-  </data>
-  <data name="lnkSearchImages.Text" xml:space="preserve">
-    <value>Search Images</value>
+  <data name="lnkLogout.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lnkUpdate.Text" xml:space="preserve">
-    <value>Update Profile</value>
+    <value />
   </data>
-  <data name="lnkUpload.Text" xml:space="preserve">
-    <value>Upload Image</value>
+  <data name="lnkUpdate.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

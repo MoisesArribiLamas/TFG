@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+VisualStudioVersion = 15.0.28307.1259
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{774A7E48-34F2-4CDB-BA74-6FD377620FD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{02F775F0-475F-4E5D-B17F-C8D0F2DAF43F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{10987259-7A7E-47AF-9620-E6CBD2507F4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,16 +15,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{774A7E48-34F2-4CDB-BA74-6FD377620FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F775F0-475F-4E5D-B17F-C8D0F2DAF43F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F775F0-475F-4E5D-B17F-C8D0F2DAF43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F775F0-475F-4E5D-B17F-C8D0F2DAF43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F775F0-475F-4E5D-B17F-C8D0F2DAF43F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10987259-7A7E-47AF-9620-E6CBD2507F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10987259-7A7E-47AF-9620-E6CBD2507F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10987259-7A7E-47AF-9620-E6CBD2507F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10987259-7A7E-47AF-9620-E6CBD2507F4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9DD16117-38DB-4D41-B75C-1056E1207E97}
+		SolutionGuid = {58C5468D-C59C-4518-83AA-D3A02F92435A}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal

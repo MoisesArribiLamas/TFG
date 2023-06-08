@@ -1,27 +1,90 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Es.Udc.DotNet.PracticaMaD.Web.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Es.Udc.DotNet.TFG.Web.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="PracticaMaD_defaultCount" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">2</Value>
+    <Setting Name="TFG_defaultCount" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="ObjectDS_ProductService" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Es.Udc.DotNet.PracticaMaD.Model.UserService.IUserService</Value>
+    <Setting Name="TFG_applicationURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/TFG</Value>
     </Setting>
-    <Setting Name="ObjectDS_SelectMethod" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">FindAllUsers</Value>
+    <Setting Name="ObjectDS_ShowProducts_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">buscarProductos</Value>
     </Setting>
-    <Setting Name="ObjectDS_CountMethod" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">CountAllUsers</Value>
+    <Setting Name="ObjectDS_ShowProducts_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">GetNumberOfProducts</Value>
     </Setting>
-    <Setting Name="ObjectDS_StartIndexParameter" Type="System.String" Scope="Application">
+    <Setting Name="ObjectDS_ShowProducts_StartIndexParameter" Type="System.String" Scope="Application">
       <Value Profile="(Default)">startIndex</Value>
     </Setting>
-    <Setting Name="ObjectDS_CountParameter" Type="System.String" Scope="Application">
+    <Setting Name="ObjectDS_ShowProducts_CountParameter" Type="System.String" Scope="Application">
       <Value Profile="(Default)">count</Value>
     </Setting>
-    <Setting Name="ObjectDS_DefaultCount" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">10</Value>
+    <Setting Name="ObjectDS_ShowProducts_ProductService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Es.Udc.DotNet.TFG.Model.Service.IServiceProducto</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedidos_PedidosService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Es.Udc.DotNet.TFG.Model.Service.Pedidos.IServicePedido</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedidos_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">verPedidos</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedidos_StartIndexParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">startIndex</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedidos_CountParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">count</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowCarrito_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">verCarrito</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowCarrito_StartIndexParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">startIndex</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowCarrito_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contarCarrito</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowCarrito_CarritoService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Es.Udc.DotNet.TFG.Model.Service.IServiceCarrito</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowCarrito_CountParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">count</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedidos_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contarPedidos</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedido_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contarLineasPedido</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedido_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">getLineasFromPedido</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedido_CountParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">count</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowPedido_StartIndexParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">startIndex</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentario_ComentarioService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Es.Udc.DotNet.TFG.Model.Service.IServiceComentarios</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentario_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">verComentariosProducto</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentario_StartIndexParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">startIndex</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentario_CountParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">count</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentario_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contarComentarios</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentarioUser_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">verComentariosUser</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowComentarioUser_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contarComentariosUser</Value>
     </Setting>
   </Settings>
 </SettingsFile>

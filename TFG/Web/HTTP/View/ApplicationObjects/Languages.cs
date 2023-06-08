@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Web.UI.WebControls;
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects
+namespace Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects
 {
     public class Languages
     {
-        /* 
-         * In a more realistic application, these values could be read from a 
+        /*
+         * In a more realistic application, these values could be read from a
          * database in the "static" contructor.
          */
         private static readonly ArrayList languages_es = new ArrayList();
@@ -16,10 +16,13 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects
         private static readonly Hashtable languages = new Hashtable();
 
         /* Access modifiers are not allowed on static constructors
-         * so if we want to prevent that anybody creates instances 
+         * so if we want to prevent that anybody creates instances
          * of this class we must do the following ...
          */
-        private Languages() { }
+
+        private Languages()
+        {
+        }
 
         static Languages()
         {
@@ -41,7 +44,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.HTTP.View.ApplicationObjects
             languages.Add("en", languages_en);
             languages.Add("gl", languages_gl);
 
-            #endregion
+            #endregion set the languages
         }
 
         public static ICollection GetLaguageCodes()

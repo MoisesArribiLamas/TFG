@@ -7,22 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Web.Pages.User
-{
-
-
-    public partial class ChangePassword
-    {
-
-        /// <summary>
-        /// Control lclMenuExplanation.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclMenuExplanation;
-
+namespace Es.Udc.DotNet.TFG.Web.Pages.User {
+    
+    
+    public partial class ChangePassword {
+        
         /// <summary>
         /// Control ChangePasswordForm.
         /// </summary>
@@ -31,122 +20,122 @@ namespace Es.Udc.DotNet.PracticaMaD.Web.Pages.User
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm ChangePasswordForm;
-
+        
         /// <summary>
-        /// Control lclOldPassword.
+        /// Control lclOldPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclOldPassword;
-
+        protected global::System.Web.UI.WebControls.Localize lclOldPasswordChangePassword;
+        
         /// <summary>
-        /// Control txtOldPassword.
+        /// Control txtOldPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOldPassword;
-
+        protected global::System.Web.UI.WebControls.TextBox txtOldPasswordChangePassword;
+        
         /// <summary>
-        /// Control rfvOldPassword.
+        /// Control rfvOldPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvOldPassword;
-
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvOldPasswordChangePassword;
+        
         /// <summary>
-        /// Control lblOldPasswordError.
+        /// Control lblOldPasswordErrorChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOldPasswordError;
-
+        protected global::System.Web.UI.WebControls.Label lblOldPasswordErrorChangePassword;
+        
         /// <summary>
-        /// Control lclNewPassword.
+        /// Control lclNewPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclNewPassword;
-
+        protected global::System.Web.UI.WebControls.Localize lclNewPasswordChangePassword;
+        
         /// <summary>
-        /// Control txtNewPassword.
+        /// Control txtNewPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
-
+        protected global::System.Web.UI.WebControls.TextBox txtNewPasswordChangePassword;
+        
         /// <summary>
-        /// Control rfvNewPassword.
+        /// Control rfvNewPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNewPassword;
-
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNewPasswordChangePassword;
+        
         /// <summary>
-        /// Control cvCreateNewPassword.
+        /// Control cvCreateNewPasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvCreateNewPassword;
-
+        protected global::System.Web.UI.WebControls.CompareValidator cvCreateNewPasswordChangePassword;
+        
         /// <summary>
-        /// Control lclRetypePassword.
+        /// Control lclRetypePasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclRetypePassword;
-
+        protected global::System.Web.UI.WebControls.Localize lclRetypePasswordChangePassword;
+        
         /// <summary>
-        /// Control txtRetypePassword.
+        /// Control txtRetypePasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRetypePassword;
-
+        protected global::System.Web.UI.WebControls.TextBox txtRetypePasswordChangePassword;
+        
         /// <summary>
-        /// Control rfvRetypePassword.
+        /// Control rfvRetypePasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRetypePassword;
-
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRetypePasswordChangePassword;
+        
         /// <summary>
-        /// Control cvPasswordCheck.
+        /// Control cvPasswordCheckChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvPasswordCheck;
-
+        protected global::System.Web.UI.WebControls.CompareValidator cvPasswordCheckChangePassword;
+        
         /// <summary>
-        /// Control btnChangePassword.
+        /// Control btnChangePasswordChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnChangePassword;
+        protected global::System.Web.UI.WebControls.Button btnChangePasswordChangePassword;
     }
 }

@@ -89,6 +89,8 @@
     <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="contraseña" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="idioma" Type="varchar" MaxLength="30" />
+    <Property Name="pais" Type="varchar" MaxLength="30" />
   </EntityType>
   <Association Name="FK_BATERIA_CARGA">
     <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">

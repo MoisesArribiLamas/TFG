@@ -7,14 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Model
+namespace Es.Udc.DotNet.TFG.Model
 {
     using System;
-    using System.Text;
     using System.Collections.Generic;
     
     public partial class Bateria
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Bateria()
         {
             this.Cargas = new HashSet<Carga>();
@@ -35,142 +35,13 @@ namespace Es.Udc.DotNet.PracticaMaD.Model
         public double ratioCompra { get; set; }
         public double ratioUso { get; set; }
     
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_BATERIA_CARGA
-        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carga> Cargas { get; set; }
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_BATERIA_SEENCUENTRA
-        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SeEncuentra> SeEncuentras { get; set; }
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_BATERIA_SUMINISTRA
-        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Suministra> Suministras { get; set; }
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_BATERIA_UBICACION
-        /// </summary>
         public virtual Ubicacion Ubicacion { get; set; }
-        
-        /// <summary>
-        /// Relationship Name (Foreign Key in ER-Model): FK_BATERIA_USUARIO
-        /// </summary>
         public virtual Usuario Usuario { get; set; }
-    
-    	/// <summary>
-    	/// A hash code for this instance, suitable for use in hashing algorithms and data structures 
-    	/// like a hash table. It uses the Josh Bloch implementation from "Effective Java"
-        /// Primary key of entity is not included in the hash calculation to avoid errors
-    	/// with Entity Framework creation of key values.
-    	/// </summary>
-    	/// <returns>
-    	/// Returns a hash code for this instance.
-    	/// </returns>
-    	public override int GetHashCode()
-    	{
-    	    unchecked
-    	    {
-    			int multiplier = 31;
-    			int hash = GetType().GetHashCode();
-    
-    			hash = hash * multiplier + ubicacionId.GetHashCode();
-    			hash = hash * multiplier + usuarioId.GetHashCode();
-    			hash = hash * multiplier + precioMedio.GetHashCode();
-    			hash = hash * multiplier + kwAlmacenados.GetHashCode();
-    			hash = hash * multiplier + almacenajeMaximoKw.GetHashCode();
-    			hash = hash * multiplier + fechaDeAdquisicion.GetHashCode();
-    			hash = hash * multiplier + (marca == null ? 0 : marca.GetHashCode());
-    			hash = hash * multiplier + (modelo == null ? 0 : modelo.GetHashCode());
-    			hash = hash * multiplier + ratioCarga.GetHashCode();
-    			hash = hash * multiplier + ratioCompra.GetHashCode();
-    			hash = hash * multiplier + ratioUso.GetHashCode();
-    
-    			return hash;
-    	    }
-    
-    	}
-        
-        /// <summary>
-        /// Compare this object against another instance using a value approach (field-by-field) 
-        /// </summary>
-        /// <remarks>See http://www.loganfranken.com/blog/687/overriding-equals-in-c-part-1/ for detailed info </remarks>
-    	public override bool Equals(object obj)
-    	{
-    
-            if (ReferenceEquals(null, obj)) return false;        // Is Null?
-            if (ReferenceEquals(this, obj)) return true;         // Is same object?
-            if (obj.GetType() != this.GetType()) return false;   // Is same type?
-    	    
-            Bateria target = obj as Bateria;
-    
-    		return true
-               &&  (this.bateriaId == target.bateriaId )       
-               &&  (this.ubicacionId == target.ubicacionId )       
-               &&  (this.usuarioId == target.usuarioId )       
-               &&  (this.precioMedio == target.precioMedio )       
-               &&  (this.kwAlmacenados == target.kwAlmacenados )       
-               &&  (this.almacenajeMaximoKw == target.almacenajeMaximoKw )       
-               &&  (this.fechaDeAdquisicion == target.fechaDeAdquisicion )       
-               &&  (this.marca == target.marca )       
-               &&  (this.modelo == target.modelo )       
-               &&  (this.ratioCarga == target.ratioCarga )       
-               &&  (this.ratioCompra == target.ratioCompra )       
-               &&  (this.ratioUso == target.ratioUso )       
-               ;
-    
-        }
-    
-    
-    	public static bool operator ==(Bateria  objA, Bateria  objB)
-        {
-            // Check if the objets are the same Bateria entity
-            if(Object.ReferenceEquals(objA, objB))
-                return true;
-      
-            return objA.Equals(objB);
-    }
-    
-    
-    	public static bool operator !=(Bateria  objA, Bateria  objB)
-        {
-            return !(objA == objB);
-        }
-    
-    
-        /// <summary>
-        /// Returns a <see cref="T:System.String"></see> that represents the 
-        /// current <see cref="T:System.Object"></see>.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"></see> that represents the current 
-        /// <see cref="T:System.Object"></see>.
-        /// </returns>
-    	public override String ToString()
-    	{
-    	    StringBuilder strBateria = new StringBuilder();
-    
-    		strBateria.Append("[ ");
-           strBateria.Append(" bateriaId = " + bateriaId + " | " );       
-           strBateria.Append(" ubicacionId = " + ubicacionId + " | " );       
-           strBateria.Append(" usuarioId = " + usuarioId + " | " );       
-           strBateria.Append(" precioMedio = " + precioMedio + " | " );       
-           strBateria.Append(" kwAlmacenados = " + kwAlmacenados + " | " );       
-           strBateria.Append(" almacenajeMaximoKw = " + almacenajeMaximoKw + " | " );       
-           strBateria.Append(" fechaDeAdquisicion = " + fechaDeAdquisicion + " | " );       
-           strBateria.Append(" marca = " + marca + " | " );       
-           strBateria.Append(" modelo = " + modelo + " | " );       
-           strBateria.Append(" ratioCarga = " + ratioCarga + " | " );       
-           strBateria.Append(" ratioCompra = " + ratioCompra + " | " );       
-           strBateria.Append(" ratioUso = " + ratioUso + " | " );       
-            strBateria.Append("] ");    
-    
-    		return strBateria.ToString();
-        }
-    
-    
     }
 }

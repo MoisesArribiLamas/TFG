@@ -104,6 +104,8 @@
     <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="contraseña" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idioma" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_USUARIO" FromRole="Usuario" ToRole="Bateria" />
   </EntityType>
   <Association Name="FK_BATERIA_CARGA">
@@ -218,7 +220,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="tfgEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="TFGEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Baterias" EntityType="Self.Bateria" />
     <EntitySet Name="Cargas" EntityType="Self.Carga" />
     <EntitySet Name="Estadoes" EntityType="Self.Estado" />

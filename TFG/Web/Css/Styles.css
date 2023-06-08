@@ -1,4 +1,12 @@
 ﻿/* Body. */
+.hiddencol {
+    display: none;
+    color: red;
+}
+
+.abc {
+    margin-top: 10px;
+}
 
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -18,7 +26,6 @@ a {
         text-decoration: underline;
     }
 
-
 /* Window. */
 
 #window {
@@ -30,41 +37,78 @@ a {
 
 /* Page title. */
 
-#pageTitle {
+#header {
     background-color: #097099;
     color: #fff;
     text-align: center;
     font-weight: bold;
     padding: 5px 0 5px 5px;
     width: 99%;
-    font-weight: bold;
 }
 
-/* Menu. */
+/* Page body. */
 
-#menu {
-    background-color: #094069;
-    color: #fff;
-    text-align: left;
-    padding: 5px 0 5px 5px;
+#pageBody {
+    display: flex;
+    justify-content:center;
+    margin-top: 5px;
+    width: 100%;
+}
+
+
+
+select {
+    width: 165px !important;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    box-shadow: -0.5px -0.5px 0px 0px black;
+    border-right: 2px solid #767676;
+    border-bottom: 2px solid #767676;
+}
+
+
+/* Sidebar. */
+
+#sidebar {
+    float: left;
+    background-color: #097099;
     width: 20%;
+    font-size:1.2em;
 }
 
-#menuWelcome {
-    font-weight: bold;
-}
+    #sidebar a {
+        color: #fffac6;
+    }
 
-#menuLinks a {
-    color: #fffac6;
-}
+        #sidebar a:hover {
+            color: #cc0000;
+        }
+
+    #sidebar ul {
+        list-style: none;
+        padding-top: 0px;
+        /* Hack for correct indentation (the following three lines). */
+        margin-left: 0;
+        padding-left: 1em;
+        text-indent: -1em;
+        
+    }
+
+    #sidebar li {
+        padding: 0 0 5px 7px;
+    }
 
 /* Content. */
 
 #content {
-    margin: 0px 0 10px 160px;
+    margin-top: 10px;
+    margin-right:10%;
+    float: right;
     text-align: center;
-    width: 76%;
-    height: 22px;
+    width: 80%;
+
 }
 
 p.info {
@@ -75,20 +119,28 @@ p.info {
 
 form {
     width: 100%;
+    height: 273px;
+}
+
+
+.titulo {
+    font-weight: bold;
+    font-size:13px;
+
 }
 
 div.field {
     clear: both;
     padding-top: 1em;
     width: 100%;
+    height: 15px;
+    margin-left: 0px;
 }
 
     div.field span.label {
         float: left;
         text-align: right;
         font-weight: bold;
-        vertical-align: middle;
-        padding-top: 0.3em;
         width: 49.5%;
     }
 
@@ -98,25 +150,31 @@ div.field {
         width: 49.5%;
     }
 
-div.checkbox {
-    clear: both;
-    padding-top: 1em;
-    text-align: center;
-    width: 100%;
-}
-
 div.button {
     clear: both;
     padding-top: 1em;
     text-align: center;
     width: 100%;
+    height: 33px;
+    padding-bottom: 1em;
 }
 
 input, select, textarea {
     background-color: #f4f4f4;
+    margin-top: 0px;
+    margin-left: 0px;
 }
 
-/* Error messages. */
+/* General properties. */
+
+table th, strong {
+    font-weight: bold;
+}
+
+table th, td {
+    font-size: 12px;
+}
+
 
 .errorMessage {
     font-weight: bold;
@@ -124,12 +182,18 @@ input, select, textarea {
     margin-left: 5px;
 }
 
-/* Footer. */
 
+/* Footer. */
 #footer {
-    border-top: 1px solid #000;
-    padding-top: 5px;
+    clear: both;
     text-align: center;
-    width: 100%;
+    margin-top: 5px;
     padding-top: 5px;
+    border-top: #000 1px solid;
+    width: 100%;
+}
+
+.chBox {
+    margin-right: 1em;
+    margin-left: 1em;
 }
