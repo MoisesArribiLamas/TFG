@@ -90,6 +90,7 @@
     <Compile Include="EstadoDao\EstadoDaoEmtityFrameworkTest.cs" />
     <Compile Include="TestManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UbicacionDao\UbicacionEntityFrameworkTests.cs" />
     <Compile Include="UsuarioDao\UsuarioEntityFrameworkTests.cs" />
   </ItemGroup>
   <ItemGroup>

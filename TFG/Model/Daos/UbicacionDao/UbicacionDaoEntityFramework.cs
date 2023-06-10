@@ -1,32 +1,47 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.TFG.Model.Dao.UbicacionDao;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
+namespace Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao
 {
-    public class UbicacionDaoEntitFramework : GenericDaoEntityFramework<Ubicacion, Int64>, IUbicacionDao
+    public class UbicacionEntityFramework : GenericDaoEntityFramework<Ubicacion, Int64>, IUbicacionDao
     {
-        public List<Ubicacion> FindAllUbicaciones()
+        #region Public Constructors
+
+        public UbicacionEntityFramework()
         {
-            DbSet<Ubicacion> Ubicaciones = Context.Set<Ubicacion>();
-
-
-            var result =
-                     (from c in Ubicaciones
-
-                      select c).ToList();
-
-
-            return result;
-
-
-
-
-
         }
+
+        #endregion Public Constructors
+
+        #region IUbicacionDao Members. Specific Operations
+        /// <exception cref="InstanceNotFoundException"/>
+        
+        public bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, long portal, long numero)
+        {
+            Ubicacion u = Find(ubicacionId);
+            if (u != null)
+            {
+                u.codigoPostal = codigoPostal;
+
+                u.localidad = localidad;
+
+                u.calle = calle;
+
+                u.portal = portal;
+
+                u.numero = numero;
+                
+                Update(u);
+
+                return true;
+            }
+            return false;
+        }
+
+        #endregion IUbicacionDao Members. Specific Operations
     }
 }

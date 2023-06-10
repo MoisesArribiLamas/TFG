@@ -82,6 +82,8 @@
     </Compile>
     <Compile Include="Daos\EstadoDao\EstadoDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoDao\IEstadoDao.cs" />
+    <Compile Include="Daos\UbicacionDao\UbicacionDaoEntityFramework.cs" />
+    <Compile Include="Daos\UbicacionDao\IUbicacionDao.cs" />
     <Compile Include="Daos\UsuarioDao\IUsuarioDao.cs" />
     <Compile Include="Daos\UsuarioDao\UsuarioEntityFramework.cs" />
     <Compile Include="Estado.cs">
