@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
+using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao;
 
 namespace Es.Udc.DotNet.TFG.Test
 {
@@ -24,6 +26,8 @@ namespace Es.Udc.DotNet.TFG.Test
 
                        
             kernel.Bind<IEstadoDao>().To<EstadoDaoEntitFramework>();
+            kernel.Bind<IUsuarioDao>().To<UsuarioEntityFramework>();
+
 
 
             string connectionString =

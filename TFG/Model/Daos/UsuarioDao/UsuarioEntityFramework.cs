@@ -37,7 +37,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao
             return user;
         }
 
-        public bool updateInformacion(long userId, string nombre, string apellido1, string apellido2, string contraseña, string email, string language, string country)
+        public bool updateInformacion(long userId, string nombre, string apellido1, string apellido2, string contraseña,string tlf, string email, string language, string country)
         {
             Usuario u = Find(userId);
             if (u != null)
@@ -49,6 +49,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao
                 u.apellido2 = apellido2;
 
                 u.contraseña = contraseña;
+
+                u.telefono = tlf;
 
                 u.email = email;
 

@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao
 
         //usuario login(String usuario, String contraseña);
 
-        bool updateInformacion(long userId, string nombre, string apellido1, string apellido2, string contraseña, string email, string language, string country);
+        bool updateInformacion(long userId, string nombre, string apellido1, string apellido2, string contraseña, string tlf, string email, string language, string country);
 
 
 
