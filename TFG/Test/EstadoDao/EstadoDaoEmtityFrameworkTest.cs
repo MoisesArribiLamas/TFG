@@ -70,13 +70,26 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao.Tests
         public void findEstadoTest()
         {
             //CREAMOS LA CATEGORIA
-            Estado est = new Estado();
-            est.nombre = "Cargando";
-            estadoDao.Create(est);
+            Estado cargando = new Estado();
+            cargando.nombre = "Cargando";
+            estadoDao.Create(cargando);
 
+            //CREAMOS LAS OTRAS DOS CATEGORIAS
+            Estado suministrando = new Estado();
+            suministrando.nombre = "Suministrando";
+            estadoDao.Create(suministrando);
+
+            Estado sYC = new Estado();
+            sYC.nombre = "Suministra y Carga";
+            estadoDao.Create(sYC);
+
+            //COMPROBAMOS
             List<Estado> estadoObtenido = estadoDao.FindAllEstados();
 
             Assert.AreEqual("Cargando", estadoObtenido[0].nombre);
+            Assert.AreEqual("Suministrando", estadoObtenido[1].nombre);
+            Assert.AreEqual("Suministra y Carga", estadoObtenido[2].nombre);
+
         }
     }
 }
