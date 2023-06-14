@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EstadoDao\EstadoDaoEmtityFrameworkTest.cs" />
+    <Compile Include="TarifaDao\TarifaDaoEmtityFrameworkTest.cs" />
     <Compile Include="TestManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UbicacionDao\UbicacionEntityFrameworkTests.cs" />

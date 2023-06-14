@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using Ninject;
 using System.Transactions;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
@@ -18,9 +17,6 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao.Tests
 
 
         // Variables used in several tests are initialized here
-        private const long idLibro = 1;
-
-        private const long NON_EXISTENT_LIBRO_ID = -2;
 
         private TransactionScope transactionScope;
 

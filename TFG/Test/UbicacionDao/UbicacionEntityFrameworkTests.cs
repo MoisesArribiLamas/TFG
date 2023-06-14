@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using System.Transactions;
 using Ninject;
 using Es.Udc.DotNet.TFG.Test;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
-using Es.Udc.DotNet.TFG.Model.Dao.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 
 namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
 {

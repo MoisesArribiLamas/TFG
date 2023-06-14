@@ -1,11 +1,10 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
-using Es.Udc.DotNet.TFG.Model.Dao.UbicacionDao;
 using System;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao
+namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 {
     public class UbicacionEntityFramework : GenericDaoEntityFramework<Ubicacion, Int64>, IUbicacionDao
     {

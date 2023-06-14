@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao;
-using Es.Udc.DotNet.TFG.Model.Dao.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
 
 namespace Es.Udc.DotNet.TFG.Test
 {
@@ -29,6 +30,7 @@ namespace Es.Udc.DotNet.TFG.Test
             kernel.Bind<IEstadoDao>().To<EstadoDaoEntitFramework>();
             kernel.Bind<IUsuarioDao>().To<UsuarioEntityFramework>();
             kernel.Bind<IUbicacionDao>().To<UbicacionEntityFramework>();
+            kernel.Bind<ITarifaDao>().To<TarifaEntityFramework>();
 
 
 
