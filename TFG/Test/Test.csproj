@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BateriaDao\BateriaDaoEmtityFrameworkTest.cs" />
     <Compile Include="EstadoDao\EstadoDaoEmtityFrameworkTest.cs" />
     <Compile Include="TarifaDao\TarifaDaoEmtityFrameworkTest.cs" />
     <Compile Include="TestManager.cs" />
