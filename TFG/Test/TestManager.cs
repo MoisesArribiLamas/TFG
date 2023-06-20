@@ -11,6 +11,7 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 
 namespace Es.Udc.DotNet.TFG.Test
 {
@@ -31,6 +32,7 @@ namespace Es.Udc.DotNet.TFG.Test
             kernel.Bind<IUsuarioDao>().To<UsuarioEntityFramework>();
             kernel.Bind<IUbicacionDao>().To<UbicacionEntityFramework>();
             kernel.Bind<ITarifaDao>().To<TarifaEntityFramework>();
+            kernel.Bind<IBateriaDao>().To<BateriaEntityFramework>();
 
 
 
