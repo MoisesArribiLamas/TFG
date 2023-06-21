@@ -82,6 +82,8 @@
     </Compile>
     <Compile Include="Daos\BateriaDao\BateriaTarifaDaoEntityFramework.cs" />
     <Compile Include="Daos\BateriaDao\IBateriaDao.cs" />
+    <Compile Include="Daos\CargaDao\CargaDaoEntityFramework.cs" />
+    <Compile Include="Daos\CargaDao\ICargaDao.cs" />
     <Compile Include="Daos\EstadoBateriaDao\EstadoBateriaDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoBateriaDao\IEstadoBateriaDao.cs" />
     <Compile Include="Daos\EstadoDao\EstadoDaoEntityFramework.cs" />
@@ -163,6 +165,8 @@
     <Content Include="Scripts\SqlServerCreateDatabase.sql" />
     <Content Include="Scripts\SqlServerCreateTables.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Daos\SuministraDao\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
