@@ -82,6 +82,8 @@
     </Compile>
     <Compile Include="Daos\BateriaDao\BateriaTarifaDaoEntityFramework.cs" />
     <Compile Include="Daos\BateriaDao\IBateriaDao.cs" />
+    <Compile Include="Daos\EstadoBateriaDao\EstadoBateriaDaoEntityFramework.cs" />
+    <Compile Include="Daos\EstadoBateriaDao\IEstadoBateriaDao.cs" />
     <Compile Include="Daos\EstadoDao\EstadoDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoDao\IEstadoDao.cs" />
     <Compile Include="Daos\TarifaDao\ITarifaDao.cs" />
