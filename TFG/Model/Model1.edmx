@@ -92,7 +92,7 @@
           <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="apellido2" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="contraseña" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="idioma" Type="varchar" MaxLength="30" />
           <Property Name="pais" Type="varchar" MaxLength="30" />
@@ -358,7 +358,7 @@
           <Property Name="apellido1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contraseña" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idioma" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="pais" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
