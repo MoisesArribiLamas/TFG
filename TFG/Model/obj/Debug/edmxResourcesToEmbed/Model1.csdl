@@ -102,7 +102,7 @@
     <Property Name="apellido1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="apellido2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="contraseña" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="idioma" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="pais" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />

@@ -59,6 +59,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 user.apellido2 = userProfileDetails.apellido2;
                 user.contraseña = encryptedPassword;
                 user.email = userProfileDetails.email;
+                user.telefono = userProfileDetails.telefono;
                 user.idioma = userProfileDetails.Language;
                 user.pais = userProfileDetails.Country;
 
@@ -88,6 +89,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             user.apellido1 = userProfileDetails.apellido1;
             user.apellido2 = userProfileDetails.apellido2;
             user.email = userProfileDetails.email;
+            user.telefono = userProfileDetails.telefono;
             user.idioma = userProfileDetails.Language;
             user.pais = userProfileDetails.Country;
             UsuarioDao.Update(user);

@@ -102,7 +102,7 @@ CREATE TABLE Usuario (
 	apellido1  VARCHAR(30) NOT NULL,
 	apellido2  VARCHAR(30) NOT NULL,
 	email  VARCHAR(30) NOT NULL,
-	contraseña VARCHAR(30) NOT NULL,
+	contraseña VARCHAR(100) NOT NULL,
 	telefono VARCHAR(9) NOT NULL,
 	idioma varchar(30) NULL,
 	pais varchar(30) NULL,
