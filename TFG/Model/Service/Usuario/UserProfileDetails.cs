@@ -8,12 +8,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class UserProfileDetails
     {
-        public UserProfileDetails(string email, string nombre, string apellido1, string apellido2, string language, string country)
+        public UserProfileDetails(string email, string nombre, string apellido1, string apellido2,string telefono, string language, string country)
         {
             this.email = email;
             this.nombre = nombre;
             this.apellido1 = apellido1;
             this.apellido2 = apellido2;
+            this.telefono = telefono;
             this.Language = language;
             this.Country = country;
            
@@ -23,9 +24,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         public string nombre { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }
-        public string tipo_usuario { get; set; }
 
         public string Language { get; private set; }
+
+        public string telefono { get; private set; }
 
         public string Country { get; private set; }
 

@@ -12,6 +12,10 @@ using Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Service;
 
 namespace Es.Udc.DotNet.TFG.Test
 {
@@ -32,7 +36,11 @@ namespace Es.Udc.DotNet.TFG.Test
             kernel.Bind<IUsuarioDao>().To<UsuarioEntityFramework>();
             kernel.Bind<IUbicacionDao>().To<UbicacionEntityFramework>();
             kernel.Bind<ITarifaDao>().To<TarifaEntityFramework>();
-            kernel.Bind<IBateriaDao>().To<BateriaEntityFramework>();
+            kernel.Bind<IBateriaDao>().To<BateriaEntityFramework>(); 
+            kernel.Bind<IEstadoBateriaDao>().To<EstadoBateriaDaoEntitFramework>();
+            kernel.Bind<ICargaDao>().To<CargaDaoEntitFramework>();
+            kernel.Bind<ISuministraDao>().To<SuministraDaoEntitFramework>();
+            kernel.Bind<IServiceUsuario>().To<ServiceUsuario>();
 
 
 

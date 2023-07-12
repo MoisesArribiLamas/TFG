@@ -107,12 +107,10 @@
     <Content Include="Pages\Errors\InternalError.aspx" />
     <Content Include="Pages\Errors\SinStockError.aspx" />
     <Content Include="Pages\User\ChangePassword.aspx" />
-    <Content Include="Pages\User\CreateAccount.aspx" />
     <Content Include="Pages\User\Logout.aspx" />
     <Content Include="Pages\User\LogUser.aspx" />
     <Content Include="Pages\MainPage.aspx" />
     <Content Include="Pages\SuccesfulOperation.aspx" />
-    <Content Include="Pages\User\ModifyUser.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -153,13 +151,6 @@
     <Compile Include="Pages\User\ChangePassword.aspx.designer.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\User\CreateAccount.aspx.cs">
-      <DependentUpon>CreateAccount.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\User\CreateAccount.aspx.designer.cs">
-      <DependentUpon>CreateAccount.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\User\Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -187,13 +178,6 @@
     </Compile>
     <Compile Include="Pages\SuccesfulOperation.aspx.designer.cs">
       <DependentUpon>SuccesfulOperation.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\User\ModifyUser.aspx.cs">
-      <DependentUpon>ModifyUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\User\ModifyUser.aspx.designer.cs">
-      <DependentUpon>ModifyUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="TFG.Master.cs">
       <DependentUpon>TFG.Master</DependentUpon>
