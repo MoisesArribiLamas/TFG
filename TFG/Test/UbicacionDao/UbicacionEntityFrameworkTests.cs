@@ -107,9 +107,59 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             u.portal = 1;
             u.numero = 120;
             
-            ubicacionDao.Create(u);
+            //ubicacionDao.Create(u);
 
-            Assert.AreEqual(u, ubicacionDao.findUbicacion(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+            Assert.AreEqual(true, ubicacionDao.findUbicacionExistente(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+
+        }
+
+        [TestMethod()]
+        public void findUbicacion2()
+        {
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15000;
+            u.localidad = "Coruña";
+            u.calle = "Calle";
+            u.portal = 1;
+            u.numero = 120;
+
+            Ubicacion u2 = new Ubicacion();
+            u2.codigoPostal = 15000;
+            u2.localidad = "Coruña";
+            u2.calle = "Calle";
+            u2.portal = 1;
+            u2.numero = 121;
+
+            ubicacionDao.Create(u);
+            
+
+            Assert.AreEqual(true, ubicacionDao.findUbicacionExistente(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateInstanceException))]
+        
+        public void findUbicacionFallo()
+        {
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15000;
+            u.localidad = "Coruña";
+            u.calle = "Calle";
+            u.portal = 1;
+            u.numero = 120;
+
+            Ubicacion u2 = new Ubicacion();
+            u2.codigoPostal = 15000;
+            u2.localidad = "Coruña";
+            u2.calle = "Calle";
+            u2.portal = 1;
+            u2.numero = 121;
+
+            ubicacionDao.Create(u);
+            Assert.AreEqual(true, ubicacionDao.findUbicacionExistente(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u.numero));
+
+
 
         }
     }
