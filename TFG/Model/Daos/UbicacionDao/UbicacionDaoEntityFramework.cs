@@ -19,7 +19,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         #region IUbicacionDao Members. Specific Operations
         /// <exception cref="InstanceNotFoundException"/>
         
-        public bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, long portal, long numero)
+        public bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero)
         {
             Ubicacion u = Find(ubicacionId);
             if (u != null)
@@ -44,7 +44,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         #endregion IUbicacionDao Members. Specific Operations
 
         #region Buscar Ubicacion
-        public bool findUbicacionExistente(long codigoPostal, string localidad, string calle, long portal, long numero)
+        public bool findUbicacionExistente(long codigoPostal, string localidad, string calle, string portal, long numero)
         {
             DbSet<Ubicacion> Ubicaciones = Context.Set<Ubicacion>();
             Ubicacion ubicacion = null;

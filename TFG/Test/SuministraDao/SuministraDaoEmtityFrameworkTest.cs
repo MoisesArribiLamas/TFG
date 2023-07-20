@@ -81,7 +81,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             u.codigoPostal = 15405;
             u.localidad = "Ferrol";
             u.calle = "calle de Ferrol";
-            u.portal = 1;
+            u.portal = "B";
             u.numero = 1;
             ubicacionDao.Create(u);
 

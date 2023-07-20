@@ -75,7 +75,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             u.codigoPostal = 15405;
             u.localidad = "Ferrol";
             u.calle = "calle de Ferrol";
-            u.portal = 1;
+            u.portal = "A";
             u.numero = 1;
             ubicacionDao.Create(u);
 
@@ -85,8 +85,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             u2.localidad = "A Coruña";
             u2.codigoPostal = 15005;
             u2.calle = "calle de Coruña";
-            u2.portal = 2;
-            u2.numero = 2;
+            u2.portal = "B";
+            u2.numero = 1;
             ubicacionDao.Create(u2);
 
             //CREAMOS LOS USUARIOS
@@ -174,7 +174,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             u.codigoPostal = 15405;
             u.localidad = "Ferrol";
             u.calle = "calle de Ferrol";
-            u.portal = 1;
+            u.portal = "a";
             u.numero = 1;
             ubicacionDao.Create(u);
 
@@ -184,7 +184,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             u2.localidad = "A Coruña";
             u2.codigoPostal = 15005;
             u2.calle = "calle de Coruña";
-            u2.portal = 2;
+            u2.portal = "B";
             u2.numero = 2;
             ubicacionDao.Create(u2);
 
@@ -276,7 +276,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             u.codigoPostal = 15405;
             u.localidad = "Ferrol";
             u.calle = "calle de Ferrol";
-            u.portal = 1;
+            //u.portal = "A";
             u.numero = 1;
             ubicacionDao.Create(u);
 
@@ -286,7 +286,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             u2.localidad = "A Coruña";
             u2.codigoPostal = 15005;
             u2.calle = "calle de Coruña";
-            u2.portal = 2;
+            //u2.portal = "B";
             u2.numero = 2;
             ubicacionDao.Create(u2);
 

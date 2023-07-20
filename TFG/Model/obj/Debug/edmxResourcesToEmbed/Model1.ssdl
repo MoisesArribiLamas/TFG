@@ -75,7 +75,7 @@
     <Property Name="codigoPostal" Type="bigint" Nullable="false" />
     <Property Name="localidad" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="portal" Type="bigint" Nullable="false" />
+    <Property Name="portal" Type="varchar" MaxLength="30" />
     <Property Name="numero" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Usuario">
@@ -85,7 +85,7 @@
     <Property Name="usuarioId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="apellido2" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellido2" Type="varchar" MaxLength="30" />
     <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="contraseña" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
