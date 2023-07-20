@@ -96,5 +96,21 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
 
 
         }
+
+        [TestMethod()]
+        public void findUbicacion()
+        {
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15000;
+            u.localidad = "Coruña";
+            u.calle = "Calle";
+            u.portal = 1;
+            u.numero = 120;
+            
+            ubicacionDao.Create(u);
+
+            Assert.AreEqual(u, ubicacionDao.findUbicacion(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+
+        }
     }
 }
