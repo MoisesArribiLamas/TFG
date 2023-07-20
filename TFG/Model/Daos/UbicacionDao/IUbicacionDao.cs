@@ -11,6 +11,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
     {
         bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, long portal, long numero);
 
+        Ubicacion findUbicacion(long codigoPostal, string localidad, string calle, long portal, long numero);
 
 
     }
