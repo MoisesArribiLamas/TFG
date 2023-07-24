@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -60,6 +61,26 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
 
             return ubicacion;
+        }
+        #endregion
+
+        #region Ubicaciones del usuario
+        public List<Ubicacion> ubicacionesUsuario(long userId, int startIndex, int count)
+        {
+
+
+            DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
+            DbSet<Bateria> baterias = Context.Set<Bateria>();
+           
+
+            var result =
+                (from u in ubicacion
+                 join b in baterias on u.ubicacionId equals b.ubicacionId
+                 where b.usuarioId == userId
+                 select u).Distinct().OrderByDescending(u => u.ubicacionId).Skip(startIndex).Take(count).ToList();
+
+            return result;
+
         }
         #endregion
     }

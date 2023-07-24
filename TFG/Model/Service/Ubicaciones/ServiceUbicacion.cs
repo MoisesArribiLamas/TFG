@@ -9,7 +9,6 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Ninject;
 
-
 namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 {
     public class ServiceUbicacion : IServiceUbicacion
@@ -19,113 +18,65 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         public IUbicacionDao ubicacionDao { private get; set; }
 
 
-/*
+
         #region crear Ubicación
         [Transactional]
-        public Ubicacion crearUbicacion(UbicacionProfileDetails ubicacionProfileDetails)
+        public long crearUbicacion(UbicacionProfileDetails ubicacionProfileDetails)
         {
             try
             {
-                ubicacionDao.findUbicacion(ubicacionProfileDetails.email);
+                ubicacionDao.findUbicacionExistente(ubicacionProfileDetails.codigoPostal, ubicacionProfileDetails.localidad, ubicacionProfileDetails.calle, ubicacionProfileDetails.portal, ubicacionProfileDetails.numero);
 
-                throw new DuplicateInstanceException(ubicacionProfileDetails.email,
+                throw new DuplicateInstanceException(ubicacionProfileDetails.localidad,
                     typeof(Ubicacion).FullName);
             }
             catch (InstanceNotFoundException)
             {
-                String encryptedPassword = PasswordEncrypter.Crypt(clearPassword);
+                Ubicacion u = new Ubicacion();
 
-                usuario user = new usuario();
+                u.codigoPostal = ubicacionProfileDetails.codigoPostal;
+                u.localidad = ubicacionProfileDetails.localidad;
+                u.calle = ubicacionProfileDetails.calle;
+                u.portal = ubicacionProfileDetails.portal;
+                u.numero = ubicacionProfileDetails.numero;
 
-                user.nombre = userProfileDetails.nombre;
-                user.apellidos = userProfileDetails.apellidos;
-                user.contraseña = encryptedPassword;
-                user.codigo_postal = userProfileDetails.direccion_postal;
-                user.email = userProfileDetails.email;
-                user.tipo_usuario = "default";
-                user.idioma = userProfileDetails.Language;
-                user.pais = userProfileDetails.Country;
+                ubicacionDao.Create(u);
+                return u.ubicacionId;
 
-                usuarioDao.Create(user);
-                return user.id_usuario;
             }
+        }
 
-        }*/
+            #endregion crear Ubicación
+        #region Modificacar Ubicacion
+        [Transactional]
+        public void modificarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails)
+        {
+
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+          
+            ubicacion.codigoPostal = ubicacionProfileDetails.codigoPostal;
+            ubicacion.localidad = ubicacionProfileDetails.localidad;
+            ubicacion.calle = ubicacionProfileDetails.calle;
+            ubicacion.portal = ubicacionProfileDetails.portal;
+            ubicacion.numero = ubicacionProfileDetails.numero;
+            ubicacionDao.Update(ubicacion);
+        }
+        #endregion Modificar
+
         /*
-                #endregion crear Ubicación
+        #region Eliminar Ubicacion
+        [Transactional]
+        public void eliminarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails)
+        {
 
-                public int contarPedidos(long idUsuario)
-                {
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
 
-                    return pedidoDao.getNumberOfPedidos(idUsuario);
+            
+            ubicacionDao.Remove(ubicacion.ubicacionId);
+        }
+        #endregion Modificar
 
-                }
-
-                #region Caso de uso 7
-                [Transactional]
-                public List<PedidosDTO> verPedidos(long idUsuario, int startIndex, int count)
-                {
-                    try
-                    {
-                        List<PedidosDTO> pedidosDTO = new List<PedidosDTO>();
-
-                        List<pedido> pedidos = pedidoDao.findPedidos(idUsuario, startIndex, count);
-
-                        bool existMorePedidos = (pedidos.Count == count + 1);
-
-                        foreach (pedido p in pedidos)
-                        {
-                            pedidosDTO.Add(new PedidosDTO(p.id_pedido, p.descripcion, p.fecha, p.precio, p.direccion));
-                        }
-                        return pedidosDTO;
-
-                    }
-                    catch (InstanceNotFoundException)
-                    {
-                        return null;
-                    }
-                }
-
-
-
-
-                #endregion Caso de uso 7
-                [Transactional]
-
-                public List<LineaPedidoDTO> getLineasFromPedido(long idPedido, int startIndex, int count)
-                {
-                    try
-                    {
-                        List<LineaPedidoDTO> lineasPedidosDTO = new List<LineaPedidoDTO>();
-
-                        List<linea_pedido> lineasPedido = lineaPedidoDao.getLineasPedido(idPedido, startIndex, count);
-
-
-                        foreach (linea_pedido lp in lineasPedido)
-                        {
-                            String nombre = productoDao.Find(lp.producto).nombre;
-                            lineasPedidosDTO.Add(new LineaPedidoDTO(lp.producto, nombre, lp.cantidad, lp.precio, lp.a_envolver));
-                        }
-                        return lineasPedidosDTO;
-
-                    }
-                    catch (InstanceNotFoundException)
-                    {
-                        return null;
-                    }
-
-                }
-
-                public int contarLineasPedido(long idPedido)
-                {
-                    return lineaPedidoDao.getNumberLineasPedido(idPedido);
-
-                }
-                */
-
+    */
     }
 
-    public interface IServiceUbicacion
-    {
-    }
 }

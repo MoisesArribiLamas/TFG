@@ -9,27 +9,22 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 {
-    public interface IServicePedido
+    public interface IServiceUbicacion
     {
 
 
         #region crear Ubicación
         [Transactional]
-        Ubicacion crearUbicacion(String descripcion, String direccion, String tarjeta);
+        long crearUbicacion(UbicacionProfileDetails ubicacionProfileDetails);
         #endregion
 
-        int contarUbicaciones(long idUsuario);
-
-/*
-        #region caso uso 7
         [Transactional]
-        List<PedidosDTO> verPedidos(long idUsuario, int startIndex, int count);
-        #endregion caso uso 7
+        void modificarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails);
 
-        List<LineaPedidoDTO> getLineasFromPedido(long idPedido, int startIndex, int count);
+        /*
+        [Transactional]
+        void eliminarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails)
+        */
 
-        int contarLineasPedido(long idPedido);
-
-    */
     }
 }

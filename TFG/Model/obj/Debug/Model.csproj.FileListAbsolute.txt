@@ -74,3 +74,4 @@ C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\Model\bin\Debug\Ninject.Extensions
 C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\Model\obj\Debug\Model.csproj.CopyComplete
 C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\Model\obj\Debug\TFG.Model.dll
 C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\Model\obj\Debug\TFG.Model.pdb
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\Model\obj\Debug\Model.csprojAssemblyReference.cache

@@ -8,7 +8,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class UbicacionProfileDetails
     {
-        public UbicacionProfileDetails(string codigoPostal, string localidad, string calle, string portal, string numero)
+        public UbicacionProfileDetails(long codigoPostal, string localidad, string calle, string portal, long numero)
         {
             this.codigoPostal = codigoPostal;
             this.localidad = localidad;
@@ -17,13 +17,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             this.numero = numero;
         }
 
-        public string codigoPostal { get; set; }
+        public long codigoPostal { get; set; }
         public string localidad { get; set; }
         public string calle { get; set; }
 
         public string portal { get; private set; }
 
-        public string numero { get; private set; }
+        public long numero { get; private set; }
 
         public override bool Equals(object obj)
         {
