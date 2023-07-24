@@ -24,7 +24,7 @@ namespace Es.Udc.DotNet.TFG.Model
         public long codigoPostal { get; set; }
         public string localidad { get; set; }
         public string calle { get; set; }
-        public long portal { get; set; }
+        public string portal { get; set; }
         public long numero { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -118,6 +118,9 @@
     <Compile Include="SeEncuentra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\Ubicaciones\UbicacionProfileDetails.cs" />
+    <Compile Include="Service\Ubicaciones\ServiceUbicacion.cs" />
+    <Compile Include="Service\Ubicaciones\IServiceUbicacion.cs" />
     <Compile Include="Service\Usuario\IServiceUsuario.cs" />
     <Compile Include="Service\Exceptions\IncorrectPasswordException.cs" />
     <Compile Include="Service\Usuario\LoginResult.cs" />
@@ -167,6 +170,10 @@
     <Content Include="Scripts\SqlServerCreateDatabase.sql" />
     <Content Include="Scripts\SqlServerCreateTables.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Service\Bateria\" />
+    <Folder Include="Service\Estados\" />
+    <Folder Include="Service\Tarifa\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

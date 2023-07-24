@@ -8,20 +8,30 @@ using Ninject;
 using System.Transactions;
 using Es.Udc.DotNet.TFG.Test;
 using Es.Udc.DotNet.TFG.Model.Service;
-using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Util;
 using Es.Udc.DotNet.TFG.Model;
+using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
     [TestClass()]
-    public class ServiceUsuarioTest
+    public class ServiceUbicacionTest
     {
         private static IKernel kernel;
-        private static IServiceUsuario servicio;
+        private static IServiceUbicacion servicio;
 
-        private static IUsuarioDao usuarioDao;
+        private static IUbicacionDao ubicacionDao;
 
+        private const long codigoPostal = 15000;
+        private const string localidad = "localidad";
+        private const string calle = "calle";
+        private const string portal = "portal";
+        private const long numero = 1;
+
+
+
+        private UbicacionProfileDetails ubicacionDetails = new UbicacionProfileDetails(codigoPostal, localidad, calle, portal, numero);
 
         public const string clearPassword = "password";
         public const string nombre = "name";
@@ -60,8 +70,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         public static void MyClassInitialize(TestContext testContext)
         {
             kernel = TestManager.ConfigureNInjectKernel();
-            servicio = kernel.Get<IServiceUsuario>();
-            usuarioDao = kernel.Get<IUsuarioDao>();
+            servicio = kernel.Get<IServiceUbicacion>();
+            ubicacionDao = kernel.Get<IUbicacionDao>();
 
         }
 
@@ -87,80 +97,59 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
         [TestMethod()]
-        public void registrarUsuarioTest()
+        public void crearUbicacionTest()
         {
             using (var scope = new TransactionScope())
             {
-                var userId = servicio.registrarUsuario(clearPassword, userDetails);
+                var ubicacionId = servicio.crearUbicacion(ubicacionDetails);
 
-                var userProfile = usuarioDao.Find(userId);
+                var ubicacionProfile = ubicacionDao.Find(ubicacionId);
 
 
-                Assert.AreEqual(userId, userProfile.usuarioId);
-                Assert.AreEqual(email, userProfile.email);
-                Assert.AreEqual(PasswordEncrypter.Crypt(clearPassword), userProfile.contraseña);
-                Assert.AreEqual(nombre, userProfile.nombre);
-                Assert.AreEqual(apellido1, userProfile.apellido1);
-                Assert.AreEqual(apellido2, userProfile.apellido2);
-                Assert.AreEqual(telefono, userProfile.telefono);
-                Assert.AreEqual(email, userProfile.email);
-
+                Assert.AreEqual(ubicacionId, ubicacionProfile.ubicacionId);
+                Assert.AreEqual(codigoPostal, ubicacionProfile.codigoPostal);
+                Assert.AreEqual(localidad, ubicacionProfile.localidad);
+                Assert.AreEqual(calle, ubicacionProfile.calle);
+                Assert.AreEqual(portal, ubicacionProfile.portal);
+                Assert.AreEqual(numero, ubicacionProfile.numero);
+                
             }
         }
 
-        [TestMethod()]
-        public void modificarContraseñaTest()
-        {
-          
-           string contraseña = "unacontraseña";
-           string nuevaPass = "doscontraseñas";
-           long id =  servicio.registrarUsuario(contraseña, userDetails);
-  
-           servicio.modificarContraseña(id, contraseña, nuevaPass );
-           servicio.logearUsuario(userDetails.email, nuevaPass, false);
-
-
-        }
             [TestMethod()]
-        public void modificarUsuarioTest()
+        public void modificarUbicacionTest()
         {
             using (var scope = new TransactionScope())
             {
 
-                Usuario user = new Usuario();
-                user.nombre = "Pedro";
-                user.email = "micorreo@gmail.com";
-                user.apellido1 = "Alonso";
-                user.apellido2 = "Díaz";
-                user.telefono = "987654321";
-                user.contraseña = "unacontraseña";
-                user.idioma = "es-ES";
-                user.pais = "Spain";
+                Ubicacion u = new Ubicacion();
+                u.codigoPostal = 15401;
+                u.localidad = "Ferrol";
+                u.calle = "Real";
+                u.portal = "D";
+                u.numero = 2;
 
+                ubicacionDao.Create(u);
 
-                usuarioDao.Create(user);
+                Ubicacion u2 = new Ubicacion();
+                u2.codigoPostal = 15009;
+                u2.localidad = "Coruña";
+                u2.calle = "Real";
+                u2.portal = "B";
+                u2.numero = 2;
 
-                Usuario user2 = new Usuario();
-                user2.nombre = "Manuel";
-                user2.email = "micorreo2@gmail.com";
-                user2.apellido1 = "Alonso";
-                user2.apellido2 = "Díaz";
-                user2.telefono = "123456789";
-                user2.contraseña = "unacontraseña2";
-                user2.idioma = "en-GR";
-                user2.pais = "England";
-                usuarioDao.Create(user2);
+                ubicacionDao.Create(u2);
 
-                servicio.modificarUsuario(user.usuarioId, new UserProfileDetails(  user2.email, user2.nombre, user2.apellido1, user2.apellido2, telefono,  language, country));
+                servicio.modificarUbicacion(u.ubicacionId, new UbicacionProfileDetails(  u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
 
                 var obtained =
-                    usuarioDao.findUserByName(user.email);
+                    ubicacionDao.Find(u.ubicacionId);
 
                 // Check changes
-                Assert.AreEqual(user, obtained);
+                Assert.AreEqual(u, obtained);
             }
         }
-
+/*
         [TestMethod()]
         public void logearUsuarioTest()
         {
@@ -174,7 +163,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             Assert.AreEqual(expected, actual);
 
-        }
+        }*/
         
     }
 }

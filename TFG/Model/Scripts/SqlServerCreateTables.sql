@@ -73,7 +73,7 @@ CREATE TABLE Ubicacion (
 	codigoPostal BIGINT NOT NULL,
 	localidad VARCHAR(30) NOT NULL,
 	calle VARCHAR(40) NOT NULL,
-	portal BIGINT NOT NULL,
+	portal VARCHAR(30),
 	numero BIGINT NOT NULL,
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
@@ -100,7 +100,7 @@ CREATE TABLE Usuario (
 	usuarioId BIGINT IDENTITY(1,1) UNIQUE NOT NULL,
 	nombre  VARCHAR(30) NOT NULL,
 	apellido1  VARCHAR(30) NOT NULL,
-	apellido2  VARCHAR(30) NOT NULL,
+	apellido2  VARCHAR(30),
 	email  VARCHAR(30) NOT NULL,
 	contraseña VARCHAR(100) NOT NULL,
 	telefono VARCHAR(9) NOT NULL,

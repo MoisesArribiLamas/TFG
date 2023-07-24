@@ -80,7 +80,7 @@
           <Property Name="codigoPostal" Type="bigint" Nullable="false" />
           <Property Name="localidad" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="portal" Type="bigint" Nullable="false" />
+          <Property Name="portal" Type="varchar" MaxLength="30" />
           <Property Name="numero" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -90,7 +90,7 @@
           <Property Name="usuarioId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="apellido2" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido2" Type="varchar" MaxLength="30" />
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="contraseña" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
@@ -345,7 +345,7 @@
           <Property Name="codigoPostal" Type="Int64" Nullable="false" />
           <Property Name="localidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="calle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="portal" Type="Int64" Nullable="false" />
+          <Property Name="portal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="numero" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Ubicacion" ToRole="Bateria" />
         </EntityType>
@@ -356,7 +356,7 @@
           <Property Name="usuarioId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellido2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
@@ -476,7 +476,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TFGEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="tfgEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Baterias" EntityType="Self.Bateria" />
           <EntitySet Name="Cargas" EntityType="Self.Carga" />
           <EntitySet Name="Estadoes" EntityType="Self.Estado" />
@@ -523,7 +523,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="TFGEntities">
+        <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="tfgEntities">
           <EntitySetMapping Name="Baterias">
             <EntityTypeMapping TypeName="tfgModel.Bateria">
               <MappingFragment StoreEntitySet="Bateria">
