@@ -62,6 +62,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             ubicacionDao.Update(ubicacion);
         }
         #endregion Modificar
+
+        #region ubicaciones del Usuario
         [Transactional]
         public List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count)
         {
@@ -71,7 +73,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                 List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesUsuario(idUsuario, startIndex, count);
 
-                foreach (Ubicacion u in ubicaciones) 
+                foreach (Ubicacion u in ubicaciones)
                 {
                     ubicacionesDTO.Add(new UbicacionProfileDetails(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
                 }
@@ -83,8 +85,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 return null;
             }
         }
-        #region ubicaciones del Usuario
-
 
         #endregion
 
