@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -94,5 +95,27 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 
 
 		#endregion ITarifaDao Members. Specific Operations
+
+		#region Ver las tarizas del dia
+		public List<Tarifa> verTarifasDelDia(DateTime fecha)
+		{
+			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
+			Tarifa mTarifa = null;
+
+			var result =
+				(from t in tarifa
+				 where (t.fecha == fecha)
+				 select t).OrderBy(t => t.hora).ToList();
+			mTarifa = result.FirstOrDefault();
+			if (mTarifa == null)
+				throw new InstanceNotFoundException(mTarifa,
+						typeof(Tarifa).FullName);
+
+
+			return result;
+		
+		}
+		#endregion
+
 	}
 }

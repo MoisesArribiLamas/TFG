@@ -13,8 +13,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
         Tarifa BuscarMejorTarifa(DateTime fecha);
         Tarifa BuscarPeorTarifa(DateTime fecha);
         double CalcularMediaTarifa(DateTime fecha, DateTime fecha2);
-
-
+        List<Tarifa> verTarifasDelDia(DateTime fecha);
 
     }
 }

@@ -10,5 +10,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
     public interface IEstadoDao : IGenericDao<Estado, Int64>
     {
         List<Estado> FindAllEstados();
+
+        //double MostrarEstadosEntreFechas(DateTime fecha, DateTime fecha2);
+
+
     }
 }
