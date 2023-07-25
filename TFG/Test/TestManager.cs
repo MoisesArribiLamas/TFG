@@ -17,6 +17,8 @@ using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Service;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
+using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
 
 namespace Es.Udc.DotNet.TFG.Test
 {
@@ -43,6 +45,7 @@ namespace Es.Udc.DotNet.TFG.Test
             kernel.Bind<ISuministraDao>().To<SuministraDaoEntitFramework>();
             kernel.Bind<IServiceUsuario>().To<ServiceUsuario>();
             kernel.Bind<IServiceUbicacion>().To<ServiceUbicacion>();
+            kernel.Bind<IServiceTarifa>().To<ServiceTarifa>();
 
 
 
