@@ -43,27 +43,37 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
             {
                 return null;
             }
-        } /*
-        public List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count)
+        }
+
+        #endregion
+
+        #region mostrar la mejor tarifa del dia
+        [Transactional]
+        public TarifaDTO BuscarMejorTarifa(DateTime fecha)
         {
-            try
-            {
-                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+          
+            Tarifa t = tarifaDao.BuscarMejorTarifa(fecha);
 
-                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesUsuario(idUsuario, startIndex, count);
+            TarifaDTO tarifasDTO = (new TarifaDTO(t.precio, t.hora, t.fecha));
+                
+            return tarifasDTO;            
 
-                foreach (Ubicacion u in ubicaciones)
-                {
-                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
-                }
-                return ubicacionesDTO;
+        }
 
-            }
-            catch (InstanceNotFoundException)
-            {
-                return null;
-            }
-         */
+        #endregion
+
+        #region mostrar la peor tarifa del dia
+        [Transactional]
+        public TarifaDTO BuscarpeorTarifa(DateTime fecha)
+        {
+
+            Tarifa t = tarifaDao.BuscarPeorTarifa(fecha);
+
+            TarifaDTO tarifasDTO = (new TarifaDTO(t.precio, t.hora, t.fecha));
+
+            return tarifasDTO;
+
+        }
 
         #endregion
 
