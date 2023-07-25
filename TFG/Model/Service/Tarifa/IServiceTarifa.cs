@@ -17,7 +17,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tarifas
         [Transactional]
         TarifaDTO BuscarMejorTarifa(DateTime fecha);
         [Transactional]
-        TarifaDTO BuscarpeorTarifa(DateTime fecha)
+        TarifaDTO BuscarpeorTarifa(DateTime fecha);
 
 
 
