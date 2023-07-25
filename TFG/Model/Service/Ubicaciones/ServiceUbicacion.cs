@@ -62,6 +62,31 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             ubicacionDao.Update(ubicacion);
         }
         #endregion Modificar
+        [Transactional]
+        public List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count)
+        {
+            try
+            {
+                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesUsuario(idUsuario, startIndex, count);
+
+                foreach (Ubicacion u in ubicaciones) 
+                {
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+                }
+                return ubicacionesDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+        #region ubicaciones del Usuario
+
+
+        #endregion
 
         /*
         #region Eliminar Ubicacion
