@@ -31,8 +31,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const long precio = 15000;
         private const long hora = 1;
 
-        private TarifaDTO tarifaDTO = new TarifaDTO(precio, hora, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
-
 
         private TransactionScope transactionScope;
 
