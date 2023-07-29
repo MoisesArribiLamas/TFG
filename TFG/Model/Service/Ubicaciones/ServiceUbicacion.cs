@@ -21,24 +21,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        public long crearUbicacion(UbicacionProfileDetails ubicacionProfileDetails)
+        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero)
         {
             try
             {
-                ubicacionDao.findUbicacionExistente(ubicacionProfileDetails.codigoPostal, ubicacionProfileDetails.localidad, ubicacionProfileDetails.calle, ubicacionProfileDetails.portal, ubicacionProfileDetails.numero);
+                ubicacionDao.findUbicacionExistente(codigoPostal, localidad, calle, portal, numero);
 
-                throw new DuplicateInstanceException(ubicacionProfileDetails.localidad,
+                throw new DuplicateInstanceException(localidad,
                     typeof(Ubicacion).FullName);
             }
             catch (InstanceNotFoundException)
             {
                 Ubicacion u = new Ubicacion();
 
-                u.codigoPostal = ubicacionProfileDetails.codigoPostal;
-                u.localidad = ubicacionProfileDetails.localidad;
-                u.calle = ubicacionProfileDetails.calle;
-                u.portal = ubicacionProfileDetails.portal;
-                u.numero = ubicacionProfileDetails.numero;
+                u.codigoPostal = codigoPostal;
+                u.localidad = localidad;
+                u.calle = calle;
+                u.portal = portal;
+                u.numero = numero;
 
                 ubicacionDao.Create(u);
                 return u.ubicacionId;
@@ -49,16 +49,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             #endregion crear Ubicación
         #region Modificacar Ubicacion
         [Transactional]
-        public void modificarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails)
+        public void modificarUbicacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero)
         {
 
             Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
           
-            ubicacion.codigoPostal = ubicacionProfileDetails.codigoPostal;
-            ubicacion.localidad = ubicacionProfileDetails.localidad;
-            ubicacion.calle = ubicacionProfileDetails.calle;
-            ubicacion.portal = ubicacionProfileDetails.portal;
-            ubicacion.numero = ubicacionProfileDetails.numero;
+            ubicacion.codigoPostal = codigoPostal;
+            ubicacion.localidad = localidad;
+            ubicacion.calle = calle;
+            ubicacion.portal = portal;
+            ubicacion.numero = numero;
             ubicacionDao.Update(ubicacion);
         }
         #endregion Modificar
@@ -75,7 +75,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                 foreach (Ubicacion u in ubicaciones)
                 {
-                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
                 }
                 return ubicacionesDTO;
 
@@ -91,7 +91,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         /*
         #region Eliminar Ubicacion
         [Transactional]
-        public void eliminarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails)
+        public void eliminarUbicacion(long ubicacionId)
         {
 
             Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);

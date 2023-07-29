@@ -8,32 +8,25 @@ using Ninject;
 using System.Transactions;
 using Es.Udc.DotNet.TFG.Test;
 using Es.Udc.DotNet.TFG.Model.Service;
-using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Service.Util;
 using Es.Udc.DotNet.TFG.Model;
-using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
-using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
     [TestClass()]
-    public class ServiceUbicacionTest
+    public class ServiceBateriaTest
     {
         private static IKernel kernel;
-        private static IServiceUbicacion servicio;
+        private static IServiceBateria servicio;
 
-        private static IUbicacionDao ubicacionDao;
-        private static IUsuarioDao usuarioDao;
         private static IBateriaDao bateriaDao;
-
-        private const long codigoPostal = 15000;
-        private const string localidad = "localidad";
-        private const string calle = "calle";
-        private const string portal = "portal";
-        private const long numero = 1;
+        private static IUsuarioDao usuarioDao;
 
 
+        //Usuario
 
         public const string clearPassword = "password";
         public const string nombre = "name";
@@ -43,6 +36,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const string telefono = "123456789";
         private const string language = "es-ES";
         private const string country = "Spain";
+
+        private const long NON_EXISTENT_USER_ID = -1;
+
+        private UserProfileDetails userDetails = new UserProfileDetails(email, nombre, apellido1, apellido2, telefono, language, country);
+
+        //Ubicacion
+
+        private const long codigoPostal = 15000;
+        private const string localidad = "localidad";
+        private const string calle = "calle";
+        private const string portal = "portal";
+        private const long numero = 1;
+/*
+        private UbicacionProfileDetails ubicacionDetails = new UbicacionProfileDetails(codigoPostal, localidad, calle, portal, numero);
+
+        // bateria
+
+        private BateriaDTO userDetails = new BateriaDTO(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+           DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
+
+
 
         private const long NON_EXISTENT_USER_ID = -1;
 
@@ -72,11 +86,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         public static void MyClassInitialize(TestContext testContext)
         {
             kernel = TestManager.ConfigureNInjectKernel();
-            servicio = kernel.Get<IServiceUbicacion>();
-            ubicacionDao = kernel.Get<IUbicacionDao>();
-            usuarioDao = kernel.Get<IUsuarioDao>();
+            servicio = kernel.Get<IServiceBateria>();
             bateriaDao = kernel.Get<IBateriaDao>();
-
+            usuarioDao = kernel.Get<IUsuarioDao>();
         }
 
         [ClassCleanup()]
@@ -101,53 +113,53 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
         [TestMethod()]
-        public void crearUbicacionTest()
+        public void crearBateriaTest()
         {
             using (var scope = new TransactionScope())
             {
-                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                var bateriaId = servicio.crearBateria(bateriaDetails);
 
-                var ubicacionProfile = ubicacionDao.Find(ubicacionId);
+                var bateriaProfile = bateriaDao.Find(bateriaId);
 
 
-                Assert.AreEqual(ubicacionId, ubicacionProfile.ubicacionId);
-                Assert.AreEqual(codigoPostal, ubicacionProfile.codigoPostal);
-                Assert.AreEqual(localidad, ubicacionProfile.localidad);
-                Assert.AreEqual(calle, ubicacionProfile.calle);
-                Assert.AreEqual(portal, ubicacionProfile.portal);
-                Assert.AreEqual(numero, ubicacionProfile.numero);
+                Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
+                Assert.AreEqual(codigoPostal, bateriaProfile.codigoPostal);
+                Assert.AreEqual(localidad, bateriaProfile.localidad);
+                Assert.AreEqual(calle, bateriaProfile.calle);
+                Assert.AreEqual(portal, bateriaProfile.portal);
+                Assert.AreEqual(numero, bateriaProfile.numero);
                 
             }
         }
 
             [TestMethod()]
-        public void modificarUbicacionTest()
+        public void modificarBateriaTest()
         {
             using (var scope = new TransactionScope())
             {
 
-                Ubicacion u = new Ubicacion();
+                Bateria u = new Bateria();
                 u.codigoPostal = 15401;
                 u.localidad = "Ferrol";
                 u.calle = "Real";
                 u.portal = "D";
                 u.numero = 2;
 
-                ubicacionDao.Create(u);
+                bateriaDao.Create(u);
 
-                Ubicacion u2 = new Ubicacion();
+                Bateria u2 = new Bateria();
                 u2.codigoPostal = 15009;
                 u2.localidad = "Coruña";
                 u2.calle = "Real";
                 u2.portal = "B";
                 u2.numero = 2;
 
-                ubicacionDao.Create(u2);
+                bateriaDao.Create(u2);
 
-                servicio.modificarUbicacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+                servicio.modificarBateria(u.bateriaId, new BateriaProfileDetails(  u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
 
                 var obtained =
-                    ubicacionDao.Find(u.ubicacionId);
+                    bateriaDao.Find(u.bateriaId);
 
                 // Check changes
                 Assert.AreEqual(u, obtained);
@@ -155,28 +167,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
-        public void verUbicacionesDeUnUsuarioTest()
+        public void verBateriaesDeUnUsuarioTest()
         {
             using (var scope = new TransactionScope())
             {
 
                 // CREAMOS UBICACIONES
-                Ubicacion u = new Ubicacion();
+                Bateria u = new Bateria();
                 u.codigoPostal = 15405;
                 u.localidad = "Ferrol";
                 u.calle = "calle de Ferrol";
                 u.portal = "A";
                 u.numero = 1;
-                ubicacionDao.Create(u);
+                bateriaDao.Create(u);
 
 
-                Ubicacion u2 = new Ubicacion();
+                Bateria u2 = new Bateria();
                 u2.localidad = "A Coruña";
                 u2.codigoPostal = 15005;
                 u2.calle = "calle de Coruña";
                 u2.portal = "B";
                 u2.numero = 1;
-                ubicacionDao.Create(u2);
+                bateriaDao.Create(u2);
 
                 //CREAMOS LOS USUARIOS
                 Usuario user = new Usuario();
@@ -214,7 +226,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //CREAMOS LA BATERIA
                 Bateria b = new Bateria();
-                b.ubicacionId = u.ubicacionId;
+                b.bateriaId = u.bateriaId;
                 b.usuarioId = user.usuarioId;
                 b.precioMedio = 111;
                 b.kwAlmacenados = 1000;
@@ -228,7 +240,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 bateriaDao.Create(b);
 
                 Bateria b2 = new Bateria();
-                b2.ubicacionId = u2.ubicacionId;
+                b2.bateriaId = u2.bateriaId;
                 b2.usuarioId = user2.usuarioId;
                 b2.precioMedio = 222;
                 b2.kwAlmacenados = 2000;
@@ -243,7 +255,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //MISMA UBICACION Y MISMO USUARIO QUE LA B2
                 Bateria b3 = new Bateria();
-                b3.ubicacionId = u2.ubicacionId;
+                b3.bateriaId = u2.bateriaId;
                 b3.usuarioId = user2.usuarioId;
                 b3.precioMedio = 222;
                 b3.kwAlmacenados = 2000;
@@ -261,13 +273,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
 
-                List<UbicacionProfileDetails> obteined = servicio.verUbicaciones(user.usuarioId, startOfIndex, count);
-                List<UbicacionProfileDetails> obteined2 = servicio.verUbicaciones(user2.usuarioId, startOfIndex, count);
+                List<BateriaProfileDetails> obteined = servicio.verBateriaes(user.usuarioId, startOfIndex, count);
+                List<BateriaDTO> obteined2 = servicio.verUbicaciones(user2.usuarioId, startOfIndex, count);
 
 
 
-                UbicacionProfileDetails o1 = new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
-                UbicacionProfileDetails o2 = new UbicacionProfileDetails(u2.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+                BateriaDTO o1 = new BateriaDTO(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
+                BateriaDTO o2 = new BateriaDTO(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
 
 
                 //COMPROBAMOS
@@ -278,6 +290,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(obteined2[0], o2);
                 Assert.AreEqual(obteined2.Count, 1);
             }
-        }
+        }*/
     }
 }
