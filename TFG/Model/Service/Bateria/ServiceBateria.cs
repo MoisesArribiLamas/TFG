@@ -22,22 +22,23 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region crear baterias
         [Transactional]
-        public long crearBateria(BateriaDTO bateriaDTO)
+        public long crearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
         {
 
 
             Bateria b = new Bateria();
-                b.ubicacionId = bateriaDTO.ubicacionId;
-                b.usuarioId = bateriaDTO.usuarioId;
-                b.precioMedio = bateriaDTO.precioMedio;
-                b.kwAlmacenados = bateriaDTO.kwAlmacenados;
-                b.almacenajeMaximoKw = bateriaDTO.almacenajeMaximoKw;
-                b.fechaDeAdquisicion = bateriaDTO.fechaDeAdquisicion;
-                b.marca = bateriaDTO.marca;
-                b.modelo = bateriaDTO.modelo;
-                b.ratioCarga = bateriaDTO.ratioCarga;
-                b.ratioCompra = bateriaDTO.ratioCompra;
-                b.ratioUso = bateriaDTO.ratioUso;
+                b.ubicacionId = ubicacionId;
+                b.usuarioId = usuarioId;
+                b.precioMedio = precioMedio;
+                b.kwAlmacenados = kwAlmacenados;
+                b.almacenajeMaximoKw = almacenajeMaximoKw;
+                b.fechaDeAdquisicion = fechaDeAdquisicion;
+                b.marca = marca;
+                b.modelo = modelo;
+                b.ratioCarga = ratioCarga;
+                b.ratioCompra = ratioCompra;
+                b.ratioUso = ratioUso;
                 
             bateriaDao.Create(b);
             return b.bateriaId;
@@ -48,11 +49,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             #endregion crear baterias
         #region Modificacar Bateria
         [Transactional]
-        public void modificarBateria(long bateriaId, BateriaDTO bateriaDTO)
+        public void modificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
         {
-            bateriaDao.updateInformacion(bateriaId, bateriaDTO.ubicacionId, bateriaDTO.usuarioId, bateriaDTO.precioMedio, bateriaDTO.kwAlmacenados,
-                bateriaDTO.almacenajeMaximoKw, bateriaDTO.fechaDeAdquisicion, bateriaDTO.marca, bateriaDTO.modelo, bateriaDTO.ratioCarga,
-                bateriaDTO.ratioCompra, bateriaDTO.ratioUso);
+            bateriaDao.updateInformacion(bateriaId, ubicacionId, usuarioId, precioMedio, kwAlmacenados,
+                almacenajeMaximoKw, fechaDeAdquisicion, marca, modelo, ratioCarga,
+                ratioCompra, ratioUso);
         }
         #endregion Modificar
 
@@ -68,7 +70,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
                 foreach (Bateria b in baterias)
                 {
-                    bateriasDTO.Add(new BateriaDTO( b.ubicacionId, b.usuarioId, b.precioMedio, b.kwAlmacenados,
+                    bateriasDTO.Add(new BateriaDTO(b.bateriaId, b.ubicacionId, b.usuarioId, b.precioMedio, b.kwAlmacenados,
                 b.almacenajeMaximoKw, b.fechaDeAdquisicion, b.marca, b.modelo, b.ratioCarga,
                 b.ratioCompra, b.ratioUso));
                 }
@@ -83,10 +85,20 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
-        /*
+        #region Buscar Bateria por ID
+        [Transactional]
+        public Bateria BuscarBateriaById(long bateriaId)
+        {
+
+            return bateriaDao.Find(bateriaId);
+            
+        }
+        #endregion Buscar por ID
+
+
         #region Eliminar Bateria
         [Transactional]
-        public void eliminarBateria(long bateriaId, BateriaDTO bateriaDTO)
+        public void eliminarBateria(long bateriaId)
         {
 
             Bateria bateria = bateriaDao.Find(bateriaId);
@@ -94,9 +106,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             
             bateriaDao.Remove(bateria.bateriaId);
         }
-        #endregion Modificar
+        #endregion Eliminar
 
-    */
+
     }
 
 }

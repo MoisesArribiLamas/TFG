@@ -8,9 +8,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 {
     public class BateriaDTO
     {
-        public BateriaDTO(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw, 
+        public BateriaDTO(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw, 
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
         {
+            this.bateriaId = bateriaId;
             this.ubicacionId = ubicacionId;
             this.usuarioId = usuarioId;
             this.precioMedio = precioMedio;
@@ -24,6 +25,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             this.ratioUso = ratioUso; 
         }
 
+        public long bateriaId { get; set; }
         public long ubicacionId { get; set; }
         public long usuarioId { get; set; }
         public double precioMedio { get; set; }
@@ -44,6 +46,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         {
             var details = obj as BateriaDTO;
             return details != null &&
+                   bateriaId == details.bateriaId &&
                    ubicacionId == details.ubicacionId &&
                    usuarioId == details.usuarioId &&
                    precioMedio == details.precioMedio

@@ -15,11 +15,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region crear bateria
         [Transactional]
-        long crearBateria(BateriaDTO bateriaDTO);
+        long crearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
         #endregion
 
         [Transactional]
-        void modificarBateria(long bateriaId, BateriaDTO bateriaDTO);
+        void modificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
+
 
         [Transactional]
         List<BateriaDTO> verBaterias(long idUsuario, int startIndex, int count);
