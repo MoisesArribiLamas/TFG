@@ -22,7 +22,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region crear baterias
         [Transactional]
-        public long crearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+        public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
         {
 
@@ -49,7 +49,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             #endregion crear baterias
         #region Modificacar Bateria
         [Transactional]
-        public void modificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
+        public void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
         {
             bateriaDao.updateInformacion(bateriaId, ubicacionId, usuarioId, precioMedio, kwAlmacenados,
@@ -60,7 +60,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region baterias del Usuario
         [Transactional]
-        public List<BateriaDTO> verBaterias(long idUsuario, int startIndex, int count)
+        public List<BateriaDTO> VerBaterias(long idUsuario, int startIndex, int count)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Eliminar Bateria
         [Transactional]
-        public void eliminarBateria(long bateriaId)
+        public void EliminarBateria(long bateriaId)
         {
 
             Bateria bateria = bateriaDao.Find(bateriaId);
