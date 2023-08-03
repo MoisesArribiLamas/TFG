@@ -14,6 +14,7 @@ using Es.Udc.DotNet.TFG.Model;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -232,7 +233,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
       
 
         [TestMethod()]
-        public void buscarBateriaPorIdTest()
+        public void BuscarBateriaPorIdTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -260,6 +261,45 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(ratioCarga, bateriaProfile.ratioCarga);
                 Assert.AreEqual(ratioCompra, bateriaProfile.ratioCompra);
                 Assert.AreEqual(ratioUso, bateriaProfile.ratioUso);
+
+            }
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void EliminarBateriaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Buscamos
+                var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
+
+                //Comprobamos
+
+                Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
+                Assert.AreEqual(usuarioId, bateriaProfile.usuarioId);
+                Assert.AreEqual(precioMedio, bateriaProfile.precioMedio);
+                Assert.AreEqual(kwAlmacenados, bateriaProfile.kwAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKw, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(fechaDeAdquisicion, bateriaProfile.fechaDeAdquisicion);
+                Assert.AreEqual(marca, bateriaProfile.marca);
+                Assert.AreEqual(modelo, bateriaProfile.modelo);
+                Assert.AreEqual(ratioCarga, bateriaProfile.ratioCarga);
+                Assert.AreEqual(ratioCompra, bateriaProfile.ratioCompra);
+                Assert.AreEqual(ratioUso, bateriaProfile.ratioUso);
+
+                //Eliminamos
+                servicio.EliminarBateria(bateriaId);
+
+                //Buscamos //Comprobamos la exception
+                var b = servicio.BuscarBateriaById(bateriaId);
 
             }
         }
