@@ -13,6 +13,7 @@ using Es.Udc.DotNet.TFG.Model.Service.Util;
 using Es.Udc.DotNet.TFG.Model;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -24,47 +25,78 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
         private static IBateriaDao bateriaDao;
         private static IUsuarioDao usuarioDao;
+        private static IUbicacionDao ubicacionDao;
 
 
-        //Usuario
+        //USUARIO
 
-        public const string clearPassword = "password";
+        public const string contraseña = "password";
         public const string nombre = "name";
         private const string apellido1 = "lastName";
         private const string apellido2 = "lastName";
         private const string email = "user@udc.es";
         private const string telefono = "123456789";
-        private const string language = "es-ES";
-        private const string country = "Spain";
+        private const string idioma = "es-ES";
+        private const string pais = "Spain";
 
-        private const long NON_EXISTENT_USER_ID = -1;
 
-        private UserProfileDetails userDetails = new UserProfileDetails(email, nombre, apellido1, apellido2, telefono, language, country);
+        public long crearUsuario(string nombre, string email, string apellido1, string apellido2, string contraseña
+            , string telefono, string pais, string idioma)
+        {
+            Usuario user = new Usuario();
+            user.nombre = nombre;
+            user.email = email;
+            user.apellido1 = apellido1;
+            user.apellido2 = apellido2;
+            user.contraseña = contraseña;
+            user.telefono = telefono;
+            user.pais = pais;
+            user.idioma = idioma;
 
-        //Ubicacion
+            usuarioDao.Create(user);
+
+            return user.usuarioId;
+        }
+        /*
+         
+             */
+
+        //UBICACION
 
         private const long codigoPostal = 15000;
         private const string localidad = "localidad";
         private const string calle = "calle";
         private const string portal = "portal";
         private const long numero = 1;
-/*
-        private UbicacionProfileDetails ubicacionDetails = new UbicacionProfileDetails(codigoPostal, localidad, calle, portal, numero);
 
-        // bateria
+        // constructor de Ubicaciones
+        public long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
+        {
+            Ubicacion t = new Ubicacion();
+            t.codigoPostal = codigoPostal;
+            t.localidad = localidad;
+            t.calle = calle;
+            t.portal = portal;
+            t.numero = numero;
 
-        private BateriaDTO userDetails = new BateriaDTO(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
-           DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
+            ubicacionDao.Create(t);
+            return t.ubicacionId;
+        }
+
+        // BATERIA
+
+        private const double precioMedio = 100;
+        private const double kwAlmacenados = 1000;
+        private const double almacenajeMaximoKw = 2000;
+        private DateTime fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        private const string marca = "marca";
+        private const string modelo = "modelo" ;
+        private const double ratioCarga = 40;
+        private const double ratioCompra = 50;
+        private const double ratioUso = 45;
 
 
 
-        private const long NON_EXISTENT_USER_ID = -1;
-
-        private UserProfileDetails userDetails = new UserProfileDetails(email, nombre, apellido1, apellido2, telefono, language, country);
-        // Variables used in several tests are initialized here
-        private const long idLibro = 1;
-
-        private const long NON_EXISTENT_LIBRO_ID = -2;
 
         private TransactionScope transactionScope;
 
@@ -89,6 +121,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             servicio = kernel.Get<IServiceBateria>();
             bateriaDao = kernel.Get<IBateriaDao>();
             usuarioDao = kernel.Get<IUsuarioDao>();
+            ubicacionDao = kernel.Get<IUbicacionDao>();
+
         }
 
         [ClassCleanup()]
@@ -117,18 +151,30 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-                var bateriaId = servicio.crearBateria(bateriaDetails);
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion( codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.crearBateria( ubicacionId,  usuarioId,  precioMedio,  kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion,  marca,  modelo,  ratioCarga,  ratioCompra,  ratioUso);
+
 
                 var bateriaProfile = bateriaDao.Find(bateriaId);
 
 
                 Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
-                Assert.AreEqual(codigoPostal, bateriaProfile.codigoPostal);
-                Assert.AreEqual(localidad, bateriaProfile.localidad);
-                Assert.AreEqual(calle, bateriaProfile.calle);
-                Assert.AreEqual(portal, bateriaProfile.portal);
-                Assert.AreEqual(numero, bateriaProfile.numero);
-                
+                Assert.AreEqual(ubicacionId, bateriaProfile.ubicacionId);
+                Assert.AreEqual(usuarioId, bateriaProfile.usuarioId);
+                Assert.AreEqual(precioMedio, bateriaProfile.precioMedio);
+                Assert.AreEqual(kwAlmacenados, bateriaProfile.kwAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKw, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(fechaDeAdquisicion, bateriaProfile.fechaDeAdquisicion);
+                Assert.AreEqual(marca, bateriaProfile.marca);
+                Assert.AreEqual(modelo, bateriaProfile.modelo);
+                Assert.AreEqual(ratioCarga, bateriaProfile.ratioCarga);
+                Assert.AreEqual(ratioCompra, bateriaProfile.ratioCompra);
+                Assert.AreEqual(ratioUso, bateriaProfile.ratioUso);
+
             }
         }
 
@@ -138,158 +184,174 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
-                Bateria u = new Bateria();
-                u.codigoPostal = 15401;
-                u.localidad = "Ferrol";
-                u.calle = "Real";
-                u.portal = "D";
-                u.numero = 2;
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                bateriaDao.Create(u);
+                long bateriaId = servicio.crearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-                Bateria u2 = new Bateria();
-                u2.codigoPostal = 15009;
-                u2.localidad = "Coruña";
-                u2.calle = "Real";
-                u2.portal = "B";
-                u2.numero = 2;
+                //Modificamos datos
 
-                bateriaDao.Create(u2);
+                long ubicacionId2 = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                long usuarioId2 = crearUsuario("nombre2", email, "apellido1", apellido2, contraseña, telefono, pais, idioma);
+                double precioMedio2 = 2;
+                double kwAlmacenados2 = 2;
+                double almacenajeMaximoKw2 = 2;
+                DateTime fechaDeAdquisicion2 = fechaDeAdquisicion.AddDays(1);
 
-                servicio.modificarBateria(u.bateriaId, new BateriaProfileDetails(  u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
+                string marca2 = "Marca2";
+                string modelo2 = "Modelo2";
+                double ratioCarga2 = 2;
+                double ratioCompra2 = 2;
+                double ratioUso2 = 2;
 
-                var obtained =
-                    bateriaDao.Find(u.bateriaId);
+                servicio.modificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwAlmacenados2, almacenajeMaximoKw2,
+             fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2);
 
-                // Check changes
-                Assert.AreEqual(u, obtained);
+                //Comprobamos los cambios
+
+                var bateriaProfile = bateriaDao.Find(bateriaId);
+
+
+                Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
+                Assert.AreEqual(usuarioId2, bateriaProfile.usuarioId);
+                Assert.AreEqual(precioMedio2, bateriaProfile.precioMedio);
+                Assert.AreEqual(kwAlmacenados2, bateriaProfile.kwAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKw2, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(fechaDeAdquisicion2, bateriaProfile.fechaDeAdquisicion);
+                Assert.AreEqual(marca2, bateriaProfile.marca);
+                Assert.AreEqual(modelo2, bateriaProfile.modelo);
+                Assert.AreEqual(ratioCarga2, bateriaProfile.ratioCarga);
+                Assert.AreEqual(ratioCompra2, bateriaProfile.ratioCompra);
+                Assert.AreEqual(ratioUso2, bateriaProfile.ratioUso);
+
             }
         }
+        /*
+                [TestMethod()]
+                public void verBateriaesDeUnUsuarioTest()
+                {
+                    using (var scope = new TransactionScope())
+                    {
 
-        [TestMethod()]
-        public void verBateriaesDeUnUsuarioTest()
-        {
-            using (var scope = new TransactionScope())
-            {
-
-                // CREAMOS UBICACIONES
-                Bateria u = new Bateria();
-                u.codigoPostal = 15405;
-                u.localidad = "Ferrol";
-                u.calle = "calle de Ferrol";
-                u.portal = "A";
-                u.numero = 1;
-                bateriaDao.Create(u);
-
-
-                Bateria u2 = new Bateria();
-                u2.localidad = "A Coruña";
-                u2.codigoPostal = 15005;
-                u2.calle = "calle de Coruña";
-                u2.portal = "B";
-                u2.numero = 1;
-                bateriaDao.Create(u2);
-
-                //CREAMOS LOS USUARIOS
-                Usuario user = new Usuario();
-                user.nombre = "Dani";
-                user.email = "micorreo@gmail.com";
-                user.apellido1 = "Díaz";
-                user.apellido2 = "González";
-                user.contraseña = "unacontraseña";
-                user.telefono = "981123456";
-                user.pais = "España";
-                user.idioma = "es-ES";
-                usuarioDao.Create(user);
-
-                Usuario user2 = new Usuario();
-                user2.nombre = "María";
-                user2.contraseña = "nos olvidamos ups";
-                user2.email = "micorreo@gmail.com";
-                user2.apellido1 = "Pérez";
-                user2.apellido2 = "Fernández";
-                user2.telefono = "981123457";
-                user2.idioma = "es-ES";
-                user2.pais = "España";
-                usuarioDao.Create(user2);
-
-                Usuario user3 = new Usuario();
-                user3.nombre = "María";
-                user3.contraseña = "nos olvidamos ups";
-                user3.email = "micorreo@gmail.com";
-                user3.apellido1 = "Pérez";
-                user3.apellido2 = "Fernández";
-                user3.telefono = "981123457";
-                user3.idioma = "es-ES";
-                user3.pais = "España";
-                usuarioDao.Create(user3);
-
-                //CREAMOS LA BATERIA
-                Bateria b = new Bateria();
-                b.bateriaId = u.bateriaId;
-                b.usuarioId = user.usuarioId;
-                b.precioMedio = 111;
-                b.kwAlmacenados = 1000;
-                b.almacenajeMaximoKw = 1000;
-                b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                b.marca = "MARCA 1";
-                b.modelo = "MODELO 1";
-                b.ratioCarga = 10;
-                b.ratioCompra = 10;
-                b.ratioUso = 10;
-                bateriaDao.Create(b);
-
-                Bateria b2 = new Bateria();
-                b2.bateriaId = u2.bateriaId;
-                b2.usuarioId = user2.usuarioId;
-                b2.precioMedio = 222;
-                b2.kwAlmacenados = 2000;
-                b2.almacenajeMaximoKw = 2000;
-                b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                b2.marca = "MARCA 2";
-                b2.modelo = "MODELO 2";
-                b2.ratioCarga = 20;
-                b2.ratioCompra = 20;
-                b2.ratioUso = 20;
-                bateriaDao.Create(b2);
-
-                //MISMA UBICACION Y MISMO USUARIO QUE LA B2
-                Bateria b3 = new Bateria();
-                b3.bateriaId = u2.bateriaId;
-                b3.usuarioId = user2.usuarioId;
-                b3.precioMedio = 222;
-                b3.kwAlmacenados = 2000;
-                b3.almacenajeMaximoKw = 2000;
-                b3.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                b3.marca = "MARCA 2";
-                b3.modelo = "MODELO 2";
-                b3.ratioCarga = 20;
-                b3.ratioCompra = 20;
-                b3.ratioUso = 20;
-                bateriaDao.Create(b3);
-
-                int count = 2;
-                int startOfIndex = 0;
+                        // CREAMOS UBICACIONES
+                        Bateria u = new Bateria();
+                        u.codigoPostal = 15405;
+                        u.localidad = "Ferrol";
+                        u.calle = "calle de Ferrol";
+                        u.portal = "A";
+                        u.numero = 1;
+                        bateriaDao.Create(u);
 
 
+                        Bateria u2 = new Bateria();
+                        u2.localidad = "A Coruña";
+                        u2.codigoPostal = 15005;
+                        u2.calle = "calle de Coruña";
+                        u2.portal = "B";
+                        u2.numero = 1;
+                        bateriaDao.Create(u2);
 
-                List<BateriaProfileDetails> obteined = servicio.verBateriaes(user.usuarioId, startOfIndex, count);
-                List<BateriaDTO> obteined2 = servicio.verUbicaciones(user2.usuarioId, startOfIndex, count);
+                        //CREAMOS LOS USUARIOS
+                        Usuario user = new Usuario();
+                        user.nombre = "Dani";
+                        user.email = "micorreo@gmail.com";
+                        user.apellido1 = "Díaz";
+                        user.apellido2 = "González";
+                        user.contraseña = "unacontraseña";
+                        user.telefono = "981123456";
+                        user.pais = "España";
+                        user.idioma = "es-ES";
+                        usuarioDao.Create(user);
+
+                        Usuario user2 = new Usuario();
+                        user2.nombre = "María";
+                        user2.contraseña = "nos olvidamos ups";
+                        user2.email = "micorreo@gmail.com";
+                        user2.apellido1 = "Pérez";
+                        user2.apellido2 = "Fernández";
+                        user2.telefono = "981123457";
+                        user2.idioma = "es-ES";
+                        user2.pais = "España";
+                        usuarioDao.Create(user2);
+
+                        Usuario user3 = new Usuario();
+                        user3.nombre = "María";
+                        user3.contraseña = "nos olvidamos ups";
+                        user3.email = "micorreo@gmail.com";
+                        user3.apellido1 = "Pérez";
+                        user3.apellido2 = "Fernández";
+                        user3.telefono = "981123457";
+                        user3.idioma = "es-ES";
+                        user3.pais = "España";
+                        usuarioDao.Create(user3);
+
+                        //CREAMOS LA BATERIA
+                        Bateria b = new Bateria();
+                        b.bateriaId = u.bateriaId;
+                        b.usuarioId = user.usuarioId;
+                        b.precioMedio = 111;
+                        b.kwAlmacenados = 1000;
+                        b.almacenajeMaximoKw = 1000;
+                        b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        b.marca = "MARCA 1";
+                        b.modelo = "MODELO 1";
+                        b.ratioCarga = 10;
+                        b.ratioCompra = 10;
+                        b.ratioUso = 10;
+                        bateriaDao.Create(b);
+
+                        Bateria b2 = new Bateria();
+                        b2.bateriaId = u2.bateriaId;
+                        b2.usuarioId = user2.usuarioId;
+                        b2.precioMedio = 222;
+                        b2.kwAlmacenados = 2000;
+                        b2.almacenajeMaximoKw = 2000;
+                        b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        b2.marca = "MARCA 2";
+                        b2.modelo = "MODELO 2";
+                        b2.ratioCarga = 20;
+                        b2.ratioCompra = 20;
+                        b2.ratioUso = 20;
+                        bateriaDao.Create(b2);
+
+                        //MISMA UBICACION Y MISMO USUARIO QUE LA B2
+                        Bateria b3 = new Bateria();
+                        b3.bateriaId = u2.bateriaId;
+                        b3.usuarioId = user2.usuarioId;
+                        b3.precioMedio = 222;
+                        b3.kwAlmacenados = 2000;
+                        b3.almacenajeMaximoKw = 2000;
+                        b3.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        b3.marca = "MARCA 2";
+                        b3.modelo = "MODELO 2";
+                        b3.ratioCarga = 20;
+                        b3.ratioCompra = 20;
+                        b3.ratioUso = 20;
+                        bateriaDao.Create(b3);
+
+                        int count = 2;
+                        int startOfIndex = 0;
 
 
 
-                BateriaDTO o1 = new BateriaDTO(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
-                BateriaDTO o2 = new BateriaDTO(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+                        List<BateriaProfileDetails> obteined = servicio.verBateriaes(user.usuarioId, startOfIndex, count);
+                        List<BateriaDTO> obteined2 = servicio.verUbicaciones(user2.usuarioId, startOfIndex, count);
 
 
-                //COMPROBAMOS
+
+                        BateriaDTO o1 = new BateriaDTO(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
+                        BateriaDTO o2 = new BateriaDTO(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
 
 
-                Assert.AreEqual(obteined[0], o1);
-                Assert.AreEqual(obteined.Count, 1);
-                Assert.AreEqual(obteined2[0], o2);
-                Assert.AreEqual(obteined2.Count, 1);
-            }
-        }*/
+                        //COMPROBAMOS
+
+
+                        Assert.AreEqual(obteined[0], o1);
+                        Assert.AreEqual(obteined.Count, 1);
+                        Assert.AreEqual(obteined2[0], o2);
+                        Assert.AreEqual(obteined2.Count, 1);
+                    }
+                }*/
     }
 }
