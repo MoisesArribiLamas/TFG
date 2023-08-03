@@ -147,7 +147,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
         [TestMethod()]
-        public void crearBateriaTest()
+        public void CrearBateriaTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -155,7 +155,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion( codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.crearBateria( ubicacionId,  usuarioId,  precioMedio,  kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria( ubicacionId,  usuarioId,  precioMedio,  kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion,  marca,  modelo,  ratioCarga,  ratioCompra,  ratioUso);
 
 
@@ -178,8 +178,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
-            [TestMethod()]
-        public void modificarBateriaTest()
+        [TestMethod()]
+        public void ModificarBateriaTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -187,7 +187,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.crearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Modificamos datos
@@ -205,7 +205,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ratioCompra2 = 2;
                 double ratioUso2 = 2;
 
-                servicio.modificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwAlmacenados2, almacenajeMaximoKw2,
+                servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwAlmacenados2, almacenajeMaximoKw2,
              fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2);
 
                 //Comprobamos los cambios
@@ -227,6 +227,43 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+
+      
+
+        [TestMethod()]
+        public void buscarBateriaPorIdTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Buscamos
+                var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
+                Assert.AreEqual(usuarioId, bateriaProfile.usuarioId);
+                Assert.AreEqual(precioMedio, bateriaProfile.precioMedio);
+                Assert.AreEqual(kwAlmacenados, bateriaProfile.kwAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKw, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(fechaDeAdquisicion, bateriaProfile.fechaDeAdquisicion);
+                Assert.AreEqual(marca, bateriaProfile.marca);
+                Assert.AreEqual(modelo, bateriaProfile.modelo);
+                Assert.AreEqual(ratioCarga, bateriaProfile.ratioCarga);
+                Assert.AreEqual(ratioCompra, bateriaProfile.ratioCompra);
+                Assert.AreEqual(ratioUso, bateriaProfile.ratioUso);
+
+            }
+        }
+
         /*
                 [TestMethod()]
                 public void verBateriaesDeUnUsuarioTest()
