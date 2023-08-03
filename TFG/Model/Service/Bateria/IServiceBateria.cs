@@ -30,10 +30,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         Bateria BuscarBateriaById(long bateriaId);
 
-        /*
+
         [Transactional]
-        void EliminarBateria(long bateriaId, BateriaProfileDetails bateriaProfileDetails)
-        */
+        void EliminarBateria(long bateriaId);
+        
 
     }
 }

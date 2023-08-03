@@ -99,12 +99,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #region Eliminar Bateria
         [Transactional]
         public void EliminarBateria(long bateriaId)
-        {
-
-            Bateria bateria = bateriaDao.Find(bateriaId);
-
-            
-            bateriaDao.Remove(bateria.bateriaId);
+        {       
+            bateriaDao.Remove(bateriaId);
         }
         #endregion Eliminar
 
