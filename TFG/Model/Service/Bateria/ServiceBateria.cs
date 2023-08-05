@@ -7,6 +7,7 @@ using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -18,6 +19,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         public IBateriaDao bateriaDao { private get; set; }
         [Inject]
         public IUsuarioDao UsuarioDao { private get; set; }
+
+        [Inject]
+        public ICargaDao CargaDao { private get; set; }
 
 
         #region crear baterias
@@ -103,6 +107,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             bateriaDao.Remove(bateriaId);
         }
         #endregion Eliminar
+
+        #region crear Carga
+        [Transactional]
+        public long CrearCarga(long bateriaId, long tarifaId,
+            TimeSpan horaIni, TimeSpan horaFin, double kws)
+        {
+
+            Carga c = new Carga();
+            c.bateriaId = bateriaId;
+            c.tarifaId = tarifaId;
+            c.horaIni = horaIni;
+            c.horaFin = horaFin;
+            c.kws = kws;
+
+            CargaDao.Create(c);
+            return c.cargaId;
+
+
+        }
+
+        #endregion crear cargas
 
 
     }

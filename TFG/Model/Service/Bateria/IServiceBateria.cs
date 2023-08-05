@@ -33,7 +33,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         void EliminarBateria(long bateriaId);
-        
+
+        [Transactional]
+
+        long CrearCarga(long bateriaId, long tarifaId,
+            TimeSpan horaIni, TimeSpan horaFin, double kws);
+
+
 
     }
 }
