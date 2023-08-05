@@ -15,6 +15,9 @@ using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
+using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -23,10 +26,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
     {
         private static IKernel kernel;
         private static IServiceBateria servicio;
+        private static IServiceTarifa servicioTarifa;
+
 
         private static IBateriaDao bateriaDao;
         private static IUsuarioDao usuarioDao;
         private static IUbicacionDao ubicacionDao;
+        private static ITarifaDao tarifaDao;
+        private static ICargaDao cargaDao;
+
 
 
         //USUARIO
@@ -97,7 +105,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const double ratioUso = 45;
 
 
+        // TARIFA
 
+        public long crearTarifa(long precio, long hora, DateTime fecha)
+        {
+            Tarifa t = new Tarifa();
+            t.precio = precio;
+            t.hora = hora;
+            t.fecha = fecha;
+            tarifaDao.Create(t);
+            return t.tarifaId;
+        }
 
         private TransactionScope transactionScope;
 
@@ -123,8 +141,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             bateriaDao = kernel.Get<IBateriaDao>();
             usuarioDao = kernel.Get<IUsuarioDao>();
             ubicacionDao = kernel.Get<IUbicacionDao>();
+            cargaDao = kernel.Get<ICargaDao>();
+            tarifaDao = kernel.Get<ITarifaDao>();
 
-        }
+    }
 
         [ClassCleanup()]
         public static void MyClassCleanup()
@@ -352,5 +372,52 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+        [TestMethod()]
+        public void CrearCargaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //bateria creada
+                var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
+
+                //crear tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                long tarifaId = crearTarifa(500, 0, fecha);
+
+                //creamos Carga
+                int hour1 = 1;
+                int hour2 = 2;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni =new TimeSpan(hour1,  minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                double kws = 3000;
+
+                long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
+
+
+                //Comprobamos
+
+                Carga c = cargaDao.Find(cargaId);
+
+
+                Assert.AreEqual(bateriaId, c.bateriaId);
+                Assert.AreEqual(tarifaId, c.tarifaId);
+                Assert.AreEqual(horaIni, c.horaIni);
+                Assert.AreEqual(horaFin, c.horaFin);
+                Assert.AreEqual(kws, c.kws);
+                
+
+            }
+        }
+
     }
 }
