@@ -8,7 +8,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class UbicacionProfileDetails
     {
-        public UbicacionProfileDetails(long codigoPostal, string localidad, string calle, string portal, long numero)
+        public UbicacionProfileDetails(long ubicacionId,long codigoPostal, string localidad, string calle, string portal, long numero)
         {
             this.codigoPostal = codigoPostal;
             this.localidad = localidad;
@@ -16,6 +16,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             this.portal = portal;
             this.numero = numero;
         }
+
+        public long ubicacionId { get; set; }
 
         public long codigoPostal { get; set; }
         public string localidad { get; set; }
@@ -29,6 +31,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         {
             var details = obj as UbicacionProfileDetails;
             return details != null &&
+                   ubicacionId == details.ubicacionId &&
                    codigoPostal == details.codigoPostal &&
                    localidad == details.localidad &&
                    calle == details.calle

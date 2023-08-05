@@ -34,7 +34,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
                 foreach (Tarifa t in tarifas)
                 {
-                    tarifasDTO.Add(new TarifaDTO(t.precio, t.hora, t.fecha));
+                    tarifasDTO.Add(new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
                 }
                 return tarifasDTO;
 
@@ -54,7 +54,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
           
             Tarifa t = tarifaDao.BuscarMejorTarifa(fecha);
 
-            TarifaDTO tarifasDTO = (new TarifaDTO(t.precio, t.hora, t.fecha));
+            TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
                 
             return tarifasDTO;            
 
@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
             Tarifa t = tarifaDao.BuscarPeorTarifa(fecha);
 
-            TarifaDTO tarifasDTO = (new TarifaDTO(t.precio, t.hora, t.fecha));
+            TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
 
             return tarifasDTO;
 

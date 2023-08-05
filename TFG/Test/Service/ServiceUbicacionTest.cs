@@ -33,7 +33,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const string portal = "portal";
         private const long numero = 1;
 
-        private UbicacionProfileDetails ubicacionDetails = new UbicacionProfileDetails(codigoPostal, localidad, calle, portal, numero);
 
 
         public const string clearPassword = "password";
@@ -106,7 +105,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-                var ubicacionId = servicio.crearUbicacion(ubicacionDetails);
+                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 var ubicacionProfile = ubicacionDao.Find(ubicacionId);
 
@@ -145,7 +144,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 ubicacionDao.Create(u2);
 
-                servicio.modificarUbicacion(u.ubicacionId, new UbicacionProfileDetails(  u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
+                servicio.modificarUbicacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
 
                 var obtained =
                     ubicacionDao.Find(u.ubicacionId);
@@ -267,8 +266,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
 
-                UbicacionProfileDetails o1 = new UbicacionProfileDetails(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
-                UbicacionProfileDetails o2 = new UbicacionProfileDetails(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+                UbicacionProfileDetails o1 = new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
+                UbicacionProfileDetails o2 = new UbicacionProfileDetails(u2.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
 
 
                 //COMPROBAMOS

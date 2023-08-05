@@ -15,11 +15,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        long crearUbicacion(UbicacionProfileDetails ubicacionProfileDetails);
+        long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero);
+
         #endregion
 
         [Transactional]
-        void modificarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails);
+        void modificarUbicacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero);
+
 
         [Transactional]
         List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count);

@@ -9,14 +9,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service
     public class TarifaDTO
     {
 
-        public TarifaDTO(long precio, long hora, DateTime fecha)
+        public TarifaDTO(long tarifaId, long precio, long hora, DateTime fecha)
         {
+            this.tarifaId = tarifaId;
             this.precio = precio;
             this.hora = hora;
             this.fecha = fecha;
             
         }
 
+
+        public long tarifaId { get; set; }
 
         public long precio { get; set; }
         public long hora { get; set; }
@@ -26,7 +29,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         public override bool Equals(object obj)
         {
             var details = obj as TarifaDTO;
-            return details != null 
+            return details != null
+                   //&& (this.tarifaId == details.tarifaId)
                    && (this.precio == details.precio)
                    && (this.hora == details.hora)
                    && (this.fecha == details.fecha);
