@@ -129,6 +129,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion crear cargas
 
+        #region Buscar Carga por ID
+        [Transactional]
+        public Carga BuscarcargaById(long cargaId)
+        {
+
+            return CargaDao.Find(cargaId);
+
+        }
+        #endregion Buscar carga por ID
+
 
     }
 
