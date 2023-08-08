@@ -651,27 +651,30 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
                 double kws = 3000;
+                double ahorro = 0;
 
-                long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
-                long cargaId2 = servicio.CrearCarga(bateriaId, tarifaId2, horaIni, horaFin, kws);
-                long cargaId3 = servicio.CrearCarga(bateriaId, tarifaId3, horaIni, horaFin, kws);
-                long cargaId4 = servicio.CrearCarga(bateriaId, tarifaId4, horaIni, horaFin, kws);
-                long cargaId5 = servicio.CrearCarga(bateriaId2, tarifaId2, horaIni, horaFin, kws);
+                long suministraId = servicio.CrearSuministra(bateriaId, tarifaId, ahorro, horaIni, horaFin, kws);
+                long suministraId2 = servicio.CrearSuministra(bateriaId, tarifaId2, ahorro, horaIni, horaFin, kws);
+                long suministraId3 = servicio.CrearSuministra(bateriaId, tarifaId3, ahorro, horaIni, horaFin, kws);
+                long suministraId4 = servicio.CrearSuministra(bateriaId, tarifaId4, ahorro, horaIni, horaFin, kws);
+                long suministraId5 = servicio.CrearSuministra(bateriaId2, tarifaId2, ahorro, horaIni, horaFin, kws);
 
                 //Buscamos
                 int startIndex = 0;
                 int count = 3;
-                var c = servicio.MostrarCargasBareriaPorFecha(bateriaId, fecha2, fecha3, startIndex, count);
+                var s = servicio.MostrarSuministraBareriaPorFecha(bateriaId, fecha2, fecha3, startIndex, count);
 
 
                 //Comprobamos
 
-                Assert.AreEqual(cargaId2, c[0].cargaId);
-                Assert.AreEqual(cargaId3, c[1].cargaId);
-                Assert.AreEqual(2, c.Count());
+                Assert.AreEqual(suministraId2, s[0].suministroId);
+                Assert.AreEqual(suministraId3, s[1].suministroId);
+                Assert.AreEqual(2, s.Count());
 
 
             }
         }
+
+
     }
 }
