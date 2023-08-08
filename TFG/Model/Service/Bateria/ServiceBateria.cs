@@ -129,6 +129,41 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion crear cargas
 
+        #region Buscar Carga por ID
+        [Transactional]
+        public Carga BuscarcargaById(long cargaId)
+        {
+
+            return CargaDao.Find(cargaId);
+
+        }
+        #endregion Buscar carga por ID
+        
+        #region cargas de una bateria
+        [Transactional]
+        public List<CargaDTO> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        {
+            try
+            {
+                List<CargaDTO> cargasDTO = new List<CargaDTO>();
+
+                List<Carga> cargas = CargaDao.MostrarCargasBareriaPorFecha(bateriaId, fecha, fecha2 , startIndex, count);
+
+                foreach (Carga c in cargas)
+                {
+                    cargasDTO.Add(new CargaDTO(c.cargaId, c.bateriaId, c.tarifaId, c.horaIni, c.horaFin, c.kws)); 
+                   
+                }
+                return cargasDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
 
     }
 

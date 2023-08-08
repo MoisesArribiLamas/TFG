@@ -419,5 +419,107 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
+        [TestMethod()]
+        public void BuscarCargaPorIdTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Creamos Tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                long tarifaId = crearTarifa(500, 0, fecha);
+
+                //creamos Carga
+                int hour1 = 1;
+                int hour2 = 2;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                double kws = 3000;
+
+                long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
+
+                //Buscamos
+                var c = servicio.BuscarcargaById(cargaId);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(bateriaId, c.bateriaId);
+                Assert.AreEqual(tarifaId, c.tarifaId);
+                Assert.AreEqual(horaIni, c.horaIni);
+                Assert.AreEqual(horaFin, c.horaFin);
+                Assert.AreEqual(kws, c.kws);
+
+
+            }
+        }
+        
+        [TestMethod()]
+        public void MostrarCargasBareriaPorFechaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Creamos Tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+                DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
+                DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(3).Day);
+
+                long tarifaId = crearTarifa(500, 0, fecha);
+                long tarifaId2 = crearTarifa(500, 0, fecha2);
+                long tarifaId3 = crearTarifa(500, 0, fecha3);
+                long tarifaId4 = crearTarifa(500, 0, fecha4);
+
+                //creamos Carga
+                int hour1 = 1;
+                int hour2 = 2;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                double kws = 3000;
+
+                long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
+                long cargaId2 = servicio.CrearCarga(bateriaId, tarifaId2, horaIni, horaFin, kws);
+                long cargaId3 = servicio.CrearCarga(bateriaId, tarifaId3, horaIni, horaFin, kws);
+                long cargaId4 = servicio.CrearCarga(bateriaId, tarifaId4, horaIni, horaFin, kws);
+                long cargaId5 = servicio.CrearCarga(bateriaId2, tarifaId2, horaIni, horaFin, kws);
+
+                //Buscamos
+                int startIndex = 0;
+                int count = 3;
+                var c = servicio.MostrarCargasBareriaPorFecha(bateriaId, fecha2, fecha3, startIndex, count);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(cargaId2, c[0].cargaId);
+                Assert.AreEqual(cargaId3, c[1].cargaId);
+                Assert.AreEqual(2, c.Count());
+
+
+
+
+            }
+        }
     }
 }
