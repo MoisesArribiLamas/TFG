@@ -200,7 +200,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region suministros de una bateria
         [Transactional]
-        public List<SuministroDTO> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
+
+        public List<SuministroDTO> MostrarSuministraBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
             try
             {

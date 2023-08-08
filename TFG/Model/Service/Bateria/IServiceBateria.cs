@@ -52,5 +52,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         Suministra BuscarsuministraById(long suministraId);
 
+        [Transactional]
+        List<SuministroDTO> MostrarSuministraBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
+
+
     }
 }
