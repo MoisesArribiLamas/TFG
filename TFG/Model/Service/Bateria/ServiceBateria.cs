@@ -135,7 +135,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Buscar Carga por ID
         [Transactional]
-        public Carga BuscarcargaById(long cargaId)
+        public Carga BuscarCargaById(long cargaId)
         {
 
             return CargaDao.Find(cargaId);
@@ -186,6 +186,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             return s.suministraId;
 
         }
+
+        #region Buscar Suministra por ID 
+        [Transactional]
+
+        public Suministra BuscarsuministraById(long suministraId)
+        {
+
+            return SuministroDao.Find(suministraId);
+
+        }
+        #endregion Buscar carga por ID
 
         #region suministros de una bateria
         [Transactional]

@@ -40,7 +40,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             TimeSpan horaIni, TimeSpan horaFin, double kws);
 
         [Transactional]
-        Carga BuscarcargaById(long cargaId);
+        Carga BuscarCargaById(long cargaId);
 
         [Transactional]
         List<CargaDTO> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
@@ -49,7 +49,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         long CrearSuministra(long bateriaId, long tarifaId, double ahorro,
                         TimeSpan horaIni, TimeSpan horaFin, double kws);
 
-
+        [Transactional]
+        Suministra BuscarsuministraById(long suministraId);
 
     }
 }
