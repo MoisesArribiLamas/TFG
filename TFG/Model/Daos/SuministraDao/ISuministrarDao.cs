@@ -12,5 +12,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
     public interface ISuministraDao : IGenericDao<Suministra, Int64>
     {
         Suministra getInfoSuministra(long suministraId);
+
+        List<Suministra> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
+
     }
 }

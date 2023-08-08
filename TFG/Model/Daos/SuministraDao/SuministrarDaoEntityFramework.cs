@@ -22,5 +22,17 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
 
             return result;
         }
+
+        public List<Suministra> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        {
+            DbSet<Suministra> suministros = Context.Set<Suministra>();
+
+            var result =
+                (from s in suministros
+                 where ((s.Tarifa.fecha >= fecha) && (s.Tarifa.fecha <= fecha2) && (s.bateriaId == bateriaId))
+                 select s).OrderBy(s => s.horaIni).Skip(startIndex).Take(count).ToList();
+
+            return result;
+        }
     }
 }
