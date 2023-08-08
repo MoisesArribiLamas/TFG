@@ -268,7 +268,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
             int startIndex = 0;
             int count = 3;
-            List<Suministra> suministraResult = suministraDao.MostrarSuministrarBareriaPorFecha(b.bateriaId, fecha, fecha2, startIndex, count);
+            List<Suministra> suministraResult = suministraDao.MostrarSuministrosBareriaPorFecha(b.bateriaId, fecha, fecha2, startIndex, count);
 
 
             Assert.AreEqual(suministraResult[0], c);
