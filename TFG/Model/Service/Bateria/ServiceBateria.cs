@@ -8,6 +8,7 @@ using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -22,6 +23,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Inject]
         public ICargaDao CargaDao { private get; set; }
+
+        [Inject]
+        public ISuministraDao SuministroDao { private get; set; }
 
 
         #region crear baterias
@@ -155,6 +159,50 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    
                 }
                 return cargasDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        [Transactional]
+        public long CrearSuministra(long bateriaId, long tarifaId, double ahorro,
+            TimeSpan horaIni, TimeSpan horaFin, double kws)
+        {
+
+            Suministra s = new Suministra();
+            s.bateriaId = bateriaId;
+            s.tarifaId = tarifaId;
+            s.ahorro = ahorro;
+            s.horaIni = horaIni;
+            s.horaFin = horaFin;
+            s.kws = kws;
+
+            SuministroDao.Create(s);
+            return s.suministraId;
+
+        }
+
+        #region suministros de una bateria
+        [Transactional]
+        public List<SuministroDTO> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        {
+            try
+            {
+                List<SuministroDTO> suministroDTO = new List<SuministroDTO>();
+
+                List<Suministra> cargas = SuministroDao.MostrarSuministrosBareriaPorFecha(bateriaId, fecha, fecha2, startIndex, count);
+
+                foreach (Suministra c in cargas)
+                {
+                    suministroDTO.Add(new SuministroDTO(c.suministraId, c.bateriaId, c.tarifaId, c.ahorro, c.horaIni, c.horaFin, c.kws));
+
+                }
+                return suministroDTO;
 
             }
             catch (InstanceNotFoundException)
