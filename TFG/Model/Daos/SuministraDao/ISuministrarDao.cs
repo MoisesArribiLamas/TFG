@@ -13,7 +13,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
     {
         Suministra getInfoSuministra(long suministraId);
 
-        List<Suministra> MostrarSuministrarBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
+        List<Suministra> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
 
     }
 }

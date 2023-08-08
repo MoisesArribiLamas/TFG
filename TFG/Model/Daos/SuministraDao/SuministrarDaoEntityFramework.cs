@@ -23,7 +23,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             return result;
         }
 
-        public List<Suministra> MostrarSuministrarBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        public List<Suministra> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
             DbSet<Suministra> suministros = Context.Set<Suministra>();
 
