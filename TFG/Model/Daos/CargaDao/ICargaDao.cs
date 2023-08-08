@@ -13,6 +13,6 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
     {
         Carga getInfoCarga(long cargaId);
 
-        List<Carga> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2);
+        List<Carga> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
     }
 }

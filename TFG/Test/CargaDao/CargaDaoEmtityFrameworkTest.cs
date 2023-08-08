@@ -260,7 +260,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             //COMPROBAMOS
             DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-            List<Carga> cargaResult = cargaDao.MostrarCargasBareriaPorFecha(b.bateriaId, fecha, fecha2);
+            int startIndex = 0;
+            int count = 3;
+            List<Carga> cargaResult = cargaDao.MostrarCargasBareriaPorFecha(b.bateriaId, fecha, fecha2, startIndex, count);
             
 
             Assert.AreEqual(cargaResult[0], c);
