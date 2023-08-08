@@ -451,7 +451,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
 
                 //Buscamos
-                var c = servicio.BuscarcargaById(cargaId);
+                var c = servicio.BuscarCargaById(cargaId);
 
 
                 //Comprobamos
@@ -569,6 +569,50 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(horaFin, s.horaFin);
                 Assert.AreEqual(kws, s.kws);
 
+
+            }
+        }
+
+        [TestMethod()]
+        public void BuscarSuministraPorIdTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Creamos Tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                long tarifaId = crearTarifa(500, 0, fecha);
+
+                //creamos Carga
+                int hour1 = 1;
+                int hour2 = 2;
+                int minutes = 0;
+                int seconds = 0;
+                double ahorro = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                double kws = 3000;
+
+                long suministraId = servicio.CrearSuministra(bateriaId, tarifaId, ahorro, horaIni, horaFin, kws);
+
+                //Buscamos
+                var c = servicio.BuscarsuministraById(suministraId);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(bateriaId, c.bateriaId);
+                Assert.AreEqual(tarifaId, c.tarifaId);
+                Assert.AreEqual(horaIni, c.horaIni);
+                Assert.AreEqual(horaFin, c.horaFin);
+                Assert.AreEqual(kws, c.kws);
 
             }
         }
