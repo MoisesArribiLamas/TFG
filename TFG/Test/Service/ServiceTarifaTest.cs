@@ -184,11 +184,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                TarifaDTO ta = servicio.BuscarMejorTarifa(fecha);
+                long ta = servicio.BuscarMejorTarifa(fecha);
 
 
-                Assert.AreEqual(ta.hora, 1);
-                Assert.AreEqual(ta.precio, 100);
+                
+                Assert.AreEqual(ta, 100);
 
 
             }
@@ -228,11 +228,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                TarifaDTO ta = servicio.BuscarpeorTarifa(fecha);
+                long ta = servicio.BuscarpeorTarifa(fecha);
 
 
-                Assert.AreEqual(ta.hora, 9);
-                Assert.AreEqual(ta.precio, 900);
+             
+                Assert.AreEqual(ta, 900);
 
 
             }
