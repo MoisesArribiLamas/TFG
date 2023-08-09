@@ -51,32 +51,37 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         [Transactional]
         public long BuscarMejorTarifa(DateTime fecha)
         {
-            return tarifaDao.BuscarMejorTarifa(fecha);
+            return tarifaDao.PrecioMejorTarifa(fecha);
         }
 
         #endregion
-        /*
-        #region mostrar la mejor tarifa del dia
+        
+        #region Ver las tarifas del dia ordenadas por peor precio
         [Transactional]
-        public long BuscarMejorTarifa(DateTime fecha)
-        { 
-          
-            long t = tarifaDao.BuscarMejorTarifa(fecha);
+        public List<TarifaDTO> OrdenarMejorPrecioTarifasDelDia(DateTime fecha)
+        {
 
-            TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            List<Tarifa> tarifas = tarifaDao.OrdenarMejorPrecioTarifasDelDia(fecha);
+
+            List<TarifaDTO> tarifaDTO = new List<TarifaDTO>();
+
+            foreach (Tarifa t in tarifas)
+            {
+                tarifaDTO.Add(new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            }
                 
-            return tarifaDao.BuscarMejorTarifa(fecha);
+            return tarifaDTO;
 
         }
 
-        #endregion */
+        #endregion
 
         #region mostrar el peor precio del dia
         [Transactional]
         public long BuscarpeorTarifa(DateTime fecha)
         {
 
-            return tarifaDao.BuscarPeorTarifa(fecha);
+            return tarifaDao.PrecioPeorTarifa(fecha);
 
         }
 

@@ -105,7 +105,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			var result =
 				(from t in tarifa
 				 where (t.fecha == fecha)
-				 select t).OrderByDescending(t => t.precio).ToList();
+				 select t).OrderByDescending(t => t.precio).ThenBy(t => t.hora).ToList();
 			mTarifa = result.FirstOrDefault();
 			if (mTarifa == null)
 				throw new InstanceNotFoundException(mTarifa,
