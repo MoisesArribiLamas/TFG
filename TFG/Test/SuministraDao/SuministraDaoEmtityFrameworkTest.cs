@@ -400,5 +400,165 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             
 
         }
+
+
+        [TestMethod()]
+        public void ahorroUsuarioPorFechaTest()
+        {
+            // CREAMOS UBICACION
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15405;
+            u.localidad = "Ferrol";
+            u.calle = "calle de Ferrol";
+            u.portal = "B";
+            u.numero = 1;
+            ubicacionDao.Create(u);
+
+
+            //CREAMOS LOS USUARIO
+            Usuario user = new Usuario();
+            user.nombre = "Dani";
+            user.email = "micorreo@gmail.com";
+            user.apellido1 = "Díaz";
+            user.apellido2 = "González";
+            user.contraseña = "unacontraseña";
+            user.telefono = "981123456";
+            user.pais = "España";
+            user.idioma = "es-ES";
+            usuarioDao.Create(user);
+
+            //CREAMOS LOS USUARIO
+            Usuario user2 = new Usuario();
+            user2.nombre = "Paula Erica";
+            user2.email = "pecorreo@gmail.com";
+            user2.apellido1 = "Resmond";
+            user2.apellido2 = "González";
+            user2.contraseña = "unacontraseña";
+            user2.telefono = "981123457";
+            user2.pais = "España";
+            user2.idioma = "es-ES";
+            usuarioDao.Create(user2);
+
+
+            //CREAMOS LAS BATERIAS
+            Bateria b = new Bateria();
+            b.ubicacionId = u.ubicacionId;
+            b.usuarioId = user.usuarioId;
+            b.precioMedio = 111;
+            b.kwAlmacenados = 1000;
+            b.almacenajeMaximoKw = 1000;
+            b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b.marca = "MARCA 1";
+            b.modelo = "MODELO 1";
+            b.ratioCarga = 10;
+            b.ratioCompra = 10;
+            b.ratioUso = 10;
+            bateriaDao.Create(b);
+
+            Bateria b2 = new Bateria();
+            b2.ubicacionId = u.ubicacionId;
+            b2.usuarioId = user.usuarioId;
+            b2.precioMedio = 111;
+            b2.kwAlmacenados = 1000;
+            b2.almacenajeMaximoKw = 1000;
+            b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b2.marca = "MARCA 1";
+            b2.modelo = "MODELO 1";
+            b2.ratioCarga = 10;
+            b2.ratioCompra = 10;
+            b2.ratioUso = 10;
+            bateriaDao.Create(b2);
+
+            Bateria b3 = new Bateria();
+            b3.ubicacionId = u.ubicacionId;
+            b3.usuarioId = user2.usuarioId;
+            b3.precioMedio = 111;
+            b3.kwAlmacenados = 1000;
+            b3.almacenajeMaximoKw = 1000;
+            b3.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b3.marca = "MARCA 1";
+            b3.modelo = "MODELO 1";
+            b3.ratioCarga = 10;
+            b3.ratioCompra = 10;
+            b3.ratioUso = 10;
+            bateriaDao.Create(b3);
+
+            //CREAMOS LAS TARIFAS
+            Tarifa t = new Tarifa();
+            t.precio = 100;
+            t.hora = 1;
+            t.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            tarifaDao.Create(t);
+
+            Tarifa t2 = new Tarifa();
+            t2.precio = 200;
+            t2.hora = 2;
+            t2.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            tarifaDao.Create(t2);
+
+            Tarifa t3 = new Tarifa();
+            t3.precio = 300;
+            t3.hora = 3;
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            tarifaDao.Create(t3);
+
+            //CREAMOS CARGAS
+            Suministra c = new Suministra(); // bateria 1   usuario 1
+            c.kws = 1000;
+            c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c.tarifaId = t.tarifaId;
+            c.bateriaId = b.bateriaId;
+            c.ahorro = 10;
+            suministraDao.Create(c);
+
+            Suministra c2 = new Suministra(); // bateria 1  usuario 1
+            c2.kws = 2000;
+            c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
+            c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            c2.tarifaId = t2.tarifaId;
+            c2.bateriaId = b.bateriaId;
+            c2.ahorro = 100;
+            suministraDao.Create(c2);
+
+            Suministra c3 = new Suministra(); // bateria 2  usuario 1
+            c3.kws = 3000;
+            c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
+            c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c3.tarifaId = t2.tarifaId;
+            c3.bateriaId = b2.bateriaId;
+            c3.ahorro = 1000;
+            suministraDao.Create(c3);
+
+            Suministra c4 = new Suministra(); // bateria 3  usuario 2 No es el usuario de la busqueda
+            c4.kws = 3000;
+            c4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
+            c4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c4.tarifaId = t2.tarifaId;
+            c4.bateriaId = b3.bateriaId;
+            c4.ahorro = 1;
+            suministraDao.Create(c4);
+
+            Suministra c0 = new Suministra(); // bateria 1 fuera de tiempo
+            c0.kws = 3000;
+            c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
+            c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c0.tarifaId = t3.tarifaId;
+            c0.bateriaId = b.bateriaId;
+            c0.ahorro = 222;
+            suministraDao.Create(c0);
+
+
+            //COMPROBAMOS
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+
+            double ahorroResult = suministraDao.ahorroUsuarioPorFecha(user.usuarioId, fecha, fecha2);
+
+
+            Assert.AreEqual(ahorroResult, c.ahorro + c2.ahorro + c3.ahorro);
+
+
+        }
     }
 }
