@@ -39,7 +39,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return false;
 		}
 
-		public Tarifa BuscarMejorTarifa(DateTime fecha)
+		public long BuscarMejorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa mTarifa = null;
@@ -54,10 +54,10 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 						typeof(Tarifa).FullName);
 
 
-			return mTarifa;
+			return mTarifa.precio;
 		}
 
-		public Tarifa BuscarPeorTarifa(DateTime fecha)
+		public long BuscarPeorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
@@ -72,7 +72,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 						typeof(Tarifa).FullName);
 
 
-			return pTarifa;
+			return pTarifa.precio;
 		}
 		
 		public double CalcularMediaTarifa(DateTime fecha, DateTime fecha2) {
