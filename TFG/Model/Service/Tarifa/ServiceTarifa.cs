@@ -86,22 +86,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         }
 
         #endregion
-        /*
+        
         #region mostrar la peor tarifa del dia
         [Transactional]
-        public long BuscarpeorTarifa(DateTime fecha)
+        public List<TarifaDTO> OrdenarPeorPrecioTarifasDelDia(DateTime fecha)
         {
 
-            long t = tarifaDao.BuscarPeorTarifa(fecha);
+            List<Tarifa> tarifas = tarifaDao.OrdenarPeorPrecioTarifasDelDia(fecha);
 
-            TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            List<TarifaDTO> tarifaDTO = new List<TarifaDTO>();
 
-            return tarifasDTO;
+            foreach (Tarifa t in tarifas)
+            {
+                tarifaDTO.Add(new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            }
+
+            return tarifaDTO;
 
         }
 
         #endregion
-    */
+    
 
     }
 
