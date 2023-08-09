@@ -39,7 +39,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return false;
 		}
 
-		public long BuscarMejorTarifa(DateTime fecha)
+		public long PrecioMejorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa mTarifa = null;
@@ -57,7 +57,28 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return mTarifa.precio;
 		}
 
-		public long BuscarPeorTarifa(DateTime fecha)
+		#region Ver las tarifas del dia ordenadas por mejor precio
+		public List<Tarifa> OrdenarMejorPrecioTarifasDelDia(DateTime fecha)
+		{
+			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
+			Tarifa mTarifa = null;
+
+			var result =
+				(from t in tarifa
+				 where (t.fecha == fecha)
+				 select t).OrderBy(t => t.precio).ToList();
+			mTarifa = result.FirstOrDefault();
+			if (mTarifa == null)
+				throw new InstanceNotFoundException(mTarifa,
+						typeof(Tarifa).FullName);
+
+
+			return result;
+
+		}
+		#endregion
+
+		public long PrecioPeorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
@@ -74,7 +95,28 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 
 			return pTarifa.precio;
 		}
-		
+
+		#region Ver las tarifas del dia ordenadas por peor precio
+		public List<Tarifa> OrdenarPeorPrecioTarifasDelDia(DateTime fecha)
+		{
+			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
+			Tarifa mTarifa = null;
+
+			var result =
+				(from t in tarifa
+				 where (t.fecha == fecha)
+				 select t).OrderByDescending(t => t.precio).ToList();
+			mTarifa = result.FirstOrDefault();
+			if (mTarifa == null)
+				throw new InstanceNotFoundException(mTarifa,
+						typeof(Tarifa).FullName);
+
+
+			return result;
+
+		}
+		#endregion
+
 		public double CalcularMediaTarifa(DateTime fecha, DateTime fecha2) {
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
@@ -95,7 +137,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 
 
 		#endregion ITarifaDao Members. Specific Operations
-
+		
 		#region Ver las tarizas del dia
 		public List<Tarifa> verTarifasDelDia(DateTime fecha)
 		{
@@ -116,6 +158,6 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 		
 		}
 		#endregion
-
+	
 	}
 }
