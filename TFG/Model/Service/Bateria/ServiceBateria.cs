@@ -225,6 +225,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
+
+        #region ahorro de una bateria
+        [Transactional]
+
+        public double ahorroBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2)
+        {
+                
+            return SuministroDao.ahorroBareriaPorFecha(bateriaId, fecha, fecha2);
+
+        }
+
+        #endregion
+
     }
 
 }

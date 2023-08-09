@@ -55,6 +55,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         List<SuministroDTO> MostrarSuministraBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
 
-
+        [Transactional]
+        double ahorroBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2);
     }
 }
