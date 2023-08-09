@@ -23,6 +23,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             return result;
         }
 
+        #region suministros en un perriodo de tiempo
         public List<Suministra> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
             DbSet<Suministra> suministros = Context.Set<Suministra>();
@@ -34,5 +35,23 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
 
             return result;
         }
+        #endregion
+
+        #region ahorro entre fechas
+        public double ahorroBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2)
+        {
+            DbSet<Suministra> suministros = Context.Set<Suministra>();
+            double MontoInical = 0;
+
+            var result =
+                (from s in suministros
+                 where ((s.Tarifa.fecha >= fecha) && (s.Tarifa.fecha <= fecha2) && (s.bateriaId == bateriaId))
+                 select s).ToList();
+
+            double Montofinal = MontoInical + result.Sum(x => x.ahorro);
+
+            return Montofinal;
+        }
+        #endregion
     }
 }
