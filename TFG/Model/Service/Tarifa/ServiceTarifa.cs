@@ -47,27 +47,47 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
+        #region mostrar mejor precio del dia
+        [Transactional]
+        public long BuscarMejorTarifa(DateTime fecha)
+        {
+            return tarifaDao.BuscarMejorTarifa(fecha);
+        }
+
+        #endregion
+        /*
         #region mostrar la mejor tarifa del dia
         [Transactional]
-        public TarifaDTO BuscarMejorTarifa(DateTime fecha)
-        {
+        public long BuscarMejorTarifa(DateTime fecha)
+        { 
           
-            Tarifa t = tarifaDao.BuscarMejorTarifa(fecha);
+            long t = tarifaDao.BuscarMejorTarifa(fecha);
 
             TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
                 
-            return tarifasDTO;            
+            return tarifaDao.BuscarMejorTarifa(fecha);
+
+        }
+
+        #endregion */
+
+        #region mostrar el peor precio del dia
+        [Transactional]
+        public long BuscarpeorTarifa(DateTime fecha)
+        {
+
+            return tarifaDao.BuscarPeorTarifa(fecha);
 
         }
 
         #endregion
-
+        /*
         #region mostrar la peor tarifa del dia
         [Transactional]
-        public TarifaDTO BuscarpeorTarifa(DateTime fecha)
+        public long BuscarpeorTarifa(DateTime fecha)
         {
 
-            Tarifa t = tarifaDao.BuscarPeorTarifa(fecha);
+            long t = tarifaDao.BuscarPeorTarifa(fecha);
 
             TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
 
@@ -76,7 +96,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         }
 
         #endregion
-
+    */
 
     }
 
