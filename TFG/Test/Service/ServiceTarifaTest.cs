@@ -286,5 +286,54 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+        [TestMethod()]
+        public void OrdenarPeorPrecioTarifasDelDiaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+
+                crearTarifa(1, 0, fecha);// mejor tarifa
+                crearTarifa(100, 1, fecha);
+                crearTarifa(200, 2, fecha);
+                crearTarifa(300, 3, fecha);
+                crearTarifa(400, 4, fecha);
+                crearTarifa(500, 5, fecha);
+                crearTarifa(600, 6, fecha);
+                crearTarifa(700, 7, fecha);
+                crearTarifa(800, 8, fecha);
+                crearTarifa(900, 9, fecha);
+                crearTarifa(1000, 10, fecha);
+                crearTarifa(1100, 11, fecha);
+                crearTarifa(1200, 12, fecha);
+                crearTarifa(1300, 13, fecha);
+                crearTarifa(1400, 14, fecha);
+                crearTarifa(1500, 15, fecha);
+                crearTarifa(1600, 16, fecha);
+                crearTarifa(1700, 17, fecha);
+                crearTarifa(1800, 18, fecha);
+                crearTarifa(1900, 19, fecha);
+                crearTarifa(2000, 20, fecha);
+                crearTarifa(2100, 21, fecha);
+                crearTarifa(2200, 22, fecha);
+                crearTarifa(2300, 23, fecha);// Peor tarifa
+                crearTarifa(4000, 0, fecha2);// esta fuera de fecha
+
+                List<TarifaDTO> ta = servicio.OrdenarPeorPrecioTarifasDelDia(fecha);
+
+                Assert.AreEqual(ta[0].precio, 2300);
+                Assert.AreEqual(ta[0].hora, 23);
+                Assert.AreEqual(ta[1].hora, 22);
+                Assert.AreEqual(ta[2].hora, 21);
+                Assert.AreEqual(ta[3].hora, 20);
+                Assert.AreEqual(ta[4].hora, 19);
+                Assert.AreEqual(ta[5].hora, 18);
+                Assert.AreEqual(ta[6].hora, 17);
+
+            }
+        }
     }
 }
