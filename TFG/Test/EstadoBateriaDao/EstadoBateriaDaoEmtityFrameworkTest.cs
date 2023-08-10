@@ -15,7 +15,7 @@ using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 
-namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
+namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
 {
     [TestClass()]
     public class EstadoBateriaEntityFrameworkTests
@@ -80,7 +80,7 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
 
 
         [TestMethod()]
-        public void updateInformacionTest()
+        public void MostrarEstadoBateriaPorFechaTest()
         {
 
             //CREAMOS LOS ESTADOS
@@ -181,7 +181,9 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             DateTime pasado = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
 
             //COMPROBAMOS
-            List<SeEncuentra> estados = estadoBateriaDao.MostrarEstadoBareriaPorFecha(mañana, pasado);
+            int startIndex = 0;
+            int count = 3;
+            List<SeEncuentra> estados = estadoBateriaDao.MostrarEstadoBateriaPorFecha(b.bateriaId, mañana, pasado, startIndex, count);
           
             Assert.AreEqual(estados[0].estadoId, estadoBateria2.estadoId);
             Assert.AreEqual(estados[1].estadoId, estadoBateria3.estadoId);
