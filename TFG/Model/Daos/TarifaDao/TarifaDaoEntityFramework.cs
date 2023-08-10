@@ -158,6 +158,26 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 		
 		}
 		#endregion
-	
+
+		#region Tarifa actual
+		public Tarifa TarifaActual(DateTime fecha, int hora)
+		{
+			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
+			Tarifa pTarifa = null;
+
+			var result =
+				(from t in tarifa
+				 where ((t.fecha == fecha) && (t.hora == hora))
+
+				 select t).OrderByDescending(t => t.precio);
+			pTarifa = result.FirstOrDefault();
+			if (pTarifa == null)
+				throw new InstanceNotFoundException(pTarifa,
+						typeof(Tarifa).FullName);
+
+
+			return pTarifa;
+		}
+		#endregion
 	}
 }
