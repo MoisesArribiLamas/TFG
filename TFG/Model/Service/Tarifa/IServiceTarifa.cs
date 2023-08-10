@@ -20,8 +20,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tarifas
         long BuscarpeorTarifa(DateTime fecha);
         [Transactional]
         List<TarifaDTO> OrdenarMejorPrecioTarifasDelDia(DateTime fecha);
+        [Transactional]
         List<TarifaDTO> OrdenarPeorPrecioTarifasDelDia(DateTime fecha);
-
+        [Transactional]
+        TarifaDTO TarifaActual(DateTime fecha, int hora);
 
     }
 }
