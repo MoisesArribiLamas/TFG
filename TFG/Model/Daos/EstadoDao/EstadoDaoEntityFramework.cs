@@ -28,26 +28,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
 
         }
         #endregion Estados
- /*       #region Mostrar los estados entre dos fechas
-        public double MostrarEstadosEntreFechas(DateTime fecha, DateTime fecha2)
-        {
-            DbSet<Estado> tarifa = Context.Set<Estado>();
-            Tarifa pTarifa = null;
-
-            var result =
-                (from t in tarifa
-                 where ((t.fecha >= fecha) && (t.fecha <= fecha2))
-                 select t);
-
-            pTarifa = result.FirstOrDefault();
-            if (pTarifa == null)
-                throw new InstanceNotFoundException(pTarifa,
-                        typeof(Tarifa).FullName);
-
-
-            return result.AsQueryable().Average(media => media.precio);
-        }
-        #endregion  */
+ 
     }
 
 
