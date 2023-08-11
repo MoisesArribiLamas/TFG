@@ -43,6 +43,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         }
 
+        #region Buscar EstadoBateria por ID
+        [Transactional]
+        public SeEncuentraDTO BuscarEstadoBateriaById(long estadobateriaId)
+        {
+            SeEncuentra bateriaEstado = estadoBateriaDao.Find(estadobateriaId);
+            return new SeEncuentraDTO(bateriaEstado.seEncuentraId, bateriaEstado.horaIni, bateriaEstado.horaFin, bateriaEstado.fecha, bateriaEstado.bateriaId, bateriaEstado.estadoId);
+        }
+        #endregion Buscar por ID
+
         #region mostrar todos los estados posibles
         [Transactional]
         public List<EstadoDTO> verTodosLosEstados()
