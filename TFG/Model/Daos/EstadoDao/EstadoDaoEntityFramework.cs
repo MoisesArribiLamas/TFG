@@ -21,7 +21,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
             var result =
                      (from c in estados
 
-                      select c).ToList();
+                      select c).OrderBy(c => c.estadoId).ToList();
 
 
             return result;

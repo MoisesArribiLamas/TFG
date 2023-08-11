@@ -191,6 +191,42 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             transactionScope.Dispose();
         }
 
+        [TestMethod()]
+        public void verTodosLosEstadosTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
+
+             
+
+
+                var estadoResult = servicioEstado.verTodosLosEstados();
+
+                //buscamos el estado creado
+
+
+                Assert.AreEqual(estadoResult[0].nombre, "sin actividad");
+                Assert.AreEqual(estadoResult[1].nombre, "cargando");
+                Assert.AreEqual(estadoResult[2].nombre, "suministrando");
+                Assert.AreEqual(estadoResult[3].nombre, "carga y suministra");
+                Assert.AreEqual(estadoResult.Count(), 4);
+
+
+
+            }
+        }
 
 
         [TestMethod()]
