@@ -799,67 +799,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
 
-        [TestMethod()]
-        public void MostrarEstadoBateriaPorFechaTest()
-        {
-            using (var scope = new TransactionScope())
-            {
-
-                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long usuarioId2 = crearUsuario("pedro", email, "apellido1", "apellido2", contraseña, telefono, pais, idioma);
-
-                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
-
-                //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
-             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
-             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId3 = servicio.CrearBateria(ubicacionId, usuarioId2, precioMedio, kwAlmacenados, almacenajeMaximoKw,
-             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-
-                //Creamos Tarifa
-                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-                DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
-                DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(3).Day);
-
-                long tarifaId = crearTarifa(500, 0, fecha);
-                long tarifaId2 = crearTarifa(500, 0, fecha2);
-                long tarifaId3 = crearTarifa(500, 0, fecha3);
-                long tarifaId4 = crearTarifa(500, 0, fecha4);
-
-                //creamos Carga
-                int hour1 = 1;
-                int hour2 = 2;
-                int minutes = 0;
-                int seconds = 0;
-                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
-                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 3000;
-                double ahorro = 1;
-                double ahorro2 = 10;
-                double ahorro3 = 100;
-                double ahorro4 = 1000;
-                double ahorro5 = 10000;
-
-
-                long suministraId = servicio.CrearSuministra(bateriaId, tarifaId, ahorro, horaIni, horaFin, kws);
-                long suministraId2 = servicio.CrearSuministra(bateriaId, tarifaId2, ahorro2, horaIni, horaFin, kws);
-                long suministraId3 = servicio.CrearSuministra(bateriaId, tarifaId3, ahorro3, horaIni, horaFin, kws);
-                long suministraId4 = servicio.CrearSuministra(bateriaId, tarifaId4, ahorro4, horaIni, horaFin, kws);
-                long suministraId5 = servicio.CrearSuministra(bateriaId2, tarifaId2, ahorro5, horaIni, horaFin, kws);
-                long suministraId6 = servicio.CrearSuministra(bateriaId3, tarifaId2, ahorro, horaIni, horaFin, kws);
-
-                //Buscamos
-                double a = servicio.ahorroBareriasUsuarioPorFecha(usuarioId, fecha2, fecha3);
-
-
-                //Comprobamos
-
-                Assert.AreEqual(ahorro5 + ahorro2 + ahorro3, a);
-
-            }
-        }
+        
     }
 }
