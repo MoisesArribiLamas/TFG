@@ -73,7 +73,7 @@ CREATE TABLE Ubicacion (
 	codigoPostal BIGINT NOT NULL,
 	localidad VARCHAR(30) NOT NULL,
 	calle VARCHAR(40) NOT NULL,
-	portal VARCHAR(30),
+	portal VARCHAR(30) NULL,
 	numero BIGINT NOT NULL,
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
@@ -127,6 +127,7 @@ CREATE TABLE Bateria (
 	ratioCarga FLOAT NOT NULL,
 	ratioCompra FLOAT NOT NULL,
 	ratioUso FLOAT NOT NULL,
+	estadoActual VARCHAR(40) ,
 
 	CONSTRAINT [PK_BATERIA] PRIMARY KEY (bateriaId),
 

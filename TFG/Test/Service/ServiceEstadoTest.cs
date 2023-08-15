@@ -307,6 +307,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 var estadoBateria = servicioEstado.BuscarEstadoBateriaById(estadoResult);
 
+                estadoBateriaDao.PonerHorafinEstadoBateria(estadoBateria.seEncuentraId, new TimeSpan(hour2, minutes, seconds));
 
                 Assert.AreEqual(estadoId, estadoBateria.estadoId);
                 Assert.AreEqual(horaIni, estadoBateria.horaIni);

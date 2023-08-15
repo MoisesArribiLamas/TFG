@@ -22,5 +22,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao
 
             return result;
         }
+
+        public bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora)
+        {
+            SeEncuentra eb = Find(estadobateriaID);
+            if (eb != null)
+            {
+                if (hora != null)
+                {
+                    eb.horaFin = hora;
+                }
+                
+                Update(eb);
+
+                return true;
+            }
+            return false;
+        }
     }
 }
