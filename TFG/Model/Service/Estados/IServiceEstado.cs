@@ -19,5 +19,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         List<EstadoDTO> verTodosLosEstados();
         [Transactional]
         List<SeEncuentraDTO> MostrarEstadoBateriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
+        [Transactional]
+        bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora);
     }   
 }

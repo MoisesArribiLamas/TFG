@@ -103,8 +103,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         }
 
         #endregion
-        
 
+
+        #region Poner hora fin estado bateria
+        [Transactional]
+        public bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora)
+        {
+            return estadoBateriaDao.PonerHorafinEstadoBateria(estadobateriaID, hora);
+        }
+
+        #endregion
     }
 
 }
