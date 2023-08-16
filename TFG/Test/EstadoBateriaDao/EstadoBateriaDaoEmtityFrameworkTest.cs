@@ -189,7 +189,92 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             Assert.AreEqual(estados[1].estadoId, estadoBateria3.estadoId);
      
         }
-        
-        
+
+        [TestMethod()]
+        public void PonerHorafinEstadoBateriaTest()
+        {
+
+            //CREAMOS LOS ESTADOS
+            Estado cargando = new Estado();
+            cargando.nombre = "Cargando";
+            estadoDao.Create(cargando);
+
+            Estado suministrando = new Estado();
+            suministrando.nombre = "Suministrando";
+            estadoDao.Create(suministrando);
+
+            Estado sYC = new Estado();
+            sYC.nombre = "Suministra y Carga";
+            estadoDao.Create(sYC);
+
+            // CREAMOS UBICACIONES
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15405;
+            u.localidad = "Ferrol";
+            u.calle = "calle de Ferrol";
+            u.portal = "B";
+            u.numero = 1;
+            ubicacionDao.Create(u);
+
+
+            //CREAMOS USUARIO
+            Usuario user = new Usuario();
+            user.nombre = "Dani";
+            user.email = "micorreo@gmail.com";
+            user.apellido1 = "Díaz";
+            user.apellido2 = "González";
+            user.contraseña = "unacontraseña";
+            user.telefono = "981123456";
+            user.pais = "España";
+            user.idioma = "es-ES";
+            usuarioDao.Create(user);
+
+
+            //CREAMOS LA BATERIA
+            Bateria b = new Bateria();
+            b.ubicacionId = u.ubicacionId;
+            b.usuarioId = user.usuarioId;
+            b.precioMedio = 111;
+            b.kwAlmacenados = 1000;
+            b.almacenajeMaximoKw = 1000;
+            b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b.marca = "MARCA 1";
+            b.modelo = "MODELO 1";
+            b.ratioCarga = 10;
+            b.ratioCompra = 10;
+            b.ratioUso = 10;
+            bateriaDao.Create(b);
+
+            //CREAMOS  ESTADOBATERIA
+            SeEncuentra estadoBateria = new SeEncuentra();
+
+            estadoBateria.bateriaId = b.bateriaId;
+            estadoBateria.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            estadoBateria.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            estadoBateria.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            estadoBateria.estadoId = cargando.estadoId;
+            estadoBateria.bateriaId = b.bateriaId;
+            estadoBateriaDao.Create(estadoBateria);
+
+
+
+            TimeSpan horaFin2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
+
+            TimeSpan horaFin3 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+
+            //COMPROBAMOS
+
+            bool cambiado2 = estadoBateriaDao.PonerHorafinEstadoBateria( estadoBateria.seEncuentraId, horaFin2);
+            Assert.AreEqual(true, cambiado2);
+            SeEncuentra estadobateria2 = estadoBateriaDao.Find(estadoBateria.seEncuentraId);
+            Assert.AreEqual(horaFin2, estadobateria2.horaFin);
+
+
+            bool cambiado3 = estadoBateriaDao.PonerHorafinEstadoBateria(estadoBateria.seEncuentraId, horaFin3);
+            Assert.AreEqual(true, cambiado3);
+            SeEncuentra estadobateria3 = estadoBateriaDao.Find(estadoBateria.seEncuentraId);
+            Assert.AreEqual(horaFin3, estadobateria3.horaFin);
+
+        }
     }
 }
