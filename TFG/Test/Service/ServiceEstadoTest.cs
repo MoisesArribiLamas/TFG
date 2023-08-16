@@ -388,6 +388,101 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
-        
+
+        [TestMethod()]
+        public void PonerHorafinEstadoBateriaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos baterias
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Creamos los estados
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
+
+                int hour1 = 1;
+                int hour2 = 2;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+                DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
+                //creamos estadosBateria
+
+
+
+                long estadoBateriaId = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                hour1++;
+                hour2++;
+                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                hour1++;
+                hour2++;
+                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                hour1++;
+                hour2++;
+                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                hour1++;
+                hour2++;
+                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                hour1++;
+                hour2++;
+                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha3, bateriaId, estadoId);
+
+
+                //buscamos el estado creado
+                
+                int hour3 = 3;
+                int minutes10 = 10;
+                int seconds10 = 10;
+                
+                TimeSpan horaFin2 = new TimeSpan(hour3, minutes10, seconds10);
+                var estadoBateria = servicioEstado.PonerHorafinEstadoBateria(estadoBateriaId, horaFin2);
+                var estadoBateria2 = servicioEstado.PonerHorafinEstadoBateria(estadoBateriaId2, horaFin2);
+                var estadoBateria3 = servicioEstado.PonerHorafinEstadoBateria(estadoBateriaId3, horaFin2);
+                var estadoBateria4 = servicioEstado.PonerHorafinEstadoBateria(estadoBateriaId4, horaFin2);
+                var estadoBateria5 = servicioEstado.PonerHorafinEstadoBateria(estadoBateriaId5, horaFin2);
+                var estadoBateria6 = servicioEstado.PonerHorafinEstadoBateria(estadoBateriaId6, horaFin2);
+
+                Assert.AreEqual(estadoBateria, true);
+                Assert.AreEqual(estadoBateria2, true);
+                Assert.AreEqual(estadoBateria3, true);
+                Assert.AreEqual(estadoBateria4, true);
+                Assert.AreEqual(estadoBateria5, true);
+                Assert.AreEqual(estadoBateria6, true);
+
+                // comprobamos que se ha modificado horafinal
+                SeEncuentraDTO estadobateria1 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId);
+                Assert.AreEqual(horaFin2, estadobateria1.horaFin);
+
+                SeEncuentraDTO estadobateria2 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId2);
+                Assert.AreEqual(horaFin2, estadobateria2.horaFin);
+
+                SeEncuentraDTO estadobateria3 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId3);
+                Assert.AreEqual(horaFin2, estadobateria1.horaFin);
+
+                SeEncuentraDTO estadobateria4 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId4);
+                Assert.AreEqual(horaFin2, estadobateria1.horaFin);
+
+                SeEncuentraDTO estadobateria5 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId5);
+                Assert.AreEqual(horaFin2, estadobateria1.horaFin);
+
+                SeEncuentraDTO estadobateria6 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId6);
+                Assert.AreEqual(horaFin2, estadobateria1.horaFin);
+
+
+            }
+        }
     }
 }
