@@ -248,7 +248,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long estadoId4 = crearEstado("c y suministrando");
 
                 int hour1 = 1;
-                int hour2 = 2;
+                int hour2 = 0;
                 int minutes = 0;
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
@@ -256,7 +256,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
 
-                var estadoResult = servicioEstado.CrearEstadoBateria( horaIni,  horaFin,  fecha,  bateriaId, estadoId);
+                var estadoResult = servicioEstado.CrearEstadoBateria( horaIni,  fecha,  bateriaId, estadoId);
 
                 //buscamos el estado creado
 
@@ -293,7 +293,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long estadoId4 = crearEstado("carga y suministra");
 
                 int hour1 = 1;
-                int hour2 = 2;
+                int hour2 = 0;
                 int minutes = 0;
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
@@ -301,7 +301,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
 
-                var estadoResult = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                var estadoResult = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
 
                 //buscamos el estado creado
 
@@ -353,22 +353,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
 
-                long estadoBateriaId = servicioEstado.CrearEstadoBateria( horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria( horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria( horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria( horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria( horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria( horaIni, horaFin, fecha3, bateriaId, estadoId);
+                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria( horaIni, fecha3, bateriaId, estadoId);
 
 
                 //buscamos el estado creado
@@ -423,22 +423,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
 
-                long estadoBateriaId = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha, bateriaId, estadoId);
+                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
                 hour1++;
                 hour2++;
-                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria(horaIni, horaFin, fecha3, bateriaId, estadoId);
+                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria(horaIni, fecha3, bateriaId, estadoId);
 
 
                 //buscamos el estado creado
@@ -480,6 +480,50 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 SeEncuentraDTO estadobateria6 = servicioEstado.BuscarEstadoBateriaById(estadoBateriaId6);
                 Assert.AreEqual(horaFin2, estadobateria1.horaFin);
+
+
+            }
+        }
+
+        public void BuscarEstadoBateriaPorNombreTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
+
+                int hour1 = 1;
+                int hour2 = 0;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+
+                var estadoResult = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId);
+
+                //buscamos el estado creado
+
+                var estadoid = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                var estadoid2 = servicioEstado.BuscarEstadoPorNombre("cargando");
+                var estadoid3 = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                var estadoid4 = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+
+                Assert.AreEqual("sin actividad", estadoDao.Find(estadoid).nombre);
+                Assert.AreEqual("cargando", estadoDao.Find(estadoid2).nombre);
+                Assert.AreEqual("suministrando", estadoDao.Find(estadoid3).nombre);
+                Assert.AreEqual("carga y suministra", estadoDao.Find(estadoid4).nombre);
 
 
             }
