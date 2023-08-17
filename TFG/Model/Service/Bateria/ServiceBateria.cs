@@ -49,6 +49,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 b.ratioUso = ratioUso;
                 
             bateriaDao.Create(b);
+
+            // creamos el estado de la bateria inicial => "sin actividad" y en la fecha que se crea
+            TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            //long estadoBateriaId = CrearEstadoBateria(horaIni, fecha, b.bateriaId, long estadoId);
             return b.bateriaId;
 
             

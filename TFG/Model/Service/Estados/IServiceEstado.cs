@@ -12,7 +12,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
     public interface IServiceEstado
     {
         [Transactional]
-        long CrearEstadoBateria(TimeSpan horaIni, TimeSpan horaFin, DateTime fecha, long bateriaId, long estadoId);
+        long CrearEstadoBateria(TimeSpan horaIni, DateTime fecha, long bateriaId, long estadoId);
         [Transactional]
         SeEncuentraDTO BuscarEstadoBateriaById(long estadobateriaId);
         [Transactional]
@@ -21,5 +21,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         List<SeEncuentraDTO> MostrarEstadoBateriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
         [Transactional]
         bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora);
+        [Transactional]
+        long BuscarEstadoPorNombre(string nombre);
     }   
 }

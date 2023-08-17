@@ -60,5 +60,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         double ahorroBareriasUsuarioPorFecha(long usuarioId, DateTime fecha, DateTime fecha2);
+       
     }
 }
