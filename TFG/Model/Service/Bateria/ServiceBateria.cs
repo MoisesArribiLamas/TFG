@@ -28,6 +28,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Inject]
         public ISuministraDao SuministroDao { private get; set; }
 
+
         [Inject]
         public IServiceEstado ServicioEstado { private get; set; }
 
@@ -124,6 +125,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion
+        //string ObtenerEstadoActualBateria(long bateriaId);
+        #region Buscar Bateria por ID
+        [Transactional]
+        public string ObtenerEstadoActualBateria(long bateriaId)
+        {
+            //obtener Bateria
+            Bateria bateria = BuscarBateriaById(bateriaId);
+
+            //obtener EstadoBateria
+            SeEncuentraDTO estadoBateriaDTO = ServicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+
+            //obtener Estado
+
+            return "bateriaDao.Find(bateriaId);";
+
+        }
+        #endregion Buscar por ID
+
 
         #region Buscar Bateria por ID
         [Transactional]

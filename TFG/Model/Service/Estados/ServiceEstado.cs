@@ -132,6 +132,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         }
         #endregion Buscar por nombre
+
+        
+        #region Buscar Estado por nombre
+        [Transactional]
+        public string BuscarEstadoPorId(long estadoId)
+        {
+            Estado estado = estadoDao.Find(estadoId);
+
+            return estado.nombre;
+
+        }
+        #endregion Buscar por nombre
     }
 
 }

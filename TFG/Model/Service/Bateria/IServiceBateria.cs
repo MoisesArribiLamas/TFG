@@ -21,6 +21,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #region CambiarEstadoBateria
         [Transactional]
         void CambiarEstadoBateria(long bateriaId, long estadoId);
+
+        [Transactional]
+        string ObtenerEstadoActualBateria(long bateriaId);
         #endregion
         [Transactional]
         void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,

@@ -23,5 +23,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora);
         [Transactional]
         long BuscarEstadoPorNombre(string nombre);
+        [Transactional]
+        string BuscarEstadoPorId(long estadoId);
     }   
 }
