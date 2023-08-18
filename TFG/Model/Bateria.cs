@@ -34,6 +34,7 @@ namespace Es.Udc.DotNet.TFG.Model
         public double ratioCarga { get; set; }
         public double ratioCompra { get; set; }
         public double ratioUso { get; set; }
+        public long estadoBateria { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carga> Cargas { get; set; }

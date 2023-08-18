@@ -21,6 +21,7 @@
           <Property Name="ratioCarga" Type="float" Nullable="false" />
           <Property Name="ratioCompra" Type="float" Nullable="false" />
           <Property Name="ratioUso" Type="float" Nullable="false" />
+          <Property Name="estadoBateria" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Carga">
           <Key>
@@ -272,6 +273,7 @@
           <Property Name="ratioCarga" Type="Double" Nullable="false" />
           <Property Name="ratioCompra" Type="Double" Nullable="false" />
           <Property Name="ratioUso" Type="Double" Nullable="false" />
+          <Property Name="estadoBateria" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Cargas" Relationship="Self.FK_BATERIA_CARGA" FromRole="Bateria" ToRole="Carga" />
           <NavigationProperty Name="SeEncuentras" Relationship="Self.FK_BATERIA_SEENCUENTRA" FromRole="Bateria" ToRole="SeEncuentra" />
           <NavigationProperty Name="Suministras" Relationship="Self.FK_BATERIA_SUMINISTRA" FromRole="Bateria" ToRole="Suministra" />
@@ -539,6 +541,7 @@
                 <ScalarProperty Name="ratioCarga" ColumnName="ratioCarga" />
                 <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
                 <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />
+                <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
