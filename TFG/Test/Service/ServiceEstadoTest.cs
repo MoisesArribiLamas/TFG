@@ -528,5 +528,33 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+        public void BuscarEstadoPorIdTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
+
+                
+
+                //buscamos el estado creado
+                
+                var estadoid = servicioEstado.BuscarEstadoPorId(estadoId);
+                var estadoid2 = servicioEstado.BuscarEstadoPorId(estadoId2);
+                var estadoid3 = servicioEstado.BuscarEstadoPorId(estadoId3);
+                var estadoid4 = servicioEstado.BuscarEstadoPorId(estadoId4);
+
+                Assert.AreEqual("sin actividad", estadoid);
+                Assert.AreEqual("cargando", estadoid2);
+                Assert.AreEqual("suministrando", estadoid3);
+                Assert.AreEqual("carga y suministra", estadoid4);
+
+
+            }
+        }
     }
 }
