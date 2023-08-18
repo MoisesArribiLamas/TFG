@@ -34,7 +34,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region cambiar estado bateria
         [Transactional]
-        private void CambiarEstadoBateria(long bateriaId, long estadoId)
+        public void CambiarEstadoBateria(long bateriaId, long estadoId)
         {
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);

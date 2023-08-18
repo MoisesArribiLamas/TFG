@@ -18,7 +18,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
         #endregion
-
+        #region CambiarEstadoBateria
+        [Transactional]
+        void CambiarEstadoBateria(long bateriaId, long estadoId);
+        #endregion
         [Transactional]
         void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
