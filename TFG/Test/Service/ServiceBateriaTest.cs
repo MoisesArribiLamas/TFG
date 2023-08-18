@@ -19,6 +19,7 @@ using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -36,6 +37,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private static ITarifaDao tarifaDao;
         private static ICargaDao cargaDao;
         private static ISuministraDao suministraDao;
+        private static IEstadoDao estadoDao;
 
 
 
@@ -119,6 +121,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             return t.tarifaId;
         }
 
+        // ESTADOS
+
+        public void crearEstados()
+        {
+            Estado estado = new Estado();
+            estado.nombre = "sin actividad";
+            estadoDao.Create(estado);
+
+            Estado estado2 = new Estado();
+            estado2.nombre = "cargando";
+            estadoDao.Create(estado2);
+
+            Estado estado3 = new Estado();
+            estado3.nombre = "suministrando";
+            estadoDao.Create(estado3);
+
+            Estado estado4 = new Estado();
+            estado4.nombre = "carga y suministra";
+            estadoDao.Create(estado4);
+
+        }
+
         private TransactionScope transactionScope;
 
         public TestContext TestContext
@@ -146,8 +170,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             cargaDao = kernel.Get<ICargaDao>();
             suministraDao = kernel.Get<ISuministraDao>();
             tarifaDao = kernel.Get<ITarifaDao>();
+            estadoDao = kernel.Get<IEstadoDao>();
 
-    }
+        }
 
         [ClassCleanup()]
         public static void MyClassCleanup()
@@ -175,7 +200,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion( codigoPostal, localidad, calle, portal, numero);
 
@@ -207,7 +232,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -260,7 +285,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -294,7 +319,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -333,7 +358,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long usuarioId2 = crearUsuario("nombre2", "email2", apellido1, apellido2, "contraseña2", telefono, pais, idioma);
 
@@ -381,7 +406,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -427,7 +452,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -471,7 +496,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -530,7 +555,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -578,7 +603,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -622,7 +647,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -680,7 +705,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
@@ -740,7 +765,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long usuarioId2 = crearUsuario("pedro", email, "apellido1", "apellido2", contraseña, telefono, pais, idioma);
 

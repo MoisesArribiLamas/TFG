@@ -187,7 +187,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
           
             Assert.AreEqual(estados[0].estadoId, estadoBateria2.estadoId);
             Assert.AreEqual(estados[1].estadoId, estadoBateria3.estadoId);
-     
+            Assert.AreEqual(2, estados.Count());
         }
 
         [TestMethod()]

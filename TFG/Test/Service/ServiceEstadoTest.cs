@@ -196,19 +196,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                Crearestados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-
-
-                long estadoId = crearEstado("sin actividad");
-                long estadoId2 = crearEstado("cargando");
-                long estadoId3 = crearEstado("suministrando");
-                long estadoId4 = crearEstado("carga y suministra");
-
              
 
 
@@ -234,18 +227,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
+                //creamos los estados
+                long estadoId = crearEstado( "sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("c y suministrando");
 
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion( codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria( ubicacionId,  usuarioId,  precioMedio,  kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion,  marca,  modelo,  ratioCarga,  ratioCompra,  ratioUso);
-
-
-                long estadoId = crearEstado( "sin actividad");
-                long estadoId2 = crearEstado("cargando");
-                long estadoId3 = crearEstado("suministrando");
-                long estadoId4 = crearEstado("c y suministrando");
+               
 
                 int hour1 = 1;
                 int hour2 = 0;
@@ -280,17 +273,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
+
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-
-                long estadoId = crearEstado("sin actividad");
-                long estadoId2 = crearEstado("cargando");
-                long estadoId3 = crearEstado("suministrando");
-                long estadoId4 = crearEstado("carga y suministra");
 
                 int hour1 = 1;
                 int hour2 = 0;
@@ -325,20 +318,25 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
-                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
-
-                //Creamos baterias
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
-             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
-             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-
                 //Creamos los estados
                 long estadoId = crearEstado("sin actividad");
                 long estadoId2 = crearEstado("cargando");
                 long estadoId3 = crearEstado("suministrando");
                 long estadoId4 = crearEstado("carga y suministra");
+
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos baterias
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+
+
 
                 int hour1 = 1;
                 int hour2 = 2;
@@ -349,32 +347,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
                 DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
+                DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(3).Day);
+
                 //creamos estadosBateria
 
 
 
-                long estadoBateriaId = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
-                hour1++;
-                hour2++;
-                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
-                hour1++;
-                hour2++;
-                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
-                hour1++;
-                hour2++;
-                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
-                hour1++;
-                hour2++;
-                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria( horaIni, fecha, bateriaId, estadoId);
-                hour1++;
-                hour2++;
-                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria( horaIni, fecha3, bateriaId, estadoId);
+                long estadoBateriaId = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
+                
+                long estadoBateriaId2 = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
+                
+                long estadoBateriaId3 = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
+                
+                long estadoBateriaId4 = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
+                
+                long estadoBateriaId5 = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
+                
+                long estadoBateriaId6 = servicioEstado.CrearEstadoBateria( horaIni, fecha4, bateriaId, estadoId);
 
 
                 //buscamos el estado creado
                 int startIndex = 0;
                 int count = 10;
-                var estadoBateria = servicioEstado.MostrarEstadoBateriaPorFecha(bateriaId, fecha, fecha2, startIndex, count);
+                var estadoBateria = servicioEstado.MostrarEstadoBateriaPorFecha(bateriaId, fecha2, fecha3, startIndex, count);
 
 
                 Assert.AreEqual(estadoBateriaId, estadoBateria[0].seEncuentraId);
@@ -394,6 +389,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
+                //Creamos los estados
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
 
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
@@ -404,11 +404,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-                //Creamos los estados
-                long estadoId = crearEstado("sin actividad");
-                long estadoId2 = crearEstado("cargando");
-                long estadoId3 = crearEstado("suministrando");
-                long estadoId4 = crearEstado("carga y suministra");
 
                 int hour1 = 1;
                 int hour2 = 2;
@@ -490,17 +485,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
+                long estadoId = crearEstado("sin actividad");
+                long estadoId2 = crearEstado("cargando");
+                long estadoId3 = crearEstado("suministrando");
+                long estadoId4 = crearEstado("carga y suministra");
+
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
              fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-
-                long estadoId = crearEstado("sin actividad");
-                long estadoId2 = crearEstado("cargando");
-                long estadoId3 = crearEstado("suministrando");
-                long estadoId4 = crearEstado("carga y suministra");
 
                 int hour1 = 1;
                 int hour2 = 0;
