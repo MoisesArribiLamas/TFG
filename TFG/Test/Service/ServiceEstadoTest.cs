@@ -252,10 +252,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 var estadoResult = servicioEstado.CrearEstadoBateria( horaIni,  fecha,  bateriaId, estadoId);
 
                 //buscamos el estado creado
-
                 var estadoBateria = estadoBateriaDao.Find(estadoResult);
 
+                //buscamos bateria
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
 
+                //comprobamos el atributo de estado en la bateria
+                Assert.AreEqual(bateria.estadoBateria, estadoId);
+
+                //comprobaciones
                 Assert.AreEqual(estadoId, estadoBateria.estadoId);
                 Assert.AreEqual(horaIni, estadoBateria.horaIni);
                 Assert.AreEqual(horaFin, estadoBateria.horaFin);
