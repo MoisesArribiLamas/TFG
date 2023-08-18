@@ -9,6 +9,7 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -27,6 +28,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Inject]
         public ISuministraDao SuministroDao { private get; set; }
 
+        [Inject]
+        public IServiceEstado ServicioEstado { private get; set; }
+
+
+        #region cambiar estado bateria
+        [Transactional]
+        private void CambiarEstadoBateria(long bateriaId, long estadoId)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            //modificamos
+            b.estadoBateria = estadoId;
+            
+
+            bateriaDao.Update(b);
+
+
+        }
+
+        #endregion crear baterias
 
         #region crear baterias
         [Transactional]
@@ -54,7 +76,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-            //long estadoBateriaId = CrearEstadoBateria(horaIni, fecha, b.bateriaId, long estadoId);
+            //creamos el estadoBateria inicial
+            long estadoBateriaId = ServicioEstado.CrearEstadoBateria(horaIni, fecha, b.bateriaId, ServicioEstado.BuscarEstadoPorNombre("sin actividad"));
+
+            CambiarEstadoBateria(b.bateriaId, estadoBateriaId);
+
             return b.bateriaId;
 
             
