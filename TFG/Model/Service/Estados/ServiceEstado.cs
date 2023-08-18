@@ -9,6 +9,7 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Ninject;
 
@@ -21,7 +22,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         public IEstadoDao estadoDao { private get; set; }
         [Inject]
         public IEstadoBateriaDao estadoBateriaDao { private get; set; }
-
+        [Inject]
+        public IServiceBateria servicioBateria { private get; set; }
 
 
         [Transactional]
@@ -41,6 +43,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
             b.bateriaId = bateriaId;
             b.estadoId = estadoId;
 
+            //cambiamos el atributo estado de la bateria
+            servicioBateria.CambiarEstadoBateria(bateriaId, estadoId);
 
             estadoBateriaDao.Create(b);
             return b.seEncuentraId;
