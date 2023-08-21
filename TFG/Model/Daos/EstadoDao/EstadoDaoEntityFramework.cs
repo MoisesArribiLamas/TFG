@@ -28,7 +28,25 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
 
         }
         #endregion Estados
- 
+
+
+        #region buscar estado por nombre
+        public long FindEstadoByName(string nombre)
+        {
+            DbSet<Estado> estados = Context.Set<Estado>();
+
+
+            var result =
+                     (from e in estados
+                      where e.nombre == nombre
+                      select e).FirstOrDefault();
+
+
+            return result.estadoId;
+
+        }
+        #endregion Estados
+
     }
 
 

@@ -13,6 +13,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao
     {
         List<SeEncuentra> MostrarEstadoBateriaPorFecha(long bateriaID, DateTime fecha, DateTime fecha2, int startIndex, int count);
         bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9331010
     }
 }

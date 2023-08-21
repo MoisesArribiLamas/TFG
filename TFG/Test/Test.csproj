@@ -88,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BateriaDao\BateriaDaoEmtityFrameworkTest.cs" />
+    <Compile Include="Service\ServiceBateriaTest.cs" />
+    <Compile Include="Service\ServiceEstadoTest.cs" />
+    <Compile Include="Service\ServiceTarifaTest.cs" />
     <Compile Include="Service\ServiceUbicacionTest.cs" />
     <Compile Include="Service\ServiceUsuarioTest.cs" />
     <Compile Include="SuministraDao\SuministraDaoEmtityFrameworkTest.cs" />

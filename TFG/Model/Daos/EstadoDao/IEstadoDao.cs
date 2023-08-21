@@ -11,7 +11,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
     {
         List<Estado> FindAllEstados();
 
-        //double MostrarEstadosEntreFechas(DateTime fecha, DateTime fecha2);
+        long FindEstadoByName(string nombre);
 
 
     }

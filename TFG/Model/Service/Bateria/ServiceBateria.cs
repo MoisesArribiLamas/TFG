@@ -9,6 +9,7 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -28,6 +29,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         public ISuministraDao SuministroDao { private get; set; }
 
 
+        [Inject]
+        public IServiceEstado ServicioEstado { private get; set; }
+
+
+        #region cambiar estado bateria
+        [Transactional]
+        public void CambiarEstadoBateria(long bateriaId, long estadoId)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            //modificamos
+            b.estadoBateria = estadoId;
+
+
+            bateriaDao.Update(b);
+
+
+        }
+
+        #endregion crear baterias
+
         #region crear baterias
         [Transactional]
         public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
@@ -36,25 +59,38 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
 
             Bateria b = new Bateria();
-                b.ubicacionId = ubicacionId;
-                b.usuarioId = usuarioId;
-                b.precioMedio = precioMedio;
-                b.kwAlmacenados = kwAlmacenados;
-                b.almacenajeMaximoKw = almacenajeMaximoKw;
-                b.fechaDeAdquisicion = fechaDeAdquisicion;
-                b.marca = marca;
-                b.modelo = modelo;
-                b.ratioCarga = ratioCarga;
-                b.ratioCompra = ratioCompra;
-                b.ratioUso = ratioUso;
-                
+            b.ubicacionId = ubicacionId;
+            b.usuarioId = usuarioId;
+            b.precioMedio = precioMedio;
+            b.kwAlmacenados = kwAlmacenados;
+            b.almacenajeMaximoKw = almacenajeMaximoKw;
+            b.fechaDeAdquisicion = fechaDeAdquisicion;
+            b.marca = marca;
+            b.modelo = modelo;
+            b.ratioCarga = ratioCarga;
+            b.ratioCompra = ratioCompra;
+            b.ratioUso = ratioUso;
+            b.estadoBateria = 0;
+
             bateriaDao.Create(b);
+
+            // creamos el estado de la bateria inicial => "sin actividad" y en la fecha que se crea
+            //TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            //DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            ////creamos el estadoBateria inicial
+            //long estadoBateriaId = ServicioEstado.CrearEstadoBateria(horaIni, fecha, b.bateriaId, ServicioEstado.BuscarEstadoPorNombre("sin actividad"));
+
+            //CambiarEstadoBateria(b.bateriaId, estadoBateriaId);
+
             return b.bateriaId;
 
-            
+
         }
 
-            #endregion crear baterias
+        #endregion crear baterias
+
+
         #region Modificacar Bateria
         [Transactional]
         public void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
@@ -92,6 +128,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion
+
+        #region Obtener el Estado Actual de la Bateria
+        [Transactional]
+        public string ObtenerEstadoActualBateria(long bateriaId)
+        {
+            //obtener Bateria
+            Bateria bateria = BuscarBateriaById(bateriaId);
+
+            //obtener EstadoBateria
+            SeEncuentraDTO estadoBateriaDTO = ServicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+
+            //obtener Estado
+
+            return "bater";
+
+        }
+        #endregion Buscar por ID
+
 
         #region Buscar Bateria por ID
         [Transactional]

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Ninject;
 
@@ -20,14 +22,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         [Inject]
         public IEstadoDao estadoDao { private get; set; }
         [Inject]
+        public IBateriaDao bateriaDao { private get; set; }       
+        [Inject]
         public IEstadoBateriaDao estadoBateriaDao { private get; set; }
-
+        //[Inject]
+        //public IServiceBateria servicioBateria { private get; set; }
 
 
         [Transactional]
-        public long CrearEstadoBateria( TimeSpan horaIni, TimeSpan horaFin, DateTime fecha, long bateriaId, long estadoId)
+        public long CrearEstadoBateria(TimeSpan horaIni, DateTime fecha, long bateriaId, long estadoId)
         {
+            // Se podria hacer poniendo el campo nullable pero me decante por esta forma
+            int hour = 0;
+            int minutes = 0;
+            int seconds = 0;
 
+            TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
 
             SeEncuentra b = new SeEncuentra();
             b.horaIni = horaIni;
@@ -40,18 +50,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
             b.bateriaId = bateriaId;
             b.estadoId = estadoId;
 
+            //cambiamos el atributo estado de la bateria
+            
+                //buscamos la bateria
+                Bateria bateria = bateriaDao.Find(bateriaId);
 
+                //modificamos
+                bateria.estadoBateria = estadoId;
+
+                //actualizamos
+                bateriaDao.Update(bateria);
+
+            //creamos el EstadoBateria
             estadoBateriaDao.Create(b);
             return b.seEncuentraId;
-
 
         }
 
         #region Buscar EstadoBateria por ID
         [Transactional]
-        public SeEncuentraDTO BuscarEstadoBateriaById(long estadobateriaId)
+        public SeEncuentraDTO BuscarEstadoBateriaById(long? estadobateriaId)
         {
-            SeEncuentra bateriaEstado = estadoBateriaDao.Find(estadobateriaId);
+            SeEncuentra bateriaEstado = estadoBateriaDao.Find((long)estadobateriaId);
             return new SeEncuentraDTO(bateriaEstado.seEncuentraId, bateriaEstado.horaIni, bateriaEstado.horaFin, bateriaEstado.fecha, bateriaEstado.bateriaId, bateriaEstado.estadoId);
         }
         #endregion Buscar por ID
@@ -81,7 +101,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        //        List<SeEncuentra> MostrarEstadoBareriaPorFecha(DateTime fecha, DateTime fecha2);
+        
         #region cargas de una bateria
         [Transactional]
         public List<SeEncuentraDTO> MostrarEstadoBateriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
@@ -107,8 +127,38 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         }
 
         #endregion
-        
 
+
+        #region Poner hora fin estado bateria
+        [Transactional]
+        public bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora)
+        {
+            return estadoBateriaDao.PonerHorafinEstadoBateria(estadobateriaID, hora);
+        }
+
+        #endregion
+
+        #region Buscar Estado por nombre
+        [Transactional]
+        public long BuscarEstadoPorNombre(string nombre)
+        {
+
+            return estadoDao.FindEstadoByName(nombre);
+
+        }
+        #endregion Buscar por nombre
+
+
+        #region Buscar Estado por nombre
+        [Transactional]
+        public string BuscarEstadoPorId(long estadoId)
+        {
+            Estado estado = estadoDao.Find(estadoId);
+
+            return estado.nombre;
+
+        }
+        #endregion Buscar por nombre
     }
 
 }

@@ -127,7 +127,11 @@ CREATE TABLE Bateria (
 	ratioCarga FLOAT NOT NULL,
 	ratioCompra FLOAT NOT NULL,
 	ratioUso FLOAT NOT NULL,
+<<<<<<< HEAD
 	estadoActual VARCHAR(40) ,
+=======
+	estadoBateria BIGINT NULL,
+>>>>>>> 9331010
 
 	CONSTRAINT [PK_BATERIA] PRIMARY KEY (bateriaId),
 
@@ -136,6 +140,7 @@ CREATE TABLE Bateria (
 
 	CONSTRAINT [FK_BATERIA_USUARIO] FOREIGN KEY (usuarioId)
 		REFERENCES Usuario (usuarioId) ON DELETE CASCADE,
+
 
 )
 

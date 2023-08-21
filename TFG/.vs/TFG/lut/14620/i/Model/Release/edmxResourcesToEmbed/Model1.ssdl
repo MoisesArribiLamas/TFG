@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="tfgModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bateria">
+    <Key>
+      <PropertyRef Name="bateriaId" />
+    </Key>
+    <Property Name="bateriaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ubicacionId" Type="bigint" Nullable="false" />
+    <Property Name="usuarioId" Type="bigint" Nullable="false" />
+    <Property Name="precioMedio" Type="float" Nullable="false" />
+    <Property Name="kwAlmacenados" Type="float" Nullable="false" />
+    <Property Name="almacenajeMaximoKw" Type="float" Nullable="false" />
+    <Property Name="fechaDeAdquisicion" Type="datetime" Nullable="false" />
+    <Property Name="marca" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="modelo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="ratioCarga" Type="float" Nullable="false" />
+    <Property Name="ratioCompra" Type="float" Nullable="false" />
+    <Property Name="ratioUso" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Carga">
+    <Key>
+      <PropertyRef Name="cargaId" />
+    </Key>
+    <Property Name="cargaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bateriaId" Type="bigint" Nullable="false" />
+    <Property Name="tarifaId" Type="bigint" Nullable="false" />
+    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+    <Property Name="kws" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="estadoId" />
+    </Key>
+    <Property Name="estadoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeEncuentra">
+    <Key>
+      <PropertyRef Name="seEncuentraId" />
+    </Key>
+    <Property Name="seEncuentraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="bateriaId" Type="bigint" Nullable="false" />
+    <Property Name="estadoId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suministra">
+    <Key>
+      <PropertyRef Name="suministraId" />
+    </Key>
+    <Property Name="suministraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bateriaId" Type="bigint" Nullable="false" />
+    <Property Name="tarifaId" Type="bigint" Nullable="false" />
+    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+    <Property Name="kws" Type="float" Nullable="false" />
+    <Property Name="ahorro" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tarifa">
+    <Key>
+      <PropertyRef Name="tarifaId" />
+    </Key>
+    <Property Name="tarifaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="precio" Type="bigint" Nullable="false" />
+    <Property Name="hora" Type="bigint" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ubicacion">
+    <Key>
+      <PropertyRef Name="ubicacionId" />
+    </Key>
+    <Property Name="ubicacionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigoPostal" Type="bigint" Nullable="false" />
+    <Property Name="localidad" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="portal" Type="bigint" Nullable="false" />
+    <Property Name="numero" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="usuarioId" />
+    </Key>
+    <Property Name="usuarioId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellido2" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="contraseña" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="idioma" Type="varchar" MaxLength="30" />
+    <Property Name="pais" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="FK_BATERIA_CARGA">
+    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bateria">
+        <PropertyRef Name="bateriaId" />
+      </Principal>
+      <Dependent Role="Carga">
+        <PropertyRef Name="bateriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BATERIA_SEENCUENTRA">
+    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SeEncuentra" Type="Self.SeEncuentra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bateria">
+        <PropertyRef Name="bateriaId" />
+      </Principal>
+      <Dependent Role="SeEncuentra">
+        <PropertyRef Name="bateriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BATERIA_SUMINISTRA">
+    <End Role="Bateria" Type="Self.Bateria" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Suministra" Type="Self.Suministra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bateria">
+        <PropertyRef Name="bateriaId" />
+      </Principal>
+      <Dependent Role="Suministra">
+        <PropertyRef Name="bateriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BATERIA_UBICACION">
+    <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bateria" Type="Self.Bateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ubicacion">
+        <PropertyRef Name="ubicacionId" />
+      </Principal>
+      <Dependent Role="Bateria">
+        <PropertyRef Name="ubicacionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BATERIA_USUARIO">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bateria" Type="Self.Bateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="usuarioId" />
+      </Principal>
+      <Dependent Role="Bateria">
+        <PropertyRef Name="usuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTADO_SEENCUENTRA">
+    <End Role="Estado" Type="Self.Estado" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SeEncuentra" Type="Self.SeEncuentra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="estadoId" />
+      </Principal>
+      <Dependent Role="SeEncuentra">
+        <PropertyRef Name="estadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TARIFA_CARGA">
+    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarifa">
+        <PropertyRef Name="tarifaId" />
+      </Principal>
+      <Dependent Role="Carga">
+        <PropertyRef Name="tarifaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TARIFA_SUMINISTRA">
+    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Suministra" Type="Self.Suministra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarifa">
+        <PropertyRef Name="tarifaId" />
+      </Principal>
+      <Dependent Role="Suministra">
+        <PropertyRef Name="tarifaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="tfgModelStoreContainer">
+    <EntitySet Name="Bateria" EntityType="Self.Bateria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Carga" EntityType="Self.Carga" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeEncuentra" EntityType="Self.SeEncuentra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suministra" EntityType="Self.Suministra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tarifa" EntityType="Self.Tarifa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BATERIA_CARGA" Association="Self.FK_BATERIA_CARGA">
+      <End Role="Bateria" EntitySet="Bateria" />
+      <End Role="Carga" EntitySet="Carga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BATERIA_SEENCUENTRA" Association="Self.FK_BATERIA_SEENCUENTRA">
+      <End Role="Bateria" EntitySet="Bateria" />
+      <End Role="SeEncuentra" EntitySet="SeEncuentra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BATERIA_SUMINISTRA" Association="Self.FK_BATERIA_SUMINISTRA">
+      <End Role="Bateria" EntitySet="Bateria" />
+      <End Role="Suministra" EntitySet="Suministra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BATERIA_UBICACION" Association="Self.FK_BATERIA_UBICACION">
+      <End Role="Ubicacion" EntitySet="Ubicacion" />
+      <End Role="Bateria" EntitySet="Bateria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BATERIA_USUARIO" Association="Self.FK_BATERIA_USUARIO">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Bateria" EntitySet="Bateria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTADO_SEENCUENTRA" Association="Self.FK_ESTADO_SEENCUENTRA">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="SeEncuentra" EntitySet="SeEncuentra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TARIFA_CARGA" Association="Self.FK_TARIFA_CARGA">
+      <End Role="Tarifa" EntitySet="Tarifa" />
+      <End Role="Carga" EntitySet="Carga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TARIFA_SUMINISTRA" Association="Self.FK_TARIFA_SUMINISTRA">
+      <End Role="Tarifa" EntitySet="Tarifa" />
+      <End Role="Suministra" EntitySet="Suministra" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
