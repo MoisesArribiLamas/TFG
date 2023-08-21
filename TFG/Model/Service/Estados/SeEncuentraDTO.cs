@@ -8,7 +8,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class SeEncuentraDTO
     {
-        public SeEncuentraDTO(long seEncuentraId, TimeSpan horaIni, TimeSpan horaFin, DateTime fecha, long bateriaId, long estadoId)
+        public SeEncuentraDTO(long seEncuentraId, TimeSpan horaIni, TimeSpan horaFin, DateTime fecha, long bateriaId, Nullable<long> estadoId)
         {
             this.seEncuentraId = seEncuentraId;
             this.horaIni = horaIni;
@@ -25,8 +25,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         public TimeSpan horaFin { get; set; }
         public DateTime fecha { get; set; }
         public long bateriaId { get; set; }
-        public long estadoId { get; set; }
-
+        public Nullable<long> estadoId { get; set; }
+        
 
         public override bool Equals(object obj)
         {

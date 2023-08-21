@@ -14,7 +14,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         [Transactional]
         long CrearEstadoBateria(TimeSpan horaIni, DateTime fecha, long bateriaId, long estadoId);
         [Transactional]
-        SeEncuentraDTO BuscarEstadoBateriaById(long estadobateriaId);
+        SeEncuentraDTO BuscarEstadoBateriaById(long? estadobateriaId);
         [Transactional]
         List<EstadoDTO> verTodosLosEstados();
         [Transactional]

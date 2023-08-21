@@ -13,21 +13,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
     {
 
 
-        #region crear bateria
+
         [Transactional]
         long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
-        #endregion
-        #region CambiarEstadoBateria
+
+
         [Transactional]
         void CambiarEstadoBateria(long bateriaId, long estadoId);
 
+
         [Transactional]
         string ObtenerEstadoActualBateria(long bateriaId);
-        #endregion
+
         [Transactional]
         void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
+                DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
 
 
         [Transactional]
@@ -66,6 +67,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         double ahorroBareriasUsuarioPorFecha(long usuarioId, DateTime fecha, DateTime fecha2);
-       
+
     }
 }
