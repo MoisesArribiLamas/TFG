@@ -374,14 +374,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         long estadoBateriaId6 = servicioEstado.CrearEstadoBateria( horaIni, fecha4, bateriaId, estadoId);
 
 
-<<<<<<< HEAD
-                estadoBateriaDao.PonerHorafinEstadoBateria(estadoBateria.seEncuentraId, new TimeSpan(hour2, minutes, seconds));
-=======
                         //buscamos el estado creado
                         int startIndex = 0;
                         int count = 10;
                         var estadoBateria = servicioEstado.MostrarEstadoBateriaPorFecha(bateriaId, fecha2, fecha3, startIndex, count);
->>>>>>> 9331010
 
 
                         Assert.AreEqual(estadoBateriaId, estadoBateria[0].seEncuentraId);

@@ -32,11 +32,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao
                 {
                     eb.horaFin = hora;
                 }
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> 9331010
                 Update(eb);
 
                 return true;

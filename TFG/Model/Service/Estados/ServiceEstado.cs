@@ -41,10 +41,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
             SeEncuentra b = new SeEncuentra();
             b.horaIni = horaIni;
-            int hour1 = 1;
-            int hour2 = 2;
-            int minutes = 0;
-            int seconds = 0;
             b.horaFin = horaFin;
             b.fecha = fecha;
             b.bateriaId = bateriaId;

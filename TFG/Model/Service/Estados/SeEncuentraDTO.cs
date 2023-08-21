@@ -8,11 +8,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class SeEncuentraDTO
     {
-<<<<<<< HEAD
-      /*  public SeEncuentraDTO(long seEncuentraId, TimeSpan horaIni, TimeSpan horaFin, DateTime fecha, long bateriaId, long estadoId)
-=======
         public SeEncuentraDTO(long seEncuentraId, TimeSpan horaIni, TimeSpan horaFin, DateTime fecha, long bateriaId, Nullable<long> estadoId)
->>>>>>> 9331010
         {
             this.seEncuentraId = seEncuentraId;
             this.horaIni = horaIni;
@@ -21,17 +17,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             this.bateriaId = bateriaId;
             this.estadoId = estadoId;
 
-        }*/
-
-        public SeEncuentraDTO(long seEncuentraId, TimeSpan horaIni, TimeSpan horaFin1, DateTime fecha, long bateriaId, long estadoId)
-        {
-            this.seEncuentraId = seEncuentraId;
-            this.horaIni = horaIni;
-            this.fecha = fecha;
-            this.bateriaId = bateriaId;
-            this.estadoId = estadoId;
         }
 
+        
         public long seEncuentraId { get; set; }
         public TimeSpan horaIni { get; set; }
         public TimeSpan horaFin { get; set; }
