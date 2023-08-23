@@ -10,7 +10,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
 {
     public class CargaDaoEntitFramework : GenericDaoEntityFramework<Carga, Int64>, ICargaDao
     {
-        
+        #region informacion de carga
         public Carga getInfoCarga(long cargaId)
         {
             DbSet<Carga> Cargas = Context.Set<Carga>();
@@ -22,9 +22,10 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
 
             return result;
         }
+        #endregion
 
+        #region mostrar cargas de una bateria por fechas
 
-        
         public List<Carga> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
             DbSet<Carga> cargas = Context.Set<Carga>();
@@ -36,5 +37,24 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
 
             return result;
         }
+        #endregion
+
+        #region finalizar carga
+        public bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kws)
+        {
+            Carga c = Find(cargaID);
+            if (c != null)
+            {
+                
+                c.horaFin = horaFin;
+                c.kws = kws;
+
+                Update(c);
+
+                return true;
+            }
+            return false;
+        }
+        #endregion
     }
 }
