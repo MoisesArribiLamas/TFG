@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
 
         [Transactional]
-        void CambiarEstadoBateria(long bateriaId, long estadoId);
+        void CambiarEstadoEnBateria(long bateriaId, long estadoId);
 
 
         [Transactional]

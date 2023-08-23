@@ -10,6 +10,7 @@ using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
+using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -32,6 +33,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Inject]
         public IServiceEstado ServicioEstado { private get; set; }
 
+        [Inject]
+        public IServiceTarifa TarifaEstado { private get; set; }
+
 
         #region iniciar estado en bateria
         [Transactional]
@@ -51,60 +55,64 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
         #region cambiar estado bateria
         [Transactional]
-        public void CambiarEstadoBateria(long bateriaId, long estadoId)
+        public void CambiarEstadoEnBateria(long bateriaId, long estadoId)
         {
             //Fecha y hora actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            int horaTarifa = horaActual.Hours;
 
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
             //recuperamos el estado anterior
-            string estadoAnterior = ServicioEstado.BuscarEstadoPorId((long)b.estadoBateria);
+            SeEncuentraDTO estadoAnterior = ServicioEstado.BuscarEstadoBateriaById(b.estadoBateria);
 
-            //nombre del estado posterior
-            string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
+            ////nombre del estado posterior
+            //string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
 
-            //modificamos el estado actual
-            b.estadoBateria = estadoId;
+            ////modificamos el estado actual
+            //b.estadoBateria = estadoId;
 
-            if ("sin actividad" == estadoAnterior)
-            {
-                if ("cargando" == estadoPosterior)
-                {
-                    //Creamos la carga nueva
-                }
+            //if ("sin actividad" == estadoAnterior)
+            //{
+            //    if ("cargando" == estadoPosterior)
+            //    {
+            //        //Buscar la tarifa actual
+            //        TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+            //        //Creamos la carga nueva
+            //        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+            //    }
 
-                if ("suministrando" == estadoPosterior)
-                {
-                    // Creamos el nuevo suministrando
-                }
+            //    if ("suministrando" == estadoPosterior)
+            //    {
+            //        // Creamos el nuevo suministrando
+            //    }
 
-                if ("carga y suministra" == estadoPosterior)
-                {
-                    //Creamos la carga y cuministrando nuevo
-                }
+            //    if ("carga y suministra" == estadoPosterior)
+            //    {
+            //        //Creamos la carga y cuministrando nuevo
+            //    }
 
-            }
-            if ("cargando" == estadoAnterior)
-            {
+            //}
+            //if ("cargando" == estadoAnterior)
+            //{
 
-            }
-            if ("suministrando" == estadoAnterior)
-            {
-            }
-            if ("carga y suministra" == estadoAnterior)
-            {
-            }
+            //}
+            //if ("suministrando" == estadoAnterior)
+            //{
+            //}
+            //if ("carga y suministra" == estadoAnterior)
+            //{
+            //}
 
-            //cerrar estadoBateria anterior
-            ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
+            ////cerrar estadoBateria anterior
+            //ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
 
-            //creamos nuevo estadoBateria
-            ServicioEstado.CrearEstadoBateria( horaActual, fechaActual, bateriaId, estadoId);
+            ////creamos nuevo estadoBateria
+            //ServicioEstado.CrearEstadoBateria( horaActual, fechaActual, bateriaId, estadoId);
 
-            bateriaDao.Update(b);
+            //bateriaDao.Update(b);
 
 
         }
