@@ -321,6 +321,49 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 }
 
                 [TestMethod()]
+                public void NombreEstadoEnEstadoBateriaByIdTest()
+                {
+                    using (var scope = new TransactionScope())
+                    {
+
+                        long estadoId = crearEstado("sin actividad");
+                        long estadoId2 = crearEstado("cargando");
+                        long estadoId3 = crearEstado("suministrando");
+                        long estadoId4 = crearEstado("carga y suministra");
+
+
+
+                        long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                        long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                        long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                     fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+
+                        int hour1 = 1;
+                        int hour2 = 0;
+                        int minutes = 0;
+                        int seconds = 0;
+                        TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                        TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                        DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+
+                        var estadoResult = servicioEstado.CrearEstadoBateria(horaIni, fecha, bateriaId, estadoId2);
+
+                        //buscamos el estado creado
+
+                        var nombreEstado = servicioEstado.NombreEstadoEnEstadoBateriaById(estadoResult);
+
+
+                        Assert.AreEqual("cargando", nombreEstado);
+
+
+
+                    }
+                }
+
+                [TestMethod()]
                 public void MostrarEstadoBateriaPorFechaTest()
                 {
                     using (var scope = new TransactionScope())

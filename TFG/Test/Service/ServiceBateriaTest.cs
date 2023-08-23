@@ -20,6 +20,7 @@ using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -28,7 +29,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
     {
         private static IKernel kernel;
         private static IServiceBateria servicio;
-        private static IServiceTarifa servicioTarifa;
+        private static IServiceEstado servicioEstado;
+        //private static IServiceTarifa servicioTarifa;
 
 
         private static IBateriaDao bateriaDao;
@@ -164,6 +166,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             kernel = TestManager.ConfigureNInjectKernel();
             servicio = kernel.Get<IServiceBateria>();
+            servicioEstado = kernel.Get<IServiceEstado>();
             bateriaDao = kernel.Get<IBateriaDao>();
             usuarioDao = kernel.Get<IUsuarioDao>();
             ubicacionDao = kernel.Get<IUbicacionDao>();
@@ -624,10 +627,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         Assert.AreEqual(c5.horaFin, horaFin);
                         Assert.AreEqual(c5.kws, kws);
 
-
-
                     }
                 }
+
                 [TestMethod()]
                 public void CrearSuministraTest()
                 {
@@ -899,7 +901,44 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         Assert.AreEqual(ahorro5 + ahorro2 + ahorro3, a);
 
                     }
-                }     
+                }
 
+                [TestMethod()]
+                public void CambiarEstadoBateria_Sin_Actividad_A_CargandoTest()
+                {
+                    using (var scope = new TransactionScope())
+                    {
+                        crearEstados();
+                        long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                        long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                        //Creamos Bateria
+                        long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                     fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                        long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                     fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                        //comprobamos que es estado anterior es "sin actividad"
+                        long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                        Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                        SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById((long?) bateria.estadoBateria);
+                        Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
+                        
+                         
+                        
+                        //buscamos el estadoId de "cargando"
+                        long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+                string estadoAnterior = servicioEstado.BuscarEstadoPorId((long)estadoIdC);
+
+                //servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC);
+
+
+                //        //Buscamos y Comprobamos
+                //        Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
+                //        SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById((long?)bateriaCambiada.estadoBateria);
+                //        Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+                }
     }
 }
