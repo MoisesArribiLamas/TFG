@@ -310,8 +310,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         Assert.AreEqual(modelo, bateriaProfile.modelo);
                         Assert.AreEqual(ratioCarga, bateriaProfile.ratioCarga);
                         Assert.AreEqual(ratioCompra, bateriaProfile.ratioCompra);
-                        Assert.AreEqual(ratioUso, bateriaProfile.ratioUso);
-                        Assert.AreEqual(true, true);
+                        Assert.AreEqual(ratioUso, bateriaProfile.ratioUso);                   
 
                     }
                 }
@@ -425,14 +424,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                         //creamos Carga
                         int hour1 = 1;
-                        int hour2 = 2;
+                        int hour2 = 0;
                         int minutes = 0;
                         int seconds = 0;
                         TimeSpan horaIni =new TimeSpan(hour1,  minutes, seconds);
                         TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                        double kws = 3000;
+                        double kws = 0;
 
-                        long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
+                        long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
 
 
                         //Comprobamos
@@ -469,14 +468,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                         //creamos Carga
                         int hour1 = 1;
-                        int hour2 = 2;
+                        int hour2 = 0;
                         int minutes = 0;
                         int seconds = 0;
                         TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                         TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                        double kws = 3000;
+                        double kws = 0;
 
-                        long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
+                        long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
 
                         //Buscamos
                         var c = servicio.BuscarCargaById(cargaId);
@@ -522,18 +521,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                         //creamos Carga
                         int hour1 = 1;
-                        int hour2 = 2;
+                        int hour2 = 0;
                         int minutes = 0;
                         int seconds = 0;
                         TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                         TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                        double kws = 3000;
+                        double kws = 0;
 
-                        long cargaId = servicio.CrearCarga(bateriaId, tarifaId, horaIni, horaFin, kws);
-                        long cargaId2 = servicio.CrearCarga(bateriaId, tarifaId2, horaIni, horaFin, kws);
-                        long cargaId3 = servicio.CrearCarga(bateriaId, tarifaId3, horaIni, horaFin, kws);
-                        long cargaId4 = servicio.CrearCarga(bateriaId, tarifaId4, horaIni, horaFin, kws);
-                        long cargaId5 = servicio.CrearCarga(bateriaId2, tarifaId2, horaIni, horaFin, kws);
+                        long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
+                        long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni);
+                        long cargaId3 = servicio.IniciarCarga(bateriaId, tarifaId3, horaIni);
+                        long cargaId4 = servicio.IniciarCarga(bateriaId, tarifaId4, horaIni);
+                        long cargaId5 = servicio.IniciarCarga(bateriaId2, tarifaId2, horaIni);
 
                         //Buscamos
                         int startIndex = 0;
@@ -552,7 +551,83 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                     }
                 }
+                [TestMethod()]
+                public void FinalizarCargaTest()
+                {
+                    using (var scope = new TransactionScope())
+                    {
+                        crearEstados();
+                        long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                        long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
+                        //Creamos Bateria
+                        long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                     fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                        long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                     fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                        //Creamos Tarifa
+                        DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+                        DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
+                        DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(3).Day);
+
+                        long tarifaId = crearTarifa(500, 0, fecha);
+                        long tarifaId2 = crearTarifa(500, 0, fecha2);
+                        long tarifaId3 = crearTarifa(500, 0, fecha3);
+                        long tarifaId4 = crearTarifa(500, 0, fecha4);
+
+                        //creamos Carga
+                        int hour1 = 1;                       
+                        int minutes = 0;
+                        int seconds = 0;
+                        TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+
+                        long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
+                        long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni);
+                        long cargaId3 = servicio.IniciarCarga(bateriaId, tarifaId3, horaIni);
+                        long cargaId4 = servicio.IniciarCarga(bateriaId, tarifaId4, horaIni);
+                        long cargaId5 = servicio.IniciarCarga(bateriaId2, tarifaId2, horaIni);
+
+                        //Finalizamos las cargas
+                        int hour2 = 2;
+                        int minutes2 = 2;
+                        int seconds2 = 2;
+                        TimeSpan horaFin = new TimeSpan(hour2, minutes2, seconds2);
+                        double kws = 2222;
+
+                        servicio.FinalizarCarga(cargaId, horaFin, kws);
+                        servicio.FinalizarCarga(cargaId2, horaFin, kws);
+                        servicio.FinalizarCarga(cargaId3, horaFin, kws);
+                        servicio.FinalizarCarga(cargaId4, horaFin, kws);
+                        servicio.FinalizarCarga(cargaId5, horaFin, kws);
+
+
+                        //Buscamos y Comprobamos
+                        Carga c1 = servicio.BuscarCargaById( cargaId);
+                        Assert.AreEqual(c1.horaFin, horaFin);
+                        Assert.AreEqual(c1.kws, kws);
+
+                        Carga c2 = servicio.BuscarCargaById(cargaId2);
+                        Assert.AreEqual(c2.horaFin, horaFin);
+                        Assert.AreEqual(c2.kws, kws);
+
+                        Carga c3 = servicio.BuscarCargaById(cargaId3);
+                        Assert.AreEqual(c3.horaFin, horaFin);
+                        Assert.AreEqual(c3.kws, kws);
+
+                        Carga c4 = servicio.BuscarCargaById(cargaId4);
+                        Assert.AreEqual(c4.horaFin, horaFin);
+                        Assert.AreEqual(c4.kws, kws);
+
+                        Carga c5 = servicio.BuscarCargaById(cargaId5);
+                        Assert.AreEqual(c5.horaFin, horaFin);
+                        Assert.AreEqual(c5.kws, kws);
+
+
+
+                    }
+                }
                 [TestMethod()]
                 public void CrearSuministraTest()
                 {
