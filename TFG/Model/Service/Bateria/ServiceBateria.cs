@@ -33,23 +33,83 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         public IServiceEstado ServicioEstado { private get; set; }
 
 
+        #region iniciar estado en bateria
+        [Transactional]
+        public void IniciarEstadoEnBateria(long bateriaId, long estadoId)
+        {
+            
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            //modificamos el estado actual
+            b.estadoBateria = estadoId;
+
+            bateriaDao.Update(b);
+
+
+        }
+        #endregion
         #region cambiar estado bateria
         [Transactional]
         public void CambiarEstadoBateria(long bateriaId, long estadoId)
         {
+            //Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
-            //modificamos
+            //recuperamos el estado anterior
+            string estadoAnterior = ServicioEstado.BuscarEstadoPorId((long)b.estadoBateria);
+
+            //nombre del estado posterior
+            string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
+
+            //modificamos el estado actual
             b.estadoBateria = estadoId;
 
+            if ("sin actividad" == estadoAnterior)
+            {
+                if ("cargando" == estadoPosterior)
+                {
+                    //Creamos la carga nueva
+                }
+
+                if ("suministrando" == estadoPosterior)
+                {
+                    // Creamos el nuevo suministrando
+                }
+
+                if ("carga y suministra" == estadoPosterior)
+                {
+                    //Creamos la carga y cuministrando nuevo
+                }
+
+            }
+            if ("cargando" == estadoAnterior)
+            {
+
+            }
+            if ("suministrando" == estadoAnterior)
+            {
+            }
+            if ("carga y suministra" == estadoAnterior)
+            {
+            }
+
+            //cerrar estadoBateria anterior
+            ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
+
+            //creamos nuevo estadoBateria
+            ServicioEstado.CrearEstadoBateria( horaActual, fechaActual, bateriaId, estadoId);
 
             bateriaDao.Update(b);
 
 
         }
 
-        #endregion crear baterias
+        #endregion
 
         #region crear baterias
         [Transactional]
@@ -75,13 +135,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             bateriaDao.Create(b);
 
             // creamos el estado de la bateria inicial => "sin actividad" y en la fecha que se crea
-            //TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            //DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-            ////creamos el estadoBateria inicial
-            //long estadoBateriaId = ServicioEstado.CrearEstadoBateria(horaIni, fecha, b.bateriaId, ServicioEstado.BuscarEstadoPorNombre("sin actividad"));
+            //creamos el estadoBateria inicial
+            long estadoBateriaId = ServicioEstado.CrearEstadoBateria(horaIni, fecha, b.bateriaId, ServicioEstado.BuscarEstadoPorNombre("sin actividad"));
 
-            //CambiarEstadoBateria(b.bateriaId, estadoBateriaId);
+            IniciarEstadoEnBateria(b.bateriaId, estadoBateriaId);
 
             return b.bateriaId;
 
@@ -129,23 +189,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
-        #region Obtener el Estado Actual de la Bateria
-        [Transactional]
-        public string ObtenerEstadoActualBateria(long bateriaId)
-        {
-            //obtener Bateria
-            Bateria bateria = BuscarBateriaById(bateriaId);
-
-            //obtener EstadoBateria
-            SeEncuentraDTO estadoBateriaDTO = ServicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
-
-            //obtener Estado
-
-            return "bater";
-
-        }
-        #endregion Buscar por ID
-
 
         #region Buscar Bateria por ID
         [Transactional]
@@ -168,16 +211,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region crear Carga
         [Transactional]
-        public long CrearCarga(long bateriaId, long tarifaId,
-            TimeSpan horaIni, TimeSpan horaFin, double kws)
+        public long IniciarCarga(long bateriaId, long tarifaId,
+            TimeSpan horaIni)
         {
+            // Se podria hacer poniendo el campo nullable pero me decante por esta forma
+            int hour = 0;
+            int minutes = 0;
+            int seconds = 0;
+
+            TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
 
             Carga c = new Carga();
             c.bateriaId = bateriaId;
             c.tarifaId = tarifaId;
             c.horaIni = horaIni;
             c.horaFin = horaFin;
-            c.kws = kws;
+            c.kws = 0;
 
             CargaDao.Create(c);
             return c.cargaId;
@@ -185,7 +234,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         }
 
-        #endregion crear cargas
+        #endregion
+
+        #region Poner hora fin estado bateria
+        [Transactional]
+        public bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kws)
+        {
+            return CargaDao.FinalizarCarga(cargaID, horaFin, kws);
+        }
+
+        #endregion
 
         #region Buscar Carga por ID
         [Transactional]
@@ -279,7 +337,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
-
         #region ahorro de una bateria
         [Transactional]
 
@@ -291,7 +348,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion
-        //        double ahorroBareriasUsuarioPorFecha(long usuarioId, DateTime fecha, DateTime fecha2);
 
         #region ahorro de las baterias de un usuario
         [Transactional]

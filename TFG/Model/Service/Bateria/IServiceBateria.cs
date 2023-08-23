@@ -24,9 +24,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
 
         [Transactional]
-        string ObtenerEstadoActualBateria(long bateriaId);
-
-        [Transactional]
         void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
                 DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
 
@@ -43,8 +40,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
 
-        long CrearCarga(long bateriaId, long tarifaId,
-            TimeSpan horaIni, TimeSpan horaFin, double kws);
+        long IniciarCarga(long bateriaId, long tarifaId,
+            TimeSpan horaIni);
+
+        [Transactional]
+        bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kws);
 
         [Transactional]
         Carga BuscarCargaById(long cargaId);
