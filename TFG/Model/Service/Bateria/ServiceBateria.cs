@@ -81,6 +81,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
             if ("sin actividad" == estadoAnterior)
             {
+                
                 if ("cargando" == estadoPosterior)
                 {
                     //Buscar la tarifa actual
@@ -95,6 +96,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                     //Buscar la tarifa actual
                     TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
                     // Creamos el nuevo suministrando
+                    IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
 
                 }
 
@@ -107,6 +109,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                     IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
 
                     //Creamoscuministrando nuevo
+                    IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
                 }
 
             }
@@ -297,8 +300,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region crear Suministra
         [Transactional]
-        public long IniciarSuministra(long bateriaId, long tarifaId, double ahorro,
-            TimeSpan horaIni, double kws)
+        public long IniciarSuministra(long bateriaId, long tarifaId, TimeSpan horaIni)
         {
             // Se podria hacer poniendo el campo nullable pero me decante por esta forma
             int hour = 0;
@@ -310,7 +312,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             Suministra s = new Suministra();
             s.bateriaId = bateriaId;
             s.tarifaId = tarifaId;
-            s.ahorro = ahorro;
+            s.ahorro = 0;
             s.horaIni = horaIni;
             s.horaFin = horaFin;
             s.kws = 0;
@@ -323,9 +325,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Poner hora fin Suministra bateria
         [Transactional]
-        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws, double ahorro)
+        public bool FinalizarSuministra(long suministraID, TimeSpan horaFin, double kws, double ahorro)
         {
-            return SuministroDao.FinalizarSuministra(cargaID, horaFin, kws, ahorro);
+            return SuministroDao.FinalizarSuministra(suministraID, horaFin, kws, ahorro);
         }
 
         #endregion
