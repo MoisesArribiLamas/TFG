@@ -48,7 +48,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
             var result =
                 (from c in Cargas
                  where c.bateriaId == bateriaId
-                 select c).OrderByDescending(c => c.horaIni).FirstOrDefault();
+                 select c).OrderByDescending(c => c.Tarifa.fecha).ThenByDescending(c => c.horaIni).FirstOrDefault();
+            //
+            //select c).OrderByDescending(c => c.horaIni).FirstOrDefault();
 
             return result;
         }
