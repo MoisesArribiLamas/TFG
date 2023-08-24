@@ -172,7 +172,33 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             estadoDao.Create(estado4);
 
         }
+        //SUMINISTRA
 
+        #region crear Suministra
+
+        public long IniciarSuministra(long bateriaId, long tarifaId, double ahorro,
+            TimeSpan horaIni)
+        {
+            // Se podria hacer poniendo el campo nullable pero me decante por esta forma
+            int hour = 0;
+            int minutes = 0;
+            int seconds = 0;
+
+            TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+
+            Suministra s = new Suministra();
+            s.bateriaId = bateriaId;
+            s.tarifaId = tarifaId;
+            s.ahorro = ahorro;
+            s.horaIni = horaIni;
+            s.horaFin = horaFin;
+            s.kws = 0;
+
+            suministraDao.Create(s);
+            return s.suministraId;
+
+        }
+        #endregion
         private TransactionScope transactionScope;
 
         public TestContext TestContext
@@ -688,7 +714,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
                 double kws = 0;
 
-                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni, kws);
+                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, horaIni);
 
 
                 //Comprobamos
@@ -737,7 +763,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kws = 2000;
 
                 //inicializamos la carga
-                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni, kws);
+                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, horaIni);
 
                 //Finalizamos la carga
                 servicio.FinalizarSuministra(suministraId, horaFin, kws, ahorro);
@@ -785,7 +811,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
                 double kws = 0;
 
-                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni, kws);
+                long suministraId = IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni);
 
                 //Buscamos
                 var c = servicio.BuscarsuministraById(suministraId);
@@ -835,14 +861,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 3000;
-                double ahorro = 0;
 
-                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni, kws);
-                long suministraId2 = servicio.IniciarSuministra(bateriaId, tarifaId2, ahorro, horaIni, kws);
-                long suministraId3 = servicio.IniciarSuministra(bateriaId, tarifaId3, ahorro, horaIni, kws);
-                long suministraId4 = servicio.IniciarSuministra(bateriaId, tarifaId4, ahorro, horaIni, kws);
-                long suministraId5 = servicio.IniciarSuministra(bateriaId2, tarifaId2, ahorro, horaIni, kws);
+
+                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, horaIni);
+                long suministraId2 = servicio.IniciarSuministra(bateriaId, tarifaId2, horaIni);
+                long suministraId3 = servicio.IniciarSuministra(bateriaId, tarifaId3, horaIni);
+                long suministraId4 = servicio.IniciarSuministra(bateriaId, tarifaId4, horaIni);
+                long suministraId5 = servicio.IniciarSuministra(bateriaId2, tarifaId2, horaIni);
 
                 //Buscamos
                 int startIndex = 0;
@@ -901,11 +926,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ahorro5 = 10000;
 
 
-                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni, kws);
-                long suministraId2 = servicio.IniciarSuministra(bateriaId, tarifaId2, ahorro2, horaIni, kws);
-                long suministraId3 = servicio.IniciarSuministra(bateriaId, tarifaId3, ahorro3, horaIni, kws);
-                long suministraId4 = servicio.IniciarSuministra(bateriaId, tarifaId4, ahorro4, horaIni, kws);
-                long suministraId5 = servicio.IniciarSuministra(bateriaId2, tarifaId2, ahorro5, horaIni, kws);
+                long suministraId = IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni);
+                long suministraId2 = IniciarSuministra(bateriaId, tarifaId2, ahorro2, horaIni);
+                long suministraId3 = IniciarSuministra(bateriaId, tarifaId3, ahorro3, horaIni);
+                long suministraId4 = IniciarSuministra(bateriaId, tarifaId4, ahorro4, horaIni);
+                long suministraId5 = IniciarSuministra(bateriaId2, tarifaId2, ahorro5, horaIni);
 
                 //Buscamos
                 double a = servicio.ahorroBareriaPorFecha(bateriaId, fecha2, fecha3);
@@ -965,12 +990,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ahorro5 = 10000;
 
 
-                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni, kws);
-                long suministraId2 = servicio.IniciarSuministra(bateriaId, tarifaId2, ahorro2, horaIni, kws);
-                long suministraId3 = servicio.IniciarSuministra(bateriaId, tarifaId3, ahorro3, horaIni, kws);
-                long suministraId4 = servicio.IniciarSuministra(bateriaId, tarifaId4, ahorro4, horaIni, kws);
-                long suministraId5 = servicio.IniciarSuministra(bateriaId2, tarifaId2, ahorro5, horaIni, kws);
-                long suministraId6 = servicio.IniciarSuministra(bateriaId3, tarifaId2, ahorro, horaIni, kws);
+                long suministraId  = IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni);
+                long suministraId2 = IniciarSuministra(bateriaId, tarifaId2, ahorro2, horaIni);
+                long suministraId3 = IniciarSuministra(bateriaId, tarifaId3, ahorro3, horaIni);
+                long suministraId4 = IniciarSuministra(bateriaId, tarifaId4, ahorro4, horaIni);
+                long suministraId5 = IniciarSuministra(bateriaId2, tarifaId2, ahorro5, horaIni);
+                long suministraId6 = IniciarSuministra(bateriaId3, tarifaId2, ahorro, horaIni);
 
                 //Buscamos
                 double a = servicio.ahorroBareriasUsuarioPorFecha(usuarioId, fecha2, fecha3);
