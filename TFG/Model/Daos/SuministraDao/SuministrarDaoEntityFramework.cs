@@ -23,6 +23,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             return result;
         }
 
+        #region mostrar la ultima carga de una bateria
+
+        public Suministra UltimaSuministraBareria(long bateriaId)
+        {
+            DbSet<Suministra> Suministras = Context.Set<Suministra>();
+
+            var result =
+                (from c in Suministras
+                 where c.bateriaId == bateriaId
+                 select c).OrderByDescending(c => c.horaIni).FirstOrDefault();
+
+            return result;
+        }
+        #endregion
+
         #region suministros en un perriodo de tiempo
         public List<Suministra> MostrarSuministrosBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
