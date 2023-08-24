@@ -66,53 +66,61 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             Bateria b = bateriaDao.Find(bateriaId);
 
             //recuperamos el estado anterior
-            SeEncuentraDTO estadoAnterior = ServicioEstado.BuscarEstadoBateriaById(b.estadoBateria);
+            string estadoAnterior = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
 
-            ////nombre del estado posterior
-            //string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
+            //cerrar estadoBateria anterior
+            ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
 
-            ////modificamos el estado actual
-            //b.estadoBateria = estadoId;
+            //nombre del estado posterior
+            string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
 
-            //if ("sin actividad" == estadoAnterior)
-            //{
-            //    if ("cargando" == estadoPosterior)
-            //    {
-            //        //Buscar la tarifa actual
-            //        TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
-            //        //Creamos la carga nueva
-            //        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
-            //    }
+            //Creamos EstadoBateria y cambiamos el estado actual en la bateria
+            long estadoBateriaIdActual = ServicioEstado.CrearEstadoBateria(horaActual, fechaActual, bateriaId, estadoId);
+            
 
-            //    if ("suministrando" == estadoPosterior)
-            //    {
-            //        // Creamos el nuevo suministrando
-            //    }
+            if ("sin actividad" == estadoAnterior)
+            {
+                if ("cargando" == estadoPosterior)
+                {
+                    //Buscar la tarifa actual
+                    TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
 
-            //    if ("carga y suministra" == estadoPosterior)
-            //    {
-            //        //Creamos la carga y cuministrando nuevo
-            //    }
+                    //Creamos la carga nueva
+                    IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                }
 
-            //}
-            //if ("cargando" == estadoAnterior)
-            //{
+                if ("suministrando" == estadoPosterior)
+                {
+                    //Buscar la tarifa actual
+                    TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+                    // Creamos el nuevo suministrando
 
-            //}
-            //if ("suministrando" == estadoAnterior)
-            //{
-            //}
-            //if ("carga y suministra" == estadoAnterior)
-            //{
-            //}
+                }
 
-            ////cerrar estadoBateria anterior
-            //ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
+                if ("carga y suministra" == estadoPosterior)
+                {
+                    //Buscar la tarifa actual
+                    TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
 
-            ////creamos nuevo estadoBateria
-            //ServicioEstado.CrearEstadoBateria( horaActual, fechaActual, bateriaId, estadoId);
+                    //Creamos la carga nueva
+                    IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
 
-            //bateriaDao.Update(b);
+                    //Creamoscuministrando nuevo
+                }
+
+            }
+            if ("cargando" == estadoAnterior)
+            {
+
+            }
+            if ("suministrando" == estadoAnterior)
+            {
+            }
+            if ("carga y suministra" == estadoAnterior)
+            {
+            }
+
+            bateriaDao.Update(b);
 
 
         }
@@ -289,10 +297,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
+        #region crear Suministra
         [Transactional]
-        public long CrearSuministra(long bateriaId, long tarifaId, double ahorro,
-            TimeSpan horaIni, TimeSpan horaFin, double kws)
+        public long IniciarSuministra(long bateriaId, long tarifaId, double ahorro,
+            TimeSpan horaIni, double kws)
         {
+            // Se podria hacer poniendo el campo nullable pero me decante por esta forma
+            int hour = 0;
+            int minutes = 0;
+            int seconds = 0;
+
+            TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
 
             Suministra s = new Suministra();
             s.bateriaId = bateriaId;
@@ -300,13 +315,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             s.ahorro = ahorro;
             s.horaIni = horaIni;
             s.horaFin = horaFin;
-            s.kws = kws;
+            s.kws = 0;
 
             SuministroDao.Create(s);
             return s.suministraId;
 
         }
+        #endregion
 
+        #region Poner hora fin Suministra bateria
+        [Transactional]
+        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws)
+        {
+            return CargaDao.Finalizarsuministra(cargaID, horaFin, kws);
+        }
+
+        #endregion
         #region Buscar Suministra por ID 
         [Transactional]
 

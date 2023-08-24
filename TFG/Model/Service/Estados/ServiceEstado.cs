@@ -46,19 +46,21 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
             b.bateriaId = bateriaId;
             b.estadoId = estadoId;
 
+            estadoBateriaDao.Create(b);
+
             //cambiamos el atributo estado de la bateria
             
                 //buscamos la bateria
                 Bateria bateria = bateriaDao.Find(bateriaId);
 
                 //modificamos
-                bateria.estadoBateria = estadoId;
+                bateria.estadoBateria = b.seEncuentraId;
 
                 //actualizamos
                 bateriaDao.Update(bateria);
 
             //creamos el EstadoBateria
-            estadoBateriaDao.Create(b);
+            
             return b.seEncuentraId;
 
         }
