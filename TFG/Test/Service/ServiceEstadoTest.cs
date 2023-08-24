@@ -259,7 +259,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         Bateria bateria = servicio.BuscarBateriaById(bateriaId);
 
                         //comprobamos el atributo de estado en la bateria
-                        Assert.AreEqual(bateria.estadoBateria, estadoId);
+                        Assert.AreEqual(bateria.estadoBateria, estadoBateria.seEncuentraId);
 
                         //comprobaciones
                         Assert.AreEqual(estadoId, estadoBateria.estadoId);
