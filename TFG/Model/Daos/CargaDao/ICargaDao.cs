@@ -12,9 +12,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
     public interface ICargaDao : IGenericDao<Carga, Int64>
     {
         Carga getInfoCarga(long cargaId);
-
         List<Carga> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
-
+        Carga UltimaCargaBareria(long bateriaId);
         bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kws);
     }
 }

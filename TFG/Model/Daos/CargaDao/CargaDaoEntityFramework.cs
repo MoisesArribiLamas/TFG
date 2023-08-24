@@ -39,6 +39,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
         }
         #endregion
 
+        #region mostrar la ultima carga de una bateria
+
+        public Carga UltimaCargaBareria(long bateriaId)
+        {
+            DbSet<Carga> Cargas = Context.Set<Carga>();
+
+            var result =
+                (from c in Cargas
+                 where c.bateriaId == bateriaId
+                 select c).OrderByDescending(c => c.horaIni).FirstOrDefault();
+
+            return result;
+        }
+        #endregion
+
         #region finalizar carga
         public bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kws)
         {
