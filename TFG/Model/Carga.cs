@@ -19,7 +19,7 @@ namespace Es.Udc.DotNet.TFG.Model
         public long tarifaId { get; set; }
         public System.TimeSpan horaIni { get; set; }
         public System.TimeSpan horaFin { get; set; }
-        public double kws { get; set; }
+        public double kwH { get; set; }
     
         public virtual Bateria Bateria { get; set; }
         public virtual Tarifa Tarifa { get; set; }

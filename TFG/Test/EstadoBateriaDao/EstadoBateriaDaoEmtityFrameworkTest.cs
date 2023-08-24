@@ -124,8 +124,8 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -235,8 +235,8 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";

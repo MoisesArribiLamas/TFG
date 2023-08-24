@@ -105,8 +105,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId ;
             b.precioMedio = 111 ;
-            b.kwAlmacenados = 1000 ;
-            b.almacenajeMaximoKw = 1000 ;
+            b.kwHAlmacenados = 1000 ;
+            b.almacenajeMaximoKwH = 1000 ;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1" ;
             b.modelo = "MODELO 1" ;
@@ -124,7 +124,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
 
             //CREAMOS CARGAS
             Carga c = new Carga();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -132,7 +132,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             cargaDao.Create(c);
 
             Carga c2 = new Carga();
-            c2.kws = 1000;
+            c2.kwH = 1000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t.tarifaId;
@@ -180,8 +180,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -194,8 +194,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             b2.ubicacionId = u.ubicacionId;
             b2.usuarioId = user.usuarioId;
             b2.precioMedio = 111;
-            b2.kwAlmacenados = 1000;
-            b2.almacenajeMaximoKw = 1000;
+            b2.kwHAlmacenados = 1000;
+            b2.almacenajeMaximoKwH = 1000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 1";
             b2.modelo = "MODELO 1";
@@ -225,7 +225,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
 
             //CREAMOS CARGAS
             Carga c = new Carga();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -233,7 +233,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             cargaDao.Create(c);
 
             Carga c2 = new Carga();
-            c2.kws = 2000;
+            c2.kwH = 2000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t2.tarifaId;
@@ -241,7 +241,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             cargaDao.Create(c2);
 
             Carga c3 = new Carga();
-            c3.kws = 3000;
+            c3.kwH = 3000;
             c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c3.tarifaId = t2.tarifaId;
@@ -249,7 +249,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             cargaDao.Create(c3);
 
             Carga c0 = new Carga();
-            c0.kws = 3000;
+            c0.kwH = 3000;
             c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c0.tarifaId = t3.tarifaId;
@@ -302,8 +302,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -316,8 +316,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             b2.ubicacionId = u.ubicacionId;
             b2.usuarioId = user.usuarioId;
             b2.precioMedio = 111;
-            b2.kwAlmacenados = 1000;
-            b2.almacenajeMaximoKw = 1000;
+            b2.kwHAlmacenados = 1000;
+            b2.almacenajeMaximoKwH = 1000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 1";
             b2.modelo = "MODELO 1";
@@ -345,9 +345,15 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
             tarifaDao.Create(t3);
 
+            Tarifa t4 = new Tarifa();
+            t4.precio = 100;
+            t4.hora = 1;
+            t4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            tarifaDao.Create(t4);
+
             //CREAMOS CARGAS
             Carga c = new Carga();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -355,7 +361,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             cargaDao.Create(c);
 
             Carga c2 = new Carga();
-            c2.kws = 2000;
+            c2.kwH = 2000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t2.tarifaId;
@@ -363,31 +369,39 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             cargaDao.Create(c2);
 
             Carga c3 = new Carga();
-            c3.kws = 3000;
+            c3.kwH = 3000;
             c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c3.tarifaId = t2.tarifaId;
             c3.bateriaId = b2.bateriaId;
             cargaDao.Create(c3);
 
+            Carga c4 = new Carga();
+            c4.kwH = 1000;
+            c4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            c4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c4.tarifaId = t4.tarifaId;
+            c4.bateriaId = b.bateriaId;
+            cargaDao.Create(c4);
+
             Carga c0 = new Carga();
-            c0.kws = 3000;
+            c0.kwH = 3000;
             c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c0.tarifaId = t3.tarifaId;
-            c0.bateriaId = b.bateriaId;
+            c0.bateriaId = b2.bateriaId;
             cargaDao.Create(c0);
 
 
             //COMPROBAMOS
-            
+
             Carga cargaResult = cargaDao.UltimaCargaBareria(b.bateriaId);
 
 
-            Assert.AreEqual(cargaResult.tarifaId, t3.tarifaId);
-            Assert.AreEqual(cargaResult.kws, c0.kws);
-            Assert.AreEqual(cargaResult.horaIni, c0.horaIni);
-            Assert.AreEqual(cargaResult.horaFin, c0.horaFin);
+            Assert.AreEqual(cargaResult.tarifaId, t4.tarifaId);
+            Assert.AreEqual(cargaResult.kwH, c4.kwH);
+            Assert.AreEqual(cargaResult.horaIni, c4.horaIni);
+            Assert.AreEqual(cargaResult.horaFin, c4.horaFin);
             Assert.AreEqual(cargaResult.bateriaId, b.bateriaId);
 
         }
@@ -423,8 +437,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -443,7 +457,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
 
             //CREAMOS CARGA
             Carga c = new Carga();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -453,13 +467,13 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
 
             //finalizamos la carga
             TimeSpan horaFin2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
-            double kws = 2000;
-            cargaDao.FinalizarCarga(c.cargaId, horaFin2, kws);
+            double kwH = 2000;
+            cargaDao.FinalizarCarga(c.cargaId, horaFin2, kwH);
 
             //COMPROBAMOS
             Carga carga = cargaDao.Find(c.cargaId);
             Assert.AreEqual(carga.horaFin, horaFin2);
-            Assert.AreEqual(carga.kws, kws);
+            Assert.AreEqual(carga.kwH, kwH);
 
 
         }

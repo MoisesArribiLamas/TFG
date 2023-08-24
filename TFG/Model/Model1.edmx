@@ -13,8 +13,8 @@
           <Property Name="ubicacionId" Type="bigint" Nullable="false" />
           <Property Name="usuarioId" Type="bigint" Nullable="false" />
           <Property Name="precioMedio" Type="float" Nullable="false" />
-          <Property Name="kwAlmacenados" Type="float" Nullable="false" />
-          <Property Name="almacenajeMaximoKw" Type="float" Nullable="false" />
+          <Property Name="kwHAlmacenados" Type="float" Nullable="false" />
+          <Property Name="almacenajeMaximoKwH" Type="float" Nullable="false" />
           <Property Name="fechaDeAdquisicion" Type="datetime" Nullable="false" />
           <Property Name="marca" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="modelo" Type="varchar" MaxLength="40" Nullable="false" />
@@ -32,7 +32,7 @@
           <Property Name="tarifaId" Type="bigint" Nullable="false" />
           <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
           <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-          <Property Name="kws" Type="float" Nullable="false" />
+          <Property Name="kwH" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Estado">
           <Key>
@@ -61,7 +61,7 @@
           <Property Name="tarifaId" Type="bigint" Nullable="false" />
           <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
           <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-          <Property Name="kws" Type="float" Nullable="false" />
+          <Property Name="kwH" Type="float" Nullable="false" />
           <Property Name="ahorro" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Tarifa">
@@ -265,8 +265,8 @@
           <Property Name="ubicacionId" Type="Int64" Nullable="false" />
           <Property Name="usuarioId" Type="Int64" Nullable="false" />
           <Property Name="precioMedio" Type="Double" Nullable="false" />
-          <Property Name="kwAlmacenados" Type="Double" Nullable="false" />
-          <Property Name="almacenajeMaximoKw" Type="Double" Nullable="false" />
+          <Property Name="kwHAlmacenados" Type="Double" Nullable="false" />
+          <Property Name="almacenajeMaximoKwH" Type="Double" Nullable="false" />
           <Property Name="fechaDeAdquisicion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="marca" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="modelo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
@@ -289,7 +289,7 @@
           <Property Name="tarifaId" Type="Int64" Nullable="false" />
           <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
           <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="kws" Type="Double" Nullable="false" />
+          <Property Name="kwH" Type="Double" Nullable="false" />
           <NavigationProperty Name="Bateria" Relationship="Self.FK_BATERIA_CARGA" FromRole="Carga" ToRole="Bateria" />
           <NavigationProperty Name="Tarifa" Relationship="Self.FK_TARIFA_CARGA" FromRole="Carga" ToRole="Tarifa" />
         </EntityType>
@@ -323,7 +323,7 @@
           <Property Name="tarifaId" Type="Int64" Nullable="false" />
           <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
           <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="kws" Type="Double" Nullable="false" />
+          <Property Name="kwH" Type="Double" Nullable="false" />
           <Property Name="ahorro" Type="Double" Nullable="false" />
           <NavigationProperty Name="Bateria" Relationship="Self.FK_BATERIA_SUMINISTRA" FromRole="Suministra" ToRole="Bateria" />
           <NavigationProperty Name="Tarifa" Relationship="Self.FK_TARIFA_SUMINISTRA" FromRole="Suministra" ToRole="Tarifa" />
@@ -533,8 +533,8 @@
                 <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
                 <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
                 <ScalarProperty Name="precioMedio" ColumnName="precioMedio" />
-                <ScalarProperty Name="kwAlmacenados" ColumnName="kwAlmacenados" />
-                <ScalarProperty Name="almacenajeMaximoKw" ColumnName="almacenajeMaximoKw" />
+                <ScalarProperty Name="kwHAlmacenados" ColumnName="kwHAlmacenados" />
+                <ScalarProperty Name="almacenajeMaximoKwH" ColumnName="almacenajeMaximoKwH" />
                 <ScalarProperty Name="fechaDeAdquisicion" ColumnName="fechaDeAdquisicion" />
                 <ScalarProperty Name="marca" ColumnName="marca" />
                 <ScalarProperty Name="modelo" ColumnName="modelo" />
@@ -553,7 +553,7 @@
                 <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
                 <ScalarProperty Name="horaIni" ColumnName="horaIni" />
                 <ScalarProperty Name="horaFin" ColumnName="horaFin" />
-                <ScalarProperty Name="kws" ColumnName="kws" />
+                <ScalarProperty Name="kwH" ColumnName="kwH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -585,7 +585,7 @@
                 <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
                 <ScalarProperty Name="horaIni" ColumnName="horaIni" />
                 <ScalarProperty Name="horaFin" ColumnName="horaFin" />
-                <ScalarProperty Name="kws" ColumnName="kws" />
+                <ScalarProperty Name="kwH" ColumnName="kwH" />
                 <ScalarProperty Name="ahorro" ColumnName="ahorro" />
               </MappingFragment>
             </EntityTypeMapping>

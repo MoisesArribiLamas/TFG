@@ -56,14 +56,14 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
         #endregion
 
         #region finalizar carga
-        public bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kws)
+        public bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kwH)
         {
             Carga c = Find(cargaID);
             if (c != null)
             {
                 
                 c.horaFin = horaFin;
-                c.kws = kws;
+                c.kwH = kwH;
 
                 Update(c);
 

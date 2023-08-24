@@ -101,8 +101,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         // BATERIA
 
         private const double precioMedio = 100;
-        private const double kwAlmacenados = 1000;
-        private const double almacenajeMaximoKw = 2000;
+        private const double kwHAlmacenados = 1000;
+        private const double almacenajeMaximoKwH = 2000;
         private DateTime fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
         private const string marca = "marca";
         private const string modelo = "modelo" ;
@@ -192,7 +192,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             s.ahorro = ahorro;
             s.horaIni = horaIni;
             s.horaFin = horaFin;
-            s.kws = 0;
+            s.kwH = 0;
 
             suministraDao.Create(s);
             return s.suministraId;
@@ -262,7 +262,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion( codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
              fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
 
@@ -273,8 +273,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(ubicacionId, bateriaProfile.ubicacionId);
                 Assert.AreEqual(usuarioId, bateriaProfile.usuarioId);
                 Assert.AreEqual(precioMedio, bateriaProfile.precioMedio);
-                Assert.AreEqual(kwAlmacenados, bateriaProfile.kwAlmacenados);
-                Assert.AreEqual(almacenajeMaximoKw, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(kwHAlmacenados, bateriaProfile.kwHAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKwH, bateriaProfile.almacenajeMaximoKwH);
                 Assert.AreEqual(fechaDeAdquisicion, bateriaProfile.fechaDeAdquisicion);
                 Assert.AreEqual(marca, bateriaProfile.marca);
                 Assert.AreEqual(modelo, bateriaProfile.modelo);
@@ -296,7 +296,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Modificamos datos
@@ -304,8 +304,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId2 = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
                 long usuarioId2 = crearUsuario("nombre2", email, "apellido1", apellido2, contraseña, telefono, pais, idioma);
                 double precioMedio2 = 2;
-                double kwAlmacenados2 = 2;
-                double almacenajeMaximoKw2 = 2;
+                double kwHAlmacenados2 = 2;
+                double almacenajeMaximoKwH2 = 2;
                 DateTime fechaDeAdquisicion2 = fechaDeAdquisicion.AddDays(1);
 
                 string marca2 = "Marca2";
@@ -314,7 +314,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ratioCompra2 = 2;
                 double ratioUso2 = 2;
 
-                servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwAlmacenados2, almacenajeMaximoKw2,
+                servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwHAlmacenados2, almacenajeMaximoKwH2,
                 fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2);
 
                 //Comprobamos los cambios
@@ -325,8 +325,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
                 Assert.AreEqual(usuarioId2, bateriaProfile.usuarioId);
                 Assert.AreEqual(precioMedio2, bateriaProfile.precioMedio);
-                Assert.AreEqual(kwAlmacenados2, bateriaProfile.kwAlmacenados);
-                Assert.AreEqual(almacenajeMaximoKw2, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(kwHAlmacenados2, bateriaProfile.kwHAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKwH2, bateriaProfile.almacenajeMaximoKwH);
                 Assert.AreEqual(fechaDeAdquisicion2, bateriaProfile.fechaDeAdquisicion);
                 Assert.AreEqual(marca2, bateriaProfile.marca);
                 Assert.AreEqual(modelo2, bateriaProfile.modelo);
@@ -349,7 +349,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Buscamos
@@ -361,8 +361,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
                 Assert.AreEqual(usuarioId, bateriaProfile.usuarioId);
                 Assert.AreEqual(precioMedio, bateriaProfile.precioMedio);
-                Assert.AreEqual(kwAlmacenados, bateriaProfile.kwAlmacenados);
-                Assert.AreEqual(almacenajeMaximoKw, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(kwHAlmacenados, bateriaProfile.kwHAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKwH, bateriaProfile.almacenajeMaximoKwH);
                 Assert.AreEqual(fechaDeAdquisicion, bateriaProfile.fechaDeAdquisicion);
                 Assert.AreEqual(marca, bateriaProfile.marca);
                 Assert.AreEqual(modelo, bateriaProfile.modelo);
@@ -383,7 +383,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Buscamos
@@ -394,8 +394,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
                 Assert.AreEqual(usuarioId, bateriaProfile.usuarioId);
                 Assert.AreEqual(precioMedio, bateriaProfile.precioMedio);
-                Assert.AreEqual(kwAlmacenados, bateriaProfile.kwAlmacenados);
-                Assert.AreEqual(almacenajeMaximoKw, bateriaProfile.almacenajeMaximoKw);
+                Assert.AreEqual(kwHAlmacenados, bateriaProfile.kwHAlmacenados);
+                Assert.AreEqual(almacenajeMaximoKwH, bateriaProfile.almacenajeMaximoKwH);
                 Assert.AreEqual(fechaDeAdquisicion, bateriaProfile.fechaDeAdquisicion);
                 Assert.AreEqual(marca, bateriaProfile.marca);
                 Assert.AreEqual(modelo, bateriaProfile.modelo);
@@ -431,16 +431,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
                 // creamos las baterias
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-                long bateriaId3 = servicio.CrearBateria(ubicacionId2, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId3 = servicio.CrearBateria(ubicacionId2, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-                long bateriaId4 = servicio.CrearBateria(ubicacionId3, usuarioId2, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId4 = servicio.CrearBateria(ubicacionId3, usuarioId2, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Buscamos los baterias que pertenecen al usuario (dos en la misma residencia y una en otra)
@@ -470,7 +470,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //bateria creada
@@ -487,7 +487,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni =new TimeSpan(hour1,  minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 0;
+                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
 
@@ -501,7 +501,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(tarifaId, c.tarifaId);
                 Assert.AreEqual(horaIni, c.horaIni);
                 Assert.AreEqual(horaFin, c.horaFin);
-                Assert.AreEqual(kws, c.kws);
+                Assert.AreEqual(kwH, c.kwH);
 
 
             }
@@ -517,7 +517,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -531,7 +531,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 0;
+                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
 
@@ -545,7 +545,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(tarifaId, c.tarifaId);
                 Assert.AreEqual(horaIni, c.horaIni);
                 Assert.AreEqual(horaFin, c.horaFin);
-                Assert.AreEqual(kws, c.kws);
+                Assert.AreEqual(kwH, c.kwH);
 
 
             }
@@ -561,9 +561,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -584,7 +584,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 0;
+                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
                 long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni);
@@ -604,11 +604,66 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(cargaId3, c[1].cargaId);
                 Assert.AreEqual(2, c.Count());
 
+            }
+        }
 
+        [TestMethod()]
+        public void UltimaCargaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Creamos Tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+                DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
+                DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(3).Day);
+
+                long tarifaId = crearTarifa(500, 0, fecha);
+                long tarifaId2 = crearTarifa(500, 0, fecha2);
+                long tarifaId3 = crearTarifa(500, 0, fecha3);
+                long tarifaId4 = crearTarifa(500, 0, fecha4);
+
+                //creamos Carga
+                int hour1 = 1;
+                int hour2 = 0;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaIni2 = new TimeSpan(hour1+1, minutes, seconds);
+                TimeSpan horaIni3 = new TimeSpan(hour1+2, minutes, seconds);
+                TimeSpan horaIni4 = new TimeSpan(hour1+3, minutes, seconds);
+                TimeSpan horaIni5 = new TimeSpan(hour1+4, minutes, seconds);
+                double kwH = 0;
+
+                long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
+                long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni2);
+                long cargaId3 = servicio.IniciarCarga(bateriaId, tarifaId3, horaIni3);
+                long cargaId4 = servicio.IniciarCarga(bateriaId, tarifaId4, horaIni4);
+                long cargaId5 = servicio.IniciarCarga(bateriaId2, tarifaId2, horaIni5);
+
+                //Buscamos
+
+                Carga carga = servicio.UltimaCarga(bateriaId);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(carga.cargaId, cargaId4);
 
 
             }
         }
+
         [TestMethod()]
         public void FinalizarCargaTest()
         {
@@ -619,9 +674,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -652,35 +707,35 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int minutes2 = 2;
                 int seconds2 = 2;
                 TimeSpan horaFin = new TimeSpan(hour2, minutes2, seconds2);
-                double kws = 2222;
+                double kwH = 2222;
 
-                servicio.FinalizarCarga(cargaId, horaFin, kws);
-                servicio.FinalizarCarga(cargaId2, horaFin, kws);
-                servicio.FinalizarCarga(cargaId3, horaFin, kws);
-                servicio.FinalizarCarga(cargaId4, horaFin, kws);
-                servicio.FinalizarCarga(cargaId5, horaFin, kws);
+                servicio.FinalizarCarga(cargaId, horaFin, kwH);
+                servicio.FinalizarCarga(cargaId2, horaFin, kwH);
+                servicio.FinalizarCarga(cargaId3, horaFin, kwH);
+                servicio.FinalizarCarga(cargaId4, horaFin, kwH);
+                servicio.FinalizarCarga(cargaId5, horaFin, kwH);
 
 
                 //Buscamos y Comprobamos
                 Carga c1 = servicio.BuscarCargaById( cargaId);
                 Assert.AreEqual(c1.horaFin, horaFin);
-                Assert.AreEqual(c1.kws, kws);
+                Assert.AreEqual(c1.kwH, kwH);
 
                 Carga c2 = servicio.BuscarCargaById(cargaId2);
                 Assert.AreEqual(c2.horaFin, horaFin);
-                Assert.AreEqual(c2.kws, kws);
+                Assert.AreEqual(c2.kwH, kwH);
 
                 Carga c3 = servicio.BuscarCargaById(cargaId3);
                 Assert.AreEqual(c3.horaFin, horaFin);
-                Assert.AreEqual(c3.kws, kws);
+                Assert.AreEqual(c3.kwH, kwH);
 
                 Carga c4 = servicio.BuscarCargaById(cargaId4);
                 Assert.AreEqual(c4.horaFin, horaFin);
-                Assert.AreEqual(c4.kws, kws);
+                Assert.AreEqual(c4.kwH, kwH);
 
                 Carga c5 = servicio.BuscarCargaById(cargaId5);
                 Assert.AreEqual(c5.horaFin, horaFin);
-                Assert.AreEqual(c5.kws, kws);
+                Assert.AreEqual(c5.kwH, kwH);
 
             }
         }
@@ -694,7 +749,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //bateria creada
@@ -712,7 +767,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ahorro = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 0;
+                double kwH = 0;
 
                 long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, horaIni);
 
@@ -727,7 +782,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(ahorro, s.ahorro);
                 Assert.AreEqual(horaIni, s.horaIni);
                 Assert.AreEqual(horaFin, s.horaFin);
-                Assert.AreEqual(kws, s.kws);
+                Assert.AreEqual(kwH, s.kwH);
 
 
             }
@@ -742,7 +797,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //bateria creada
@@ -760,13 +815,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ahorro = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 2000;
+                double kwH = 2000;
 
                 //inicializamos la carga
                 long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, horaIni);
 
                 //Finalizamos la carga
-                servicio.FinalizarSuministra(suministraId, horaFin, kws, ahorro);
+                servicio.FinalizarSuministra(suministraId, horaFin, kwH, ahorro);
 
                 //Comprobamos
 
@@ -778,7 +833,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(ahorro, s.ahorro);
                 Assert.AreEqual(horaIni, s.horaIni);
                 Assert.AreEqual(horaFin, s.horaFin);
-                Assert.AreEqual(kws, s.kws);
+                Assert.AreEqual(kwH, s.kwH);
 
 
             }
@@ -794,7 +849,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -809,7 +864,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ahorro = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 0;
+                double kwH = 0;
 
                 long suministraId = IniciarSuministra(bateriaId, tarifaId, ahorro, horaIni);
 
@@ -823,7 +878,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(tarifaId, c.tarifaId);
                 Assert.AreEqual(horaIni, c.horaIni);
                 Assert.AreEqual(horaFin, c.horaFin);
-                Assert.AreEqual(kws, c.kws);
+                Assert.AreEqual(kwH, c.kwH);
 
             }
         }
@@ -838,9 +893,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -895,9 +950,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -918,7 +973,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 3000;
+                double kwH = 3000;
                 double ahorro = 0;
                 double ahorro2 = 10;
                 double ahorro3 = 100;
@@ -957,11 +1012,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId3 = servicio.CrearBateria(ubicacionId, usuarioId2, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId3 = servicio.CrearBateria(ubicacionId, usuarioId2, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //Creamos Tarifa
@@ -982,7 +1037,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kws = 3000;
+                double kwH = 3000;
                 double ahorro = 1;
                 double ahorro2 = 10;
                 double ahorro3 = 100;
@@ -1022,9 +1077,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifas24H( fechaActual);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //comprobamos que es estado anterior es "sin actividad"
@@ -1040,7 +1095,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdC);
 
                 //cambiamos el estado:  "sin actividad" -> "cargando"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC,0,0);
 
 
                 //Buscamos y Comprobamos
@@ -1065,9 +1120,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifas24H(fechaActual);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //comprobamos que es estado anterior es "sin actividad"
@@ -1083,7 +1138,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdS);
 
                 //cambiamos el estado:  "sin actividad" -> "suministrando"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS,0,0);
 
 
                 //Buscamos y Comprobamos
@@ -1108,9 +1163,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifas24H(fechaActual);
 
                 //Creamos Bateria
-                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
-                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwAlmacenados, almacenajeMaximoKw,
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
                 //comprobamos que es estado anterior es "sin actividad"
@@ -1126,7 +1181,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdCYS);
 
                 //cambiamos el estado:  "sin actividad" -> "carga y suministra"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCYS);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCYS, 0, 0);
 
 
                 //Buscamos y Comprobamos

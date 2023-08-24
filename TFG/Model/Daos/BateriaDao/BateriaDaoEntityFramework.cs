@@ -21,7 +21,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
         /// <exception cref="InstanceNotFoundException"/>
 
         public bool updateInformacion(long bateriaId, long ubicacionId, long usuarioId, double precioMedio,
-            double kwAlmacenados, double almacenajeMaximoKw, DateTime fechaDeAdquisicion, string marca,
+            double kwHAlmacenados, double almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
             string modelo,double ratioCarga, double ratioCompra, double ratioUso)
         {
             Bateria b = Find(bateriaId);
@@ -39,13 +39,13 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
                 {
                     b.precioMedio = precioMedio;
                 }
-                if (kwAlmacenados != null)
+                if (kwHAlmacenados != null)
                 {
-                    b.kwAlmacenados = kwAlmacenados;
+                    b.kwHAlmacenados = kwHAlmacenados;
                 }
-                if (almacenajeMaximoKw != null)
+                if (almacenajeMaximoKwH != null)
                 {
-                    b.almacenajeMaximoKw = almacenajeMaximoKw;
+                    b.almacenajeMaximoKwH = almacenajeMaximoKwH;
                 }
                 if (fechaDeAdquisicion != null)
                 {

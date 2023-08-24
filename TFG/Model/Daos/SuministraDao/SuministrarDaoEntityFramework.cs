@@ -87,14 +87,14 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
         #endregion
 
         #region finalizar Suministra
-        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws, double ahorro)
+        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kwH, double ahorro)
         {
             Suministra s = Find(cargaID);
             if (s != null)
             {
 
                 s.horaFin = horaFin;
-                s.kws = kws;
+                s.kwH = kwH;
                 s.ahorro = ahorro;
 
                 Update(s);

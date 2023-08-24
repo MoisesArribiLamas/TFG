@@ -105,8 +105,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId ;
             b.precioMedio = 111 ;
-            b.kwAlmacenados = 1000 ;
-            b.almacenajeMaximoKw = 1000 ;
+            b.almacenajeMaximoKwH = 1000 ;
+            b.almacenajeMaximoKwH= 1000 ;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1" ;
             b.modelo = "MODELO 1" ;
@@ -124,7 +124,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //CREAMOS Suministrar
             Suministra c = new Suministra();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.ahorro = 100;
@@ -133,7 +133,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c);
 
             Suministra c2 = new Suministra();
-            c2.kws = 1000;
+            c2.kwH = 1000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c.ahorro = 200;
@@ -182,8 +182,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.almacenajeMaximoKwH= 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -196,8 +196,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ubicacionId = u.ubicacionId;
             b2.usuarioId = user.usuarioId;
             b2.precioMedio = 111;
-            b2.kwAlmacenados = 1000;
-            b2.almacenajeMaximoKw = 1000;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.almacenajeMaximoKwH= 1000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 1";
             b2.modelo = "MODELO 1";
@@ -227,7 +227,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //CREAMOS CARGAS
             Suministra c = new Suministra();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -236,7 +236,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c);
 
             Suministra c2 = new Suministra();
-            c2.kws = 2000;
+            c2.kwH = 2000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t2.tarifaId;
@@ -245,7 +245,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c2);
 
             Suministra c3 = new Suministra();
-            c3.kws = 3000;
+            c3.kwH = 3000;
             c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c3.tarifaId = t2.tarifaId;
@@ -254,7 +254,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c3);
 
             Suministra c0 = new Suministra();
-            c0.kws = 3000;
+            c0.kwH = 3000;
             c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c0.tarifaId = t3.tarifaId;
@@ -308,8 +308,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.almacenajeMaximoKwH= 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -322,8 +322,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ubicacionId = u.ubicacionId;
             b2.usuarioId = user.usuarioId;
             b2.precioMedio = 111;
-            b2.kwAlmacenados = 1000;
-            b2.almacenajeMaximoKw = 1000;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.almacenajeMaximoKwH= 1000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 1";
             b2.modelo = "MODELO 1";
@@ -353,7 +353,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //CREAMOS CARGAS
             Suministra c = new Suministra();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -362,7 +362,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c);
 
             Suministra c2 = new Suministra();
-            c2.kws = 2000;
+            c2.kwH = 2000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t2.tarifaId;
@@ -371,7 +371,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c2);
 
             Suministra c3 = new Suministra();
-            c3.kws = 3000;
+            c3.kwH = 3000;
             c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c3.tarifaId = t2.tarifaId;
@@ -380,7 +380,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c3);
 
             Suministra c0 = new Suministra();
-            c0.kws = 3000;
+            c0.kwH = 3000;
             c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c0.tarifaId = t3.tarifaId;
@@ -394,7 +394,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
 
             Assert.AreEqual(cargaResult.tarifaId, t3.tarifaId);
-            Assert.AreEqual(cargaResult.kws, c0.kws);
+            Assert.AreEqual(cargaResult.kwH, c0.kwH);
             Assert.AreEqual(cargaResult.horaIni, c0.horaIni);
             Assert.AreEqual(cargaResult.horaFin, c0.horaFin);
             Assert.AreEqual(cargaResult.bateriaId, b.bateriaId);
@@ -432,8 +432,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.almacenajeMaximoKwH= 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -446,8 +446,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ubicacionId = u.ubicacionId;
             b2.usuarioId = user.usuarioId;
             b2.precioMedio = 111;
-            b2.kwAlmacenados = 1000;
-            b2.almacenajeMaximoKw = 1000;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.almacenajeMaximoKwH= 1000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 1";
             b2.modelo = "MODELO 1";
@@ -477,7 +477,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //CREAMOS CARGAS
             Suministra c = new Suministra();
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -486,7 +486,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c);
 
             Suministra c2 = new Suministra();
-            c2.kws = 2000;
+            c2.kwH = 2000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t2.tarifaId;
@@ -495,7 +495,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c2);
 
             Suministra c3 = new Suministra();
-            c3.kws = 3000;
+            c3.kwH = 3000;
             c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c3.tarifaId = t2.tarifaId;
@@ -504,7 +504,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c3);
 
             Suministra c0 = new Suministra();
-            c0.kws = 3000;
+            c0.kwH = 3000;
             c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c0.tarifaId = t3.tarifaId;
@@ -569,8 +569,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -583,8 +583,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ubicacionId = u.ubicacionId;
             b2.usuarioId = user.usuarioId;
             b2.precioMedio = 111;
-            b2.kwAlmacenados = 1000;
-            b2.almacenajeMaximoKw = 1000;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.almacenajeMaximoKwH = 1000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 1";
             b2.modelo = "MODELO 1";
@@ -597,8 +597,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b3.ubicacionId = u.ubicacionId;
             b3.usuarioId = user2.usuarioId;
             b3.precioMedio = 111;
-            b3.kwAlmacenados = 1000;
-            b3.almacenajeMaximoKw = 1000;
+            b3.almacenajeMaximoKwH = 1000;
+            b3.almacenajeMaximoKwH = 1000;
             b3.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b3.marca = "MARCA 1";
             b3.modelo = "MODELO 1";
@@ -628,7 +628,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //CREAMOS CARGAS
             Suministra c = new Suministra(); // bateria 1   usuario 1
-            c.kws = 1000;
+            c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             c.tarifaId = t.tarifaId;
@@ -637,7 +637,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c);
 
             Suministra c2 = new Suministra(); // bateria 1  usuario 1
-            c2.kws = 2000;
+            c2.kwH = 2000;
             c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             c2.tarifaId = t2.tarifaId;
@@ -646,7 +646,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c2);
 
             Suministra c3 = new Suministra(); // bateria 2  usuario 1
-            c3.kws = 3000;
+            c3.kwH = 3000;
             c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c3.tarifaId = t2.tarifaId;
@@ -655,7 +655,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c3);
 
             Suministra c4 = new Suministra(); // bateria 3  usuario 2 No es el usuario de la busqueda
-            c4.kws = 3000;
+            c4.kwH = 3000;
             c4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c4.tarifaId = t2.tarifaId;
@@ -664,7 +664,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             suministraDao.Create(c4);
 
             Suministra c0 = new Suministra(); // bateria 1 fuera de tiempo
-            c0.kws = 3000;
+            c0.kwH = 3000;
             c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
             c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
             c0.tarifaId = t3.tarifaId;
