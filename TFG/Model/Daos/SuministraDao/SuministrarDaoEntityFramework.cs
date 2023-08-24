@@ -70,5 +70,24 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             return Montofinal;
         }
         #endregion
+
+        #region finalizar Suministra
+        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws, double ahorro)
+        {
+            Suministra s = Find(cargaID);
+            if (s != null)
+            {
+
+                s.horaFin = horaFin;
+                s.kws = kws;
+                s.ahorro = ahorro;
+
+                Update(s);
+
+                return true;
+            }
+            return false;
+        }
+        #endregion
     }
 }

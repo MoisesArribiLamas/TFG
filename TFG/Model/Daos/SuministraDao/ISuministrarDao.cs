@@ -18,5 +18,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
         double ahorroBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2);
 
         double ahorroUsuarioPorFecha(long usuarioId, DateTime fecha, DateTime fecha2);
+
+        bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws, double ahorro);
     }
 }
