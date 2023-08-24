@@ -53,9 +53,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         List<CargaDTO> MostrarCargasBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
 
         [Transactional]
-        long CrearSuministra(long bateriaId, long tarifaId, double ahorro,
-                        TimeSpan horaIni, TimeSpan horaFin, double kws);
-
+        long IniciarSuministra(long bateriaId, long tarifaId, double ahorro,
+            TimeSpan horaIni, double kws);
         [Transactional]
         Suministra BuscarsuministraById(long suministraId);
 

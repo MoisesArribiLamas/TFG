@@ -53,6 +53,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         }
         #endregion
+
         #region cambiar estado bateria
         [Transactional]
         public void CambiarEstadoEnBateria(long bateriaId, long estadoId)
@@ -166,7 +167,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion crear baterias
 
-
         #region Modificacar Bateria
         [Transactional]
         public void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw,
@@ -205,7 +205,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
-
         #region Buscar Bateria por ID
         [Transactional]
         public Bateria BuscarBateriaById(long bateriaId)
@@ -215,7 +214,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             
         }
         #endregion Buscar por ID
-
 
         #region Eliminar Bateria
         [Transactional]
@@ -325,9 +323,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Poner hora fin Suministra bateria
         [Transactional]
-        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws)
+        public bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kws, double ahorro)
         {
-            return CargaDao.Finalizarsuministra(cargaID, horaFin, kws);
+            return SuministroDao.FinalizarSuministra(cargaID, horaFin, kws, ahorro);
         }
 
         #endregion
