@@ -109,24 +109,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             }
             if ("cargando" == estadoAnterior) // "cargando" ->
             {
-                //calculamos kwH media suma almacenados
-                //Calculamos los kwH almacenados
-                double almacenados = b.kwHAlmacenados + kwHCargados;
-                b.kwHAlmacenados = almacenados;
-
-                //calculamos la media del precio
-
-                //Buscar Carga actual
+                // Carga actual
                 Carga cargaActual = UltimaCarga(bateriaId);
 
                 //cerramos carga
                 FinalizarCarga(cargaActual.cargaId, horaActual, kwHCargados);
 
-                if ("sin actividad" == estadoAnterior)
-                {
-                    
+                //Calculamos los kwH almacenados
+                double almacenados = b.kwHAlmacenados + kwHCargados;
 
-                }
+                //calculamos la media del precio
+                double preciomedioNuevo = ((b.kwHAlmacenados * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
+
+                //ponemos el total almacenado y precio medioNuevo
+                b.kwHAlmacenados = almacenados;
+                b.precioMedio = preciomedioNuevo;
+
 
                 if ("cargando" == estadoPosterior)
                 {
