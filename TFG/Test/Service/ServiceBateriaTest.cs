@@ -1150,6 +1150,49 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void CambiarEstadoBateria_Sin_Actividad_A_Carga_YSuministraTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //comprobamos que es estado anterior es "sin actividad"
+                long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
+
+
+
+                //buscamos el estadoId de "carga y suministra"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdS);
+
+                //cambiamos el estado:  "sin actividad" -> "carga y suministra"
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+
+                //Buscamos y Comprobamos
+                Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdS);
+
+            }
+        }
+
+        [TestMethod()]
         public void CambiarEstadoBateria_Carga_A_Sin_ActividadTest()
         {
             using (var scope = new TransactionScope())
@@ -1182,7 +1225,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long estadoIdCSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdCSA);
 
-                //cambiamos el estado:  "sin actividad" -> "carga y suministra"
+                //cambiamos el estado:  "Cargando" -> "sin actividad"
                 servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCSA, 0, 0);
 
 
@@ -1223,11 +1266,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(estadoBateria.estadoId, estadoIdC);
 
 
-                //buscamos el estadoId de "sin actividad"
+                //buscamos el estadoId de "Cargando"
                 long estadoIdC2 = servicioEstado.BuscarEstadoPorNombre("Cargando");
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdC2);
 
-                //cambiamos el estado:  "sin actividad" -> "carga y suministra"
+                //cambiamos el estado:  "Cargando" -> "Cargando"
                 servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC2, 0, 0);
 
 
@@ -1268,11 +1311,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(estadoBateria.estadoId, estadoIdC);
 
 
-                //buscamos el estadoId de "sin actividad"
+                //buscamos el estadoId de "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdS);
 
-                //cambiamos el estado:  "sin actividad" -> "carga y suministra"
+                //cambiamos el estado:  "Cargando" -> "suministrando"
                 servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
 
 
@@ -1280,6 +1323,51 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
                 SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
                 Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdS);
+
+            }
+        }
+
+        [TestMethod()]
+        public void CambiarEstadoBateria_Carga_A_Carga_Y_SuministraTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado anterior a "Cargando"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0);
+
+                //comprobamos el estado anterior
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdC);
+
+
+                //buscamos el estadoId de "sin actividad"
+                long estadoIdCS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdCS);
+
+                //cambiamos el estado:  "sin actividad" -> "carga y suministra"
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, 0);
+
+
+                //Buscamos y Comprobamos
+                Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdCS);
 
             }
         }
