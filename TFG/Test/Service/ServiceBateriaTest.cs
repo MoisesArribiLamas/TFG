@@ -1558,11 +1558,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
 
 
-                //buscamos el estadoId de "carga y suministra"
-                long estadoIdCS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                //buscamos el estadoId de "sin actividad"
+                long estadoIdCS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
                 string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdCS);
 
-                //cambiamos el estado:  "suministrando" -> "carga y suministra"
+                //cambiamos el estado:  "suministrando" -> "sin actividad"
                 servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, 0);
 
 
@@ -1619,7 +1619,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
                 Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
 
-                //Buscamos la carga  estado final -> Cargando suministrando
+                //Buscamos la carga
                 Carga carga = servicio.UltimaCarga(bateriaId);
 
                 //Comprobamos
@@ -1640,7 +1640,152 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
+        [TestMethod()]
+        public void CambiarEstadoBateria_Suministrando_A_Suministrando()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado anterior a "suministrando"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos el estado anterior
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+
+                //buscamos el estadoId de "suministrando"
+                long estadoIdCS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdCS);
+
+                // Fecha y hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //cambiamos el estado:  "suministrando" -> "suministrando"
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, 0);
+
+
+                //Buscamos y Comprobamos
+                Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdCS);
+
+                // Suministro actual
+                Suministra suministroActual = servicio.UltimaSuministra(bateriaId);
+
+                int hour = 0;
+                int minutes = 0;
+                int seconds = 0;
+
+                TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(suministroActual.bateriaId, bateriaId);
+                Assert.AreEqual(suministroActual.tarifaId, tarifa.tarifaId);
+                Assert.AreEqual(suministroActual.horaIni, horaActual);
+                Assert.AreEqual(suministroActual.horaFin, horaFin);
+                Assert.AreEqual(suministroActual.ahorro, 0);
+                Assert.AreEqual(suministroActual.kwH, 0);
+            }
+        }
+
+        [TestMethod()]
+        public void CambiarEstadoBateria_Suministrando_A_Carga_Y_SuministraTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado anterior a "suministrando"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                // Fecha y hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //comprobamos el estado anterior
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+
+                //buscamos el estadoId de "carga y suministra"
+                long estadoIdCS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                string estadoAnterior = servicioEstado.BuscarEstadoPorId(estadoIdCS);
+
+                //cambiamos el estado:  "suministrando" -> "carga y suministra"
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, 0);
+
+
+                //Buscamos y Comprobamos
+                Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdCS);
+
+                //Buscamos la carga  estado final -> Cargando suministrando
+                Carga carga = servicio.UltimaCarga(bateriaId);
+
+                //Comprobamos
+                int hour = 0;
+                int minutes = 0;
+                int seconds = 0;
+
+                TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+
+                Assert.AreEqual(carga.bateriaId, bateriaId);
+                Assert.AreEqual(carga.tarifaId, tarifa.tarifaId);
+                Assert.AreEqual(carga.horaIni, horaActual);
+                Assert.AreEqual(carga.horaFin, horaFin);
+                Assert.AreEqual(carga.kwH, 0);
+
+
+                // Suministro actual
+                Suministra suministroActual = servicio.UltimaSuministra(bateriaId);
+
+                //Comprobamos
+
+                Assert.AreEqual(suministroActual.bateriaId, bateriaId);
+                Assert.AreEqual(suministroActual.tarifaId, tarifa.tarifaId);
+                Assert.AreEqual(suministroActual.horaIni, horaActual);
+                Assert.AreEqual(suministroActual.horaFin, horaFin);
+                Assert.AreEqual(suministroActual.ahorro, 0);
+                Assert.AreEqual(suministroActual.kwH, 0);
+
+            }
+        }
         /*
           [TestMethod()]
         public void CambiarEstadoBateria_Suministrando_A_Sin_ActividadTest()
