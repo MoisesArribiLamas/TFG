@@ -58,145 +58,170 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         public void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
         {
-            //Fecha y hora actual
+
+            // Fecha y hora actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            int horaTarifa = horaActual.Hours;
 
-            //buscamos la bateria
+            // buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
-            //recuperamos el estado anterior
+            // estado anterior
             string estadoAnterior = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
-
-            //cerrar estadoBateria anterior
-            ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
-
-            //nombre del estado posterior
+            
+            // estado posterior
             string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
 
-            //Creamos EstadoBateria y cambiamos el estado actual en la bateria
-            long estadoBateriaIdActual = ServicioEstado.CrearEstadoBateria(horaActual, fechaActual, bateriaId, estadoId);
 
-            //Buscar la tarifa actual
-            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
-
-            if ("sin actividad" == estadoAnterior) // "sin actividad" ->
-            {               
-
-                if ("cargando" == estadoPosterior)
-                {                    
-                    //Creamos la carga nueva
-                    IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
-                }
-
-                if ("suministrando" == estadoPosterior)
-                {                    
-                    // Creamos el nuevo suministrando
-                    IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
-
-                }
-
-                if ("carga y suministra" == estadoPosterior)
-                {
-                    //Creamos la carga nueva
-                    IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
-
-                    //Creamoscuministrando nuevo
-                    IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
-                }
-
-            }
-            if ("cargando" == estadoAnterior) // "cargando" ->
+            if (!(("sin actividad" == estadoAnterior) && ("sin actividad" != estadoAnterior))) // "sin actividad" -> "sin actividad"
             {
-                // Carga actual
-                Carga cargaActual = UltimaCarga(bateriaId);
+                // Tarifa actual (hora)
+                int horaTarifa = horaActual.Hours;
 
-                //cerramos carga
-                FinalizarCarga(cargaActual.cargaId, horaActual, kwHCargados);
+                // cerrar estadoBateria anterior
+                ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
 
-                //Calculamos los kwH almacenados
-                double almacenados = b.kwHAlmacenados + kwHCargados;
-
-                //calculamos la media del precio
-                double preciomedioNuevo = ((b.kwHAlmacenados * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
-
-                //ponemos el total almacenado y precio medioNuevo
-                b.kwHAlmacenados = almacenados;
-                b.precioMedio = preciomedioNuevo;
+                // Creamos EstadoBateria y cambiamos el estado actual en la bateria
+                long estadoBateriaIdActual = ServicioEstado.CrearEstadoBateria(horaActual, fechaActual, bateriaId, estadoId);
 
 
-                if ("cargando" == estadoPosterior)
+
+                // Buscar la tarifa actual
+                TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+                if ("sin actividad" == estadoAnterior) // "sin actividad" ->
                 {
-                    //Creamos la carga nueva
-                    IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                }
+                if ("cargando" == estadoAnterior) // "cargando" ->
+                {
+                    // Carga actual
+                    Carga cargaActual = UltimaCarga(bateriaId);
+
+                    //cerramos carga
+                    FinalizarCarga(cargaActual.cargaId, horaActual, kwHCargados);
+
+                    //Calculamos los kwH almacenados
+                    double almacenados = b.kwHAlmacenados + kwHCargados;
+
+                    //calculamos la media del precio
+                    double preciomedioNuevo = ((b.kwHAlmacenados * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
+
+                    //ponemos el total almacenado y precio medioNuevo
+                    b.kwHAlmacenados = almacenados;
+                    b.precioMedio = preciomedioNuevo;
+
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+                }
+                if ("suministrando" == estadoAnterior) // "suministrando" ->
+                {
+                    // Suministro actual
+                    Suministra suministroActual = UltimaSuministra(bateriaId);
+
+                    //calculamos el ahorro
+                    double ahorro = kwHSuministrados * (tarifa.precio - b.precioMedio);
+
+                    //cerramos Suministro
+                    FinalizarSuministra(suministroActual.suministraId, horaActual, kwHSuministrados, ahorro);
+
+                    //Calculamos los kwH almacenados
+                    double almacenados = b.kwHAlmacenados + kwHCargados;
+
+                    //ponemos el total almacenado y precio medioNuevo
+                    b.kwHAlmacenados = almacenados;
+
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+                }
+                if ("carga y suministra" == estadoAnterior) // "carga y suministra" ->
+                {
+                    if ("sin actividad" == estadoAnterior)
+                    {
+
+                    }
+
+                    if ("cargando" == estadoPosterior)
+                    {
+
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+
+                    }
                 }
 
-                if ("suministrando" == estadoPosterior)
-                {
-                    // Creamos el nuevo suministrando
-                    IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
-
-                }
-
-                if ("carga y suministra" == estadoPosterior)
-                {
-                    //Creamos la carga nueva
-                    IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
-
-                    //Creamoscuministrando nuevo
-                    IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
-                }
+                bateriaDao.Update(b);
             }
-            if ("suministrando" == estadoAnterior) // "suministrando" ->
-            {
-                if ("sin actividad" == estadoAnterior)
-                {
-
-                }
-
-                if ("cargando" == estadoPosterior)
-                {
-
-                }
-
-                if ("suministrando" == estadoPosterior)
-                {
-
-
-                }
-
-                if ("carga y suministra" == estadoPosterior)
-                {
-
-                }
-            }
-            if ("carga y suministra" == estadoAnterior) // "carga y suministra" ->
-            {
-                if ("sin actividad" == estadoAnterior)
-                {
-
-                }
-
-                if ("cargando" == estadoPosterior)
-                {
-
-                }
-
-                if ("suministrando" == estadoPosterior)
-                {
-
-
-                }
-
-                if ("carga y suministra" == estadoPosterior)
-                {
-
-                }
-            }
-
-            bateriaDao.Update(b);
-
 
         }
 
@@ -387,31 +412,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         
         #endregion
 
-        //#region cargas de una bateria
-        //[Transactional]
-        //public List<CargaDTO> UltimaCargaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
-        //{
-        //    try
-        //    {
-        //        List<CargaDTO> cargasDTO = new List<CargaDTO>();
-
-        //        List<Carga> cargas = CargaDao.MostrarCargasBareriaPorFecha(bateriaId, fecha, fecha2, startIndex, count);
-
-        //        foreach (Carga c in cargas)
-        //        {
-        //            cargasDTO.Add(new CargaDTO(c.cargaId, c.bateriaId, c.tarifaId, c.horaIni, c.horaFin, c.kwH));
-
-        //        }
-        //        return cargasDTO;
-
-        //    }
-        //    catch (InstanceNotFoundException)
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //#endregion
 
         #region crear Suministra
         [Transactional]

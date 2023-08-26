@@ -59,7 +59,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         long IniciarSuministra(long bateriaId, long tarifaId, TimeSpan horaIni);
         [Transactional]
         bool FinalizarSuministra(long suministraID, TimeSpan horaFin, double kwH, double ahorro);
-
+        [Transactional]
+        Suministra UltimaSuministra(long bateriaId);
         [Transactional]
         Suministra BuscarsuministraById(long suministraId);
 
