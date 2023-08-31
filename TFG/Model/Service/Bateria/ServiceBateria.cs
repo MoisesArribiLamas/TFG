@@ -168,7 +168,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                     FinalizarSuministra(suministroActual.suministraId, horaActual, kwHSuministrados, ahorro);
 
                     //Calculamos los kwH almacenados
-                    double almacenados = b.kwHAlmacenados + kwHCargados;
+                    double almacenados = b.kwHAlmacenados - kwHSuministrados;
 
                     //ponemos el total almacenado y precio medioNuevo
                     b.kwHAlmacenados = almacenados;
@@ -198,10 +198,68 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 }
                 if ("carga y suministra" == estadoAnterior) // "carga y suministra" ->
                 {
-                    if ("sin actividad" == estadoAnterior)
-                    {
 
+                    //Calculamos los kwH almacenados
+                    double almacenados = b.kwHAlmacenados + kwHCargados - kwHSuministrados;
+
+                    #region CARGA
+                    // CARGA actual
+                    Carga cargaActual = UltimaCarga(bateriaId);
+
+                    //cerramos carga
+                    FinalizarCarga(cargaActual.cargaId, horaActual, kwHCargados);
+                    #endregion
+
+                    #region SUMINISTRO
+                    // SUMINISTRO actual
+                    Suministra suministroActual = UltimaSuministra(bateriaId);
+
+                    //calculamos el ahorro y el precio medio
+                    double ahorro;
+                    double preciomedioNuevo;
+
+                    if (b.precioMedio <= tarifa.precio) // el almacenado tiene un precio inferior al actual
+                    {
+                        if (b.kwHAlmacenados >= kwHSuministrados)
+                        {
+                            ahorro = kwHSuministrados * (tarifa.precio - b.precioMedio);
+                            preciomedioNuevo = (((b.kwHAlmacenados- kwHSuministrados) * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
+                        }
+                        else
+                        { // b.kwHAlmacenados < kwHSuministrados => kwHSuministrados = b.kwHAlmacenados + N (estan siendo suministrados y cargados por lo que no cuentan en el ahorro)
+
+                            ahorro = b.kwHAlmacenados * (tarifa.precio - b.precioMedio);
+                            preciomedioNuevo =  tarifa.precio;
+                        }
                     }
+                    else // si se carga a una tarifa menor que la media de lo cargado
+                    {
+                        if (kwHCargados >= kwHSuministrados )  // lo toma directamente de la red => no hay ahorro 
+                        {
+                            ahorro = 0;
+                            preciomedioNuevo = (b.kwHAlmacenados * b.precioMedio + (kwHCargados - kwHSuministrados) * tarifa.precio) / (b.kwHAlmacenados + (kwHCargados - kwHSuministrados));
+                        }
+                        else
+                        { // En ningun caso se deberia entrar en esta opcion. seria suministrar mas potencia que la red general. Y el ahorro saldria negativo!!! 
+
+                            ahorro = (kwHSuministrados - kwHCargados) * ( b.precioMedio - tarifa.precio);
+                            preciomedioNuevo = ((kwHSuministrados - kwHCargados) * tarifa.precio + b.kwHAlmacenados * b.precioMedio) / ((kwHSuministrados - kwHCargados) + b.kwHAlmacenados);
+
+                        }
+                    }
+                    
+                    //cerramos Suministro
+                    FinalizarSuministra(suministroActual.suministraId, horaActual, kwHSuministrados, ahorro);
+                    #endregion
+
+
+                    //calculamos la media del precio
+                     
+
+                    //ponemos el total almacenado y precio medioNuevo
+                    b.kwHAlmacenados = almacenados;
+                    b.precioMedio = preciomedioNuevo;
+
 
                     if ("cargando" == estadoPosterior)
                     {
