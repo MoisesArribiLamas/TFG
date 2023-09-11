@@ -263,18 +263,23 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
                     if ("cargando" == estadoPosterior)
                     {
-
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
                     }
 
                     if ("suministrando" == estadoPosterior)
                     {
-
-
+                        //// Creamos el nuevo suministrando
+                        //IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
                     }
 
                     if ("carga y suministra" == estadoPosterior)
                     {
+                        ////Creamos la carga nueva
+                        //IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
 
+                        ////Creamoscuministrando nuevo
+                        //IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
                     }
                 }
 
