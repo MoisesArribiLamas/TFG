@@ -242,8 +242,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                         else
                         { // En ningun caso se deberia entrar en esta opcion. seria suministrar mas potencia que la red general. Y el ahorro saldria negativo!!! 
 
-                            ahorro = (kwHSuministrados - kwHCargados) * ( b.precioMedio - tarifa.precio);
-                            preciomedioNuevo = ((kwHSuministrados - kwHCargados) * tarifa.precio + b.kwHAlmacenados * b.precioMedio) / ((kwHSuministrados - kwHCargados) + b.kwHAlmacenados);
+                            ahorro = (kwHCargados - kwHSuministrados) * ( b.precioMedio - tarifa.precio);
+                            preciomedioNuevo = b.precioMedio; //no se introduce kwh
 
                         }
                     }
