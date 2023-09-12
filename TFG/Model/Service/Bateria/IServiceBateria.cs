@@ -27,6 +27,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
                 DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
 
+        [Transactional]
+        double porcentajeDeCarga(long bateriaId);
 
         [Transactional]
         List<BateriaDTO> VerBaterias(long idUsuario, int startIndex, int count);

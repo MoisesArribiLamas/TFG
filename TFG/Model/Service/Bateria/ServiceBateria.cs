@@ -289,16 +289,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion
-        //#region calcular porcentaje de la bateria
-        //[Transactional]
-        //public double porcentajeDeCarga(long bateriaId)
-        //{
-        //    //buscamos la bateria
-        //    Bateria b = bateriaDao.Find(bateriaId);
+        #region calcular porcentaje de la bateria
+        [Transactional]
+        public double porcentajeDeCarga(long bateriaId)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
 
-        //    return (b.kwHAlmacenados * 100 / b.almacenajeMaximoKwH);
-        //}
-        //#endregion
+            return (b.kwHAlmacenados * 100 / b.almacenajeMaximoKwH);
+        }
+        #endregion
+
         #region crear baterias
         [Transactional]
         public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
