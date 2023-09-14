@@ -2778,5 +2778,54 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+        [TestMethod()]
+        public void ModificarRatiossTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                //comprobamos los ratios iniciales
+                Assert.AreEqual(b.ratioCarga, ratioCarga);
+                Assert.AreEqual(b.ratioCompra, ratioCompra);
+                Assert.AreEqual(b.ratioUso, ratioUso);
+
+                //Modificamos los ratios
+                double ratioCargaNuevo = 100;  // 40 -> 100
+                double ratioCompraNuevo = 100; // 50 -> 100 
+                double ratioUsoNuevo = 100;    // 45 -> 100
+
+                servicio.ModificarRatios(bateriaId, ratioCargaNuevo, ratioCompraNuevo, ratioUsoNuevo);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos
+                Assert.AreEqual(b.ratioCarga, ratioCargaNuevo);
+                Assert.AreEqual(b.ratioCompra, ratioCompraNuevo);
+                Assert.AreEqual(b.ratioUso, ratioUsoNuevo);
+
+            }
+        }
     }
 }
