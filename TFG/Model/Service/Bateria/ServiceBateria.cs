@@ -56,16 +56,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region modificar ratios
         [Transactional]
-        public void ModificarRatios(long bateriaId, double ratioCarga, double ratioCompra, double ratioUso)
+        public void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso)
         {
 
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
             //modificamos los ratios
-            b.ratioCarga= ratioCarga;
-            b.ratioCompra = ratioCompra;
-            b.ratioUso = ratioUso;
+            if (ratioCarga != null)
+            {
+                b.ratioCarga= (double)ratioCarga;
+            }
+
+            if (ratioCompra != null)
+            {
+                b.ratioCompra = (double)ratioCompra;
+            }
+
+            if (ratioUso != null)
+            {
+                b.ratioUso = (double)ratioUso;
+            }
+           
 
             bateriaDao.Update(b);
 
@@ -88,7 +100,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 //cambio de estado para todas las baterias que no esten en "sin actividad"
                     // buscamos la bateria
                     Bateria b = bateriaDao.Find(bateriaId);
-//List<BateriaDTO> Baterias = VerBaterias(b.usuarioId, startIndex, count); ---------------------------------------
+//List<BateriaDTO> Baterias = VerBaterias(b.usuarioId, startIndex, count); --------------------------------------
                     //bucle cambiando todos los estados que haya que cambiar
 
             }
@@ -107,7 +119,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
-        #region Operacion permitida por lor ratios
+        #region Gestion de los ratios
         [Transactional]
         public void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual, TarifaDTO tarifa)
         {

@@ -19,7 +19,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
 
         [Transactional]
-        void ModificarRatios(long bateriaId, double ratioCarga, double ratioCompra, double ratioUso);
+        void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
 
         [Transactional]
         void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual,
