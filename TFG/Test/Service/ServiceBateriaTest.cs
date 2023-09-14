@@ -1064,6 +1064,60 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void CambiarEstadoBateria_Sin_Actividad_A_Sin_ActividadTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                // Fecha y hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //comprobamos el estado anterior.
+                long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+
+                int hour = 0;
+                int minutes = 0;
+                int seconds = 0;
+
+                TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
+                Assert.AreEqual(estadoBateria.horaIni, horaActual);
+                Assert.AreEqual(estadoBateria.horaFin, horaFin);
+
+
+
+
+                //Intentamos cambiar el estado:  "sin actividad" -> "sin actividad"
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdSA, 0, 0);
+
+
+                //Buscamos y Comprobamos que no se ha modificado nada.
+                Bateria bateriaCambiada = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateriaCambiada.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdSA);
+                Assert.AreEqual(estadoBateriaNuevo.horaIni, horaActual);
+                Assert.AreEqual(estadoBateriaNuevo.horaFin, horaFin);
+
+            }
+        }
+
+        [TestMethod()]
         public void CambiarEstadoBateria_Sin_Actividad_A_CargandoTest()
         {
             using (var scope = new TransactionScope())
@@ -2791,25 +2845,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
 
-                //kwHAlmacenados = 1000;
-                //almacenajeMaximoKwH = 20000;   => 5% de carga
-
-                /*
-                    precioMedio = 100;
-                    kwHAlmacenados = 1000;
-                    almacenajeMaximoKwH = 20000;
-                    ratioCarga = 40;
-                    ratioCompra = 50;
-                    ratioUso = 45;
-                 */
 
                 //obtenemos la bateria
                 var b = bateriaDao.Find(bateriaId);
 
                 //comprobamos los ratios iniciales
-                Assert.AreEqual(b.ratioCarga, ratioCarga);
-                Assert.AreEqual(b.ratioCompra, ratioCompra);
-                Assert.AreEqual(b.ratioUso, ratioUso);
+                Assert.AreEqual(b.ratioCarga, ratioCarga);   // 40
+                Assert.AreEqual(b.ratioCompra, ratioCompra); // 50
+                Assert.AreEqual(b.ratioUso, ratioUso);       // 45
 
                 //Modificamos los ratios
                 double ratioCargaNuevo = 100;  // 40 -> 100
@@ -2824,6 +2867,520 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(b.ratioCarga, ratioCargaNuevo);
                 Assert.AreEqual(b.ratioCompra, ratioCompraNuevo);
                 Assert.AreEqual(b.ratioUso, ratioUsoNuevo);
+
+                //Modificamos ratioCargaNuevo
+                  // 100 -> 40                
+
+                servicio.ModificarRatios(bateriaId, ratioCarga, null, null);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos
+                Assert.AreEqual(b.ratioCarga, ratioCarga);
+                Assert.AreEqual(b.ratioCompra, ratioCompraNuevo);
+                Assert.AreEqual(b.ratioUso, ratioUsoNuevo);
+
+
+                //Modificamos ratioCompra
+                // 100 -> 50                
+
+                servicio.ModificarRatios(bateriaId, null, ratioCompra, null);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos            
+                Assert.AreEqual(b.ratioCompra, ratioCompra);
+
+
+                //Modificamos ratioUso
+                // 100 -> 45                
+
+                servicio.ModificarRatios(bateriaId, null, null, ratioUso);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos            
+                Assert.AreEqual(b.ratioUso, ratioUso);
+            }
+        }
+
+        [TestMethod()] 
+        public void gestionDeRatiosTest()
+        {                                    // Estado: "sin actividad" && Precio: ratioCompra < tarifa
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //comprobamos que el estado  es "sin actividad"
+                long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioCompraNuevo = 100; 
+                
+
+                servicio.ModificarRatios(bateriaId, null, ratioCompraNuevo, null);
+
+                // hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "sin actividad" && Precio: ratioCompra < tarifa
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "cargando"
+
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+        }
+
+        [TestMethod()]
+        public void gestionDeRatiosTest2()
+        {                                    // Estado: "suministrando" && Precio: ratioCompra < tarifa
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado a "suministrando"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "suministrando"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioCompraNuevo = 100;
+
+
+                servicio.ModificarRatios(bateriaId, null, ratioCompraNuevo, null);
+
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "suministrando" && Precio: ratioCompra < tarifa
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "carga y suministra"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+        }
+
+        [TestMethod()]
+        public void gestionDeRatiosTest3()
+        {                                    // Estado: "cargando" && Precio: ratioCompra < tarifa
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado a "cargando"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "cargando"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioCompraNuevo = 100;
+
+
+                servicio.ModificarRatios(bateriaId, null, ratioCompraNuevo, null);
+
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "cargando" && Precio: ratioCompra < tarifa
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "cargando" -> "cargando"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+        }
+
+        [TestMethod()]
+        public void gestionDeRatiosTest4()
+        {                                    // Estado: "sin actividad" && porcentaje: ratioCarga < 10%
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //comprobamos que el estado  es "sin actividad"
+                long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioCargaNuevo = 100;
+
+
+                servicio.ModificarRatios(bateriaId, ratioCargaNuevo, null, null);
+
+                // hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "sin actividad" && porcentaje: ratioCarga < 10%
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "cargando"
+
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+        }
+
+        [TestMethod()]
+        public void gestionDeRatiosTest5()
+        {                                    // Estado: "suministrando" && porcentaje: ratioCarga < 10%
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado a "suministrando"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "suministrando"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioCargaNuevo = 100;
+
+
+                servicio.ModificarRatios(bateriaId, ratioCargaNuevo, null, null);
+
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "suministrando" && porcentaje: ratioCarga < 10%
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "carga y suministra"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+        }
+
+        [TestMethod()]
+        public void gestionDeRatiosTest6()
+        {                                    // Estado: "suministrando" && precio: ratioUso >=  Tarifa
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado a "suministrando"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "suministrando"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioUsoNuevo = 2400;
+
+
+                servicio.ModificarRatios(bateriaId, null, null, ratioUsoNuevo);
+
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "suministrando" && precio: ratioUso >=  Tarifa
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "sin actividad"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+            }
+        }
+
+        [TestMethod()]
+        public void gestionDeRatiosTest7()
+        {                                    // Estado: "carga y suministra" && precio: ratioUso >=  Tarifa
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCarga = 40;
+                    ratioCompra = 50;
+                    ratioUso = 45;
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+
+                //Ponemos el estado a "carga y suministra"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "carga y suministra"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                // El ratio menor valor que el precio de la tarifa
+                double ratioUsoNuevo = 2400;
+
+
+                servicio.ModificarRatios(bateriaId, null, null, ratioUsoNuevo);
+
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // gestion de :   Estado: "carga y suministra" && precio: ratioUso >=  Tarifa
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+
+                //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "cargando"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
 
             }
         }
