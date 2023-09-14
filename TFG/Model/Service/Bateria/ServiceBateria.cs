@@ -54,6 +54,129 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+        #region modificar ratios
+        [Transactional]
+        public void ModificarRatios(long bateriaId, double ratioCarga, double ratioCompra, double ratioUso)
+        {
+
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            //modificamos los ratios
+            b.ratioCarga= ratioCarga;
+            b.ratioCompra = ratioCompra;
+            b.ratioUso = ratioUso;
+
+            bateriaDao.Update(b);
+
+
+        }
+        #endregion
+
+        #region Parte Asincrona
+        [Transactional]
+        public void Asincrono(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second); ;
+
+
+            //el cambio de hora (las que tienen estado distinto a "sin actividad")
+            if (horaActual.Minutes == 0)
+            {
+                //cambio de estado para todas las baterias que no esten en "sin actividad"
+                    // buscamos la bateria
+                    Bateria b = bateriaDao.Find(bateriaId);
+//List<BateriaDTO> Baterias = VerBaterias(b.usuarioId, startIndex, count); ---------------------------------------
+                    //bucle cambiando todos los estados que haya que cambiar
+
+            }
+            //no exceder del maximo de capacidad de la bateria
+
+            //gestion de ratios
+                //buscamos todas las baterias
+                
+
+                // Tarifa actual (hora)
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+                //bucle con todas las baterias gestion de ratios
+            //alertas de si se esta agotando la bateria en caso de que se suministre mas de lo que se carga.
+        }
+        #endregion
+
+        #region Operacion permitida por lor ratios
+        [Transactional]
+        public void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual, TarifaDTO tarifa)
+        {
+
+            // buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            // estado de la bateria
+            string estado = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
+
+
+            // el ratio de compra < precio tarifa
+            if (b.ratioCompra < tarifa.precio )
+            {
+
+                // carga si la bateria no esta al 100%
+                if (porcentajeDeCarga(bateriaId) < 100)
+                {
+                     
+                    if (("sin actividad" == estado)) // "sin actividad" -> "cargando" 
+                    {
+                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+
+                    }   else if ("suministrando" == estado) // "suministrando" -> "carga y suministra"
+                        {
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        }
+                }
+
+            }
+            // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
+            if (b.ratioCarga <= (porcentajeDeCarga(bateriaId)))
+            {
+
+                if (("sin actividad" == estado)) // "sin actividad" -> "cargando" 
+                {
+                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+
+                }
+                else if ("suministrando" == estado) // "suministrando" -> "carga y suministra"
+                {
+                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                }
+            }
+
+            // si el ratio de uso >= precio tarifa => consume de la red 
+            if (b.ratioUso >= tarifa.precio)
+            {
+
+                if (("suministrando" == estado)) // "suministrando" -> "sin actividad" 
+                {
+                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+
+                }
+                else if ("carga y suministra" == estado) // "carga y suministra" -> "cargando" 
+                {
+                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                }
+            }
+
+        }
+        #endregion
+
         #region cambiar estado bateria
         [Transactional]
         public void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
@@ -73,7 +196,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
 
 
-            if (!(("sin actividad" == estadoAnterior) && ("sin actividad" != estadoAnterior))) // "sin actividad" -> "sin actividad"
+            if (!(("sin actividad" == estadoAnterior) && ("sin actividad" == estadoPosterior))) // "sin actividad" -> "sin actividad"
             {
                 // Tarifa actual (hora)
                 int horaTarifa = horaActual.Hours;
