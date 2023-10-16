@@ -11,8 +11,6 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
 
         private long userProfileId;
         private String firstName;
-        private String tipo_usuario;
-        private String direccionPostal;
 
         public long UserProfileId
         {

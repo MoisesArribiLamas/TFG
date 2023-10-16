@@ -424,6 +424,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion
+
         #region calcular porcentaje de la bateria
         [Transactional]
         public double porcentajeDeCarga(long bateriaId)
@@ -611,7 +612,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         
         #endregion
 
-
         #region crear Suministra
         [Transactional]
         public long IniciarSuministra(long bateriaId, long tarifaId, TimeSpan horaIni)
@@ -655,6 +655,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #endregion
+
         #region Buscar Suministra por ID 
         [Transactional]
 
