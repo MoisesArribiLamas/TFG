@@ -172,7 +172,7 @@
     <value>Nombre</value>
   </data>
   <data name="Localize4ModifyUserResource1.Text" xml:space="preserve">
-    <value>Apellidos</value>
+    <value>Primer Apellido</value>
   </data>
   <data name="Localize5ModifyUserResource1.Text" xml:space="preserve">
     <value>Codigo Postal</value>
@@ -194,5 +194,11 @@
   </data>
   <data name="RegularExpressionValidator1Resource1.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="BoxApellidosModModifyUserResource2.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Localize4ModifyUserResource2.Text1" xml:space="preserve">
+    <value>Segundo Apellido</value>
   </data>
 </root>

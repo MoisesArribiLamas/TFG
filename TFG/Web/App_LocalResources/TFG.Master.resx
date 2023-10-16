@@ -117,103 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxCvvModifyTarjetasResource1.Text" xml:space="preserve">
+  <data name="lblDash1Resource1.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="lblDash1Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="BoxCvvModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lblDash2Resource1.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="lblDash2Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="btModificarTarjetaModifyTarjetasResource1.Text" xml:space="preserve">
-    <value>Añadir</value>
+  <data name="lblDash3Resource1.Text" xml:space="preserve">
+    <value>-</value>
   </data>
-  <data name="btModificarTarjetaModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lblDash3Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="CBPorDefectoModifyTarjetasResource1.Text" xml:space="preserve">
+  <data name="lblWelcome.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="CBPorDefectoModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lblWelcome.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lblAddTarjetaErrorModifyTarjetasResource1.Text" xml:space="preserve">
-    <value>Error Al registrar Tarjeta</value>
+  <data name="lclFooter.Text" xml:space="preserve">
+    <value>Realizado por Moisés Arribí Lamas</value>
   </data>
-  <data name="lblAddTarjetaErrorModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lclPageTitle.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="ListaTiposTarjetaModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lnkAuthenticate.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="Localize2ModifyTarjetasResource1.Text" xml:space="preserve">
-    <value>CVV</value>
-  </data>
-  <data name="Localize3ModifyTarjetasResource1.Text" xml:space="preserve">
-    <value>Por defecto</value>
-  </data>
-  <data name="Localize4ModifyTarjetasResource1.Text" xml:space="preserve">
-    <value>Tipo</value>
-  </data>
-  <data name="Localize5Resource1.Text" xml:space="preserve">
-    <value>Fecha (MM-YYYY)</value>
-  </data>
-  <data name="PageResource1.Title" xml:space="preserve">
-    <value>TFG</value>
-  </data>
-  <data name="RangeValidator1Resource1.ErrorMessage" xml:space="preserve">
-    <value>Proporcione un año válido</value>
-  </data>
-  <data name="RangeValidator1Resource1.Text" xml:space="preserve">
+  <data name="lnkAuthenticate.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="RangeValidator1Resource1.ToolTip" xml:space="preserve">
+  <data name="lnkLogout.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="RegularExpressionValidator1ModifyTarjetasResource1.ErrorMessage" xml:space="preserve">
-    <value>Formato de mes: MM (01, 12...)</value>
-  </data>
-  <data name="RegularExpressionValidator1ModifyTarjetasResource1.Text" xml:space="preserve">
+  <data name="lnkLogout.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="RegularExpressionValidator1ModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lnkUpdate.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="RequiredFieldValidator2ModifyTarjetasResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator2ModifyTarjetasResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator2ModifyTarjetasResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator3ModifyTarjetasResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator3ModifyTarjetasResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator3ModifyTarjetasResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator4ModifyTarjetasResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator4ModifyTarjetasResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator4ModifyTarjetasResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtAñoModifyTarjetasResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtAñoModifyTarjetasResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtMesModifyTarjetasResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtMesModifyTarjetasResource1.ToolTip" xml:space="preserve">
+  <data name="lnkUpdate.ToolTip" xml:space="preserve">
     <value />
   </data>
 </root>
