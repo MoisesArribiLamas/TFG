@@ -85,33 +85,6 @@ namespace Es.Udc.DotNet.TFG.Web {
         protected global::System.Web.UI.WebControls.HyperLink lnkModifyUser;
         
         /// <summary>
-        /// Control lnkFindProducts.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkFindProducts;
-        
-        /// <summary>
-        /// Control lnkVerCarrito.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkVerCarrito;
-        
-        /// <summary>
-        /// Control lnkVerPedidos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkVerPedidos;
-        
-        /// <summary>
         /// Control lnkLogout.
         /// </summary>
         /// <remarks>
