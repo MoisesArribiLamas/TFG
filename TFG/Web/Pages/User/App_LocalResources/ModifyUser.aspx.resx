@@ -147,12 +147,6 @@
   <data name="btModificarModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink2ModifyUserResource1.Text" xml:space="preserve">
-    <value>Gestionar tarjetas</value>
-  </data>
-  <data name="HyperLink2ModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="ListaIdiomasModModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -198,7 +192,7 @@
   <data name="BoxApellidosModModifyUserResource2.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="Localize4ModifyUserResource2.Text1" xml:space="preserve">
+  <data name="Localize4ModifyUserResource2.Text" xml:space="preserve">
     <value>Segundo Apellido</value>
   </data>
 </root>

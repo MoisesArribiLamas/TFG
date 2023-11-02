@@ -153,7 +153,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
             }
             // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
-            if (b.ratioCarga <= (porcentajeDeCarga(bateriaId)))
+            if (b.ratioCarga >= (porcentajeDeCarga(bateriaId)))
             {
 
                 if (("sin actividad" == estado)) // "sin actividad" -> "cargando" 
@@ -162,15 +162,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                     CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
 
                 }
-                else if ("suministrando" == estado) // "suministrando" -> "carga y suministra"
+                else if ("suministrando" == estado) 
                 {
-                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                    // ratio de uso >= precio tarifa => consume de la red. Tiene menos del 10% 
+                    if (b.ratioUso >= tarifa.precio) // "suministrando" -> "cargando"
+                    {
+                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                    }
+                    else // "suministrando" -> "carga y suministra"
+                    {
+                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                    }
                 }
             }
 
-            // si el ratio de uso >= precio tarifa => consume de la red 
-            if (b.ratioUso >= tarifa.precio)
+                // si el ratio de uso >= precio tarifa => consume de la red 
+            else if (b.ratioUso >= tarifa.precio)
             {
 
                 if (("suministrando" == estado)) // "suministrando" -> "sin actividad" 

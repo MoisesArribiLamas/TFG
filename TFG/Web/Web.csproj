@@ -126,7 +126,6 @@
     <Compile Include="HTTP\Session\UserSession.cs" />
     <Compile Include="HTTP\Util\CookiesManager.cs" />
     <Compile Include="HTTP\Util\IoC\IoCManagerNinject.cs" />
-    <Compile Include="HTTP\View\ApplicationObjects\Categories.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
