@@ -15,8 +15,6 @@ namespace Es.Udc.DotNet.TFG.Web
             if (!SessionManager.IsUserAuthenticated(Context))
             {
 
-                if (lnkVerPedidos != null)
-                    lnkVerPedidos.Visible = false;
                 if (lnkLogout != null)
                     lnkLogout.Visible = false;
                 if (lnkModifyUser != null)
@@ -37,7 +35,6 @@ namespace Es.Udc.DotNet.TFG.Web
                     lnkLogUser.Visible = false;
             }
 
-           // if (SessionManager.CarritoLength > 0)
         }
     }
 }

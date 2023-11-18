@@ -206,8 +206,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH= 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -220,8 +220,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b2.ubicacionId = u2.ubicacionId;
             b2.usuarioId = user2.usuarioId;
             b2.precioMedio = 222;
-            b2.kwAlmacenados = 2000;
-            b2.almacenajeMaximoKw = 2000;
+            b2.kwHAlmacenados = 2000;
+            b2.almacenajeMaximoKwH= 2000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 2";
             b2.modelo = "MODELO 2";
@@ -235,8 +235,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b3.ubicacionId = u2.ubicacionId;
             b3.usuarioId = user2.usuarioId;
             b3.precioMedio = 222;
-            b3.kwAlmacenados = 2000;
-            b3.almacenajeMaximoKw = 2000;
+            b3.kwHAlmacenados = 2000;
+            b3.almacenajeMaximoKwH= 2000;
             b3.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b3.marca = "MARCA 2";
             b3.modelo = "MODELO 2";
@@ -321,8 +321,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH= 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -335,8 +335,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b2.ubicacionId = u2.ubicacionId;
             b2.usuarioId = user2.usuarioId;
             b2.precioMedio = 222;
-            b2.kwAlmacenados = 2000;
-            b2.almacenajeMaximoKw = 2000;
+            b2.kwHAlmacenados = 2000;
+            b2.almacenajeMaximoKwH= 2000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 2";
             b2.modelo = "MODELO 2";

@@ -184,11 +184,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                TarifaDTO ta = servicio.BuscarMejorTarifa(fecha);
+                long ta = servicio.BuscarMejorTarifa(fecha);
 
 
-                Assert.AreEqual(ta.hora, 1);
-                Assert.AreEqual(ta.precio, 100);
+                
+                Assert.AreEqual(ta, 100);
 
 
             }
@@ -228,12 +228,176 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                TarifaDTO ta = servicio.BuscarpeorTarifa(fecha);
+                long ta = servicio.BuscarpeorTarifa(fecha);
 
 
-                Assert.AreEqual(ta.hora, 9);
-                Assert.AreEqual(ta.precio, 900);
+             
+                Assert.AreEqual(ta, 900);
 
+
+            }
+        }
+
+        [TestMethod()]
+        public void OrdenarMejorPrecioTarifasDelDiaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+
+                crearTarifa(1, 0, fecha);// mejor tarifa
+                crearTarifa(100, 1, fecha);
+                crearTarifa(200, 2, fecha);
+                crearTarifa(300, 3, fecha);
+                crearTarifa(400, 4, fecha);
+                crearTarifa(500, 5, fecha);
+                crearTarifa(600, 6, fecha);
+                crearTarifa(700, 7, fecha);
+                crearTarifa(800, 8, fecha);
+                crearTarifa(900, 9, fecha);
+                crearTarifa(1000, 10, fecha);
+                crearTarifa(1100, 11, fecha);
+                crearTarifa(1200, 12, fecha);
+                crearTarifa(1300, 13, fecha);
+                crearTarifa(1400, 14, fecha);
+                crearTarifa(1500, 15, fecha);
+                crearTarifa(1600, 16, fecha);
+                crearTarifa(1700, 17, fecha);
+                crearTarifa(1800, 18, fecha);
+                crearTarifa(1900, 19, fecha);
+                crearTarifa(2000, 20, fecha);
+                crearTarifa(2100, 21, fecha);
+                crearTarifa(2200, 22, fecha);
+                crearTarifa(2300, 23, fecha);// Peor tarifa
+                crearTarifa(4000, 0, fecha2);// esta fuera de fecha
+
+                List<TarifaDTO> ta = servicio.OrdenarMejorPrecioTarifasDelDia(fecha);
+
+                Assert.AreEqual(ta[0].precio, 1);
+                Assert.AreEqual(ta[0].hora, 0);
+                Assert.AreEqual(ta[1].hora, 1);
+                Assert.AreEqual(ta[2].hora, 2);
+                Assert.AreEqual(ta[3].hora, 3);
+                Assert.AreEqual(ta[4].hora, 4);
+                Assert.AreEqual(ta[5].hora, 5);
+                Assert.AreEqual(ta[6].hora, 6);
+
+            }
+        }
+
+        [TestMethod()]
+        public void OrdenarPeorPrecioTarifasDelDiaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+
+                crearTarifa(1, 0, fecha);// mejor tarifa
+                crearTarifa(100, 1, fecha);
+                crearTarifa(200, 2, fecha);
+                crearTarifa(300, 3, fecha);
+                crearTarifa(400, 4, fecha);
+                crearTarifa(500, 5, fecha);
+                crearTarifa(600, 6, fecha);
+                crearTarifa(700, 7, fecha);
+                crearTarifa(800, 8, fecha);
+                crearTarifa(900, 9, fecha);
+                crearTarifa(1000, 10, fecha);
+                crearTarifa(1100, 11, fecha);
+                crearTarifa(1200, 12, fecha);
+                crearTarifa(1300, 13, fecha);
+                crearTarifa(1400, 14, fecha);
+                crearTarifa(1500, 15, fecha);
+                crearTarifa(1600, 16, fecha);
+                crearTarifa(1700, 17, fecha);
+                crearTarifa(1800, 18, fecha);
+                crearTarifa(1900, 19, fecha);
+                crearTarifa(2000, 20, fecha);
+                crearTarifa(2100, 21, fecha);
+                crearTarifa(2200, 22, fecha);
+                crearTarifa(2300, 23, fecha);// Peor tarifa
+                crearTarifa(4000, 0, fecha2);// esta fuera de fecha
+
+                List<TarifaDTO> ta = servicio.OrdenarPeorPrecioTarifasDelDia(fecha);
+
+                Assert.AreEqual(ta[0].precio, 2300);
+                Assert.AreEqual(ta[0].hora, 23);
+                Assert.AreEqual(ta[1].hora, 22);
+                Assert.AreEqual(ta[2].hora, 21);
+                Assert.AreEqual(ta[3].hora, 20);
+                Assert.AreEqual(ta[4].hora, 19);
+                Assert.AreEqual(ta[5].hora, 18);
+                Assert.AreEqual(ta[6].hora, 17);
+
+            }
+        }
+
+        [TestMethod()]
+        public void TarifaActualTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+
+                crearTarifa(1, 0, fecha);// mejor tarifa
+                crearTarifa(100, 1, fecha);
+                crearTarifa(200, 2, fecha);
+                crearTarifa(300, 3, fecha);
+                crearTarifa(400, 4, fecha);
+                crearTarifa(500, 5, fecha);
+                crearTarifa(600, 6, fecha);
+                crearTarifa(700, 7, fecha);
+                crearTarifa(800, 8, fecha);
+                crearTarifa(900, 9, fecha);
+                crearTarifa(1000, 10, fecha);
+                crearTarifa(1100, 11, fecha);
+                crearTarifa(1200, 12, fecha);
+                crearTarifa(1300, 13, fecha);
+                crearTarifa(1400, 14, fecha);
+                crearTarifa(1500, 15, fecha);
+                crearTarifa(1600, 16, fecha);
+                crearTarifa(1700, 17, fecha);
+                crearTarifa(1800, 18, fecha);
+                crearTarifa(1900, 19, fecha);
+                crearTarifa(2000, 20, fecha);
+                crearTarifa(2100, 21, fecha);
+                crearTarifa(2200, 22, fecha);
+                crearTarifa(2300, 23, fecha);// Peor tarifa
+                crearTarifa(4000, 0, fecha2);// esta fuera de fecha
+
+                //comprobamos
+                TarifaDTO ta = servicio.TarifaActual(fecha, 0);
+                Assert.AreEqual(ta.precio, 1);
+
+                TarifaDTO ta1 = servicio.TarifaActual(fecha, 1);
+                Assert.AreEqual(ta1.precio, 100);
+
+                TarifaDTO ta2 = servicio.TarifaActual(fecha, 2);
+                Assert.AreEqual(ta2.precio, 200);
+
+                TarifaDTO ta3 = servicio.TarifaActual(fecha, 3);
+                Assert.AreEqual(ta3.precio, 300);
+
+                TarifaDTO ta4 = servicio.TarifaActual(fecha, 4);
+                Assert.AreEqual(ta4.precio, 400);
+
+                TarifaDTO ta5 = servicio.TarifaActual(fecha, 5);
+                Assert.AreEqual(ta5.precio, 500);
+
+                TarifaDTO ta6 = servicio.TarifaActual(fecha, 6);
+                Assert.AreEqual(ta6.precio, 600);
+
+                TarifaDTO ta10 = servicio.TarifaActual(fecha, 10);
+                Assert.AreEqual(ta10.precio, 1000);
+
+                TarifaDTO ta23 = servicio.TarifaActual(fecha, 23);
+                Assert.AreEqual(ta23.precio, 2300);
 
             }
         }

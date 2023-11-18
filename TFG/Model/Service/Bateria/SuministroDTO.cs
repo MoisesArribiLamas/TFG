@@ -9,7 +9,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
     public class SuministroDTO
     {
         public SuministroDTO(long suministroId, long bateriaId, long tarifaId, double ahorro,
-            TimeSpan horaIni, TimeSpan horaFin, double kws)
+            TimeSpan horaIni, TimeSpan horaFin, double kwH)
         {
             this.suministroId = suministroId;
             this.bateriaId = bateriaId;
@@ -17,7 +17,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             this.ahorro = ahorro;
             this.horaIni = horaIni;
             this.horaFin = horaFin;
-            this.kws = kws;
+            this.kwH = kwH;
             
         }
 
@@ -30,7 +30,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         public TimeSpan horaFin { get; set; }
 
-        public double kws { get; private set; }
+        public double kwH { get; private set; }
 
         public override bool Equals(object obj)
         {
@@ -42,7 +42,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    ahorro == details.ahorro &&
                    horaIni == details.horaIni
                    && (this.horaFin == details.horaFin)
-                   && (this.kws == details.kws);
+                   && (this.kwH == details.kwH);
         }
 
         public override string ToString()

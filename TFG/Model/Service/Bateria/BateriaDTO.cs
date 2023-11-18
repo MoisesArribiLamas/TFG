@@ -8,15 +8,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 {
     public class BateriaDTO
     {
-        public BateriaDTO(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwAlmacenados, double almacenajeMaximoKw, 
+        public BateriaDTO(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH, 
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
         {
             this.bateriaId = bateriaId;
             this.ubicacionId = ubicacionId;
             this.usuarioId = usuarioId;
             this.precioMedio = precioMedio;
-            this.kwAlmacenados = kwAlmacenados;
-            this.almacenajeMaximoKw = almacenajeMaximoKw;
+            this.kwHAlmacenados = kwHAlmacenados;
+            this.almacenajeMaximoKwH = almacenajeMaximoKwH;
             this.fechaDeAdquisicion = fechaDeAdquisicion;
             this.marca = marca;
             this.modelo = modelo;
@@ -30,9 +30,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         public long usuarioId { get; set; }
         public double precioMedio { get; set; }
 
-        public double kwAlmacenados { get; private set; }
+        public double kwHAlmacenados { get; private set; }
 
-        public double almacenajeMaximoKw { get; private set; }
+        public double almacenajeMaximoKwH { get; private set; }
         public DateTime fechaDeAdquisicion { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
@@ -50,8 +50,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    ubicacionId == details.ubicacionId &&
                    usuarioId == details.usuarioId &&
                    precioMedio == details.precioMedio
-                   && (this.kwAlmacenados == details.kwAlmacenados)
-                   && (this.almacenajeMaximoKw == details.almacenajeMaximoKw)
+                   && (this.kwHAlmacenados == details.kwHAlmacenados)
+                   && (this.almacenajeMaximoKwH == details.almacenajeMaximoKwH)
                    && (this.fechaDeAdquisicion == details.fechaDeAdquisicion)
                    && (this.marca == details.marca)
                    && (this.modelo == details.modelo)

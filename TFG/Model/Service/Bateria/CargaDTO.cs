@@ -9,14 +9,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
     public class CargaDTO
     {
         public CargaDTO(long cargaId, long bateriaId, long tarifaId,
-            TimeSpan horaIni, TimeSpan horaFin, double kws)
+            TimeSpan horaIni, TimeSpan horaFin, double kwH)
         {
             this.cargaId = cargaId;
             this.bateriaId = bateriaId;
             this.tarifaId = tarifaId;
             this.horaIni = horaIni;
             this.horaFin = horaFin;
-            this.kws = kws;
+            this.kwH = kwH;
             
         }
 
@@ -28,7 +28,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         public TimeSpan horaFin { get; set; }
 
-        public double kws { get; private set; }
+        public double kwH { get; private set; }
 
         public override bool Equals(object obj)
         {
@@ -39,7 +39,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    tarifaId == details.tarifaId &&
                    horaIni == details.horaIni
                    && (this.horaFin == details.horaFin)
-                   && (this.kws == details.kws);
+                   && (this.kwH == details.kwH);
         }
 
         public override string ToString()

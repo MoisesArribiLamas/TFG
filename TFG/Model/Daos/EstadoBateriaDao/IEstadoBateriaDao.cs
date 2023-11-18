@@ -11,6 +11,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoBateriaDao
 {
     public interface IEstadoBateriaDao : IGenericDao<SeEncuentra, Int64>
     {
-        List<SeEncuentra> MostrarEstadoBareriaPorFecha(DateTime fecha, DateTime fecha2);
+        List<SeEncuentra> MostrarEstadoBateriaPorFecha(long bateriaID, DateTime fecha, DateTime fecha2, int startIndex, int count);
+        bool PonerHorafinEstadoBateria(long estadobateriaID, TimeSpan hora);
     }
 }

@@ -52,21 +52,7 @@
                         <asp:HyperLink ID="lnkModifyUser" runat="server" Display="Dynamic"
                             Text="Modificar mis datos" NavigateUrl="~/Pages/User/ModifyUser.aspx" />
                     </li>
-
-
-
-                    <li>
-                        <asp:HyperLink ID="lnkFindProducts" runat="server" Display="Dynamic"
-                            Text="Buscar productos" NavigateUrl="~/Pages/Productos/FindProducts.aspx" />
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="lnkVerCarrito" runat="server" Display="Dynamic"
-                            Text="Mi carrito" NavigateUrl="~/Pages/VerCarrito.aspx" />
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="lnkVerPedidos" runat="server" Display="Dynamic"
-                            Text="Mis pedidos" NavigateUrl="~/Pages/Pedidos/VerPedidos.aspx" />
-                    </li>
+                    
                     <li>
                         <asp:HyperLink ID="lnkLogout" runat="server" Display="Dynamic"
                             Text="Logout" NavigateUrl="~/Pages/User/Logout.aspx" />

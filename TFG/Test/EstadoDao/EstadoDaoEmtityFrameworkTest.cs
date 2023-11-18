@@ -87,5 +87,39 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao.Tests
             Assert.AreEqual("Suministra y Carga", estadoObtenido[2].nombre);
 
         }
+
+        [TestMethod()]
+        public void FindEstadoByNameTest()
+        {
+            //CREAMOS LA CATEGORIA
+            Estado cargando = new Estado();
+            cargando.nombre = "Cargando";
+            estadoDao.Create(cargando);
+
+            //CREAMOS LAS OTRAS TRES CATEGORIAS
+            Estado suministrando = new Estado();
+            suministrando.nombre = "Suministrando";
+            estadoDao.Create(suministrando);
+
+            Estado sYC = new Estado();
+            sYC.nombre = "Suministra y Carga";
+            estadoDao.Create(sYC);
+
+            Estado sinActividad = new Estado();
+            sinActividad.nombre = "sin actividad";
+            estadoDao.Create(sinActividad);
+
+            //COMPROBAMOS
+            long estadoObtenido = estadoDao.FindEstadoByName(cargando.nombre);
+            long estadoObtenido2 = estadoDao.FindEstadoByName(suministrando.nombre);
+            long estadoObtenido3 = estadoDao.FindEstadoByName(sYC.nombre);
+            long estadoObtenido4 = estadoDao.FindEstadoByName(sinActividad.nombre);
+
+            Assert.AreEqual("Cargando", estadoDao.Find(estadoObtenido).nombre);
+            Assert.AreEqual("Suministrando", estadoDao.Find(estadoObtenido2).nombre);
+            Assert.AreEqual("Suministra y Carga", estadoDao.Find(estadoObtenido3).nombre);
+            Assert.AreEqual("sin actividad", estadoDao.Find(estadoObtenido4).nombre);
+
+        }
     }
 }

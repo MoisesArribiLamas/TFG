@@ -16,6 +16,7 @@
           <ScalarProperty Name="ratioCarga" ColumnName="ratioCarga" />
           <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
           <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />
+          <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

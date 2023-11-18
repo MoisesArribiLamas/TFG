@@ -7,6 +7,9 @@ using Ninject;
 using System.Configuration;
 using System.Data.Entity;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
+using Es.Udc.DotNet.TFG.Model.Service;
+using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao;
 
 namespace Es.Udc.DotNet.TFG.Web.HTTP.Util.IoC
 {
@@ -22,7 +25,9 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Util.IoC
 
             kernel.Bind<IEstadoDao>().To<EstadoDaoEntitFramework>();
 
+            kernel.Bind<IServiceUsuario>().To<ServiceUsuario>();
 
+            kernel.Bind<IUsuarioDao>().To<UsuarioEntityFramework>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["TFGEntities"].ConnectionString;

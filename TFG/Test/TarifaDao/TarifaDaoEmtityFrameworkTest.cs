@@ -111,9 +111,9 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             t2.fecha = t.fecha;
             tarifaDao.Create(t2);
 
-            Tarifa mtarifa = tarifaDao.BuscarMejorTarifa(t2.fecha);
+            long mtarifa = tarifaDao.PrecioMejorTarifa(t2.fecha);
 
-            Assert.AreEqual(t.precio, mtarifa.precio);
+            Assert.AreEqual(t.precio, mtarifa);
         }
 
         [TestMethod()]
@@ -133,9 +133,9 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             t2.fecha = t.fecha;
             tarifaDao.Create(t2);
 
-            Tarifa mtarifa = tarifaDao.BuscarPeorTarifa(t2.fecha);
+            long mtarifa = tarifaDao.PrecioPeorTarifa(t2.fecha);
 
-            Assert.AreEqual(t2.precio, mtarifa.precio);
+            Assert.AreEqual(t2.precio, mtarifa);
         }
 
         [TestMethod()]
@@ -222,7 +222,7 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
         }
 
 
-    [TestMethod()]
+        [TestMethod()]
         public void VerFarifasDelDiaTest2()
         {
 
@@ -282,8 +282,70 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             Assert.AreEqual(ta[19].hora, 19);
             Assert.AreEqual(ta[20].hora, 20);
             Assert.AreEqual(ta[21].hora, 21);
+        }
 
 
+        [TestMethod()]
+        public void VerFarifaActualTest()
+        {
+
+            Tarifa t = new Tarifa();
+            t.precio = 100;
+            t.hora = 1;
+            t.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            tarifaDao.Create(t);
+
+            crearTarifa(200, 2, t.fecha);
+            crearTarifa(300, 3, t.fecha);
+            crearTarifa(400, 4, t.fecha);
+            crearTarifa(500, 5, t.fecha);
+            crearTarifa(600, 6, t.fecha);
+            crearTarifa(700, 7, t.fecha);
+            crearTarifa(800, 8, t.fecha);
+            crearTarifa(900, 9, t.fecha);
+            crearTarifa(1000, 10, t.fecha);
+            crearTarifa(1100, 11, t.fecha);
+            crearTarifa(1200, 12, t.fecha);
+            crearTarifa(1300, 13, t.fecha);
+            crearTarifa(1400, 14, t.fecha);
+            crearTarifa(1500, 15, t.fecha);
+            crearTarifa(1600, 16, t.fecha);
+            crearTarifa(1700, 17, t.fecha);
+            crearTarifa(1800, 18, t.fecha);
+            crearTarifa(1900, 19, t.fecha);
+            crearTarifa(2000, 20, t.fecha);
+            crearTarifa(2100, 21, t.fecha);
+            crearTarifa(2200, 22, t.fecha);
+            crearTarifa(2300, 23, t.fecha);
+            crearTarifa(0, 0, t.fecha);
+
+            //comprobamos
+            Tarifa ta = tarifaDao.TarifaActual(t.fecha, 0);
+            Assert.AreEqual(ta.precio, 0);
+
+            Tarifa ta1 = tarifaDao.TarifaActual(t.fecha, 1);
+            Assert.AreEqual(ta1.precio, 100);
+
+            Tarifa ta2 = tarifaDao.TarifaActual(t.fecha, 2);
+            Assert.AreEqual(ta2.precio, 200);
+
+            Tarifa ta3 = tarifaDao.TarifaActual(t.fecha, 3);
+            Assert.AreEqual(ta3.precio, 300);
+
+            Tarifa ta4 = tarifaDao.TarifaActual(t.fecha, 4);
+            Assert.AreEqual(ta4.precio, 400);
+
+            Tarifa ta5 = tarifaDao.TarifaActual(t.fecha, 5);
+            Assert.AreEqual(ta5.precio, 500);
+
+            Tarifa ta6 = tarifaDao.TarifaActual(t.fecha, 6);
+            Assert.AreEqual(ta6.precio, 600);
+
+            Tarifa ta10 = tarifaDao.TarifaActual(t.fecha, 10);
+            Assert.AreEqual(ta10.precio, 1000);
+
+            Tarifa ta23 = tarifaDao.TarifaActual(t.fecha, 23);
+            Assert.AreEqual(ta23.precio, 2300);
         }
     }
 }

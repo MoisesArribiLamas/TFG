@@ -47,36 +47,77 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        #region mostrar la mejor tarifa del dia
+        #region mostrar mejor precio del dia
         [Transactional]
-        public TarifaDTO BuscarMejorTarifa(DateTime fecha)
+        public long BuscarMejorTarifa(DateTime fecha)
         {
-          
-            Tarifa t = tarifaDao.BuscarMejorTarifa(fecha);
+            return tarifaDao.PrecioMejorTarifa(fecha);
+        }
 
-            TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+        #endregion
+        
+        #region Ver las tarifas del dia ordenadas por peor precio
+        [Transactional]
+        public List<TarifaDTO> OrdenarMejorPrecioTarifasDelDia(DateTime fecha)
+        {
+
+            List<Tarifa> tarifas = tarifaDao.OrdenarMejorPrecioTarifasDelDia(fecha);
+
+            List<TarifaDTO> tarifaDTO = new List<TarifaDTO>();
+
+            foreach (Tarifa t in tarifas)
+            {
+                tarifaDTO.Add(new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            }
                 
-            return tarifasDTO;            
+            return tarifaDTO;
 
         }
 
         #endregion
 
+        #region mostrar el peor precio del dia
+        [Transactional]
+        public long BuscarpeorTarifa(DateTime fecha)
+        {
+
+            return tarifaDao.PrecioPeorTarifa(fecha);
+
+        }
+
+        #endregion
+        
         #region mostrar la peor tarifa del dia
         [Transactional]
-        public TarifaDTO BuscarpeorTarifa(DateTime fecha)
+        public List<TarifaDTO> OrdenarPeorPrecioTarifasDelDia(DateTime fecha)
         {
 
-            Tarifa t = tarifaDao.BuscarPeorTarifa(fecha);
+            List<Tarifa> tarifas = tarifaDao.OrdenarPeorPrecioTarifasDelDia(fecha);
 
-            TarifaDTO tarifasDTO = (new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            List<TarifaDTO> tarifaDTO = new List<TarifaDTO>();
 
-            return tarifasDTO;
+            foreach (Tarifa t in tarifas)
+            {
+                tarifaDTO.Add(new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha));
+            }
+
+            return tarifaDTO;
 
         }
 
         #endregion
 
+        #region mostrar el peor precio del dia
+        [Transactional]
+        public TarifaDTO TarifaActual(DateTime fecha, int hora)
+        {
+            Tarifa t = tarifaDao.TarifaActual(fecha, hora);
+            
+            return new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha);
+
+        }
+
+        #endregion
 
     }
 

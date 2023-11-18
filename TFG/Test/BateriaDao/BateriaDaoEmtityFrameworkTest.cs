@@ -118,8 +118,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId ;
             b.precioMedio = 111 ;
-            b.kwAlmacenados = 1000 ;
-            b.almacenajeMaximoKw = 1000 ;
+            b.kwHAlmacenados = 1000 ;
+            b.almacenajeMaximoKwH = 1000 ;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1" ;
             b.modelo = "MODELO 1" ;
@@ -132,8 +132,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ubicacionId = u2.ubicacionId;
             b2.usuarioId = user2.usuarioId;
             b2.precioMedio = 222;
-            b2.kwAlmacenados = 2000;
-            b2.almacenajeMaximoKw = 2000;
+            b2.kwHAlmacenados = 2000;
+            b2.almacenajeMaximoKwH = 2000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 2";
             b2.modelo = "MODELO 2";
@@ -145,7 +145,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
 
 
             //COMPROBAMOS
-            bateriaDao.updateInformacion(b.bateriaId, b2.ubicacionId, b2.usuarioId, b2.precioMedio, b2.kwAlmacenados, b2.almacenajeMaximoKw,
+            bateriaDao.updateInformacion(b.bateriaId, b2.ubicacionId, b2.usuarioId, b2.precioMedio, b2.kwHAlmacenados, b2.almacenajeMaximoKwH,
                 b2.fechaDeAdquisicion, b2.marca, b2.modelo, b2.ratioCarga, b2.ratioCompra, b2.ratioUso);
 
             Bateria b1 = bateriaDao.Find(b.bateriaId);
@@ -153,8 +153,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             Assert.AreEqual(b2.ubicacionId, b1.ubicacionId);
             Assert.AreEqual(b2.usuarioId, b1.usuarioId);
             Assert.AreEqual(b2.precioMedio, b1.precioMedio);
-            Assert.AreEqual(b2.kwAlmacenados, b1.kwAlmacenados);
-            Assert.AreEqual(b2.almacenajeMaximoKw, b1.almacenajeMaximoKw);
+            Assert.AreEqual(b2.kwHAlmacenados, b1.kwHAlmacenados);
+            Assert.AreEqual(b2.almacenajeMaximoKwH, b1.almacenajeMaximoKwH);
             Assert.AreEqual(b2.fechaDeAdquisicion, b1.fechaDeAdquisicion);
             Assert.AreEqual(b2.marca, b1.marca);
             Assert.AreEqual(b2.modelo, b1.modelo);
@@ -217,8 +217,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -231,8 +231,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ubicacionId = u2.ubicacionId;
             b2.usuarioId = user2.usuarioId;
             b2.precioMedio = 222;
-            b2.kwAlmacenados = 2000;
-            b2.almacenajeMaximoKw = 2000;
+            b2.kwHAlmacenados = 2000;
+            b2.almacenajeMaximoKwH = 2000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 2";
             b2.modelo = "MODELO 2";
@@ -245,8 +245,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b3.ubicacionId = u2.ubicacionId;
             b3.usuarioId = user2.usuarioId;
             b3.precioMedio = 333;
-            b3.kwAlmacenados = 3000;
-            b3.almacenajeMaximoKw = 3000;
+            b3.kwHAlmacenados = 3000;
+            b3.almacenajeMaximoKwH = 3000;
             b3.fechaDeAdquisicion = new DateTime(DateTime.Now.AddYears(1).Year, DateTime.Now.Month, DateTime.Now.Day);
             b3.marca = "MARCA 3";
             b3.modelo = "MODELO 3";
@@ -319,8 +319,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ubicacionId = u.ubicacionId;
             b.usuarioId = user.usuarioId;
             b.precioMedio = 111;
-            b.kwAlmacenados = 1000;
-            b.almacenajeMaximoKw = 1000;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
             b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b.marca = "MARCA 1";
             b.modelo = "MODELO 1";
@@ -333,8 +333,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ubicacionId = u2.ubicacionId;
             b2.usuarioId = user2.usuarioId;
             b2.precioMedio = 222;
-            b2.kwAlmacenados = 2000;
-            b2.almacenajeMaximoKw = 2000;
+            b2.kwHAlmacenados = 2000;
+            b2.almacenajeMaximoKwH = 2000;
             b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             b2.marca = "MARCA 2";
             b2.modelo = "MODELO 2";
@@ -347,8 +347,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b3.ubicacionId = u2.ubicacionId;
             b3.usuarioId = user2.usuarioId;
             b3.precioMedio = 333;
-            b3.kwAlmacenados = 3000;
-            b3.almacenajeMaximoKw = 3000;
+            b3.kwHAlmacenados = 3000;
+            b3.almacenajeMaximoKwH = 3000;
             b3.fechaDeAdquisicion = new DateTime(DateTime.Now.AddYears(1).Year, DateTime.Now.Month, DateTime.Now.Day);
             b3.marca = "MARCA 3";
             b3.modelo = "MODELO 3";

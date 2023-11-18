@@ -21,33 +21,32 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
             var result =
                      (from c in estados
 
-                      select c).ToList();
+                      select c).OrderBy(c => c.estadoId).ToList();
 
 
             return result;
 
         }
         #endregion Estados
- /*       #region Mostrar los estados entre dos fechas
-        public double MostrarEstadosEntreFechas(DateTime fecha, DateTime fecha2)
+
+
+        #region buscar estado por nombre
+        public long FindEstadoByName(string nombre)
         {
-            DbSet<Estado> tarifa = Context.Set<Estado>();
-            Tarifa pTarifa = null;
+            DbSet<Estado> estados = Context.Set<Estado>();
+
 
             var result =
-                (from t in tarifa
-                 where ((t.fecha >= fecha) && (t.fecha <= fecha2))
-                 select t);
-
-            pTarifa = result.FirstOrDefault();
-            if (pTarifa == null)
-                throw new InstanceNotFoundException(pTarifa,
-                        typeof(Tarifa).FullName);
+                     (from e in estados
+                      where e.nombre == nombre
+                      select e).FirstOrDefault();
 
 
-            return result.AsQueryable().Average(media => media.precio);
+            return result.estadoId;
+
         }
-        #endregion  */
+        #endregion Estados
+
     }
 
 

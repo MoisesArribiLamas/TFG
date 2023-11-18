@@ -26,14 +26,15 @@ namespace Es.Udc.DotNet.TFG.Model
         public long ubicacionId { get; set; }
         public long usuarioId { get; set; }
         public double precioMedio { get; set; }
-        public double kwAlmacenados { get; set; }
-        public double almacenajeMaximoKw { get; set; }
+        public double kwHAlmacenados { get; set; }
+        public double almacenajeMaximoKwH { get; set; }
         public System.DateTime fechaDeAdquisicion { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
         public double ratioCarga { get; set; }
         public double ratioCompra { get; set; }
         public double ratioUso { get; set; }
+        public Nullable<long> estadoBateria { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carga> Cargas { get; set; }

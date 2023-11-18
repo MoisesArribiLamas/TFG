@@ -144,8 +144,8 @@ CREATE TABLE Bateria (
 	ubicacionId BIGINT NOT NULL,
 	usuarioId BIGINT NOT NULL,
 	precioMedio FLOAT NOT NULL,
-	kwAlmacenados FLOAT NOT NULL,
-	almacenajeMaximoKw FLOAT NOT NULL,
+	kwHAlmacenados FLOAT NOT NULL,
+	almacenajeMaximoKwH FLOAT NOT NULL,
 	fechaDeAdquisicion DATETIME NOT NULL,
 	marca VARCHAR(30) NOT NULL,
 	modelo VARCHAR(40) NOT NULL,
@@ -206,7 +206,7 @@ CREATE TABLE Carga (
 	tarifaId BIGINT NOT NULL,
 	horaIni TIME NOT NULL,
 	horaFin TIME NOT NULL,
-	kws FLOAT NOT NULL,
+	kwH FLOAT NOT NULL,
 	
 	CONSTRAINT [PK_CARGA] PRIMARY KEY (cargaId),
 
@@ -227,7 +227,7 @@ CREATE TABLE Suministra (
 	tarifaId BIGINT NOT NULL,
 	horaIni TIME NOT NULL,
 	horaFin TIME NOT NULL,
-	kws FLOAT NOT NULL,
+	kwH FLOAT NOT NULL,
 	ahorro FLOAT NOT NULL,
 	
 	CONSTRAINT [PK_SUMINISTRA] PRIMARY KEY (suministraId),

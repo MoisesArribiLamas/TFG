@@ -105,12 +105,12 @@
     <Content Include="Global.asax" />
     <Content Include="Img\favicon.ico" />
     <Content Include="Pages\Errors\InternalError.aspx" />
-    <Content Include="Pages\Errors\SinStockError.aspx" />
     <Content Include="Pages\User\ChangePassword.aspx" />
     <Content Include="Pages\User\Logout.aspx" />
     <Content Include="Pages\User\LogUser.aspx" />
     <Content Include="Pages\MainPage.aspx" />
     <Content Include="Pages\SuccesfulOperation.aspx" />
+    <Content Include="Pages\User\ModifyUser.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -126,7 +126,6 @@
     <Compile Include="HTTP\Session\UserSession.cs" />
     <Compile Include="HTTP\Util\CookiesManager.cs" />
     <Compile Include="HTTP\Util\IoC\IoCManagerNinject.cs" />
-    <Compile Include="HTTP\View\ApplicationObjects\Categories.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
@@ -136,13 +135,6 @@
     </Compile>
     <Compile Include="Pages\Errors\InternalError.aspx.designer.cs">
       <DependentUpon>InternalError.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Errors\SinStockError.aspx.cs">
-      <DependentUpon>SinStockError.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Errors\SinStockError.aspx.designer.cs">
-      <DependentUpon>SinStockError.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
@@ -179,6 +171,13 @@
     <Compile Include="Pages\SuccesfulOperation.aspx.designer.cs">
       <DependentUpon>SuccesfulOperation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\User\ModifyUser.aspx.cs">
+      <DependentUpon>ModifyUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User\ModifyUser.aspx.designer.cs">
+      <DependentUpon>ModifyUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TFG.Master.cs">
       <DependentUpon>TFG.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -209,18 +208,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="App_LocalResources\PracticaMaD.Master.resx" />
+    <Content Include="App_LocalResources\TFG.Master.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E2BA67F1-0750-4E4B-8F2C-FDAB487EE065}</Project>
       <Name>Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\AddTarjeta.aspx.resx">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\ChangePassword.aspx.resx">
@@ -238,11 +232,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\ModifyTarjetas.aspx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\ModifyUser.aspx.resx">
       <SubType>Designer</SubType>
     </Content>
@@ -254,16 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\App_LocalResources\SuccesfulOperation.aspx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Pages\App_LocalResources\VerCarrito.aspx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\VisorTarjetas.aspx.resx">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

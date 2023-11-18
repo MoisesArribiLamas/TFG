@@ -16,6 +16,7 @@
     <Property Name="ratioCarga" Type="float" Nullable="false" />
     <Property Name="ratioCompra" Type="float" Nullable="false" />
     <Property Name="ratioUso" Type="float" Nullable="false" />
+    <Property Name="estadoBateria" Type="bigint" />
   </EntityType>
   <EntityType Name="Carga">
     <Key>
