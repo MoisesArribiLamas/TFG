@@ -134,10 +134,11 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             u.calle = "Calle";
             u.portal = "B";
             u.numero = 120;
+            u.etiqueta = "Garaje";
             
             ubicacionDao.Create(u);
 
-            Assert.AreEqual(u, ubicacionDao.findUbicacionExistente(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+            Assert.AreEqual(u, ubicacionDao.findUbicacionExistente(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
 
         }
 
@@ -158,11 +159,12 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             u2.calle = "Calle";
             u2.portal = "B";
             u2.numero = 121;
+            u2.etiqueta = "Cocina";
 
             ubicacionDao.Create(u);
             
 
-            Assert.AreEqual(null, ubicacionDao.findUbicacionExistente(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
+            Assert.AreEqual(null, ubicacionDao.findUbicacionExistente(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u2.etiqueta));
 
         }
 

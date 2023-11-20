@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero);
+        long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta);
 
         #endregion
 

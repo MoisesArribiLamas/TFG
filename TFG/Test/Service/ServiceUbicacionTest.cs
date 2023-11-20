@@ -32,6 +32,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const string calle = "calle";
         private const string portal = "portal";
         private const long numero = 1;
+        private const string etiqueta = "Trastero";
 
 
 
@@ -105,7 +106,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
 
                 var ubicacionProfile = ubicacionDao.Find(ubicacionId);
 

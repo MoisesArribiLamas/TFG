@@ -21,11 +21,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero)
+        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta)
         {
             try
             {
-                ubicacionDao.findUbicacionExistente(codigoPostal, localidad, calle, portal, numero);
+                ubicacionDao.findUbicacionExistente(codigoPostal, localidad, calle, portal, numero, etiqueta);
 
                 throw new DuplicateInstanceException(localidad,
                     typeof(Ubicacion).FullName);
@@ -39,6 +39,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 u.calle = calle;
                 u.portal = portal;
                 u.numero = numero;
+                u.etiqueta = etiqueta;
 
                 ubicacionDao.Create(u);
                 return u.ubicacionId;

@@ -47,14 +47,14 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         #endregion IUbicacionDao Members. Specific Operations
 
         #region Buscar Ubicacion
-        public Ubicacion findUbicacionExistente(long codigoPostal, string localidad, string calle, string portal, long numero)
+        public Ubicacion findUbicacionExistente(long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta)
         {
             DbSet<Ubicacion> Ubicaciones = Context.Set<Ubicacion>();
             Ubicacion ubicacion = null;
 
             var result =
                 (from u in Ubicaciones
-                 where u.codigoPostal.Equals(codigoPostal) && u.localidad ==localidad && u.calle == calle && u.portal.Equals(portal) && u.numero.Equals(numero)
+                 where u.codigoPostal.Equals(codigoPostal) && u.localidad ==localidad && u.calle == calle && u.portal.Equals(portal) && u.numero.Equals(numero) && u.etiqueta.Equals(etiqueta)
                  select u);
             ubicacion = result.FirstOrDefault();
             if (ubicacion == null)
