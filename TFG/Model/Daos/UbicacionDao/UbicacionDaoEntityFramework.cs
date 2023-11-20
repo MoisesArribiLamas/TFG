@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         #region IUbicacionDao Members. Specific Operations
         /// <exception cref="InstanceNotFoundException"/>
         
-        public bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero)
+        public bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta )
         {
             Ubicacion u = Find(ubicacionId);
             if (u != null)
@@ -34,6 +34,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
                 u.portal = portal;
 
                 u.numero = numero;
+
+                u.etiqueta = etiqueta;
                 
                 Update(u);
 

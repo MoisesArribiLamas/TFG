@@ -13,10 +13,10 @@ namespace Es.Udc.DotNet.TFG.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class tfgEntities : DbContext
+    public partial class TFGEntities : DbContext
     {
-        public tfgEntities()
-            : base("name=tfgEntities")
+        public TFGEntities()
+            : base("name=TFGEntities")
         {
         }
     

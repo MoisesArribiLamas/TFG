@@ -46,6 +46,10 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Ubicacion]')
 AND type in ('U')) DROP TABLE [Ubicacion]
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Consumo]') 
+AND type in ('U')) DROP TABLE [Consumo]
+GO
+
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Estado]') 
 AND type in ('U')) DROP TABLE [Estado]
 GO
@@ -75,6 +79,7 @@ CREATE TABLE Ubicacion (
 	calle VARCHAR(40) NOT NULL,
 	portal VARCHAR(30),
 	numero BIGINT NOT NULL,
+	etiqueta VARCHAR(50),
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
 
