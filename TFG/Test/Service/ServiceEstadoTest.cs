@@ -242,11 +242,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
                         int hour1 = 1;
-                        int hour2 = 0;
                         int minutes = 0;
                         int seconds = 0;
                         TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
-                        TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                        //aun no tenemos fecha de finalizacion
+                        TimeSpan? horaFin = null;
                         DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
 
@@ -294,11 +294,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
                         int hour1 = 1;
-                        int hour2 = 0;
                         int minutes = 0;
                         int seconds = 0;
                         TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
-                        TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                        //aun no tenemos fecha de finalizacion
+                        TimeSpan? horaFin = null;
                         DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
 

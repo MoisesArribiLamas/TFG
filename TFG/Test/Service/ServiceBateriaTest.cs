@@ -584,7 +584,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
                 long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni);
@@ -635,7 +634,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //creamos Carga
                 int hour1 = 1;
-                int hour2 = 0;
                 int minutes = 0;
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
@@ -643,7 +641,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaIni3 = new TimeSpan(hour1+2, minutes, seconds);
                 TimeSpan horaIni4 = new TimeSpan(hour1+3, minutes, seconds);
                 TimeSpan horaIni5 = new TimeSpan(hour1+4, minutes, seconds);
-                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
                 long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni2);
@@ -973,7 +970,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kwH = 3000;
                 double ahorro = 0;
                 double ahorro2 = 10;
                 double ahorro3 = 100;
@@ -1037,7 +1033,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kwH = 3000;
+                
                 double ahorro = 1;
                 double ahorro2 = 10;
                 double ahorro3 = 100;
@@ -1090,11 +1086,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
 
-                int hour = 0;
-                int minutes = 0;
-                int seconds = 0;
+                //int hour = 0;
+                //int minutes = 0;
+                //int seconds = 0;
 
-                TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+                //aun no tenemos fecha de finalizacion
+                TimeSpan? horaFin = null;
 
                 Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
                 Assert.AreEqual(estadoBateria.horaIni, horaActual);

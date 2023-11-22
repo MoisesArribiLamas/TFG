@@ -165,7 +165,7 @@ GO
 CREATE TABLE SeEncuentra (
 	seEncuentraId BIGINT IDENTITY(1,1) UNIQUE NOT NULL,
 	horaIni TIME NOT NULL,
-	horaFin TIME NOT NULL,
+	horaFin TIME ,
 	fecha DATETIME NOT NULL,
 	bateriaId BIGINT NOT NULL,
 	estadoId BIGINT NOT NULL,

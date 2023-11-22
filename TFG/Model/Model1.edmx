@@ -47,7 +47,7 @@
           </Key>
           <Property Name="seEncuentraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-          <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+          <Property Name="horaFin" Type="time" Precision="7" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="bateriaId" Type="bigint" Nullable="false" />
           <Property Name="estadoId" Type="bigint" Nullable="false" />
@@ -308,7 +308,7 @@
           </Key>
           <Property Name="seEncuentraId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="horaFin" Type="Time" Precision="7" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="bateriaId" Type="Int64" Nullable="false" />
           <Property Name="estadoId" Type="Int64" Nullable="false" />
