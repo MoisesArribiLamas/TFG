@@ -448,7 +448,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #region crear baterias
         [Transactional]
         public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
         {
 
 
@@ -465,6 +465,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             b.ratioCompra = ratioCompra;
             b.ratioUso = ratioUso;
             b.estadoBateria = 0;
+            b.capacidadCargador = capacidadCargador;
 
             bateriaDao.Create(b);
 
@@ -486,18 +487,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Modificacar Bateria
         [Transactional]
-        public void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
+        public void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
+            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador)
         {
             bateriaDao.updateInformacion(bateriaId, ubicacionId, usuarioId, precioMedio, kwHAlmacenados,
                 almacenajeMaximoKwH, fechaDeAdquisicion, marca, modelo, ratioCarga,
-                ratioCompra, ratioUso);
+                ratioCompra, ratioUso, capacidadCargador);
         }
         #endregion Modificar
 
         #region baterias del Usuario
         [Transactional]
-        public List<BateriaDTO> VerBaterias(long idUsuario, int startIndex, int count)
+        public List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count)
         {
             try
             {
@@ -509,7 +511,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 {
                     bateriasDTO.Add(new BateriaDTO(b.bateriaId, b.ubicacionId, b.usuarioId, b.precioMedio, b.kwHAlmacenados,
                 b.almacenajeMaximoKwH, b.fechaDeAdquisicion, b.marca, b.modelo, b.ratioCarga,
-                b.ratioCompra, b.ratioUso));
+                b.ratioCompra, b.ratioUso, b.capacidadCargador));
                 }
                 return bateriasDTO;
 

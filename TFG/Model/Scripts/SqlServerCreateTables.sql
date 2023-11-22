@@ -133,6 +133,7 @@ CREATE TABLE Bateria (
 	ratioCompra FLOAT NOT NULL,
 	ratioUso FLOAT NOT NULL,
 	estadoBateria BIGINT NULL,
+	capacidadCargador FLOAT NOT NULL,
 
 	CONSTRAINT [PK_BATERIA] PRIMARY KEY (bateriaId),
 
