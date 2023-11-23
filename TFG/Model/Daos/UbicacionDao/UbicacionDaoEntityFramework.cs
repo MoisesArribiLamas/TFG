@@ -20,23 +20,38 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         #region IUbicacionDao Members. Specific Operations
         /// <exception cref="InstanceNotFoundException"/>
         
-        public bool updateInformacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta )
+        public bool updateInformacion(long ubicacionId, long? codigoPostal, string localidad, string calle, string portal, long? numero, string etiqueta)
         {
             Ubicacion u = Find(ubicacionId);
             if (u != null)
             {
-                u.codigoPostal = codigoPostal;
+                if (codigoPostal != null)
+                {
+                    u.codigoPostal = (long)codigoPostal;
+                }
+                if (localidad != null)
+                {
+                    u.localidad = localidad;
+                }
+                if (calle != null)
+                {
+                    u.calle = calle;
+                }
+                if (portal != null)
+                {
+                    u.portal = portal;
+                }
+                if (numero != null)
+                {
+                    u.numero = (long)numero;
+                }
+                if (etiqueta != null)
+                {
+                    u.etiqueta = etiqueta;
+                }
 
-                u.localidad = localidad;
+                //u.bateriaSuministradora = bateriaSuministradora; // esto lo quitamos hacemos dos funciones diferentes una actualizar datos y otra cambiar bateriasuministradora
 
-                u.calle = calle;
-
-                u.portal = portal;
-
-                u.numero = numero;
-
-                u.etiqueta = etiqueta;
-                
                 Update(u);
 
                 return true;

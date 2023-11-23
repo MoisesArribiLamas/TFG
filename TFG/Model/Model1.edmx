@@ -85,6 +85,7 @@
           <Property Name="portal" Type="varchar" MaxLength="30" />
           <Property Name="numero" Type="bigint" Nullable="false" />
           <Property Name="etiqueta" Type="varchar" MaxLength="50" />
+          <Property Name="bateriaSuministradora" Type="bigint" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -353,6 +354,7 @@
           <Property Name="portal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="numero" Type="Int64" Nullable="false" />
           <Property Name="etiqueta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bateriaSuministradora" Type="Int64" />
           <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Ubicacion" ToRole="Bateria" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -615,6 +617,7 @@
                 <ScalarProperty Name="portal" ColumnName="portal" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="etiqueta" ColumnName="etiqueta" />
+                <ScalarProperty Name="bateriaSuministradora" ColumnName="bateriaSuministradora" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -80,6 +80,7 @@ CREATE TABLE Ubicacion (
 	portal VARCHAR(30),
 	numero BIGINT NOT NULL,
 	etiqueta VARCHAR(50),
+	bateriaSuministradora BIGINT ,
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
 

@@ -20,8 +20,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         #endregion
 
         [Transactional]
-        void modificarUbicacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero);
+        void modificarUbicacion(long ubicacionId, long? codigoPostal, string localidad, string calle, string portal, long? numero, string etiqueta);
 
+        [Transactional]
+        void CambiarBateriaSuministradora(long ubicacionId, long? bateriaSuministradora);
 
         [Transactional]
         List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count);
