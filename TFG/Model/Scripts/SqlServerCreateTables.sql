@@ -42,12 +42,12 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Bateria]')
 AND type in ('U')) DROP TABLE [Bateria]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Ubicacion]') 
-AND type in ('U')) DROP TABLE [Ubicacion]
-GO
-
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Consumo]') 
 AND type in ('U')) DROP TABLE [Consumo]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Ubicacion]') 
+AND type in ('U')) DROP TABLE [Ubicacion]
 GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Estado]') 
@@ -80,6 +80,7 @@ CREATE TABLE Ubicacion (
 	portal VARCHAR(30),
 	numero BIGINT NOT NULL,
 	etiqueta VARCHAR(50),
+	bateriaSuministradora BIGINT ,
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
 
@@ -88,6 +89,24 @@ CREATE TABLE Ubicacion (
 PRINT N'Tabla de Ubicacion creada.'
 GO
 
+/*  Consumo */
+
+CREATE TABLE Consumo (
+	consumoId BIGINT IDENTITY(1,1) UNIQUE NOT NULL,
+	ubicacionId BIGINT NOT NULL,
+	kwTotal FLOAT NOT NULL,
+	fecha DATETIME NOT NULL,
+	hora BIGINT NOT NULL,
+	
+
+	CONSTRAINT [PK_CONSUMO] PRIMARY KEY (consumoId),
+
+	CONSTRAINT [FK_UBICACION_BATERIA_CONSUMO] FOREIGN KEY (ubicacionId)
+		REFERENCES Ubicacion (ubicacionId) ON DELETE CASCADE,
+)
+
+PRINT N'Tabla de Consumo creada.'
+GO
 /*  Estado */
 
 CREATE TABLE Estado (
@@ -133,6 +152,7 @@ CREATE TABLE Bateria (
 	ratioCompra FLOAT NOT NULL,
 	ratioUso FLOAT NOT NULL,
 	estadoBateria BIGINT NULL,
+	capacidadCargador FLOAT NOT NULL,
 
 	CONSTRAINT [PK_BATERIA] PRIMARY KEY (bateriaId),
 
@@ -165,7 +185,7 @@ GO
 CREATE TABLE SeEncuentra (
 	seEncuentraId BIGINT IDENTITY(1,1) UNIQUE NOT NULL,
 	horaIni TIME NOT NULL,
-	horaFin TIME NOT NULL,
+	horaFin TIME ,
 	fecha DATETIME NOT NULL,
 	bateriaId BIGINT NOT NULL,
 	estadoId BIGINT NOT NULL,

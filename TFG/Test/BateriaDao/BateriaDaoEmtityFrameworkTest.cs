@@ -126,6 +126,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioCarga = 10 ;
             b.ratioCompra = 10 ;
             b.ratioUso = 10;
+            b.capacidadCargador = 10;
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -140,13 +141,14 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioCarga = 20;
             b2.ratioCompra = 20;
             b2.ratioUso = 20;
+            b2.capacidadCargador = 10;
             bateriaDao.Create(b2);
 
 
 
             //COMPROBAMOS
             bateriaDao.updateInformacion(b.bateriaId, b2.ubicacionId, b2.usuarioId, b2.precioMedio, b2.kwHAlmacenados, b2.almacenajeMaximoKwH,
-                b2.fechaDeAdquisicion, b2.marca, b2.modelo, b2.ratioCarga, b2.ratioCompra, b2.ratioUso);
+                b2.fechaDeAdquisicion, b2.marca, b2.modelo, b2.ratioCarga, b2.ratioCompra, b2.ratioUso, b2.capacidadCargador);
 
             Bateria b1 = bateriaDao.Find(b.bateriaId);
 
@@ -161,6 +163,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             Assert.AreEqual(b2.ratioCarga, b1.ratioCarga);
             Assert.AreEqual(b2.ratioCompra, b1.ratioCompra);
             Assert.AreEqual(b2.ratioUso, b1.ratioUso);
+            Assert.AreEqual(b2.capacidadCargador, b1.capacidadCargador);
 
         }
 
@@ -225,6 +228,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.capacidadCargador = 10;
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -239,6 +243,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioCarga = 20;
             b2.ratioCompra = 20;
             b2.ratioUso = 20;
+            b2.capacidadCargador = 10;
             bateriaDao.Create(b2);
 
             Bateria b3 = new Bateria();
@@ -253,6 +258,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b3.ratioCarga = 30;
             b3.ratioCompra = 30;
             b3.ratioUso = 30;
+            b3.capacidadCargador = 10;
             bateriaDao.Create(b3);
 
             int count = 2;
@@ -327,6 +333,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.capacidadCargador = 10;
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -341,6 +348,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioCarga = 20;
             b2.ratioCompra = 20;
             b2.ratioUso = 20;
+            b2.capacidadCargador = 10;
             bateriaDao.Create(b2);
 
             Bateria b3 = new Bateria();
@@ -355,6 +363,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b3.ratioCarga = 30;
             b3.ratioCompra = 30;
             b3.ratioUso = 30;
+            b3.capacidadCargador = 10;
             bateriaDao.Create(b3);
 
             int count = 2;

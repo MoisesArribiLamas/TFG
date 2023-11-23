@@ -9,7 +9,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
     public class BateriaDTO
     {
         public BateriaDTO(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH, 
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso)
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
         {
             this.bateriaId = bateriaId;
             this.ubicacionId = ubicacionId;
@@ -22,7 +22,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             this.modelo = modelo;
             this.ratioCarga = ratioCarga;
             this.ratioCompra = ratioCompra;
-            this.ratioUso = ratioUso; 
+            this.ratioUso = ratioUso;
+            this.capacidadCargador = capacidadCargador;
         }
 
         public long bateriaId { get; set; }
@@ -41,6 +42,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         public double ratioCompra { get; private set; }
         public double ratioUso { get; private set; }
+        public double capacidadCargador { get; private set; }
 
         public override bool Equals(object obj)
         {

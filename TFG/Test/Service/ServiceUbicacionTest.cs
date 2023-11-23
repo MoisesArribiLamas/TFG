@@ -32,6 +32,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const string calle = "calle";
         private const string portal = "portal";
         private const long numero = 1;
+        private const string etiqueta = "Trastero";
 
 
 
@@ -105,7 +106,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
 
                 var ubicacionProfile = ubicacionDao.Find(ubicacionId);
 
@@ -132,6 +133,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 u.calle = "Real";
                 u.portal = "D";
                 u.numero = 2;
+                u.etiqueta = "bateria principal";
 
                 ubicacionDao.Create(u);
 
@@ -141,16 +143,49 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 u2.calle = "Real";
                 u2.portal = "B";
                 u2.numero = 2;
+                u2.etiqueta = "bateria auxiliar";
 
                 ubicacionDao.Create(u2);
 
-                servicio.modificarUbicacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+                servicio.modificarUbicacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u2.etiqueta);
 
                 var obtained =
                     ubicacionDao.Find(u.ubicacionId);
 
                 // Check changes
                 Assert.AreEqual(u, obtained);
+            }
+        }
+
+
+        [TestMethod()]
+        public void CambiarBateriaSuministradoraTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                Ubicacion u = new Ubicacion();
+                u.codigoPostal = 15401;
+                u.localidad = "Ferrol";
+                u.calle = "Real";
+                u.portal = "D";
+                u.numero = 2;
+                u.etiqueta = "bateria principal";
+
+                ubicacionDao.Create(u);
+
+                //comprobamos que no tiene ninguna bateria suministrando
+                Assert.AreEqual(u.bateriaSuministradora, null);
+
+                //ponemos una bateria
+                long? bateriaSuministradora = 2;
+                servicio.CambiarBateriaSuministradora(u.ubicacionId,  bateriaSuministradora);
+
+                var obtained =
+                    ubicacionDao.Find(u.ubicacionId);
+
+                // Check changes
+                Assert.AreEqual(u.bateriaSuministradora, 2);
             }
         }
 

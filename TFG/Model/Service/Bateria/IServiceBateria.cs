@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
+            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
 
         [Transactional]
         void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
@@ -31,14 +31,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
 
         [Transactional]
-        void ModificarBateria(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-                DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso);
-
+        void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
+            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador);
+        
         [Transactional]
         double porcentajeDeCarga(long bateriaId);
 
         [Transactional]
-        List<BateriaDTO> VerBaterias(long idUsuario, int startIndex, int count);
+        List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count);
 
         [Transactional]
         Bateria BuscarBateriaById(long bateriaId);

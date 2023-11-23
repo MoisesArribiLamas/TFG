@@ -109,6 +109,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const double ratioCarga = 40;
         private const double ratioCompra = 50;
         private const double ratioUso = 45;
+        private const double capacidadCargador = 10;
 
 
         // TARIFA
@@ -263,7 +264,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion( codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+             fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
 
                 var bateriaProfile = bateriaDao.Find(bateriaId);
@@ -297,7 +298,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Modificamos datos
 
@@ -313,9 +314,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double ratioCarga2 = 2;
                 double ratioCompra2 = 2;
                 double ratioUso2 = 2;
+                double capacidadCargador2 =  10;
 
                 servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwHAlmacenados2, almacenajeMaximoKwH2,
-                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2);
+                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2, capacidadCargador2);
 
                 //Comprobamos los cambios
 
@@ -350,7 +352,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Buscamos
                 var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
@@ -384,7 +386,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Buscamos
                 var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
@@ -432,21 +434,21 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 // creamos las baterias
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 long bateriaId3 = servicio.CrearBateria(ubicacionId2, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 long bateriaId4 = servicio.CrearBateria(ubicacionId3, usuarioId2, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Buscamos los baterias que pertenecen al usuario (dos en la misma residencia y una en otra)
 
-                List<BateriaDTO> bateriasUsuario = servicio.VerBaterias(usuarioId, 0, 3);
-                List<BateriaDTO> bateriasUsuario2 = servicio.VerBaterias(usuarioId2, 0, 3);
+                List<BateriaDTO> bateriasUsuario = servicio.VerBateriasUsuario(usuarioId, 0, 3);
+                List<BateriaDTO> bateriasUsuario2 = servicio.VerBateriasUsuario(usuarioId2, 0, 3);
 
 
                 //Comprobamos los cambios
@@ -471,7 +473,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //bateria creada
                 var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
@@ -518,7 +520,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -562,9 +564,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -584,7 +586,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
                 long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni);
@@ -618,9 +619,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -635,7 +636,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //creamos Carga
                 int hour1 = 1;
-                int hour2 = 0;
                 int minutes = 0;
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
@@ -643,7 +643,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaIni3 = new TimeSpan(hour1+2, minutes, seconds);
                 TimeSpan horaIni4 = new TimeSpan(hour1+3, minutes, seconds);
                 TimeSpan horaIni5 = new TimeSpan(hour1+4, minutes, seconds);
-                double kwH = 0;
 
                 long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
                 long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni2);
@@ -675,9 +674,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -750,7 +749,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //bateria creada
                 var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
@@ -798,7 +797,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //bateria creada
                 var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
@@ -850,7 +849,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -894,9 +893,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -951,9 +950,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -973,7 +972,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kwH = 3000;
                 double ahorro = 0;
                 double ahorro2 = 10;
                 double ahorro3 = 100;
@@ -1013,11 +1011,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId3 = servicio.CrearBateria(ubicacionId, usuarioId2, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Creamos Tarifa
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -1037,7 +1035,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 int seconds = 0;
                 TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                 TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
-                double kwH = 3000;
+                
                 double ahorro = 1;
                 double ahorro2 = 10;
                 double ahorro3 = 100;
@@ -1078,9 +1076,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
 
                 //comprobamos el estado anterior.
@@ -1090,11 +1088,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
 
-                int hour = 0;
-                int minutes = 0;
-                int seconds = 0;
+                //int hour = 0;
+                //int minutes = 0;
+                //int seconds = 0;
 
-                TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+                //aun no tenemos fecha de finalizacion
+                TimeSpan? horaFin = null;
 
                 Assert.AreEqual(estadoBateria.estadoId, estadoIdSA);
                 Assert.AreEqual(estadoBateria.horaIni, horaActual);
@@ -1132,9 +1131,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //comprobamos que es estado anterior es "sin actividad"
                 long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -1200,9 +1199,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //comprobamos que es estado anterior es "sin actividad"
                 long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -1263,9 +1262,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //comprobamos que es estado anterior es "sin actividad"
                 long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -1339,9 +1338,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "Cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
@@ -1420,9 +1419,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "Cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
@@ -1509,9 +1508,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
 
                 //Ponemos el estado anterior a "Cargando"
@@ -1602,9 +1601,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "Cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
@@ -1703,9 +1702,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -1781,9 +1780,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -1872,9 +1871,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -1964,9 +1963,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -2067,9 +2066,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2166,9 +2165,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2266,9 +2265,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos Bateria
                 double precioMedioNuevo = precioMedio + 2300;
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedioNuevo, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedioNuevo, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2367,9 +2366,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos Bateria
                 double precioMedioNuevo = precioMedio + 2300;
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedioNuevo, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedioNuevo, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2465,9 +2464,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2576,9 +2575,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2689,9 +2688,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado anterior a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -2806,7 +2805,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //kwHAlmacenados = 1000;
                 //almacenajeMaximoKwH = 20000;   => 5% de carga
@@ -2843,7 +2842,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
 
                 //obtenemos la bateria
@@ -2930,9 +2929,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //comprobamos que el estado  es "sin actividad"
                 long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -2995,9 +2994,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -3065,9 +3064,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado a "cargando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -3136,9 +3135,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //comprobamos que el estado  es "sin actividad"
                 long estadoIdSA = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -3201,9 +3200,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -3271,9 +3270,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -3342,9 +3341,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado a "carga y suministra"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -3414,9 +3413,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Creamos Bateria
                 long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso);
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                 //Ponemos el estado a "suministrando"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");

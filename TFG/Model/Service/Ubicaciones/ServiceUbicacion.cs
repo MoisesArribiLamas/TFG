@@ -21,11 +21,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero)
+        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta)
         {
             try
             {
-                ubicacionDao.findUbicacionExistente(codigoPostal, localidad, calle, portal, numero);
+                ubicacionDao.findUbicacionExistente(codigoPostal, localidad, calle, portal, numero, etiqueta);
 
                 throw new DuplicateInstanceException(localidad,
                     typeof(Ubicacion).FullName);
@@ -39,6 +39,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 u.calle = calle;
                 u.portal = portal;
                 u.numero = numero;
+                u.etiqueta = etiqueta;
+                u.bateriaSuministradora = null;
 
                 ubicacionDao.Create(u);
                 return u.ubicacionId;
@@ -49,19 +51,25 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             #endregion crear Ubicación
         #region Modificacar Ubicacion
         [Transactional]
-        public void modificarUbicacion(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero)
+        public void modificarUbicacion(long ubicacionId, long? codigoPostal, string localidad, string calle, string portal, long? numero, string etiqueta)
         {
 
-            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
-          
-            ubicacion.codigoPostal = codigoPostal;
-            ubicacion.localidad = localidad;
-            ubicacion.calle = calle;
-            ubicacion.portal = portal;
-            ubicacion.numero = numero;
-            ubicacionDao.Update(ubicacion);
+            ubicacionDao.updateInformacion(ubicacionId, codigoPostal, localidad, calle, portal, numero, etiqueta);
         }
         #endregion Modificar
+
+        #region Cambiar bateria suministradora
+        [Transactional]
+        public void CambiarBateriaSuministradora(long ubicacionId, long? bateriaSuministradora)
+        {
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+
+            ubicacion.bateriaSuministradora = bateriaSuministradora;
+
+            ubicacionDao.Update(ubicacion);
+        }
+                
+        #endregion Cambiar bateria
 
         #region ubicaciones del Usuario
         [Transactional]

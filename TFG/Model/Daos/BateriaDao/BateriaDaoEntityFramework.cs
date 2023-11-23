@@ -20,32 +20,32 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
         #region IBateriaDao Members. Specific Operations
         /// <exception cref="InstanceNotFoundException"/>
 
-        public bool updateInformacion(long bateriaId, long ubicacionId, long usuarioId, double precioMedio,
-            double kwHAlmacenados, double almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
-            string modelo,double ratioCarga, double ratioCompra, double ratioUso)
+        public bool updateInformacion(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
+            string modelo,double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador)
         {
             Bateria b = Find(bateriaId);
             if (b != null)
             {
                 if (ubicacionId != null)
                 {
-                    b.ubicacionId = ubicacionId;
+                    b.ubicacionId = (long)ubicacionId;
                 }
                 if (usuarioId != null)
                 {
-                    b.usuarioId = usuarioId;
+                    b.usuarioId = (long)usuarioId;
                 }
                 if (precioMedio != null)
                 {
-                    b.precioMedio = precioMedio;
+                    b.precioMedio = (double)precioMedio;
                 }
                 if (kwHAlmacenados != null)
                 {
-                    b.kwHAlmacenados = kwHAlmacenados;
+                    b.kwHAlmacenados = (double)kwHAlmacenados;
                 }
                 if (almacenajeMaximoKwH != null)
                 {
-                    b.almacenajeMaximoKwH = almacenajeMaximoKwH;
+                    b.almacenajeMaximoKwH = (double)almacenajeMaximoKwH;
                 }
                 if (fechaDeAdquisicion != null)
                 {
@@ -61,16 +61,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
                 }
                 if (ratioCarga != null)
                 {
-                    b.ratioCarga = ratioCarga;
+                    b.ratioCarga = (double)ratioCarga;
                 }
                 if (ratioCompra != null)
                 {
-                    b.ratioCompra = ratioCompra;
+                    b.ratioCompra = (double)ratioCompra;
                 }
                 if (ratioUso != null)
                 {
-                    b.ratioUso = ratioUso;
+                    b.ratioUso = (double)ratioUso;
                 }
+                if (capacidadCargador != null)
+                {
+                    b.capacidadCargador = (double)capacidadCargador;
+                }
+                
                 Update(b);
 
                 return true;

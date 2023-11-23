@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.TFG.Model
     {
         public long seEncuentraId { get; set; }
         public System.TimeSpan horaIni { get; set; }
-        public System.TimeSpan horaFin { get; set; }
+        public Nullable<System.TimeSpan> horaFin { get; set; }
         public System.DateTime fecha { get; set; }
         public long bateriaId { get; set; }
         public long estadoId { get; set; }

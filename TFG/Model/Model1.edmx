@@ -22,6 +22,7 @@
           <Property Name="ratioCompra" Type="float" Nullable="false" />
           <Property Name="ratioUso" Type="float" Nullable="false" />
           <Property Name="estadoBateria" Type="bigint" />
+          <Property Name="capacidadCargador" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Carga">
           <Key>
@@ -47,7 +48,7 @@
           </Key>
           <Property Name="seEncuentraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-          <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+          <Property Name="horaFin" Type="time" Precision="7" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="bateriaId" Type="bigint" Nullable="false" />
           <Property Name="estadoId" Type="bigint" Nullable="false" />
@@ -84,6 +85,7 @@
           <Property Name="portal" Type="varchar" MaxLength="30" />
           <Property Name="numero" Type="bigint" Nullable="false" />
           <Property Name="etiqueta" Type="varchar" MaxLength="50" />
+          <Property Name="bateriaSuministradora" Type="bigint" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -275,6 +277,7 @@
           <Property Name="ratioCompra" Type="Double" Nullable="false" />
           <Property Name="ratioUso" Type="Double" Nullable="false" />
           <Property Name="estadoBateria" Type="Int64" />
+          <Property Name="capacidadCargador" Type="Double" Nullable="false" />
           <NavigationProperty Name="Cargas" Relationship="Self.FK_BATERIA_CARGA" FromRole="Bateria" ToRole="Carga" />
           <NavigationProperty Name="SeEncuentras" Relationship="Self.FK_BATERIA_SEENCUENTRA" FromRole="Bateria" ToRole="SeEncuentra" />
           <NavigationProperty Name="Suministras" Relationship="Self.FK_BATERIA_SUMINISTRA" FromRole="Bateria" ToRole="Suministra" />
@@ -308,7 +311,7 @@
           </Key>
           <Property Name="seEncuentraId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="horaFin" Type="Time" Precision="7" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="bateriaId" Type="Int64" Nullable="false" />
           <Property Name="estadoId" Type="Int64" Nullable="false" />
@@ -351,6 +354,7 @@
           <Property Name="portal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="numero" Type="Int64" Nullable="false" />
           <Property Name="etiqueta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bateriaSuministradora" Type="Int64" />
           <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Ubicacion" ToRole="Bateria" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -544,6 +548,7 @@
                 <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
                 <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />
                 <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
+                <ScalarProperty Name="capacidadCargador" ColumnName="capacidadCargador" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -612,6 +617,7 @@
                 <ScalarProperty Name="portal" ColumnName="portal" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="etiqueta" ColumnName="etiqueta" />
+                <ScalarProperty Name="bateriaSuministradora" ColumnName="bateriaSuministradora" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

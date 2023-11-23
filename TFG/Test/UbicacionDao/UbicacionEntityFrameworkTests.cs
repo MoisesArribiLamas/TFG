@@ -72,13 +72,23 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
         [TestMethod()]
         public void updateInformacionTest()
         {
-         
+
+            Ubicacion u0 = new Ubicacion();
+            u0.codigoPostal = 15405;
+            u0.localidad = "Ferrol";
+            u0.calle = "calle de Ferrol";
+            //u0.portal = "B";
+            u0.numero = 1;
+            ubicacionDao.Create(u0);
+
             Ubicacion u = new Ubicacion();
             u.codigoPostal = 15405;
             u.localidad = "Ferrol";
             u.calle = "calle de Ferrol";
             u.portal = "B";
             u.numero = 1;
+            u.etiqueta = "buhardilla";
+            u.bateriaSuministradora = 0;
             ubicacionDao.Create(u);
 
 
@@ -89,9 +99,11 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             u2.calle = "calle de Ferrol";
             u2.portal = "B";
             u2.numero = 2;
+            u2.etiqueta = "Trastero";
+            u2.bateriaSuministradora = 9;
             ubicacionDao.Create(u);
 
-            ubicacionDao.updateInformacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+            ubicacionDao.updateInformacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u2.etiqueta);
 
             Ubicacion ubicacionActualizada = ubicacionDao.Find(u.ubicacionId);
             Assert.AreEqual(u2.localidad, ubicacionActualizada.localidad);
@@ -99,10 +111,23 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             Assert.AreEqual(u2.calle, ubicacionActualizada.calle);
             Assert.AreEqual(u2.portal, ubicacionActualizada.portal);
             Assert.AreEqual(u2.numero, ubicacionActualizada.numero);
+            Assert.AreEqual(u2.etiqueta, ubicacionActualizada.etiqueta);
 
 
+            //probamos los valores nulos
+            ubicacionDao.updateInformacion(u.ubicacionId, null, null, null, null, null, null);
+
+            ubicacionActualizada = ubicacionDao.Find(u.ubicacionId);
+            Assert.AreEqual(u2.localidad, ubicacionActualizada.localidad);
+            Assert.AreEqual(u2.codigoPostal, ubicacionActualizada.codigoPostal);
+            Assert.AreEqual(u2.calle, ubicacionActualizada.calle);
+            Assert.AreEqual(u2.portal, ubicacionActualizada.portal);
+            Assert.AreEqual(u2.numero, ubicacionActualizada.numero);
+            Assert.AreEqual(u2.etiqueta, ubicacionActualizada.etiqueta);
 
         }
+
+        
 
         [TestMethod()]
         public void findUbicacion()
@@ -113,10 +138,11 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             u.calle = "Calle";
             u.portal = "B";
             u.numero = 120;
+            u.etiqueta = "Garaje";
             
             ubicacionDao.Create(u);
 
-            Assert.AreEqual(u, ubicacionDao.findUbicacionExistente(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+            Assert.AreEqual(u, ubicacionDao.findUbicacionExistente(u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
 
         }
 
@@ -137,11 +163,12 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             u2.calle = "Calle";
             u2.portal = "B";
             u2.numero = 121;
+            u2.etiqueta = "Cocina";
 
             ubicacionDao.Create(u);
             
 
-            Assert.AreEqual(null, ubicacionDao.findUbicacionExistente(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero));
+            Assert.AreEqual(null, ubicacionDao.findUbicacionExistente(u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u2.etiqueta));
 
         }
 

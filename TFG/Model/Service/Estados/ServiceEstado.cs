@@ -32,12 +32,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         [Transactional]
         public long CrearEstadoBateria(TimeSpan horaIni, DateTime fecha, long bateriaId, long estadoId)
         {
-            // Se podria hacer poniendo el campo nullable pero me decante por esta forma
-            int hour = 0;
-            int minutes = 0;
-            int seconds = 0;
+            //aun no tenemos fecha de finalizacion
+            TimeSpan? horaFin = null;
 
-            TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
 
             SeEncuentra b = new SeEncuentra();
             b.horaIni = horaIni;
