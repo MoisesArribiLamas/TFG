@@ -96,7 +96,9 @@ CREATE TABLE Consumo (
 	ubicacionId BIGINT NOT NULL,
 	kwTotal FLOAT NOT NULL,
 	fecha DATETIME NOT NULL,
-	hora BIGINT NOT NULL,
+	horaIni TIME NOT NULL,
+	horaFin TIME NOT NULL,
+	consumoActual FLOAT NOT NULL,
 	
 
 	CONSTRAINT [PK_CONSUMO] PRIMARY KEY (consumoId),
