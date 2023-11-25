@@ -80,10 +80,15 @@
     <Compile Include="Carga.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Consumo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Daos\BateriaDao\BateriaDaoEntityFramework.cs" />
     <Compile Include="Daos\BateriaDao\IBateriaDao.cs" />
     <Compile Include="Daos\CargaDao\CargaDaoEntityFramework.cs" />
     <Compile Include="Daos\CargaDao\ICargaDao.cs" />
+    <Compile Include="Daos\Consumo\IConsumoDao.cs" />
+    <Compile Include="Daos\Consumo\ConsumoDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoBateriaDao\EstadoBateriaDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoBateriaDao\IEstadoBateriaDao.cs" />
     <Compile Include="Daos\EstadoDao\EstadoDaoEntityFramework.cs" />

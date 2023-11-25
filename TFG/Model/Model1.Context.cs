@@ -27,6 +27,7 @@ namespace Es.Udc.DotNet.TFG.Model
     
         public virtual DbSet<Bateria> Baterias { get; set; }
         public virtual DbSet<Carga> Cargas { get; set; }
+        public virtual DbSet<Consumo> Consumoes { get; set; }
         public virtual DbSet<Estado> Estadoes { get; set; }
         public virtual DbSet<SeEncuentra> SeEncuentras { get; set; }
         public virtual DbSet<Suministra> Suministras { get; set; }
