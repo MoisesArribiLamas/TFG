@@ -41,10 +41,10 @@
           </Key>
           <Property Name="consumoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ubicacionId" Type="bigint" Nullable="false" />
-          <Property Name="kwTotal" Type="float" Nullable="false" />
+          <Property Name="kwTotal" Type="float" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-          <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+          <Property Name="horaFin" Type="time" Precision="7" />
           <Property Name="consumoActual" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Estado">
@@ -334,10 +334,10 @@
           </Key>
           <Property Name="consumoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ubicacionId" Type="Int64" Nullable="false" />
-          <Property Name="kwTotal" Type="Double" Nullable="false" />
+          <Property Name="kwTotal" Type="Double" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="horaFin" Type="Time" Precision="7" />
           <Property Name="consumoActual" Type="Double" Nullable="false" />
           <NavigationProperty Name="Ubicacion" Relationship="Self.FK_UBICACION_BATERIA_CONSUMO" FromRole="Consumo" ToRole="Ubicacion" />
         </EntityType>
