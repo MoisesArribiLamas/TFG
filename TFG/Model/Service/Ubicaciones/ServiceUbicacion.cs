@@ -143,35 +143,30 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion crear Consumo
 
-        //#region finalizar Consumo
-        //[Transactional]
-        //public long finalizarConsumo(long ubicacionId, double consumoActual)
-        //{
-        //    // Fecha y hora actual
-        //    DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        //    TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+        #region finalizar Consumo
+        [Transactional]
+        public void finalizarConsumo(long ubicacionId, double consumoActual)
+        {
+            // hora actual
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-        //    //buscamos el consumo (entidad) actual
-        //    Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            //buscamos el consumo (entidad) actual
+            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
 
-        //    //calculamos KWTotal
+            //calculamos KWTotal
+            double kwTotal = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
+            //finalizar consumo
+            c.horaFin = horaActual;
+            c.kwTotal = kwTotal;
 
-        //    consumoDao.FinalizarConsumo(consumoID, kwTotal, horaActual);
-        //    c.consumoActual = consumoActual;
-        //    c.kwTotal = null;
-        //    c.fecha = fechaActual;
-        //    c.horaIni = horaActual;
-        //    c.horaFin = null;
-        //    c.ubicacionId = ubicacionId;
-
-        //    consumoDao.Create(c);
-        //    return c.consumoId;
+            //actualizamos
+            consumoDao.Update(c);
 
 
-        //}
+        }
 
-        //#endregion finalizar Ubicación
+        #endregion finalizar Consumo
 
 
         #region calcular el Consumo entre dos horas
