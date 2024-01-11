@@ -447,5 +447,39 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+        [TestMethod()]
+        public void finalizarConsumoTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+
+                double consumoActual = 1000;
+                // Fecha y hora actual
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumoActual);
+
+                //finalizamos el consumo creado
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicio.finalizarConsumo(ubicacionId, consumoActual);
+
+                //buscamos el consumo
+                Consumo consumonProfile = consumoDao.Find(consumoId);
+
+                Assert.AreEqual(ubicacionId, consumonProfile.ubicacionId);
+                Assert.AreEqual(consumoActual, consumonProfile.consumoActual);
+                Assert.AreEqual(consumoId, consumonProfile.consumoId);
+                Assert.AreEqual(fechaActual, consumonProfile.fecha);
+                Assert.AreEqual(horaInicio, consumonProfile.horaIni);
+                Assert.AreEqual(horafinal, consumonProfile.horaFin);
+                
+
+            }
+        }
     }
 }
