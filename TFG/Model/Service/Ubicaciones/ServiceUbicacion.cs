@@ -141,8 +141,59 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         }
 
-        #endregion crear Ubicación
+        #endregion crear Consumo
 
+        //#region finalizar Consumo
+        //[Transactional]
+        //public long finalizarConsumo(long ubicacionId, double consumoActual)
+        //{
+        //    // Fecha y hora actual
+        //    DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        //    TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+        //    //buscamos el consumo (entidad) actual
+        //    Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+        //    //calculamos KWTotal
+
+
+        //    consumoDao.FinalizarConsumo(consumoID, kwTotal, horaActual);
+        //    c.consumoActual = consumoActual;
+        //    c.kwTotal = null;
+        //    c.fecha = fechaActual;
+        //    c.horaIni = horaActual;
+        //    c.horaFin = null;
+        //    c.ubicacionId = ubicacionId;
+
+        //    consumoDao.Create(c);
+        //    return c.consumoId;
+
+
+        //}
+
+        //#endregion finalizar Ubicación
+
+
+        #region calcular el Consumo entre dos horas
+        [Transactional]
+        public double calcularConsumo(double consumoActual, TimeSpan fechaIni, TimeSpan fechaFin)
+        {
+            // calculamos el tiempo transcurrido
+
+            double minutos =  fechaFin.Minutes - fechaIni.Minutes;
+            double segundos = fechaFin.Seconds - fechaIni.Seconds;
+
+            //1h = 3600 segundos
+            double consumido = consumoActual * (minutos * 60 + segundos) / 3600;
+
+            //calculamos KWTotal
+
+            return consumido;
+
+
+        }
+
+        #endregion crear Ubicación
         /*
         #region Eliminar Ubicacion
         [Transactional]
