@@ -28,6 +28,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count);
 
+        [Transactional]
+        Ubicacion buscarUbicacionById(long ubicacionId);
+
+        [Transactional]
+        long crearConsumo(long ubicacionId, double consumoActual);
+
+        //modificar consumo
+        //finalizar consumo
+        //
 
         /*
         [Transactional]
