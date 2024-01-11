@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="tfgEntities">
+  <EntityContainerMapping StorageEntityContainer="tfgModelStoreContainer" CdmEntityContainer="TFGEntities">
     <EntitySetMapping Name="Baterias">
       <EntityTypeMapping TypeName="tfgModel.Bateria">
         <MappingFragment StoreEntitySet="Bateria">
@@ -8,8 +8,8 @@
           <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
           <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
           <ScalarProperty Name="precioMedio" ColumnName="precioMedio" />
-          <ScalarProperty Name="kwAlmacenados" ColumnName="kwAlmacenados" />
-          <ScalarProperty Name="almacenajeMaximoKw" ColumnName="almacenajeMaximoKw" />
+          <ScalarProperty Name="kwHAlmacenados" ColumnName="kwHAlmacenados" />
+          <ScalarProperty Name="almacenajeMaximoKwH" ColumnName="almacenajeMaximoKwH" />
           <ScalarProperty Name="fechaDeAdquisicion" ColumnName="fechaDeAdquisicion" />
           <ScalarProperty Name="marca" ColumnName="marca" />
           <ScalarProperty Name="modelo" ColumnName="modelo" />
@@ -17,6 +17,7 @@
           <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
           <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />
           <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
+          <ScalarProperty Name="capacidadCargador" ColumnName="capacidadCargador" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -28,7 +29,20 @@
           <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
           <ScalarProperty Name="horaIni" ColumnName="horaIni" />
           <ScalarProperty Name="horaFin" ColumnName="horaFin" />
-          <ScalarProperty Name="kws" ColumnName="kws" />
+          <ScalarProperty Name="kwH" ColumnName="kwH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consumoes">
+      <EntityTypeMapping TypeName="tfgModel.Consumo">
+        <MappingFragment StoreEntitySet="Consumo">
+          <ScalarProperty Name="consumoId" ColumnName="consumoId" />
+          <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
+          <ScalarProperty Name="kwTotal" ColumnName="kwTotal" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="horaIni" ColumnName="horaIni" />
+          <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+          <ScalarProperty Name="consumoActual" ColumnName="consumoActual" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -60,7 +74,7 @@
           <ScalarProperty Name="tarifaId" ColumnName="tarifaId" />
           <ScalarProperty Name="horaIni" ColumnName="horaIni" />
           <ScalarProperty Name="horaFin" ColumnName="horaFin" />
-          <ScalarProperty Name="kws" ColumnName="kws" />
+          <ScalarProperty Name="kwH" ColumnName="kwH" />
           <ScalarProperty Name="ahorro" ColumnName="ahorro" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -84,6 +98,8 @@
           <ScalarProperty Name="calle" ColumnName="calle" />
           <ScalarProperty Name="portal" ColumnName="portal" />
           <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="etiqueta" ColumnName="etiqueta" />
+          <ScalarProperty Name="bateriaSuministradora" ColumnName="bateriaSuministradora" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

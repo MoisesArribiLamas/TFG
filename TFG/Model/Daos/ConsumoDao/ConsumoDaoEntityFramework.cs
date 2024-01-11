@@ -49,7 +49,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
             return result;
         }
         #endregion
-        #region mostrar ultimo consumo en una ubicacion
+        #region mostrar ultimo consumo (Entidad) en una ubicacion
 
         public Consumo UltimoConsumoUbicacion(long ubicacionID)
         {
@@ -65,7 +65,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         #endregion
 
         //mostrar consumo actual
-        #region mostrar ultimo consumo en una ubicacion
+        #region mostrar ultimo consumo (numero) en una ubicacion
 
         public double ConsumoUbicacionActual(long ubicacionID)
         {

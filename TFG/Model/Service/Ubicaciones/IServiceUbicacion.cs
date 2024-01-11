@@ -34,6 +34,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         long crearConsumo(long ubicacionId, double consumoActual);
 
+        [Transactional]
+        double calcularConsumo(double consumoActual, TimeSpan fechaIni, TimeSpan fechaFin);
+
+        [Transactional]
+        void finalizarConsumo(long ubicacionId, double consumoActual);
+
         //modificar consumo
         //finalizar consumo
         //
