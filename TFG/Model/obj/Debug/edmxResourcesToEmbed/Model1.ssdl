@@ -8,8 +8,8 @@
     <Property Name="ubicacionId" Type="bigint" Nullable="false" />
     <Property Name="usuarioId" Type="bigint" Nullable="false" />
     <Property Name="precioMedio" Type="float" Nullable="false" />
-    <Property Name="kwAlmacenados" Type="float" Nullable="false" />
-    <Property Name="almacenajeMaximoKw" Type="float" Nullable="false" />
+    <Property Name="kwHAlmacenados" Type="float" Nullable="false" />
+    <Property Name="almacenajeMaximoKwH" Type="float" Nullable="false" />
     <Property Name="fechaDeAdquisicion" Type="datetime" Nullable="false" />
     <Property Name="marca" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="modelo" Type="varchar" MaxLength="40" Nullable="false" />
@@ -17,6 +17,7 @@
     <Property Name="ratioCompra" Type="float" Nullable="false" />
     <Property Name="ratioUso" Type="float" Nullable="false" />
     <Property Name="estadoBateria" Type="bigint" />
+    <Property Name="capacidadCargador" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Carga">
     <Key>
@@ -27,7 +28,19 @@
     <Property Name="tarifaId" Type="bigint" Nullable="false" />
     <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
     <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-    <Property Name="kws" Type="float" Nullable="false" />
+    <Property Name="kwH" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Consumo">
+    <Key>
+      <PropertyRef Name="consumoId" />
+    </Key>
+    <Property Name="consumoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ubicacionId" Type="bigint" Nullable="false" />
+    <Property Name="kwTotal" Type="float" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horaFin" Type="time" Precision="7" />
+    <Property Name="consumoActual" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Estado">
     <Key>
@@ -42,7 +55,7 @@
     </Key>
     <Property Name="seEncuentraId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
-    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horaFin" Type="time" Precision="7" />
     <Property Name="fecha" Type="datetime" Nullable="false" />
     <Property Name="bateriaId" Type="bigint" Nullable="false" />
     <Property Name="estadoId" Type="bigint" Nullable="false" />
@@ -56,7 +69,7 @@
     <Property Name="tarifaId" Type="bigint" Nullable="false" />
     <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
     <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-    <Property Name="kws" Type="float" Nullable="false" />
+    <Property Name="kwH" Type="float" Nullable="false" />
     <Property Name="ahorro" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Tarifa">
@@ -78,6 +91,8 @@
     <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
     <Property Name="portal" Type="varchar" MaxLength="30" />
     <Property Name="numero" Type="bigint" Nullable="false" />
+    <Property Name="etiqueta" Type="varchar" MaxLength="50" />
+    <Property Name="bateriaSuministradora" Type="bigint" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
@@ -205,9 +220,24 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UBICACION_BATERIA_CONSUMO">
+    <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Consumo" Type="Self.Consumo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ubicacion">
+        <PropertyRef Name="ubicacionId" />
+      </Principal>
+      <Dependent Role="Consumo">
+        <PropertyRef Name="ubicacionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="tfgModelStoreContainer">
     <EntitySet Name="Bateria" EntityType="Self.Bateria" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Carga" EntityType="Self.Carga" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Consumo" EntityType="Self.Consumo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeEncuentra" EntityType="Self.SeEncuentra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suministra" EntityType="Self.Suministra" Schema="dbo" store:Type="Tables" />
@@ -245,6 +275,10 @@
     <AssociationSet Name="FK_TARIFA_SUMINISTRA" Association="Self.FK_TARIFA_SUMINISTRA">
       <End Role="Tarifa" EntitySet="Tarifa" />
       <End Role="Suministra" EntitySet="Suministra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UBICACION_BATERIA_CONSUMO" Association="Self.FK_UBICACION_BATERIA_CONSUMO">
+      <End Role="Ubicacion" EntitySet="Ubicacion" />
+      <End Role="Consumo" EntitySet="Consumo" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -409,5 +409,43 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+
+        [TestMethod()]
+        public void calcularConsumoTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                double consumoActual = 360;
+                int hour = 1;
+                int minutes = 0;
+                int seconds = 0;
+
+                // hora actual
+                TimeSpan horaIni = new TimeSpan(hour, minutes, seconds);
+                TimeSpan h2 = new TimeSpan(hour, minutes, seconds+10);
+                TimeSpan h3 = new TimeSpan(hour, minutes+10, seconds);
+                TimeSpan h4 = new TimeSpan(hour, minutes + 10, seconds+10);
+
+                //calculamos el consumo
+
+                double c2 = servicio.calcularConsumo(consumoActual, horaIni, h2);
+                double c3 = servicio.calcularConsumo(consumoActual, horaIni, h3);
+                double c4 = servicio.calcularConsumo(consumoActual, horaIni, h4);
+
+                //comprobamos
+
+                // 360*10/3600 = 1
+                Assert.AreEqual(c2, 1);
+                // 360*600/3600 = 60
+                Assert.AreEqual(c3, 60);
+                // 360*610/3600 = 61
+                Assert.AreEqual(c4, 61);
+
+
+
+            }
+        }
     }
 }
