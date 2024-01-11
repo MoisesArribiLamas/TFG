@@ -14,6 +14,8 @@ using Es.Udc.DotNet.TFG.Model;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -26,6 +28,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private static IUbicacionDao ubicacionDao;
         private static IUsuarioDao usuarioDao;
         private static IBateriaDao bateriaDao;
+        public static IConsumoDao consumoDao ;
 
         private const long codigoPostal = 15000;
         private const string localidad = "localidad";
@@ -77,6 +80,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             ubicacionDao = kernel.Get<IUbicacionDao>();
             usuarioDao = kernel.Get<IUsuarioDao>();
             bateriaDao = kernel.Get<IBateriaDao>();
+            consumoDao = kernel.Get<IConsumoDao>();
 
         }
 
@@ -312,6 +316,97 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(obteined.Count, 1);
                 Assert.AreEqual(obteined2[0], o2);
                 Assert.AreEqual(obteined2.Count, 1);
+            }
+        }
+
+        [TestMethod()]
+        public void buscarcarUbicacionByIdTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                Ubicacion u = new Ubicacion();
+                u.codigoPostal = 15401;
+                u.localidad = "Ferrol";
+                u.calle = "Real";
+                u.portal = "D";
+                u.numero = 2;
+                u.etiqueta = "bateria principal";
+
+                ubicacionDao.Create(u);
+
+                Ubicacion u2 = new Ubicacion();
+                u2.codigoPostal = 15009;
+                u2.localidad = "Coruña";
+                u2.calle = "Real";
+                u2.portal = "B";
+                u2.numero = 2;
+                u2.etiqueta = "bateria auxiliar";
+
+                ubicacionDao.Create(u2);
+
+                Ubicacion obtained = servicio.buscarUbicacionById(u.ubicacionId);
+                Ubicacion obtained2 = servicio.buscarUbicacionById(u2.ubicacionId);
+
+
+                // Check changes
+                Assert.AreEqual(u, obtained);
+                Assert.AreEqual(u2, obtained2);
+            }
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void buscarcarUbicacionById2Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                Ubicacion u = new Ubicacion();
+                u.codigoPostal = 15401;
+                u.localidad = "Ferrol";
+                u.calle = "Real";
+                u.portal = "D";
+                u.numero = 2;
+                u.etiqueta = "bateria principal";
+
+                ubicacionDao.Create(u);
+
+                long idFalso = u.ubicacionId + 10;
+
+                // le pasamos un ID falso para ver que falla
+                Ubicacion obtained = servicio.buscarUbicacionById(idFalso);
+               
+            }
+        }
+
+        [TestMethod()]
+        public void crearConsumoTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                
+                double consumoActual = 1000; 
+                // Fecha y hora actual
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumoActual); 
+
+                //buscamos el consumo creado
+                Consumo consumonProfile = consumoDao.Find(consumoId);
+
+                Assert.AreEqual(ubicacionId, consumonProfile.ubicacionId);
+                Assert.AreEqual(consumoActual, consumonProfile.consumoActual);
+                Assert.AreEqual(consumoId, consumonProfile.consumoId);
+                Assert.AreEqual(fechaActual, consumonProfile.fecha);
+                Assert.AreEqual(horaActual, consumonProfile.horaIni);
+                Assert.AreEqual(null, consumonProfile.horaFin);
+                Assert.AreEqual(null, consumonProfile.kwTotal);
+
             }
         }
     }
