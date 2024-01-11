@@ -220,7 +220,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             Tarifa t3 = new Tarifa();
             t3.precio = 100;
             t3.hora = 3;
-            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(2);
             tarifaDao.Create(t3);
 
             //CREAMOS CARGAS
@@ -256,14 +256,23 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             c0.bateriaId = b.bateriaId;
             cargaDao.Create(c0);
 
+            // comprobamos que existen las Tarifas
+            //Assert.AreEqual(t, tarifaDao.Find(t.tarifaId));
+            //Assert.AreEqual(t2, tarifaDao.Find(t2.tarifaId));
+            //Assert.AreEqual(t3, tarifaDao.Find(t3.tarifaId));
+
+            // comprobamos que existen las cargas
+            //Assert.AreEqual(c0.cargaId, cargaDao.getInfoCarga(c0.cargaId).cargaId);
+            //Assert.AreEqual(c.cargaId, cargaDao.getInfoCarga(c.cargaId).cargaId);
+            //Assert.AreEqual(c2.cargaId, cargaDao.getInfoCarga(c2.cargaId).cargaId);
+            //Assert.AreEqual(c3.cargaId, cargaDao.getInfoCarga(c3.cargaId).cargaId);
 
             //COMPROBAMOS
             DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             int startIndex = 0;
             int count = 3;
             List<Carga> cargaResult = cargaDao.MostrarCargasBareriaPorFecha(b.bateriaId, fecha, fecha2, startIndex, count);
-            
 
             Assert.AreEqual(cargaResult[0], c);
             Assert.AreEqual(cargaResult[1], c2);
@@ -342,13 +351,13 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             Tarifa t3 = new Tarifa();
             t3.precio = 100;
             t3.hora = 3;
-            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
             tarifaDao.Create(t3);
 
             Tarifa t4 = new Tarifa();
             t4.precio = 100;
             t4.hora = 1;
-            t4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            t4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             tarifaDao.Create(t4);
 
             //CREAMOS CARGAS

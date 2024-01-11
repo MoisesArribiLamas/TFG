@@ -148,7 +148,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             SeEncuentra estadoBateria2 = new SeEncuentra();
 
             estadoBateria2.bateriaId = b.bateriaId;
-            estadoBateria2.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            estadoBateria2.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             estadoBateria2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             estadoBateria2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
             estadoBateria2.estadoId = suministrando.estadoId;
@@ -158,7 +158,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             SeEncuentra estadoBateria3 = new SeEncuentra();
 
             estadoBateria3.bateriaId = b.bateriaId;
-            estadoBateria3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            estadoBateria3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             estadoBateria3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             estadoBateria3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             estadoBateria3.estadoId = sYC.estadoId;
@@ -168,7 +168,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             SeEncuentra estadoBateria4 = new SeEncuentra();
 
             estadoBateria4.bateriaId = b.bateriaId;
-            estadoBateria4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            estadoBateria4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
             estadoBateria4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
             estadoBateria4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             estadoBateria4.estadoId = sYC.estadoId;
@@ -177,8 +177,8 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
 
 
             DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateTime mañana = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-            DateTime pasado = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
+            DateTime mañana = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
+            DateTime pasado = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(2);
 
             //COMPROBAMOS
             int startIndex = 0;

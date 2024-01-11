@@ -18,6 +18,7 @@ namespace Es.Udc.DotNet.TFG.Model
         public Ubicacion()
         {
             this.Baterias = new HashSet<Bateria>();
+            this.Consumoes = new HashSet<Consumo>();
         }
     
         public long ubicacionId { get; set; }
@@ -31,5 +32,7 @@ namespace Es.Udc.DotNet.TFG.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bateria> Baterias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Consumo> Consumoes { get; set; }
     }
 }

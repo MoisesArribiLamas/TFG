@@ -91,7 +91,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         {
             // Fecha y hora actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second); ;
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second); 
 
 
             //el cambio de hora (las que tienen estado distinto a "sin actividad")

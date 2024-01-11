@@ -46,7 +46,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             var result =
                 (from s in suministros
                  where ((s.Tarifa.fecha >= fecha) && (s.Tarifa.fecha <= fecha2) && (s.bateriaId == bateriaId))
-                 select s).OrderBy(s => s.horaIni).Skip(startIndex).Take(count).ToList();
+                 select s).OrderBy(c => c.Tarifa.fecha).ThenBy(s => s.horaIni).Skip(startIndex).Take(count).ToList();
 
             return result;
         }

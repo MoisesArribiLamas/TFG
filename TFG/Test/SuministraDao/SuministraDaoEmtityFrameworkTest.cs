@@ -222,7 +222,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             Tarifa t3 = new Tarifa();
             t3.precio = 100;
             t3.hora = 3;
-            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
             tarifaDao.Create(t3);
 
             //CREAMOS CARGAS
@@ -265,7 +265,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //COMPROBAMOS
             DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             int startIndex = 0;
             int count = 3;
             List<Suministra> suministraResult = suministraDao.MostrarSuministrosBareriaPorFecha(b.bateriaId, fecha, fecha2, startIndex, count);
@@ -348,7 +348,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             Tarifa t3 = new Tarifa();
             t3.precio = 300;
             t3.hora = 3;
-            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             tarifaDao.Create(t3);
 
             //CREAMOS Suministras
@@ -472,7 +472,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             Tarifa t3 = new Tarifa();
             t3.precio = 100;
             t3.hora = 3;
-            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
             tarifaDao.Create(t3);
 
             //CREAMOS CARGAS
@@ -515,7 +515,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //COMPROBAMOS
             DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             
             double ahorroResult = suministraDao.ahorroBareriaPorFecha(b.bateriaId, fecha, fecha2);
 
@@ -623,7 +623,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             Tarifa t3 = new Tarifa();
             t3.precio = 300;
             t3.hora = 3;
-            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(5).Day);
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
             tarifaDao.Create(t3);
 
             //CREAMOS CARGAS
@@ -675,7 +675,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             //COMPROBAMOS
             DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
 
             double ahorroResult = suministraDao.ahorroUsuarioPorFecha(user.usuarioId, fecha, fecha2);
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Ninject;
 
@@ -16,7 +17,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Inject]
         public IUbicacionDao ubicacionDao { private get; set; }
-
+        [Inject]
+        public IConsumoDao consumoDao { private get; set; }
 
 
         #region crear Ubicación
@@ -95,6 +97,51 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
 
         #endregion
+
+        #region Buscar Ubicación
+        [Transactional]
+        public Ubicacion buscarUbicacionById(long ubicacionId)
+        {
+            try
+            {
+                return ubicacionDao.Find(ubicacionId);
+
+                
+            }
+            catch (InstanceNotFoundException)
+            {
+                throw new InstanceNotFoundException(ubicacionId,
+                    typeof(Ubicacion).FullName);
+
+            }
+        }
+
+        #endregion crear Ubicación
+
+        #region crear Consumo
+        [Transactional]
+        public long crearConsumo(long ubicacionId, double consumoActual)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Consumo c = new Consumo();
+
+            c.consumoActual = consumoActual;
+            c.kwTotal = null;
+            c.fecha = fechaActual;
+            c.horaIni = horaActual;
+            c.horaFin = null;
+            c.ubicacionId = ubicacionId;
+
+            consumoDao.Create(c);
+            return c.consumoId;
+
+
+        }
+
+        #endregion crear Ubicación
 
         /*
         #region Eliminar Ubicacion
