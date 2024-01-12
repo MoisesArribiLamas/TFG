@@ -120,11 +120,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Consumo
         [Transactional]
-        public long crearConsumo(long ubicacionId, double consumoActual)
+        public long crearConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual)
         {
-            // Fecha y hora actual
+            // Fecha actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
             Consumo c = new Consumo();
 
@@ -145,11 +144,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region finalizar Consumo
         [Transactional]
-        public void finalizarConsumo(long ubicacionId, double consumoActual)
+        public void finalizarConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual)
         {
-            // hora actual
-            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-
+  
             //buscamos el consumo (entidad) actual
             Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
 
@@ -189,7 +186,43 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
 
         #endregion crear Ubicación
-        /*
+
+
+
+        #region modificar Consumo
+        [Transactional]
+        public long modificarConsumoActual(long ubicacionId, double consumoActual)
+        {
+            // hora actual
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            // buscamos el consumo (entidad) actual
+            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+            // finalizar consumo
+            finalizarConsumo(ubicacionId, c.consumoActual, horaActual);
+
+            // creamos el nuevo consumo
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
+
+            //devolvemos el id del nuevo consumo
+            return consumoNuevo;
+        }
+
+        #endregion modificar Consumo
+
+        #region Obtener la entidad Consumo vigente
+        [Transactional]
+        public Consumo ConsumoActualUbicacionActual(long ubicacionId)
+        {
+
+            //buscamos el consumo (entidad) actual
+            return consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+        }
+
+        #endregion  Consumo
+        
         #region Eliminar Ubicacion
         [Transactional]
         public void eliminarUbicacion(long ubicacionId)
@@ -202,7 +235,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion Modificar
 
-    */
+    
     }
 
 }
