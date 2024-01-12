@@ -222,7 +222,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
 
         #endregion  Consumo
-        /*
+        
         #region Eliminar Ubicacion
         [Transactional]
         public void eliminarUbicacion(long ubicacionId)
@@ -235,7 +235,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion Modificar
 
-    */
+    
     }
 
 }

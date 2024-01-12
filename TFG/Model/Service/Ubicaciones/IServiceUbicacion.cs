@@ -46,14 +46,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         Consumo ConsumoActualUbicacionActual(long ubicacionId);
 
-
-        //modificar consumo
-        //
-
-        /*
         [Transactional]
-        void eliminarUbicacion(long ubicacionId, UbicacionProfileDetails ubicacionProfileDetails)
-        */
+        void eliminarUbicacion(long ubicacionId);
+       
 
     }
 }
