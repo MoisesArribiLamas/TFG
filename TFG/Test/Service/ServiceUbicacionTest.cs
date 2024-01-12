@@ -125,7 +125,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
-            [TestMethod()]
+
+        [TestMethod()]
+
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void EliminarUbicacionTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+
+                // comprobamos que existe
+                var ubicacionProfile = ubicacionDao.Find(ubicacionId);
+
+                // Eliminamos
+                servicio.eliminarUbicacion( ubicacionId);
+
+                // comprobamos que no existe
+                var ubicacionProfile2 = ubicacionDao.Find(ubicacionId);
+
+            }
+        }
+
+        [TestMethod()]
         public void modificarUbicacionTest()
         {
             using (var scope = new TransactionScope())
@@ -560,6 +582,47 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 // comprobamos los cambios en consumo2
                 Assert.AreEqual(consumoNuevo, consumo2);
+
+            }
+        }
+
+        [TestMethod()]
+
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void EliminarUbicacion2Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+
+                double consumo = 1000;
+                // Fecha y hora actual
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual = 2000;
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoIdNuevo = servicio.modificarConsumoActual(ubicacionId, consumoActual);
+
+                // buscamos el primer consumo
+                Consumo consumo1 = consumoDao.Find(consumoId);
+
+                // buscamos el consumo (entidad) actual
+                Consumo consumo2 = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+                long consumo2Id = consumo2.consumoId;
+
+
+                // Eliminamos
+                servicio.eliminarUbicacion(ubicacionId);
+
+                // comprobamos que no existe un consumo asociado previamente la a ubicacion eliminada
+                var ubicacionProfile2 = ubicacionDao.Find(consumo2Id);
 
             }
         }
