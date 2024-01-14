@@ -748,6 +748,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion
+
+        #region Estado de la bateria en string
+        [Transactional]
+        public string EstadoDeLaBateria(long bateriaId)
+        {
+            
+            Bateria b = BuscarBateriaById( bateriaId);
+
+            return ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
+
+        }
+
+        #endregion Estado baterias
     }
 
 }
