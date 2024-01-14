@@ -5409,6 +5409,81 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
             }
         }
-        
+
+        [TestMethod()]
+        public void estadoDeLaBateriaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Ponemos el estado a"sin actividad"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "sin actividad"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+                
+                //comprobamos que devuelve bien el estado actual de la bateria
+                string estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "sin actividad");
+
+
+                //Ponemos el estado a "cargando"
+                estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "cargando"
+                estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "cargando");
+
+
+                //Ponemos el estado a "suministrando"
+                estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "suministrando"
+                estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "suministrando");
+
+
+                //Ponemos el estado a "carga y suministra"
+                estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "carga y suministra"
+                estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "carga y suministra");
+            }
+        }
+
     }
 }
