@@ -22,6 +22,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
 
         [Transactional]
+        RatiosDTO MostrarRatios(long bateriaId);
+
+        [Transactional]
         void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual,
             TarifaDTO tarifa);
 

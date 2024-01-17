@@ -62,6 +62,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
+            // comprobamos que se modifican
+
             //modificamos los ratios
             if (ratioCarga != null)
             {
@@ -77,9 +79,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             {
                 b.ratioUso = (double)ratioUso;
             }
-           
+            
+            //comprobamos si hay cambio de estado
+            //tarifa
 
             bateriaDao.Update(b);
+
+
+        }
+        #endregion
+
+        #region mostrar ratios
+        [Transactional]
+        public RatiosDTO MostrarRatios(long bateriaId)
+        {
+
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            //Creamos RatiosDTO
+            RatiosDTO ratios = new RatiosDTO(b.ratioCarga, b.ratioCompra, b.ratioUso);
+
+            return ratios;
 
 
         }

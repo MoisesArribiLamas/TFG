@@ -123,6 +123,7 @@
     <Compile Include="SeEncuentra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\Bateria\RatiosDTO.cs" />
     <Compile Include="Service\Bateria\SuministroDTO.cs" />
     <Compile Include="Service\Bateria\CargaDTO.cs" />
     <Compile Include="Service\Bateria\IServiceBateria.cs" />
