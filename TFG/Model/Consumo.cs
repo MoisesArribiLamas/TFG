@@ -16,7 +16,9 @@ namespace Es.Udc.DotNet.TFG.Model
     {
         public long consumoId { get; set; }
         public long ubicacionId { get; set; }
-        public Nullable<double> kwTotal { get; set; }
+        public Nullable<double> kwCargados { get; set; }
+        public Nullable<double> kwSuministrados { get; set; }
+        public Nullable<double> kwRed { get; set; }
         public System.DateTime fecha { get; set; }
         public System.TimeSpan horaIni { get; set; }
         public Nullable<System.TimeSpan> horaFin { get; set; }

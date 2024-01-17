@@ -41,7 +41,9 @@
           </Key>
           <Property Name="consumoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ubicacionId" Type="bigint" Nullable="false" />
-          <Property Name="kwTotal" Type="float" />
+          <Property Name="kwCargados" Type="float" />
+          <Property Name="kwSuministrados" Type="float" />
+          <Property Name="kwRed" Type="float" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
           <Property Name="horaFin" Type="time" Precision="7" />
@@ -334,7 +336,9 @@
           </Key>
           <Property Name="consumoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ubicacionId" Type="Int64" Nullable="false" />
-          <Property Name="kwTotal" Type="Double" />
+          <Property Name="kwCargados" Type="Double" />
+          <Property Name="kwSuministrados" Type="Double" />
+          <Property Name="kwRed" Type="Double" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
           <Property Name="horaFin" Type="Time" Precision="7" />
@@ -633,7 +637,9 @@
               <MappingFragment StoreEntitySet="Consumo">
                 <ScalarProperty Name="consumoId" ColumnName="consumoId" />
                 <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
-                <ScalarProperty Name="kwTotal" ColumnName="kwTotal" />
+                <ScalarProperty Name="kwCargados" ColumnName="kwCargados" />
+                <ScalarProperty Name="kwSuministrados" ColumnName="kwSuministrados" />
+                <ScalarProperty Name="kwRed" ColumnName="kwRed" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="horaIni" ColumnName="horaIni" />
                 <ScalarProperty Name="horaFin" ColumnName="horaFin" />

@@ -75,25 +75,27 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         }
         #endregion
 
-        #region finalizar Consumo
-        public bool FinalizarConsumo(long consumoID, double kwTotal, TimeSpan horaFin)
-        {
-            Consumo c = Find(consumoID);
-            if (c != null)
-            {
+        //#region finalizar Consumo
+        //public bool FinalizarConsumo(long consumoID, double kwTotal, TimeSpan horaFin)
+        //{
+        //    Consumo c = Find(consumoID);
+        //    if (c != null)
+        //    {
 
-                c.horaFin = horaFin;
-                c.kwTotal = kwTotal;
+        //        c.horaFin = horaFin;
+        //        c.kwTotal = kwTotal;
 
-                Update(c);
+        //        Update(c);
 
-                return true;
-            }
-            return false;
-        }
-        #endregion
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        //#endregion
 
 
         #endregion IConsumoaDao Members. Specific Operations
+
+        
     }
 }

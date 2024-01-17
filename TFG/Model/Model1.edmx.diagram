@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b6d1e55b53a34a4a989302d1ac6601eb" Name="Diagram1">
-        <EntityTypeShape EntityType="tfgModel.Bateria" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Carga" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+      <Diagram DiagramId="eb483974fac540cf86f336f665ba720a" Name="Diagram1">
+        <EntityTypeShape EntityType="tfgModel.Bateria" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Carga" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="tfgModel.Consumo" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Estado" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.SeEncuentra" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Suministra" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Tarifa" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Ubicacion" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Usuario" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Estado" Width="1.5" PointX="6" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.SeEncuentra" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Suministra" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Tarifa" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Ubicacion" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Usuario" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <AssociationConnector Association="tfgModel.FK_BATERIA_CARGA" ManuallyRouted="false" />
         <AssociationConnector Association="tfgModel.FK_BATERIA_SEENCUENTRA" ManuallyRouted="false" />
         <AssociationConnector Association="tfgModel.FK_BATERIA_SUMINISTRA" ManuallyRouted="false" />
