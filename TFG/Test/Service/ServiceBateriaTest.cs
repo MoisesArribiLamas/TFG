@@ -2903,6 +2903,97 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
+        [TestMethod()]
+        public void MostrarRatiosTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                //comprobamos los ratios iniciales
+                Assert.AreEqual(b.ratioCarga, ratioCarga);   // 40
+                Assert.AreEqual(b.ratioCompra, ratioCompra); // 50
+                Assert.AreEqual(b.ratioUso, ratioUso);       // 45
+                RatiosDTO ratios = servicio.MostrarRatios( bateriaId);
+                Assert.AreEqual(ratios.ratioCarga, ratioCarga);   // 40
+                Assert.AreEqual(ratios.ratioCompra, ratioCompra); // 50
+                Assert.AreEqual(ratios.ratioUso, ratioUso);       // 45
+
+
+                //Modificamos los ratios
+                double ratioCargaNuevo = 100;  // 40 -> 100
+                double ratioCompraNuevo = 100; // 50 -> 100 
+                double ratioUsoNuevo = 100;    // 45 -> 100
+
+                servicio.ModificarRatios(bateriaId, ratioCargaNuevo, ratioCompraNuevo, ratioUsoNuevo);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos
+                Assert.AreEqual(b.ratioCarga, ratioCargaNuevo);
+                Assert.AreEqual(b.ratioCompra, ratioCompraNuevo);
+                Assert.AreEqual(b.ratioUso, ratioUsoNuevo);
+                ratios = servicio.MostrarRatios(bateriaId);
+                Assert.AreEqual(ratios.ratioCarga, ratioCargaNuevo);   // 40 -> 100
+                Assert.AreEqual(ratios.ratioCompra, ratioCompraNuevo); // 50 -> 100
+                Assert.AreEqual(ratios.ratioUso, ratioUsoNuevo);       // 45 -> 100
+
+                //Modificamos ratioCargaNuevo
+                // 100 -> 40                
+
+                servicio.ModificarRatios(bateriaId, ratioCarga, null, null);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos
+                Assert.AreEqual(b.ratioCarga, ratioCarga);
+                Assert.AreEqual(b.ratioCompra, ratioCompraNuevo);
+                Assert.AreEqual(b.ratioUso, ratioUsoNuevo);
+                ratios = servicio.MostrarRatios(bateriaId);
+                Assert.AreEqual(ratios.ratioCarga, ratioCarga);        // 100 -> 40
+                Assert.AreEqual(ratios.ratioCompra, ratioCompraNuevo); // 100
+                Assert.AreEqual(ratios.ratioUso, ratioUsoNuevo);       // 100
+
+                //Modificamos ratioCompra
+                // 100 -> 50                
+
+                servicio.ModificarRatios(bateriaId, null, ratioCompra, null);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos            
+                Assert.AreEqual(b.ratioCompra, ratioCompra);
+                ratios = servicio.MostrarRatios(bateriaId);
+                Assert.AreEqual(ratios.ratioCarga, ratioCarga);   // 40
+                Assert.AreEqual(ratios.ratioCompra, ratioCompra); // 100 -> 50
+                Assert.AreEqual(ratios.ratioUso, ratioUsoNuevo);  // 100
+
+
+                //Modificamos ratioUso
+                // 100 -> 45                
+
+                servicio.ModificarRatios(bateriaId, null, null, ratioUso);
+
+                b = servicio.BuscarBateriaById(bateriaId);
+
+                //comprobamos los ratios nuevos            
+                Assert.AreEqual(b.ratioUso, ratioUso);
+                ratios = servicio.MostrarRatios(bateriaId);
+                Assert.AreEqual(ratios.ratioCarga, ratioCarga);   // 40
+                Assert.AreEqual(ratios.ratioCompra, ratioCompra); // 50
+                Assert.AreEqual(ratios.ratioUso, ratioUso);       // 100 -> 45
+            }
+        }
+
         [TestMethod()] 
         public void gestionDeRatiosTest()
         {
