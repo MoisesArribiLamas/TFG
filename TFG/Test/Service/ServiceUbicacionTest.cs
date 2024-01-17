@@ -16,6 +16,14 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
+using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
+using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
+
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -24,12 +32,76 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
     {
         private static IKernel kernel;
         private static IServiceUbicacion servicio;
+        private static IServiceBateria servicioBateria;
+        private static IServiceEstado servicioEstado;
+        private static IServiceTarifa servicioTarifa;
 
         private static IUbicacionDao ubicacionDao;
         private static IUsuarioDao usuarioDao;
         private static IBateriaDao bateriaDao;
-        public static IConsumoDao consumoDao ;
+        private static IConsumoDao consumoDao;
+        private static ITarifaDao tarifaDao;
+        private static ICargaDao cargaDao;
+        private static ISuministraDao suministraDao;
+        private static IEstadoDao estadoDao;
+        
 
+        //USUARIO
+
+        public const string contraseña = "password";
+        public const string nombre = "name";
+        private const string apellido1 = "lastName";
+        private const string apellido2 = "lastName";
+        private const string email = "user@udc.es";
+        private const string telefono = "123456789";
+        private const string idioma = "es-ES";
+        private const string pais = "Spain";
+        private const string language = "es-ES";
+        private const string country = "Spain";
+
+
+        public long crearUsuario(string nombre, string email, string apellido1, string apellido2, string contraseña
+            , string telefono, string pais, string idioma)
+        {
+            Usuario user = new Usuario();
+            user.nombre = nombre;
+            user.email = email;
+            user.apellido1 = apellido1;
+            user.apellido2 = apellido2;
+            user.contraseña = contraseña;
+            user.telefono = telefono;
+            user.pais = pais;
+            user.idioma = idioma;
+
+            usuarioDao.Create(user);
+
+            return user.usuarioId;
+        }
+        /*
+         CONSUMO
+             */
+
+        public Consumo crearConsumo(long ubicacionId, double consumoActual, TimeSpan horaIni, TimeSpan horaFin, DateTime fechaActual)
+        {
+
+            Consumo c = new Consumo();
+
+            c.consumoActual = consumoActual;
+            c.kwCargados = 0;
+            c.kwSuministrados = 0;
+            c.kwRed = 0;
+            c.fecha = fechaActual;
+            c.horaIni = horaIni;
+            c.horaFin = horaFin;
+            c.ubicacionId = ubicacionId;
+
+            consumoDao.Create(c);
+            return c;
+
+
+        }
+
+        //UBICACION
         private const long codigoPostal = 15000;
         private const string localidad = "localidad";
         private const string calle = "calle";
@@ -37,16 +109,121 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const long numero = 1;
         private const string etiqueta = "Trastero";
 
+        public long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
+        {
+            Ubicacion t = new Ubicacion();
+            t.codigoPostal = codigoPostal;
+            t.localidad = localidad;
+            t.calle = calle;
+            t.portal = portal;
+            t.numero = numero;
+
+            ubicacionDao.Create(t);
+            return t.ubicacionId;
+        }
+
+        // BATERIA
+
+        private const double precioMedio = 100;
+        private const double kwHAlmacenados = 1000;
+        private const double almacenajeMaximoKwH = 20000;
+        private DateTime fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        private const string marca = "marca";
+        private const string modelo = "modelo";
+        private const double ratioCarga = 40;
+        private const double ratioCompra = 50;
+        private const double ratioUso = 45;
+        private const double capacidadCargador = 10;
 
 
-        public const string clearPassword = "password";
-        public const string nombre = "name";
-        private const string apellido1 = "lastName";
-        private const string apellido2 = "lastName";
-        private const string email = "user@udc.es";
-        private const string telefono = "123456789";
-        private const string language = "es-ES";
-        private const string country = "Spain";
+        // TARIFA
+
+        public long crearTarifa(long precio, long hora, DateTime fecha)
+        {
+            Tarifa t = new Tarifa();
+            t.precio = precio;
+            t.hora = hora;
+            t.fecha = fecha;
+            tarifaDao.Create(t);
+            return t.tarifaId;
+        }
+
+        public void crearTarifas24H(DateTime fecha)
+        {
+            crearTarifa(110, 0, fecha);
+            crearTarifa(111, 1, fecha);
+            crearTarifa(200, 2, fecha);
+            crearTarifa(300, 3, fecha);
+            crearTarifa(400, 4, fecha);
+            crearTarifa(500, 5, fecha);
+            crearTarifa(600, 6, fecha);
+            crearTarifa(700, 7, fecha);
+            crearTarifa(800, 8, fecha);
+            crearTarifa(900, 9, fecha);
+            crearTarifa(1000, 10, fecha);
+            crearTarifa(1100, 11, fecha);
+            crearTarifa(1200, 12, fecha);
+            crearTarifa(1300, 13, fecha);
+            crearTarifa(1400, 14, fecha);
+            crearTarifa(1500, 15, fecha);
+            crearTarifa(1600, 16, fecha);
+            crearTarifa(1700, 17, fecha);
+            crearTarifa(1800, 18, fecha);
+            crearTarifa(1900, 19, fecha);
+            crearTarifa(2000, 20, fecha);
+            crearTarifa(2100, 21, fecha);
+            crearTarifa(2200, 22, fecha);
+            crearTarifa(2300, 23, fecha);
+        }
+
+        // ESTADOS
+
+        public void crearEstados()
+        {
+            Estado estado = new Estado();
+            estado.nombre = "sin actividad";
+            estadoDao.Create(estado);
+
+            Estado estado2 = new Estado();
+            estado2.nombre = "cargando";
+            estadoDao.Create(estado2);
+
+            Estado estado3 = new Estado();
+            estado3.nombre = "suministrando";
+            estadoDao.Create(estado3);
+
+            Estado estado4 = new Estado();
+            estado4.nombre = "carga y suministra";
+            estadoDao.Create(estado4);
+
+        }
+        //SUMINISTRA
+
+        #region crear Suministra
+
+        public long IniciarSuministra(long bateriaId, long tarifaId, double ahorro,
+            TimeSpan horaIni)
+        {
+            // Se podria hacer poniendo el campo nullable pero me decante por esta forma
+            int hour = 0;
+            int minutes = 0;
+            int seconds = 0;
+
+            TimeSpan horaFin = new TimeSpan(hour, minutes, seconds);
+
+            Suministra s = new Suministra();
+            s.bateriaId = bateriaId;
+            s.tarifaId = tarifaId;
+            s.ahorro = ahorro;
+            s.horaIni = horaIni;
+            s.horaFin = horaFin;
+            s.kwH = 0;
+
+            suministraDao.Create(s);
+            return s.suministraId;
+
+        }
+        #endregion
 
         private const long NON_EXISTENT_USER_ID = -1;
 
@@ -77,11 +254,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             kernel = TestManager.ConfigureNInjectKernel();
             servicio = kernel.Get<IServiceUbicacion>();
+            servicioBateria = kernel.Get<IServiceBateria>();
+            servicioEstado = kernel.Get<IServiceEstado>();
+            servicioTarifa = kernel.Get<IServiceTarifa>();
+
             ubicacionDao = kernel.Get<IUbicacionDao>();
             usuarioDao = kernel.Get<IUsuarioDao>();
             bateriaDao = kernel.Get<IBateriaDao>();
             consumoDao = kernel.Get<IConsumoDao>();
-
+            cargaDao = kernel.Get<ICargaDao>();
+            suministraDao = kernel.Get<ISuministraDao>();
+            tarifaDao = kernel.Get<ITarifaDao>();
+            estadoDao = kernel.Get<IEstadoDao>();
         }
 
         [ClassCleanup()]
@@ -427,7 +611,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(fechaActual, consumonProfile.fecha);
                 Assert.AreEqual(horaActual, consumonProfile.horaIni);
                 Assert.AreEqual(null, consumonProfile.horaFin);
-                Assert.AreEqual(null, consumonProfile.kwTotal);
+                Assert.AreEqual(0, consumonProfile.kwCargados);
+                Assert.AreEqual(0, consumonProfile.kwSuministrados);
+                Assert.AreEqual(0, consumonProfile.kwRed);
 
             }
         }
@@ -487,8 +673,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long consumoId = servicio.crearConsumo(ubicacionId, consumoActual, horaInicio);
 
                 //finalizamos el consumo creado
-                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                servicio.finalizarConsumo(ubicacionId, consumoActual, horafinal);
+                string estado = "sin actividad";
+                TimeSpan horafinal = horaInicio;
+                
+                servicio.finalizarConsumo(ubicacionId, consumoActual, horafinal, estado);
 
                 //buscamos el consumo
                 Consumo consumonProfile = consumoDao.Find(consumoId);
@@ -510,18 +698,40 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
 
                 double consumo = 1000;
-                // Fecha y hora actual
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                
+                int hour1 = 1;
+                //int hour2 = 1;
+                int minutes = 1;
+                int seconds = 1;
+                //int seconds2 = 2;
+
+                TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
+                //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
 
                 //creamos el consumo
                 long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual = 2000;
+
                 TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 long consumoIdNuevo = servicio.modificarConsumoActual(ubicacionId, consumoActual);
 
@@ -555,11 +765,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //---------------------
+
+                //long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
 
                 double consumo = 1000;
-                // Fecha y hora actual
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                // Hora actual
                 TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //creamos el consumo
@@ -593,12 +821,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //--------------------------------------
 
                 double consumo = 1000;
                 // Fecha y hora actual
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                //DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //creamos el consumo
@@ -623,6 +867,80 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 // comprobamos que no existe un consumo asociado previamente la a ubicacion eliminada
                 var ubicacionProfile2 = ubicacionDao.Find(consumo2Id);
+
+            }
+        }
+
+
+        [TestMethod()]
+        public void MostrarCargasBareriaPorFechaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos Ubicacion
+                long codigoPostal = 15000;
+                string localidad = "Coruña";
+                string calle = "San Juan";
+                string portal = "";
+                long numero = 100;
+                //string etiqueta = "bichito";
+                //long bateriaSuministradora = 1;
+                //crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                // Creamos Consumos
+                double consumoActual = 10;
+                double kwCargados = 100;
+                double kwSuministrados = 100;
+                double kwRed = 0;
+                DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                TimeSpan horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+
+
+                Consumo c0 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 0
+
+                DateTime fechaBusquedaInicial = fecha = fecha.AddDays(1); // dia siguiente
+
+                Consumo c1 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 1
+
+                consumoActual = 15;
+                TimeSpan horaFin2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+
+                // consumo 2
+                Consumo c2 = crearConsumo(ubicacionId, consumoActual, horaFin, horaFin2, fecha); //dia 1
+
+
+                DateTime fechaBusquedaFinal = fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 3
+                Consumo c3 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 2
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 4
+                Consumo c4 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 3
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 5
+                Consumo c5 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 4
+
+                //COMPROBAMOS   
+                int startIndex = 0;
+                int count = 5;
+                fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = fecha.AddDays(1);
+                List<Consumo> consumoResult = consumoDao.MostrarConsumosUbicacionPorFecha(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal, startIndex, count);
+
+                //public List<ConsumoDTO> MostrarCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)
+
+                Assert.AreEqual(consumoResult[0], c1);
+                Assert.AreEqual(consumoResult[1], c2);
+                Assert.AreEqual(consumoResult[2], c3);
+                Assert.AreEqual(consumoResult.Count(), 3);
+                
 
             }
         }

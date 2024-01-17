@@ -90,11 +90,13 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
         }
 
         //creamos consumo asociado a una ubicacion
-        public Consumo crearConsumoUbicacion(double consumoActual, double kwTotal, DateTime fecha, TimeSpan horaIni, TimeSpan horaFin, long ubicacionId)
+        public Consumo crearConsumoUbicacion(double consumoActual, double kwCargados, double kwSuministrados, double kwRed, DateTime fecha, TimeSpan horaIni, TimeSpan horaFin, long ubicacionId)
         {
             Consumo c = new Consumo();
             c.consumoActual = consumoActual;
-            c.kwTotal = kwTotal;
+            c.kwCargados = kwCargados;
+            c.kwSuministrados = kwSuministrados;
+            c.kwRed = kwRed;
             c.fecha = fecha;
             c.horaIni = horaIni;
             c.horaFin = horaFin;
@@ -107,7 +109,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
 
 
         [TestMethod()]
-        public void MostrarSuministrarBareriaPorFechaTest()
+        public void MostrarConsumosUbicacionPorFechaTest()
         {
             // Creamos Ubicacion
             long codigoPostal = 15000 ; 
@@ -122,26 +124,28 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
 
             // Creamos Consumos
             double consumoActual = 10;
-            double kwTotal = 100;
+            double kwCargados = 100;
+            double kwSuministrados = 100;
+            double kwRed = 0;
             DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             TimeSpan horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             long ubicacionId = u.ubicacionId;
 
                 // consumo 1
-                Consumo c1 =crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaIni, horaFin, ubicacionId);
+                Consumo c1 =crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
 
             consumoActual = 15;
             TimeSpan horaFin2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
 
                 // consumo 2
-                Consumo c2 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaFin, horaFin2, ubicacionId);
+                Consumo c2 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaFin, horaFin2, ubicacionId);
 
 
             fecha = fecha.AddDays(1); // dia siguiente
 
                 // consumo 3
-                Consumo c3 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaIni, horaFin, ubicacionId);
+                Consumo c3 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
 
 
             //COMPROBAMOS   
@@ -175,26 +179,28 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
 
             // Creamos Consumos
             double consumoActual = 10;
-            double kwTotal = 100;
+            double kwCargados = 100;
+            double kwSuministrados = 100;
+            double kwRed = 0;
             DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             TimeSpan horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             long ubicacionId = u.ubicacionId;
 
             // consumo 1
-            Consumo c1 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaIni, horaFin, ubicacionId);
+            Consumo c1 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
 
             consumoActual = 15;
             TimeSpan horaFin2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
 
             // consumo 2
-            Consumo c2 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaFin, horaFin2, ubicacionId);
+            Consumo c2 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaFin, horaFin2, ubicacionId);
 
 
             fecha = fecha.AddDays(1); // dia siguiente
 
             // consumo 3
-            Consumo c3 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaIni, horaFin, ubicacionId);
+            Consumo c3 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
 
 
             //COMPROBAMOS   
@@ -220,26 +226,28 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
 
             // Creamos Consumos
             double consumoActual = 10;
-            double kwTotal = 100;
+            double kwCargados = 100;
+            double kwSuministrados = 100;
+            double kwRed = 0;
             DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             TimeSpan horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
             long ubicacionId = u.ubicacionId;
 
             // consumo 1
-            Consumo c1 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaIni, horaFin, ubicacionId);
+            Consumo c1 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
 
             consumoActual = 15;
             TimeSpan horaFin2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
 
             // consumo 2
-            Consumo c2 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaFin, horaFin2, ubicacionId);
+            Consumo c2 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaFin, horaFin2, ubicacionId);
 
 
             fecha = fecha.AddDays(1); // dia siguiente
 
             // consumo 3
-            Consumo c3 = crearConsumoUbicacion(consumoActual, kwTotal, fecha, horaIni, horaFin, ubicacionId);
+            Consumo c3 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
 
 
             //COMPROBAMOS   
@@ -249,5 +257,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
             Assert.AreEqual(consumoResult.consumoActual, consumoUActual);
 
         }
+
+        
     }
 }
