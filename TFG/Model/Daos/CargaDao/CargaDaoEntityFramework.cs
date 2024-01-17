@@ -33,7 +33,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao
             var result =
                 (from c in cargas
                  where ((c.Tarifa.fecha >= fecha) && (c.Tarifa.fecha <= fecha2) && (c.bateriaId == bateriaId))
-                 select c).OrderBy(c => c.horaIni).Skip(startIndex).Take(count).ToList();
+                 select c).OrderBy(c => c.Tarifa.fecha).ThenBy(c => c.horaIni).Skip(startIndex).Take(count).ToList();
 
             return result;
         }

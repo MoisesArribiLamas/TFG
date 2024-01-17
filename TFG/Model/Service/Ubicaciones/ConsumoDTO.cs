@@ -8,22 +8,30 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class ConsumoDTO
     {
-        public ConsumoDTO(long consumoId, long ubicacionId, double? kwTotal, DateTime fecha, TimeSpan horaIni, TimeSpan? horaFin, double consumoActual, long ubicacion)
+        public ConsumoDTO(long consumoId, long ubicacionId, double? kwCargados, double? kwSuministrados, double? kwRed, DateTime fecha, TimeSpan horaIni, TimeSpan? horaFin, double consumoActual, long ubicacion)
         {
             this.consumoId = consumoId;
             this.ubicacionId = ubicacionId;        
-            this.kwTotal = kwTotal;
+            this.kwCargados = kwCargados;
+            this.kwSuministrados = kwSuministrados;
+            this.kwRed = kwRed;
             this.fecha = fecha;
             this.horaIni = horaIni;
             this.horaFin = horaFin;
             this.consumoActual = consumoActual;
             this.ubicacion = ubicacion;
         }
-
+       
         public long consumoId { get; set; }
 
         public long ubicacionId { get; set; }
-        public double? kwTotal { get; set; }
+
+        public double? kwCargados { get; set; }
+
+        public double? kwSuministrados { get; set; }
+
+        public double? kwRed { get; set; }
+
         public DateTime fecha { get; set; }
 
         public TimeSpan horaIni { get; set; }
@@ -39,7 +47,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             var details = obj as ConsumoDTO;
             return details != null &&
                    ubicacionId == details.ubicacionId &&
-                   kwTotal == details.kwTotal &&
+                   kwCargados == details.kwCargados &&
+                   kwSuministrados == details.kwSuministrados &&
+                   kwRed == details.kwRed &&
                    consumoActual == details.consumoActual &&
                    ubicacion == details.ubicacion
                    && (this.fecha == details.fecha)

@@ -121,7 +121,9 @@ GO
 CREATE TABLE Consumo (
 	consumoId BIGINT IDENTITY(1,1) UNIQUE NOT NULL,
 	ubicacionId BIGINT NOT NULL,
-	kwTotal FLOAT ,
+	kwCargados FLOAT ,
+	kwSuministrados FLOAT ,
+	kwRed FLOAT ,
 	fecha DATETIME NOT NULL,
 	horaIni TIME NOT NULL,
 	horaFin TIME ,
