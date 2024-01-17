@@ -128,7 +128,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             Bateria b = bateriaDao.Find(bateriaId);
 
             // estado de la bateria
-            string estado = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
+            //string estado = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
 
 
             // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
