@@ -836,6 +836,54 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void CrearSuministraEnBateriaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //bateria creada
+                var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
+
+                //crear tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                // Tarifa actual (hora)
+                int horaTarifa = horaActual.Hours;
+                long tarifaId = crearTarifa(500, horaTarifa, fecha);
+
+                //creamos Carga
+                int hour2 = 0;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                double kwH = 0;
+
+                long suministraId = servicio.CrearSuministraEnBateria(bateriaId);
+
+
+                //Comprobamos
+
+                Suministra s = suministraDao.Find(suministraId);
+                
+
+                Assert.AreEqual(bateriaId, s.bateriaId);
+                Assert.AreEqual(tarifaId, s.tarifaId);
+                Assert.AreEqual(horaActual, s.horaIni);
+                Assert.AreEqual(horaFin, s.horaFin);
+                Assert.AreEqual(kwH, s.kwH);
+
+
+            }
+        }
+
+        [TestMethod()]
         public void finalizarSuministraTest()
         {
             using (var scope = new TransactionScope())
