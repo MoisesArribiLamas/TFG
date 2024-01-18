@@ -464,7 +464,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
-        public void CrearCargaTest()
+        public void IniciarCargaTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -502,6 +502,54 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(bateriaId, c.bateriaId);
                 Assert.AreEqual(tarifaId, c.tarifaId);
                 Assert.AreEqual(horaIni, c.horaIni);
+                Assert.AreEqual(horaFin, c.horaFin);
+                Assert.AreEqual(kwH, c.kwH);
+
+
+            }
+        }
+
+        [TestMethod()]
+        public void CrearCargaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //bateria creada
+                var bateriaProfile = servicio.BuscarBateriaById(bateriaId);
+
+                //crear tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);         
+
+                // Tarifa actual (hora)
+                int horaTarifa = horaActual.Hours;
+                long tarifaId = crearTarifa(500, horaTarifa, fecha);
+
+                //creamos Carga
+                int hour2 = 0;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+                double kwH = 0;
+
+                long cargaId = servicio.CrearCargaEnBateria(bateriaId);
+
+
+                //Comprobamos
+
+                Carga c = cargaDao.Find(cargaId);
+
+
+                Assert.AreEqual(bateriaId, c.bateriaId);
+                Assert.AreEqual(tarifaId, c.tarifaId);
+                Assert.AreEqual(horaActual, c.horaIni);
                 Assert.AreEqual(horaFin, c.horaFin);
                 Assert.AreEqual(kwH, c.kwH);
 
@@ -3060,7 +3108,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "suministrando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -3136,7 +3184,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "sin actividad"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -3212,7 +3260,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -3288,7 +3336,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -3364,7 +3412,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -3440,7 +3488,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -3516,7 +3564,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -3592,7 +3640,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -3668,7 +3716,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando" -> "suministrando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -3744,7 +3792,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "sin actividad"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "sin actividad"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -3820,7 +3868,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -3896,7 +3944,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -3972,7 +4020,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -4048,7 +4096,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando"" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4124,7 +4172,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -4200,7 +4248,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "cargando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "cargando" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4276,7 +4324,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "suministrando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -4352,7 +4400,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "sin actividad"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -4428,7 +4476,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -4504,7 +4552,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4580,7 +4628,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -4656,7 +4704,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando"" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4732,7 +4780,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -4808,7 +4856,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "suministrando"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4884,7 +4932,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4960,7 +5008,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "suministrando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -5036,7 +5084,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "sin actividad"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -5112,7 +5160,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -5188,7 +5236,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -5264,7 +5312,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -5340,7 +5388,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra"" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -5416,7 +5464,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "carga y suministra"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -5492,7 +5540,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHSuministrados = 0;
 
                 // gestion de :   Estado: "carga y suministra"
-                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual, tarifa);
+                servicio.gestionDeRatios(bateriaId, kwHCargados, kwHSuministrados, fechaActual, horaActual);
 
                 //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> "cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -5576,5 +5624,80 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
+
+        [TestMethod()]
+        public void CargaAñadidaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Ponemos el estado a"sin actividad"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicio.BuscarBateriaById(bateriaId);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "sin actividad"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                string estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "sin actividad");
+
+
+                //Ponemos el estado a "cargando"
+                estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "cargando"
+                estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "cargando");
+
+
+                //Ponemos el estado a "suministrando"
+                estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "suministrando"
+                estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "suministrando");
+
+
+                //Ponemos el estado a "carga y suministra"
+                estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+
+                //comprobamos que el estado es "carga y suministra"
+                estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+                //comprobamos que devuelve bien el estado actual de la bateria
+                estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
+                Assert.AreEqual(estado, "carga y suministra");
+            }
+        }
     }
 }
