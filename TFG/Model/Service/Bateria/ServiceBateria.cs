@@ -798,6 +798,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+        #region crear Carga
+        [Transactional]
+        public long CrearSuministraEnBateria(long bateriaId)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            // buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            // Tarifa actual (hora)
+            int horaTarifa = horaActual.Hours;
+
+            // Buscar la tarifa actual
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+            return IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+        }
+
+        #endregion
 
         #region Poner hora fin Suministra bateria
         [Transactional]
