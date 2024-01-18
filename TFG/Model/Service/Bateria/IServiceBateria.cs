@@ -25,8 +25,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         RatiosDTO MostrarRatios(long bateriaId);
 
         [Transactional]
-        void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual,
-            TarifaDTO tarifa);
+        void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual);
 
 
         [Transactional]
@@ -55,6 +54,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         long IniciarCarga(long bateriaId, long tarifaId,
             TimeSpan horaIni);
+
+        [Transactional]
+        long CrearCargaEnBateria(long bateriaId);
+
+        [Transactional]
+        void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados);
 
         [Transactional]
         bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kwH);

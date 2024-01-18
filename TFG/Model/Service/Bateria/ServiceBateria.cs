@@ -63,28 +63,31 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             Bateria b = bateriaDao.Find(bateriaId);
 
             // comprobamos que se modifican
+            RatiosDTO ratios = MostrarRatios(bateriaId);
 
-            //modificamos los ratios
-            if (ratioCarga != null)
+            //Miramos que se haya modificado algun parametro
+            if (!((b.ratioCarga == ratioCarga) && (b.ratioCompra == ratioCompra) && (b.ratioUso == ratioUso)))
             {
-                b.ratioCarga= (double)ratioCarga;
+
+                if (ratioCarga != null)
+                {
+                    b.ratioCarga = (double)ratioCarga;
+                }
+
+                if (ratioCompra != null)
+                {
+                    b.ratioCompra = (double)ratioCompra;
+                }
+
+                if (ratioUso != null)
+                {
+                    b.ratioUso = (double)ratioUso;
+                }
+
+                
+
+                bateriaDao.Update(b);
             }
-
-            if (ratioCompra != null)
-            {
-                b.ratioCompra = (double)ratioCompra;
-            }
-
-            if (ratioUso != null)
-            {
-                b.ratioUso = (double)ratioUso;
-            }
-            
-            //comprobamos si hay cambio de estado
-            //tarifa
-
-            bateriaDao.Update(b);
-
 
         }
         #endregion
@@ -142,14 +145,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Gestion de los ratios
         [Transactional]
-        public void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual, TarifaDTO tarifa)
+        public void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual)
         {
 
             // buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
-            // estado de la bateria
-            //string estado = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
+
+            // Tarifa actual (hora)
+            int horaTarifa = horaActual.Hours;
+
+            // Buscar la tarifa actual
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
 
 
             // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
@@ -585,6 +592,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region crear Carga
         [Transactional]
+        public long CrearCargaEnBateria(long bateriaId)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            // buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            // Tarifa actual (hora)
+            int horaTarifa = horaActual.Hours;
+
+            // Buscar la tarifa actual
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+            return IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+        }
+
+        #endregion
+
+        #region Iniciar Carga
+        [Transactional]
         public long IniciarCarga(long bateriaId, long tarifaId,
             TimeSpan horaIni)
         {
@@ -604,6 +634,85 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
             CargaDao.Create(c);
             return c.cargaId;
+
+
+        }
+
+        #endregion
+
+        #region Añadimos o quitamos kwhs a la bateria (carga/suministra) 
+        [Transactional]
+        public void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados)
+        {
+            bool gestionRatios = false;
+
+            //obtenemos la bateria
+            Bateria b = BuscarBateriaById( bateriaId);
+
+            // calculamos el excedente
+            double kwhNetos = kwHcargados - kwhsuministrados;
+
+            if (kwhNetos > 0) { // se carga la bateria
+                double total = b.kwHAlmacenados + kwhNetos;
+                //comprobamos que no se pase del 100% de carga
+                if (b.almacenajeMaximoKwH < total)
+                {   //lo ponemos al 100%
+                    kwHcargados = b.almacenajeMaximoKwH - b.kwHAlmacenados;
+                    b.kwHAlmacenados = b.almacenajeMaximoKwH; 
+                }
+                else {
+                    b.kwHAlmacenados = b.kwHAlmacenados + kwhNetos;
+                }
+
+
+            } else
+            {   // la suma es negativa
+                if (kwhNetos < 0) {
+                    //comprobamos si la nueva carga cumple el ratio de carga
+                    if (b.ratioCarga >= ((b.kwHAlmacenados- kwhNetos)*100 /b.almacenajeMaximoKwH)) {
+                        gestionRatios = true;
+                        double total = b.kwHAlmacenados - kwhNetos;
+                        if (total < 0)
+                        {   //lo ponemos al 0%
+                            kwhsuministrados = kwHcargados + b.kwHAlmacenados;
+                            b.kwHAlmacenados = 0;
+                        }
+                        else {
+                            b.kwHAlmacenados = b.kwHAlmacenados - kwhsuministrados;
+                        }
+
+                    }
+                    else
+                    {
+                        b.kwHAlmacenados = b.kwHAlmacenados - kwhsuministrados;
+                    }
+                }
+            }
+
+            // obtenemos la Carga
+            Carga c = UltimaCarga(bateriaId);
+
+            //sumamos la Carga
+            c.kwH = c.kwH + kwHcargados;
+
+            // obtenemos Suministra
+            Suministra s = UltimaSuministra(bateriaId);
+
+            //sumamos la Carga
+            s.kwH = s.kwH + kwhsuministrados;
+
+            //actualizamos Bateria Suministra Carga
+            CargaDao.Update(c);
+            SuministroDao.Update(s);
+            bateriaDao.Update(b);
+
+            if (gestionRatios) { // ratio de carga >= %Bateria => gestion de ratios
+                // Fecha y hora actual
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                gestionDeRatios(bateriaId, c.kwH, s.kwH, fechaActual, horaActual);
+
+            }
 
 
         }
@@ -688,6 +797,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         }
         #endregion
+
 
         #region Poner hora fin Suministra bateria
         [Transactional]
