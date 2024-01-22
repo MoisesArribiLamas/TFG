@@ -340,6 +340,45 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
 
+        [TestMethod()]
+        public void capacidadDelCargadorTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //comprobamos la Capacidad del cargador             
+                Assert.AreEqual(capacidadCargador, servicio.capacidadDelCargador(bateriaId));
+
+                //Modificamos datos
+
+                long ubicacionId2 = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                long usuarioId2 = crearUsuario("nombre2", email, "apellido1", apellido2, contraseña, telefono, pais, idioma);
+                double precioMedio2 = 2;
+                double kwHAlmacenados2 = 2;
+                double almacenajeMaximoKwH2 = 2;
+                DateTime fechaDeAdquisicion2 = fechaDeAdquisicion.AddDays(1);
+
+                string marca2 = "Marca2";
+                string modelo2 = "Modelo2";
+                double ratioCarga2 = 2;
+                double ratioCompra2 = 2;
+                double ratioUso2 = 2;
+                double capacidadCargador2 = 20;
+
+                servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwHAlmacenados2, almacenajeMaximoKwH2,
+                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2, capacidadCargador2);
+
+                //Comprobamos los cambios
+                Assert.AreEqual(capacidadCargador2, servicio.capacidadDelCargador(bateriaId));
+
+            }
+        }
 
 
         [TestMethod()]
@@ -5683,7 +5722,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                //Creamos Tarifaz
+                //Creamos Tarifas
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
 
@@ -5692,6 +5731,21 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                 long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Valores iniciales de la bateria
+                //double precioMedioInicial = 100;
+                //double kwHAlmacenadosInicial = 1000;
+                double almacenajeMaximoKwHInicial = 2000;
+
+                //obtenemos la bateria
+                Bateria b = servicio.BuscarBateriaById(bateriaId);
+
+                // b.precioMedio = precioMedioInicial ;
+                // b.kwHAlmacenados = kwHAlmacenadosInicial;
+                b.almacenajeMaximoKwH = almacenajeMaximoKwHInicial;
+
+                //actualizamos Bateria
+                bateriaDao.Update(b);
 
                 //Ponemos el estado a"sin actividad"
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
@@ -5707,6 +5761,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 string estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
                 Assert.AreEqual(estado, "sin actividad");
 
+                //// Datos del Consumo
+                //double kwHcargados = 0;
+                //double kwhsuministrados = 0;
+                //servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados);
+
+                //--------------------------------- CARGANDO ----------------------------------
 
                 //Ponemos el estado a "cargando"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -5720,6 +5780,47 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
                 Assert.AreEqual(estado, "cargando");
 
+                // Datos antes de actualizar el consumo
+                double kwBateriaAntes = bateria.kwHAlmacenados;
+
+                // Datos del Consumo
+                double kwHcargados = 100;
+                double kwhsuministrados = 0;
+
+                // cargamos los datos
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1100
+
+                // Comprobamos
+                //Valores actuales de la bateria
+                // kwHAlmacenados = 1000  +100 => 1100
+                // almacenajeMaximoKwHInicial = 2000;
+
+                // Tarifa actual (hora)
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+
+                //Total bateria
+                Assert.AreEqual(kwBateriaAntes + kwHcargados,bateria.kwHAlmacenados);
+              
+
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Carga carga = servicio.UltimaCarga(bateriaId);
+                Assert.AreEqual(kwHcargados, carga.kwH);
+
+                // hacemos otra carga igual
+                // cargamos los datos
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1200
+
+                // Comprobamos
+                //Total bateria
+                Assert.AreEqual(kwBateriaAntes + 2*kwHcargados, bateria.kwHAlmacenados);
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Assert.AreEqual(2*kwHcargados, carga.kwH);
+
+                //------------------------------- SUMINISTRANDO -------------------------------
 
                 //Ponemos el estado a "suministrando"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
@@ -5733,6 +5834,35 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
                 Assert.AreEqual(estado, "suministrando");
 
+                // Datos antes de actualizar el consumo
+                kwBateriaAntes = bateria.kwHAlmacenados;
+
+                // Datos del Consumo
+                kwHcargados = 0;
+                kwhsuministrados = 100;
+                // cargamos los datos
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1100
+
+                // Comprobamos
+                //Total bateria
+                Assert.AreEqual(kwBateriaAntes - kwhsuministrados, bateria.kwHAlmacenados);
+                //comprobar entidad cargando
+                //Buscamos Suministra
+                Suministra suministra = servicio.UltimaSuministra(bateriaId);
+                Assert.AreEqual(kwhsuministrados, suministra.kwH);
+
+                // hacemos otra carga igual
+                // cargamos los datos
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1000
+
+                // Comprobamos
+                //Total bateria
+                Assert.AreEqual(kwBateriaAntes - 2 * kwhsuministrados, bateria.kwHAlmacenados);
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Assert.AreEqual(2 * kwhsuministrados, suministra.kwH);
+
+                //----------------------------- CARGA Y SUMINISTRA -----------------------------
 
                 //Ponemos el estado a "carga y suministra"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
@@ -5745,6 +5875,57 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //comprobamos que devuelve bien el estado actual de la bateria
                 estado = servicio.EstadoDeLaBateria(bateria.bateriaId);
                 Assert.AreEqual(estado, "carga y suministra");
+
+                // Datos antes de actualizar el consumo
+                kwBateriaAntes = bateria.kwHAlmacenados;
+
+                // Datos del Consumo
+                kwHcargados = 100;
+                kwhsuministrados = 200;
+                // cargamos los datos
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1000 -200+100
+
+                // Comprobamos
+                //Total bateria
+                Assert.AreEqual(kwBateriaAntes - kwhsuministrados + kwHcargados, bateria.kwHAlmacenados);
+                //comprobar entidad cargando
+                //Buscamos Suministra
+                suministra = servicio.UltimaSuministra(bateriaId);
+                Assert.AreEqual(kwhsuministrados, suministra.kwH);
+                //Buscamos la carga
+                carga = servicio.UltimaCarga(bateriaId);
+                Assert.AreEqual(kwHcargados, carga.kwH);
+
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Assert.AreEqual(kwhsuministrados, suministra.kwH);
+
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Assert.AreEqual(kwHcargados, carga.kwH);
+
+                // Datos antes de actualizar el consumo
+                kwBateriaAntes = bateria.kwHAlmacenados;
+
+                // hacemos otra carga
+                // Datos del Consumo
+                double kwHcargados2 = 200;
+                double kwhsuministrados2 = 100;
+                // cargamos los datos
+                servicio.CargaAñadida(bateriaId, kwHcargados2, kwhsuministrados2, fechaActual, horaActual); // 1100 -100 +200
+
+                // Comprobamos
+                //Total bateria
+                Assert.AreEqual(kwBateriaAntes - kwhsuministrados2 + kwHcargados2, bateria.kwHAlmacenados);
+
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Assert.AreEqual(kwhsuministrados + kwhsuministrados2, suministra.kwH);
+                
+                //comprobar entidad cargando
+                //Buscamos la carga
+                Assert.AreEqual(kwHcargados + kwHcargados2, carga.kwH);
+
             }
         }
     }
