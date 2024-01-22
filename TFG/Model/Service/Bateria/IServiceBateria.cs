@@ -19,6 +19,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
 
         [Transactional]
+        double capacidadDelCargador(long bateriaId);
+
+        [Transactional]
         void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
 
         [Transactional]
@@ -59,7 +62,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         long CrearCargaEnBateria(long bateriaId);
 
         [Transactional]
-        void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados);
+        void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, DateTime fechaActual, TimeSpan horaActual);
 
         [Transactional]
         bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kwH);

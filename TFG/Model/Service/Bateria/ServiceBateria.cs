@@ -54,6 +54,20 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+        #region capacidad del Cargador de la batería
+        [Transactional]
+        public double capacidadDelCargador(long bateriaId)
+        {
+
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            return b.capacidadCargador;
+
+
+        }
+        #endregion
+
         #region modificar ratios
         [Transactional]
         public void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso)
@@ -642,23 +656,36 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #region Añadimos o quitamos kwhs a la bateria (carga/suministra) 
         [Transactional]
-        public void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados)
+        public void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, DateTime fechaActual , TimeSpan horaActual)
         {
+            
+            int horaTarifa = horaActual.Hours;
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
             bool gestionRatios = false;
+            double kwHcargadosFinal = 0;
+            double kwhsuministradosFinal = 0;
 
             //obtenemos la bateria
-            Bateria b = BuscarBateriaById( bateriaId);
+            Bateria b = BuscarBateriaById(bateriaId);
+            double kwHAlmacenadosInicialmente = b.kwHAlmacenados;
 
             // calculamos el excedente
             double kwhNetos = kwHcargados - kwhsuministrados;
 
             if (kwhNetos > 0) { // se carga la bateria
+
+                if (b.ratioCarga >= ((b.kwHAlmacenados - kwhNetos) * 100 / b.almacenajeMaximoKwH))
+                {
+                    gestionRatios = true; //vulnera el ratio de carga
+                }
+
                 double total = b.kwHAlmacenados + kwhNetos;
                 //comprobamos que no se pase del 100% de carga
                 if (b.almacenajeMaximoKwH < total)
                 {   //lo ponemos al 100%
                     kwHcargados = b.almacenajeMaximoKwH - b.kwHAlmacenados;
-                    b.kwHAlmacenados = b.almacenajeMaximoKwH; 
+                    b.kwHAlmacenados = b.almacenajeMaximoKwH;
                 }
                 else {
                     b.kwHAlmacenados = b.kwHAlmacenados + kwhNetos;
@@ -669,48 +696,58 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             {   // la suma es negativa
                 if (kwhNetos < 0) {
                     //comprobamos si la nueva carga cumple el ratio de carga
-                    if (b.ratioCarga >= ((b.kwHAlmacenados- kwhNetos)*100 /b.almacenajeMaximoKwH)) {
+                    if (b.ratioCarga >= ((b.kwHAlmacenados - kwhNetos) * 100 / b.almacenajeMaximoKwH))
+                    {
                         gestionRatios = true;
-                        double total = b.kwHAlmacenados - kwhNetos;
+                        double total = b.kwHAlmacenados + kwhNetos; // kwhNetos es negativo, por eso esta sumando
                         if (total < 0)
-                        {   //lo ponemos al 0%
-                            kwhsuministrados = kwHcargados + b.kwHAlmacenados;
+                        {   //lo ponemos al 0% 
+                            //kwhsuministrados = kwHcargados + b.kwHAlmacenados;
                             b.kwHAlmacenados = 0;
                         }
                         else {
-                            b.kwHAlmacenados = b.kwHAlmacenados - kwhsuministrados;
+                            b.kwHAlmacenados = b.kwHAlmacenados - kwhsuministrados + kwHcargados;
                         }
 
                     }
                     else
                     {
-                        b.kwHAlmacenados = b.kwHAlmacenados - kwhsuministrados;
+                        b.kwHAlmacenados = b.kwHAlmacenados - kwhsuministrados + kwHcargados;
                     }
                 }
             }
 
-            // obtenemos la Carga
-            Carga c = UltimaCarga(bateriaId);
+            if (kwHcargados > 0) // Se ha cargado la bateria
+            { 
+                // obtenemos la Carga
+                Carga c = UltimaCarga(bateriaId);
 
-            //sumamos la Carga
-            c.kwH = c.kwH + kwHcargados;
+                //sumamos la Carga
+                c.kwH = c.kwH + kwHcargados;
+                kwHcargadosFinal = c.kwH;
+                //actualizamos Carga
+                CargaDao.Update(c);
 
-            // obtenemos Suministra
-            Suministra s = UltimaSuministra(bateriaId);
+            }
 
-            //sumamos la Carga
-            s.kwH = s.kwH + kwhsuministrados;
+            if (kwhsuministrados > 0) // se ha suministrado energia de la bateria
+            {
+                // obtenemos Suministra
+                Suministra s = UltimaSuministra(bateriaId);
 
-            //actualizamos Bateria Suministra Carga
-            CargaDao.Update(c);
-            SuministroDao.Update(s);
+                //sumamos la Carga
+                s.kwH = s.kwH + kwhsuministrados;
+                kwhsuministradosFinal = s.kwH;
+                //actualizamos Suministra
+                SuministroDao.Update(s);
+            }
+
+            //actualizamos Bateria
             bateriaDao.Update(b);
 
             if (gestionRatios) { // ratio de carga >= %Bateria => gestion de ratios
-                // Fecha y hora actual
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                gestionDeRatios(bateriaId, c.kwH, s.kwH, fechaActual, horaActual);
+                
+                gestionDeRatios(bateriaId, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
 
             }
 

@@ -54,7 +54,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             }
         }
 
-            #endregion crear Ubicación
+        #endregion crear Ubicación
+
         #region Modificacar Ubicacion
         [Transactional]
         public void modificarUbicacion(long ubicacionId, long? codigoPostal, string localidad, string calle, string portal, long? numero, string etiqueta)
@@ -211,13 +212,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
             // buscamos el consumo (entidad) actual
             Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            double consumoAnterior = c.consumoActual;
 
-            //calculamos el estado
-                // buscamos ubicacion
+            // buscamos ubicacion
             Ubicacion u = buscarUbicacionById(ubicacionId);
+            // obtenemos el estado
             string estado = ServicioBateria.EstadoDeLaBateria((long) u.bateriaSuministradora);
 
+            //dependiendo del estado
+            // "sin actividad"
+            if (estado == "sin actividad")
+            {
+                // consumoAnterior => consumido por la red
+            }
+            // "cargando"
+            // consumoAnterior => consumido por la red, calgular carga, calcular almacenaje en bateria
+            // "suministrando"
+            // consumoAnterior => suministra, calcular almacenaje en bateria
+            // "carga y suministra"
+            // consumoAnterior => suministra, calgular carga, calcular almacenaje en bateria
 
+            //
             // finalizar consumo
             finalizarConsumo(ubicacionId, c.consumoActual, horaActual, estado);
 
@@ -241,7 +256,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
 
         #endregion  Consumo
-        
+
+        //#region Obtener la entidad Consumo vigente
+        //[Transactional]
+        //public Consumo ConsumoMostrarKwAlmacenadosYSuministrados(long ubicacionId)
+        //{
+
+        //    //buscamos el consumo (entidad) actual
+        //    return consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+        //}
+
+        //#endregion  Consumo
+
         #region Eliminar Ubicacion
         [Transactional]
         public void eliminarUbicacion(long ubicacionId)

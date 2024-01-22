@@ -107,7 +107,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        #region mostrar el peor precio del dia
+        #region mostrar tarifa actual
         [Transactional]
         public TarifaDTO TarifaActual(DateTime fecha, int hora)
         {
