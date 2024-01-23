@@ -815,6 +815,43 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void ObtenerCapacidadCargadorBateriaSuministradoraTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador+2);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //comprobamos capacidadCargador
+                double capacidadC = servicio.obtenerCapacidadCargadorBateriaSuministradora(ubicacionId);
+                Assert.AreEqual(capacidadC, capacidadCargador);
+
+                // Cambiamos de bateria
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId2);
+
+                //comprobamos capacidadCargador
+                 capacidadC = servicio.obtenerCapacidadCargadorBateriaSuministradora(ubicacionId);
+                Assert.AreEqual(capacidadC, capacidadCargador+2);
+
+            }
+        }
+
+        [TestMethod()]
 
         [ExpectedException(typeof(InstanceNotFoundException))]
         public void EliminarUbicacion2Test()
