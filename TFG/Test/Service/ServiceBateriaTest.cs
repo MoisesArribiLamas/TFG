@@ -751,6 +751,61 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void UltimaCargaNoEncontradaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Creamos Tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
+                DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(2);
+                DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(3);
+
+                long tarifaId = crearTarifa(500, 0, fecha);
+                long tarifaId2 = crearTarifa(500, 0, fecha2);
+                long tarifaId3 = crearTarifa(500, 0, fecha3);
+                long tarifaId4 = crearTarifa(500, 0, fecha4);
+
+                //creamos Carga
+                int hour1 = 1;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaIni2 = new TimeSpan(hour1 + 1, minutes, seconds);
+                TimeSpan horaIni3 = new TimeSpan(hour1 + 2, minutes, seconds);
+                TimeSpan horaIni4 = new TimeSpan(hour1 + 3, minutes, seconds);
+                TimeSpan horaIni5 = new TimeSpan(hour1 + 4, minutes, seconds);
+
+                long cargaId = servicio.IniciarCarga(bateriaId, tarifaId, horaIni);
+                long cargaId2 = servicio.IniciarCarga(bateriaId, tarifaId2, horaIni2);
+                long cargaId3 = servicio.IniciarCarga(bateriaId, tarifaId3, horaIni3);
+                long cargaId4 = servicio.IniciarCarga(bateriaId, tarifaId4, horaIni4);
+                //long cargaId5 = servicio.IniciarCarga(bateriaId2, tarifaId2, horaIni5);
+
+                //Buscamos
+
+                Carga carga = servicio.UltimaCarga(bateriaId2);
+
+
+                //Comprobamos
+
+                Assert.AreEqual(carga, null);
+
+
+            }
+        }
+
+        [TestMethod()]
         public void FinalizarCargaTest()
         {
             using (var scope = new TransactionScope())
