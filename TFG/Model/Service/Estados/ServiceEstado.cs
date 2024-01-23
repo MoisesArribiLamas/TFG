@@ -163,6 +163,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         }
         #endregion Buscar por nombre
+
+
+        #region ID de la bateria
+        [Transactional]
+        public long BuscarBateriaIdPorId(long? estadobateriaId)
+        {
+            SeEncuentra bateriaEstado = estadoBateriaDao.Find((long)estadobateriaId);
+
+            return bateriaEstado.bateriaId;
+
+        }
+        #endregion
+
     }
 
 }

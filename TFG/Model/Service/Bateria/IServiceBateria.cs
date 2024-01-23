@@ -100,5 +100,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         string EstadoDeLaBateria(long bateriaId);
 
+        [Transactional]
+        double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId);
+
     }
 }

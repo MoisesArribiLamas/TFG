@@ -9,6 +9,7 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
@@ -54,7 +55,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             }
         }
 
-        #endregion crear Ubicación
+        #endregion 
+
+        #region Obtener  Bateria suministradora
+        [Transactional]
+        public double obtenerCapacidadCargadorBateriaSuministradora(long ubicacionId)
+        {
+
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+
+            if (ubicacion.bateriaSuministradora != null)
+            {
+                // obtenemos la bateria
+                return ServicioBateria.capacidadCargadorBateriaSuministradora((long)ubicacion.bateriaSuministradora);
+            }
+            else
+            { // no tiene bateria asociada
+                throw new InstanceNotFoundException(ubicacionId,
+                    typeof(Ubicacion).FullName);
+            }
+        }
+
+        #endregion 
+
 
         #region Modificacar Ubicacion
         [Transactional]
@@ -199,7 +222,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         }
 
-        #endregion crear Ubicación
+        #endregion 
 
 
 
@@ -219,22 +242,38 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             // obtenemos el estado
             string estado = ServicioBateria.EstadoDeLaBateria((long) u.bateriaSuministradora);
 
-            //dependiendo del estado
-            // "sin actividad"
-            if (estado == "sin actividad")
+            //dependiendo del estado          
+            if (estado == "sin actividad") // "sin actividad"
             {
                 // consumoAnterior => consumido por la red
-            }
-            // "cargando"
-            // consumoAnterior => consumido por la red, calgular carga, calcular almacenaje en bateria
-            // "suministrando"
-            // consumoAnterior => suministra, calcular almacenaje en bateria
-            // "carga y suministra"
-            // consumoAnterior => suministra, calgular carga, calcular almacenaje en bateria
+                c.kwRed = calcularConsumo(consumoAnterior, c.horaIni,  horaActual);
 
-            //
-            // finalizar consumo
-            finalizarConsumo(ubicacionId, c.consumoActual, horaActual, estado);
+
+            } else if (estado == "cargando") // "cargando"
+            {
+                    
+                // consumoAnterior => consumido por la red, calcular carga comprobar el ratio de carga
+                c.kwRed = calcularConsumo(consumoAnterior, c.horaIni, horaActual);
+
+                // calculamos lo que ha cargado la bateria
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora((long)u.bateriaSuministradora);
+                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+
+                // Sumamos los que se ha cargado a la entidad Carga
+
+
+            } else if (estado == "suministrando") // "suministrando"
+                            {
+
+                // consumoAnterior => suministra, calcular almacenaje en bateria
+
+                            } else if (estado == "carga y suministra")// "carga y suministra"
+                                    { 
+                // consumoAnterior => suministra, calgular carga, calcular almacenaje en bateria
+                                    }
+                //
+                // finalizar consumo
+                finalizarConsumo(ubicacionId, c.consumoActual, horaActual, estado);
 
             // creamos el nuevo consumo
             long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
@@ -305,6 +344,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             }
         }
         #endregion
+
     }
 
 }

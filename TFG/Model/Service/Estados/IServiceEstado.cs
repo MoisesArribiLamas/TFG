@@ -27,5 +27,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         long BuscarEstadoPorNombre(string nombre);
         [Transactional]
         string BuscarEstadoPorId(long estadoId);
+        [Transactional]
+        long BuscarBateriaIdPorId(long? estadobateriaId);
     }   
 }
