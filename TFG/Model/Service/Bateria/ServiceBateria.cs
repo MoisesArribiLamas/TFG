@@ -20,6 +20,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Inject]
         public IBateriaDao bateriaDao { private get; set; }
+
         [Inject]
         public IUsuarioDao UsuarioDao { private get; set; }
 
@@ -510,8 +511,41 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         {
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
+            double carga = 0;
+            double suministra = 0;
 
-            return (b.kwHAlmacenados * 100 / b.almacenajeMaximoKwH);
+            // buscamos carga 
+            Carga c = UltimaCarga(bateriaId);
+
+            if (c != null)
+            {
+                carga = c.kwH;
+            } 
+
+            // buscamos Suministra
+            Suministra s =  UltimaSuministra(bateriaId);
+
+            if (s != null)
+            {
+                suministra = s.kwH;
+            }
+
+            double total = b.kwHAlmacenados + carga - suministra;
+            return (total * 100 / b.almacenajeMaximoKwH);
+        }
+        #endregion
+
+        #region calcular porcentaje de la bateria
+
+        [Transactional]
+        public bool cumpleRatioDeCarga(long bateriaId)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            double porcentaje = porcentajeDeCarga(bateriaId);
+
+            return (b.ratioCarga < porcentaje);
         }
         #endregion
 

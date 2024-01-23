@@ -266,8 +266,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                             {
 
                 // consumoAnterior => suministra, calcular almacenaje en bateria
+                c.kwSuministrados = calcularConsumo(consumoAnterior, c.horaIni, horaActual);
 
-                            } else if (estado == "carga y suministra")// "carga y suministra"
+                // comprobar que cumple el ratio de carga
+                if (ServicioBateria.cumpleRatioDeCarga((long)u.bateriaSuministradora))
+                {
+                }
+
+            }
+            else if (estado == "carga y suministra")// "carga y suministra"
                                     { 
                 // consumoAnterior => suministra, calgular carga, calcular almacenaje en bateria
                                     }
