@@ -704,7 +704,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #region Añadimos o quitamos kwhs a la bateria (carga/suministra) 
 
         [Transactional]
-        public void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, DateTime fechaActual , TimeSpan horaActual)
+        public bool CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, TimeSpan horaActual)
         {
             // Se ha decidido que el calculo del precio medio y KWAlmacenados 
             // en la bateria se calcule cuando se cambie de hora o cambio de estado
@@ -777,11 +777,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             //actualizamos Bateria
             //bateriaDao.Update(b);
 
-            if (gestionRatios) { // ratio de carga >= %Bateria => gestion de ratios
-                
-                gestionDeRatios(bateriaId, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
+            // ratio de carga >= %Bateria => gestion de ratios
 
-            }
+            // hay que gestionar los ratios, pero no podemos hacerlo aqui por que habría un problema con
+            // que acabase le ejecucion de "modificarConsumoActual"
+            //DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            //gestionDeRatios(bateriaId, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
+
+            // Delegamos la gestion del los ratios
+
+            return gestionRatios;
 
 
         }

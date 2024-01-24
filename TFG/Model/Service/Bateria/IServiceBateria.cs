@@ -65,7 +65,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         long CrearCargaEnBateria(long bateriaId);
 
         [Transactional]
-        void CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, DateTime fechaActual, TimeSpan horaActual);
+        bool CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, TimeSpan horaActual);
 
         [Transactional]
         bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kwH);

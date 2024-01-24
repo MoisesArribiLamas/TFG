@@ -174,30 +174,74 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region finalizar Consumo
         [Transactional]
-        public void finalizarConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual, string estado)
+        public bool finalizarConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual, string estado, long bateriaSuministradora)
         {
-  
+            bool gestionRatios = false;
+
             //buscamos el consumo (entidad) actual
             Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
 
-            //calculamos KWTotal
-            double kwTotal = calcularConsumo(consumoActual, c.horaIni, horaActual);
-
             //finalizar consumo
             c.horaFin = horaActual;
-            if (estado == "sin actividad" || estado == "cargando")
+
+            //-----------------------------------
+            //dependiendo del estado          
+            if (estado == "sin actividad") // "sin actividad"
+            {   if (consumoActual > 0)
+                {
+                    // consumoAnterior => consumido por la red
+                    c.kwRed = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                    //actualizamos
+                    consumoDao.Update(c);
+                }
+            }
+            else if (estado == "cargando") // "cargando"
             {
-                c.kwRed = c.kwRed + kwTotal;
 
-            } else if (estado == "suministrando" || estado == "carga y suministra")
-                    {
-                        c.kwSuministrados = c.kwSuministrados + kwTotal;
-                    }
+                // consumoAnterior => consumido por la red
+                c.kwRed = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
-            //actualizamos
-            consumoDao.Update(c);
+                // calculamos lo que ha cargado la bateria
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
+                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+
+                //actualizamos
+                consumoDao.Update(c);
+
+                // ponemos en la entidad Carga los datos obtenidos
+                gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, (double)c.kwCargados, 0, horaActual);
 
 
+            }
+            else if (estado == "suministrando") // "suministrando"
+            {
+
+                // consumoAnterior => suministra
+                c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                //actualizamos
+                consumoDao.Update(c);
+
+                //ponemos en la entidad Suministra los datos obtenidos
+                gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, 0, (double)c.kwSuministrados, horaActual);
+
+            }
+            else if (estado == "carga y suministra")// "carga y suministra"
+            {
+                // consumoAnterior => suministra
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
+                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                //actualizamos
+                consumoDao.Update(c);
+
+                // ponemos en la entidad Carga los datos obtenidos
+                gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, (double)c.kwCargados, (double)c.kwSuministrados, horaActual);
+            }
+
+            return gestionRatios;
         }
 
         #endregion finalizar Consumo
@@ -230,6 +274,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         public long modificarConsumoActual(long ubicacionId, double consumoActual)
         {
+            bool gestionRatios = false;
+
             // hora actual
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
@@ -239,52 +285,40 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
             // buscamos ubicacion
             Ubicacion u = buscarUbicacionById(ubicacionId);
+
             // obtenemos el estado
             string estado = ServicioBateria.EstadoDeLaBateria((long) u.bateriaSuministradora);
 
-            //dependiendo del estado          
-            if (estado == "sin actividad") // "sin actividad"
-            {
-                // consumoAnterior => consumido por la red
-                c.kwRed = calcularConsumo(consumoAnterior, c.horaIni,  horaActual);
 
-
-            } else if (estado == "cargando") // "cargando"
-            {
-                    
-                // consumoAnterior => consumido por la red, calcular carga comprobar el ratio de carga
-                c.kwRed = calcularConsumo(consumoAnterior, c.horaIni, horaActual);
-
-                // calculamos lo que ha cargado la bateria
-                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora((long)u.bateriaSuministradora);
-                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
-
-                // Sumamos los que se ha cargado a la entidad Carga
-
-
-            } else if (estado == "suministrando") // "suministrando"
-                            {
-
-                // consumoAnterior => suministra, calcular almacenaje en bateria
-                c.kwSuministrados = calcularConsumo(consumoAnterior, c.horaIni, horaActual);
-
-                // comprobar que cumple el ratio de carga
-                if (ServicioBateria.cumpleRatioDeCarga((long)u.bateriaSuministradora))
-                {
-                }
-
-            }
-            else if (estado == "carga y suministra")// "carga y suministra"
-                                    { 
-                // consumoAnterior => suministra, calgular carga, calcular almacenaje en bateria
-                                    }
-                //
-                // finalizar consumo
-                finalizarConsumo(ubicacionId, c.consumoActual, horaActual, estado);
+            // finalizar consumo
+            gestionRatios = finalizarConsumo(ubicacionId, consumoAnterior, horaActual, estado, (long)u.bateriaSuministradora);
 
             // creamos el nuevo consumo
             long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
 
+            if (gestionRatios)// ratio de carga >= %Bateria => gestion de ratios
+            {
+                double kwHcargadosFinal = 0;
+                double kwhsuministradosFinal = 0;
+
+                //obtenemos la carga
+                Carga carga= ServicioBateria.UltimaCarga((long)u.bateriaSuministradora);
+
+                if (carga != null) { // la carga que hay sin contabilizar en la bateria
+                    kwHcargadosFinal = carga.kwH;
+                }
+
+                //obtenemos suministra
+                Suministra suministra = ServicioBateria.UltimaSuministra((long)u.bateriaSuministradora);
+
+                if (carga != null) // lo suministrado que hay sin contabilizar
+                {
+                    kwhsuministradosFinal = carga.kwH;
+                }
+
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                ServicioBateria.gestionDeRatios((long)u.bateriaSuministradora, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
+            }
             //devolvemos el id del nuevo consumo
             return consumoNuevo;
         }
