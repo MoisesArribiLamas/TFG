@@ -100,6 +100,7 @@
           <Property Name="numero" Type="bigint" Nullable="false" />
           <Property Name="etiqueta" Type="varchar" MaxLength="50" />
           <Property Name="bateriaSuministradora" Type="bigint" />
+          <Property Name="ultimoConsumo" Type="bigint" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -403,6 +404,7 @@
           <Property Name="numero" Type="Int64" Nullable="false" />
           <Property Name="etiqueta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="bateriaSuministradora" Type="Int64" />
+          <Property Name="ultimoConsumo" Type="Int64" />
           <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Ubicacion" ToRole="Bateria" />
           <NavigationProperty Name="Consumoes" Relationship="Self.FK_UBICACION_BATERIA_CONSUMO" FromRole="Ubicacion" ToRole="Consumo" />
         </EntityType>
@@ -701,6 +703,7 @@
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="etiqueta" ColumnName="etiqueta" />
                 <ScalarProperty Name="bateriaSuministradora" ColumnName="bateriaSuministradora" />
+                <ScalarProperty Name="ultimoConsumo" ColumnName="ultimoConsumo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
