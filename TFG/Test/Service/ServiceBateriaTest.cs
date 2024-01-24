@@ -5844,7 +5844,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 // cargamos los datos
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1100
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, horaActual); // 1100
 
                 // Comprobamos
                 //Valores actuales de la bateria
@@ -5866,7 +5866,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 // hacemos otra carga igual
                 // cargamos los datos
-                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1200
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, horaActual); // 1200
 
                 // Comprobamos
                 //Total bateria
@@ -5896,7 +5896,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 kwHcargados = 0;
                 kwhsuministrados = 100;
                 // cargamos los datos
-                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1100
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, horaActual); // 1100
 
                 // Comprobamos
                 //Total bateria
@@ -5909,9 +5909,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 // hacemos otra carga igual
                 // cargamos los datos
-                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1000
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, horaActual); // 1000
 
-                // Comprobamos
+                // Comprobamos 
                 //Total bateria
                 //Assert.AreEqual(kwBateriaAntes - 2 * kwhsuministrados, bateria.kwHAlmacenados);
                 //comprobar entidad cargando
@@ -5939,7 +5939,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 kwHcargados = 100;
                 kwhsuministrados = 200;
                 // cargamos los datos
-                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, fechaActual, horaActual); // 1000 -200+100
+                servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, horaActual); // 1000 -200+100
 
                 // Comprobamos
                 //Total bateria
@@ -5968,7 +5968,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwHcargados2 = 200;
                 double kwhsuministrados2 = 100;
                 // cargamos los datos
-                servicio.CargaAñadida(bateriaId, kwHcargados2, kwhsuministrados2, fechaActual, horaActual); // 1100 -100 +200
+                servicio.CargaAñadida(bateriaId, kwHcargados2, kwhsuministrados2, horaActual); // 1100 -100 +200
 
                 // Comprobamos
                 //Total bateria
