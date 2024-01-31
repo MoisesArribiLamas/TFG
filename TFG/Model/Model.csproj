@@ -42,6 +42,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FSharp.Core, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSharp.Core.4.5.2\lib\net45\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.7.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.7.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -60,10 +66,17 @@
     <Reference Include="Ninject.Extensions.Interception.DynamicProxy, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Extensions.Interception.DynamicProxy.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.DynamicProxy.dll</HintPath>
     </Reference>
+    <Reference Include="ScrapySharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScrapySharp.3.0.0\lib\netstandard2.0\ScrapySharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ScrapySharp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScrapySharp.3.0.0\lib\netstandard2.0\ScrapySharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -129,6 +142,7 @@
     <Compile Include="Service\Bateria\IServiceBateria.cs" />
     <Compile Include="Service\Bateria\ServiceBateria.cs" />
     <Compile Include="Service\Bateria\BateriaDTO.cs" />
+    <Compile Include="Service\Consumo\Class1.cs" />
     <Compile Include="Service\Estados\SeEncuentraDTO.cs" />
     <Compile Include="Service\Estados\IServiceEstado.cs" />
     <Compile Include="Service\Estados\ServiceEstado.cs" />
@@ -136,6 +150,8 @@
     <Compile Include="Service\Tarifa\TarifaDTO.cs" />
     <Compile Include="Service\Tarifa\IServiceTarifa.cs" />
     <Compile Include="Service\Tarifa\ServiceTarifa.cs" />
+    <Compile Include="Service\Consumo\IServiceConsumo.cs" />
+    <Compile Include="Service\Consumo\ServiceConsumo.cs" />
     <Compile Include="Service\Ubicaciones\ConsumoDTO.cs" />
     <Compile Include="Service\Ubicaciones\UbicacionProfileDetails.cs" />
     <Compile Include="Service\Ubicaciones\ServiceUbicacion.cs" />
