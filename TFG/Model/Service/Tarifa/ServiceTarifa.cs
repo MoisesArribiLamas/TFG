@@ -119,6 +119,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
+        //#region Crear Tarifa
+        //public long crearTarifa(long precio, long hora, DateTime fecha)
+        //{
+        //    Tarifa t = new Tarifa();
+        //    t.precio = precio;
+        //    t.hora = hora;
+        //    t.fecha = fecha;
+        //    tarifaDao.Create(t);
+        //    return t.tarifaId;
+        //}
+
+        //#endregion
+
     }
 
 }
