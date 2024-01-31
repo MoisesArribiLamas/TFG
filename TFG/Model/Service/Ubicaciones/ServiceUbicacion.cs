@@ -48,6 +48,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 u.numero = numero;
                 u.etiqueta = etiqueta;
                 u.bateriaSuministradora = null;
+                u.ultimoConsumo = null;
 
                 ubicacionDao.Create(u);
                 return u.ubicacionId;
@@ -165,12 +166,32 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             c.ubicacionId = ubicacionId;
 
             consumoDao.Create(c);
+
+            // siempre que se crea un consumo se indica en la ubicacion a la que pertenece
+            ponerUltimoConsumoEnUbicacion(ubicacionId, c.consumoId);
+
             return c.consumoId;
 
 
         }
 
         #endregion crear Consumo
+
+        #region poner ultimo consumo en la ubicacion
+        [Transactional]
+        public void ponerUltimoConsumoEnUbicacion(long ubicacionId, long ultimoConsumo)
+        {
+            // buscamos la ubicacions
+            Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // ponemos el ultimo consumo de la ubicacion
+            u.ultimoConsumo = ultimoConsumo;
+
+            // actualizamos
+            ubicacionDao.Update(u);
+        }
+
+        #endregion 
 
         #region finalizar Consumo
         [Transactional]
@@ -327,13 +348,35 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region Obtener la entidad Consumo vigente
         [Transactional]
-        public Consumo ConsumoActualUbicacionActual(long ubicacionId)
+        public long? UltimoConsumoEnUbicacion(long ubicacionId)
         {
-
+            // buscamos ubicacion
+            Ubicacion u = buscarUbicacionById(ubicacionId);
             //buscamos el consumo (entidad) actual
-            return consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            return u.ultimoConsumo;
 
         }
+
+        #endregion
+
+        #region Buscar Consumo por ID
+        [Transactional]
+        public Consumo buscarConsumoById(long consumoId)
+        {
+            try
+            {
+                return consumoDao.Find(consumoId);
+
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                throw new InstanceNotFoundException(consumoId,
+                    typeof(Ubicacion).FullName);
+
+            }
+        }
+
 
         #endregion  Consumo
 

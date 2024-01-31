@@ -225,11 +225,18 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
             tarifaDao.Create(t3);
 
+            TimeSpan Minuto = new TimeSpan(0, 1, 0);
+            TimeSpan dosMinutos = new TimeSpan(0, 2, 0);
+            TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+            TimeSpan cuatroMinutos = new TimeSpan(0, 4, 0);
+            TimeSpan cincoMinutos = new TimeSpan(0, 5, 0);
+            
+
             //CREAMOS CARGAS
             Suministra c = new Suministra();
             c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c.horaFin = c.horaIni.Add(Minuto);
             c.tarifaId = t.tarifaId;
             c.bateriaId = b.bateriaId;
             c.ahorro = 0;
@@ -237,8 +244,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             Suministra c2 = new Suministra();
             c2.kwH = 2000;
-            c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
-            c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            c2.horaIni = c.horaIni.Add(dosMinutos);
+            c2.horaFin = c.horaIni.Add(tresMinutos);
             c2.tarifaId = t2.tarifaId;
             c2.bateriaId = b.bateriaId;
             c2.ahorro = 0;
@@ -246,8 +253,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             Suministra c3 = new Suministra();
             c3.kwH = 3000;
-            c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
-            c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c3.horaIni = c.horaIni.Add(cuatroMinutos);
+            c3.horaFin = c.horaIni.Add(cincoMinutos);
             c3.tarifaId = t2.tarifaId;
             c3.bateriaId = b2.bateriaId;
             c3.ahorro = 0;
@@ -255,8 +262,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
 
             Suministra c0 = new Suministra();
             c0.kwH = 3000;
-            c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
-            c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c0.horaIni = c.horaIni.Add(cuatroMinutos);
+            c0.horaFin = c.horaIni.Add(cincoMinutos);
             c0.tarifaId = t3.tarifaId;
             c0.bateriaId = b.bateriaId;
             c0.ahorro = 0;

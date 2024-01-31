@@ -176,7 +176,7 @@ GO
 /*  Tarifa */
 CREATE TABLE Tarifa (
 	tarifaId BIGINT IDENTITY(1,1) UNIQUE NOT NULL,
-	precio BIGINT NOT NULL,
+	precio FLOAT NOT NULL,
 	hora BIGINT NOT NULL,
 	fecha DATETIME NOT NULL,
 	

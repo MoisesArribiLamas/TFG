@@ -134,13 +134,20 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             b.ratioUso = 10;
             bateriaDao.Create(b);
 
+            TimeSpan Minuto = new TimeSpan(0, 1, 0);
+            TimeSpan dosMinutos = new TimeSpan(0, 2, 0);
+            TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+            TimeSpan cuatroMinutos = new TimeSpan(0, 4, 0);
+            TimeSpan cincoMinutos = new TimeSpan(0, 5, 0);
+
+
             //CREAMOS los ESTADOBATERIA
             SeEncuentra estadoBateria = new SeEncuentra();
 
             estadoBateria.bateriaId = b.bateriaId;
             estadoBateria.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             estadoBateria.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            estadoBateria.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            estadoBateria.horaFin = estadoBateria.horaIni.Add(Minuto);
             estadoBateria.estadoId = cargando.estadoId;
             estadoBateria.bateriaId = b.bateriaId;
             estadoBateriaDao.Create(estadoBateria);
@@ -150,7 +157,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             estadoBateria2.bateriaId = b.bateriaId;
             estadoBateria2.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
             estadoBateria2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            estadoBateria2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            estadoBateria2.horaFin = estadoBateria.horaIni.Add(Minuto);
             estadoBateria2.estadoId = suministrando.estadoId;
             estadoBateria2.bateriaId = b.bateriaId;
             estadoBateriaDao.Create(estadoBateria2);
@@ -159,8 +166,8 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
 
             estadoBateria3.bateriaId = b.bateriaId;
             estadoBateria3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
-            estadoBateria3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
-            estadoBateria3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            estadoBateria3.horaIni = estadoBateria.horaIni.Add(dosMinutos);
+            estadoBateria3.horaFin = estadoBateria.horaIni.Add(tresMinutos);
             estadoBateria3.estadoId = sYC.estadoId;
             estadoBateria3.bateriaId = b.bateriaId;
             estadoBateriaDao.Create(estadoBateria3);
@@ -169,8 +176,8 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
 
             estadoBateria4.bateriaId = b.bateriaId;
             estadoBateria4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
-            estadoBateria4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
-            estadoBateria4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            estadoBateria4.horaIni = estadoBateria.horaIni.Add(dosMinutos);
+            estadoBateria4.horaFin = estadoBateria.horaIni.Add(tresMinutos);
             estadoBateria4.estadoId = sYC.estadoId;
             estadoBateria4.bateriaId = b.bateriaId;
             estadoBateriaDao.Create(estadoBateria4);

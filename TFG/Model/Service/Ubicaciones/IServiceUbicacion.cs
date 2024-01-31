@@ -47,7 +47,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         long modificarConsumoActual(long ubicacionId, double consumoActual);
 
         [Transactional]
-        Consumo ConsumoActualUbicacionActual(long ubicacionId);
+        long? UltimoConsumoEnUbicacion(long ubicacionId);
+
+        [Transactional]
+        Consumo buscarConsumoById(long consumoId);
 
         [Transactional]
         void eliminarUbicacion(long ubicacionId);

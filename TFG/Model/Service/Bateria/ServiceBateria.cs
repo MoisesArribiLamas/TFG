@@ -9,8 +9,10 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Service.Consumos;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
+using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -37,6 +39,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Inject]
         public IServiceTarifa TarifaEstado { private get; set; }
 
+        //[Inject]
+        //public IServiceUbicacion ServicioUbicacion { private get; set; } 
+
+        //[Inject]
+        //public IServiceConsumo ServicioConsumo { private get; set; }
 
         #region iniciar estado en bateria
 
@@ -285,7 +292,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             
             // estado posterior
             string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
-
 
             if (!(("sin actividad" == estadoAnterior) && ("sin actividad" == estadoPosterior))) // "sin actividad" -> "sin actividad"
             {
