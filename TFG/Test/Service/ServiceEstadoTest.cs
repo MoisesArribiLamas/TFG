@@ -397,15 +397,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
                         TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
                         DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                        DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-                        DateTime fecha3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(2).Day);
-                        DateTime fecha4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(3).Day);
+                        DateTime fecha2 = fecha.AddDays(1); // dia siguiente
+                        DateTime fecha3 = fecha2.AddDays(1); // dia siguiente
+                        DateTime fecha4 = fecha3.AddDays(1); // dia siguiente
 
-                        //creamos estadosBateria
+                //creamos estadosBateria
 
 
 
-                        long estadoBateriaId = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
+                long estadoBateriaId = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
 
                         long estadoBateriaId2 = servicioEstado.CrearEstadoBateria( horaIni, fecha2, bateriaId, estadoId);
 

@@ -9,8 +9,10 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Service.Consumos;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
+using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
@@ -20,6 +22,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Inject]
         public IBateriaDao bateriaDao { private get; set; }
+
         [Inject]
         public IUsuarioDao UsuarioDao { private get; set; }
 
@@ -36,8 +39,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Inject]
         public IServiceTarifa TarifaEstado { private get; set; }
 
+        //[Inject]
+        //public IServiceUbicacion ServicioUbicacion { private get; set; } 
+
+        //[Inject]
+        //public IServiceConsumo ServicioConsumo { private get; set; }
 
         #region iniciar estado en bateria
+
         [Transactional]
         public void IniciarEstadoEnBateria(long bateriaId, long estadoId)
         {
@@ -54,7 +63,23 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+        #region capacidad del Cargador de la batería
+
+        [Transactional]
+        public double capacidadDelCargador(long bateriaId)
+        {
+
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            return b.capacidadCargador;
+
+
+        }
+        #endregion
+
         #region modificar ratios
+
         [Transactional]
         public void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso)
         {
@@ -62,30 +87,56 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
-            //modificamos los ratios
-            if (ratioCarga != null)
+            // comprobamos que se modifican
+            RatiosDTO ratios = MostrarRatios(bateriaId);
+
+            //Miramos que se haya modificado algun parametro
+            if (!((b.ratioCarga == ratioCarga) && (b.ratioCompra == ratioCompra) && (b.ratioUso == ratioUso)))
             {
-                b.ratioCarga= (double)ratioCarga;
+
+                if (ratioCarga != null)
+                {
+                    b.ratioCarga = (double)ratioCarga;
+                }
+
+                if (ratioCompra != null)
+                {
+                    b.ratioCompra = (double)ratioCompra;
+                }
+
+                if (ratioUso != null)
+                {
+                    b.ratioUso = (double)ratioUso;
+                }
+
+                
+
+                bateriaDao.Update(b);
             }
 
-            if (ratioCompra != null)
-            {
-                b.ratioCompra = (double)ratioCompra;
-            }
+        }
+        #endregion
 
-            if (ratioUso != null)
-            {
-                b.ratioUso = (double)ratioUso;
-            }
-           
+        #region mostrar ratios
 
-            bateriaDao.Update(b);
+        [Transactional]
+        public RatiosDTO MostrarRatios(long bateriaId)
+        {
+
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            //Creamos RatiosDTO
+            RatiosDTO ratios = new RatiosDTO(b.ratioCarga, b.ratioCompra, b.ratioUso);
+
+            return ratios;
 
 
         }
         #endregion
 
         #region Parte Asincrona
+
         [Transactional]
         public void Asincrono(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
         {
@@ -120,15 +171,20 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region Gestion de los ratios
+
         [Transactional]
-        public void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual, TarifaDTO tarifa)
+        public void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual)
         {
 
             // buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
-            // estado de la bateria
-            //string estado = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
+
+            // Tarifa actual (hora)
+            int horaTarifa = horaActual.Hours;
+
+            // Buscar la tarifa actual
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
 
 
             // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
@@ -219,6 +275,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region cambiar estado bateria
+
         [Transactional]
         public void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
         {
@@ -235,7 +292,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             
             // estado posterior
             string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
-
 
             if (!(("sin actividad" == estadoAnterior) && ("sin actividad" == estadoPosterior))) // "sin actividad" -> "sin actividad"
             {
@@ -455,17 +511,52 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region calcular porcentaje de la bateria
+
         [Transactional]
         public double porcentajeDeCarga(long bateriaId)
         {
             //buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
+            double carga = 0;
+            double suministra = 0;
 
-            return (b.kwHAlmacenados * 100 / b.almacenajeMaximoKwH);
+            // buscamos carga 
+            Carga c = UltimaCarga(bateriaId);
+
+            if (c != null)
+            {
+                carga = c.kwH;
+            } 
+
+            // buscamos Suministra
+            Suministra s =  UltimaSuministra(bateriaId);
+
+            if (s != null)
+            {
+                suministra = s.kwH;
+            }
+
+            double total = b.kwHAlmacenados + carga - suministra;
+            return (total * 100 / b.almacenajeMaximoKwH);
+        }
+        #endregion
+
+        #region calcular porcentaje de la bateria
+
+        [Transactional]
+        public bool cumpleRatioDeCarga(long bateriaId)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            double porcentaje = porcentajeDeCarga(bateriaId);
+
+            return (b.ratioCarga < porcentaje);
         }
         #endregion
 
         #region crear baterias
+
         [Transactional]
         public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
@@ -506,6 +597,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion crear baterias
 
         #region Modificacar Bateria
+
         [Transactional]
         public void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
             double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
@@ -545,6 +637,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region Buscar Bateria por ID
+
         [Transactional]
         public Bateria BuscarBateriaById(long bateriaId)
         {
@@ -563,6 +656,31 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion Eliminar
 
         #region crear Carga
+
+        [Transactional]
+        public long CrearCargaEnBateria(long bateriaId)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            // buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            // Tarifa actual (hora)
+            int horaTarifa = horaActual.Hours;
+
+            // Buscar la tarifa actual
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+            return IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+        }
+
+        #endregion
+
+        #region Iniciar Carga
+
         [Transactional]
         public long IniciarCarga(long bateriaId, long tarifaId,
             TimeSpan horaIni)
@@ -589,6 +707,98 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
+        #region Añadimos o quitamos kwhs a la bateria (carga/suministra) 
+
+        [Transactional]
+        public bool CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, TimeSpan horaActual)
+        {
+            // Se ha decidido que el calculo del precio medio y KWAlmacenados 
+            // en la bateria se calcule cuando se cambie de hora o cambio de estado
+            // para evitar muchos calculos en caso de que sea muy cambiante el consumo
+
+
+            bool gestionRatios = false;
+            double kwHcargadosFinal = 0;
+            double kwhsuministradosFinal = 0;
+
+            //obtenemos la bateria
+            Bateria b = BuscarBateriaById(bateriaId);
+            double kwHAlmacenadosInicialmente = b.kwHAlmacenados;
+
+            // calculamos el excedente
+            double kwhNetos = kwHcargados - kwhsuministrados;
+            double total = b.kwHAlmacenados + kwhNetos;
+
+
+            if (total < 0) // La bateria consume mas de lo que tiene, debería ser imposible
+            {   //lo ponemos al 0% 
+                //kwhsuministrados = kwHcargados + b.kwHAlmacenados; lo maximo que puede suministrar
+                kwhsuministrados = kwHcargados - b.kwHAlmacenados;
+                gestionRatios = true;
+            }
+            else
+            {
+                if (b.ratioCarga >= ((b.kwHAlmacenados + kwhNetos) * 100 / b.almacenajeMaximoKwH))
+                {
+                    gestionRatios = true; //vulnera el ratio de carga
+                }
+                else
+                {
+                    //comprobamos que no se pase del 100% de carga
+                    if (b.almacenajeMaximoKwH < total)
+                    {
+                        // lo ponemos al 100%
+                        kwHcargados = b.almacenajeMaximoKwH - b.kwHAlmacenados;
+                    }
+                }
+
+            }
+            
+
+            if (kwHcargados > 0) // Se ha cargado la bateria
+            { 
+                // obtenemos la Carga
+                Carga c = UltimaCarga(bateriaId);
+
+                //sumamos la Carga
+                c.kwH = c.kwH + kwHcargados;
+                kwHcargadosFinal = c.kwH;
+                //actualizamos Carga
+                CargaDao.Update(c);
+
+            }
+
+            if (kwhsuministrados > 0) // se ha suministrado energia de la bateria
+            {
+                // obtenemos Suministra
+                Suministra s = UltimaSuministra(bateriaId);
+
+                //sumamos la Carga
+                s.kwH = s.kwH + kwhsuministrados;
+                kwhsuministradosFinal = s.kwH;
+                //actualizamos Suministra
+                SuministroDao.Update(s);
+            }
+
+            //actualizamos Bateria
+            //bateriaDao.Update(b);
+
+            // ratio de carga >= %Bateria => gestion de ratios
+
+            // hay que gestionar los ratios, pero no podemos hacerlo aqui por que habría un problema con
+            // que acabase le ejecucion de "modificarConsumoActual"
+            //DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            //gestionDeRatios(bateriaId, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
+
+            // Delegamos la gestion del los ratios
+
+            return gestionRatios;
+
+
+        }
+
+        #endregion
+
         #region Poner hora fin estado bateria
         [Transactional]
         public bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kwH)
@@ -599,6 +809,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region Buscar Carga por ID
+
         [Transactional]
         public Carga BuscarCargaById(long cargaId)
         {
@@ -644,6 +855,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region crear Suministra
+
         [Transactional]
         public long IniciarSuministra(long bateriaId, long tarifaId, TimeSpan horaIni)
         {
@@ -668,7 +880,32 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+        #region crear Carga
+
+        [Transactional]
+        public long CrearSuministraEnBateria(long bateriaId)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            // buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            // Tarifa actual (hora)
+            int horaTarifa = horaActual.Hours;
+
+            // Buscar la tarifa actual
+            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+            return IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+        }
+
+        #endregion
+
         #region Poner hora fin Suministra bateria
+
         [Transactional]
         public bool FinalizarSuministra(long suministraID, TimeSpan horaFin, double kwH, double ahorro)
         {
@@ -699,6 +936,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion Buscar carga por ID
 
         #region suministros de una bateria
+
         [Transactional]
 
         public List<SuministroDTO> MostrarSuministraBareriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)
@@ -738,6 +976,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #endregion
 
         #region ahorro de las baterias de un usuario
+
         [Transactional]
 
         public double ahorroBareriasUsuarioPorFecha(long usuarioId, DateTime fecha, DateTime fecha2)
@@ -749,7 +988,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
+
         #region Estado de la bateria en string
+
         [Transactional]
         public string EstadoDeLaBateria(long bateriaId)
         {
@@ -761,6 +1002,23 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion Estado baterias
+
+
+        #region Obtener capacidad de cargar
+
+        [Transactional]
+        public double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId)
+        {
+
+            // obtenemos la bateria
+            Bateria b = BuscarBateriaById(bateriaSuministradoraId);
+
+            return b.capacidadCargador;
+
+        }
+
+        #endregion
+
     }
 
 }

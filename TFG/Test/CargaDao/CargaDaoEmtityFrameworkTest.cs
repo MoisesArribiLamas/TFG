@@ -223,35 +223,42 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(2);
             tarifaDao.Create(t3);
 
+            TimeSpan Minuto = new TimeSpan(0, 1, 0);
+            TimeSpan dosMinutos = new TimeSpan(0, 2, 0);
+            TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+            TimeSpan cuatroMinutos = new TimeSpan(0, 4, 0);
+            TimeSpan cincoMinutos = new TimeSpan(0, 5, 0);
+
+
             //CREAMOS CARGAS
             Carga c = new Carga();
             c.kwH = 1000;
             c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c.horaFin = c.horaIni.Add(Minuto);
             c.tarifaId = t.tarifaId;
             c.bateriaId = b.bateriaId;
             cargaDao.Create(c);
 
             Carga c2 = new Carga();
             c2.kwH = 2000;
-            c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
-            c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            c2.horaIni = c.horaIni.Add(dosMinutos);
+            c2.horaFin = c.horaIni.Add(tresMinutos);
             c2.tarifaId = t2.tarifaId;
             c2.bateriaId = b.bateriaId;
             cargaDao.Create(c2);
 
             Carga c3 = new Carga();
             c3.kwH = 3000;
-            c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
-            c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c3.horaIni = c.horaIni.Add(cuatroMinutos);
+            c3.horaFin = c.horaIni.Add(cincoMinutos);
             c3.tarifaId = t2.tarifaId;
             c3.bateriaId = b2.bateriaId;
             cargaDao.Create(c3);
 
             Carga c0 = new Carga();
             c0.kwH = 3000;
-            c0.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
-            c0.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c0.horaIni = c.horaIni.Add(cuatroMinutos);
+            c0.horaFin = c.horaIni.Add(cincoMinutos);
             c0.tarifaId = t3.tarifaId;
             c0.bateriaId = b.bateriaId;
             cargaDao.Create(c0);
@@ -412,6 +419,121 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.CargaDao.Tests
             Assert.AreEqual(cargaResult.horaIni, c4.horaIni);
             Assert.AreEqual(cargaResult.horaFin, c4.horaFin);
             Assert.AreEqual(cargaResult.bateriaId, b.bateriaId);
+
+        }
+
+        [TestMethod()]
+        public void MostrarUltimaCargaBareriaTest2()
+        {
+            // CREAMOS UBICACION
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15405;
+            u.localidad = "Ferrol";
+            u.calle = "calle de Ferrol";
+            u.portal = "B";
+            u.numero = 1;
+            ubicacionDao.Create(u);
+
+
+            //CREAMOS LOS USUARIO
+            Usuario user = new Usuario();
+            user.nombre = "Dani";
+            user.email = "micorreo@gmail.com";
+            user.apellido1 = "Díaz";
+            user.apellido2 = "González";
+            user.contraseña = "unacontraseña";
+            user.telefono = "981123456";
+            user.pais = "España";
+            user.idioma = "es-ES";
+            usuarioDao.Create(user);
+
+
+            //CREAMOS LAS BATERIAS
+            Bateria b = new Bateria();
+            b.ubicacionId = u.ubicacionId;
+            b.usuarioId = user.usuarioId;
+            b.precioMedio = 111;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b.marca = "MARCA 1";
+            b.modelo = "MODELO 1";
+            b.ratioCarga = 10;
+            b.ratioCompra = 10;
+            b.ratioUso = 10;
+            bateriaDao.Create(b);
+
+            Bateria b2 = new Bateria();
+            b2.ubicacionId = u.ubicacionId;
+            b2.usuarioId = user.usuarioId;
+            b2.precioMedio = 111;
+            b2.kwHAlmacenados = 1000;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b2.marca = "MARCA 1";
+            b2.modelo = "MODELO 1";
+            b2.ratioCarga = 10;
+            b2.ratioCompra = 10;
+            b2.ratioUso = 10;
+            bateriaDao.Create(b2);
+
+            //CREAMOS LAS TARIFAS
+            Tarifa t = new Tarifa();
+            t.precio = 100;
+            t.hora = 1;
+            t.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            tarifaDao.Create(t);
+
+            Tarifa t2 = new Tarifa();
+            t2.precio = 100;
+            t2.hora = 2;
+            t2.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            tarifaDao.Create(t2);
+
+            Tarifa t3 = new Tarifa();
+            t3.precio = 100;
+            t3.hora = 3;
+            t3.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(5);
+            tarifaDao.Create(t3);
+
+            Tarifa t4 = new Tarifa();
+            t4.precio = 100;
+            t4.hora = 1;
+            t4.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
+            tarifaDao.Create(t4);
+
+            //CREAMOS CARGAS
+            Carga c = new Carga();
+            c.kwH = 1000;
+            c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c.tarifaId = t.tarifaId;
+            c.bateriaId = b.bateriaId;
+            cargaDao.Create(c);
+
+            Carga c2 = new Carga();
+            c2.kwH = 2000;
+            c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
+            c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            c2.tarifaId = t2.tarifaId;
+            c2.bateriaId = b.bateriaId;
+            cargaDao.Create(c2);
+
+            Carga c4 = new Carga();
+            c4.kwH = 1000;
+            c4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            c4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c4.tarifaId = t4.tarifaId;
+            c4.bateriaId = b.bateriaId;
+            cargaDao.Create(c4);
+
+
+            //COMPROBAMOS
+
+            Carga cargaResult = cargaDao.UltimaCargaBareria(b2.bateriaId);
+
+            Assert.AreEqual(cargaResult, null);
+
 
         }
 

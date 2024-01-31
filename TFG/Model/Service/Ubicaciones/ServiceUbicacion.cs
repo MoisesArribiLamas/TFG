@@ -9,6 +9,7 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
@@ -47,6 +48,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 u.numero = numero;
                 u.etiqueta = etiqueta;
                 u.bateriaSuministradora = null;
+                u.ultimoConsumo = null;
 
                 ubicacionDao.Create(u);
                 return u.ubicacionId;
@@ -54,7 +56,30 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             }
         }
 
-            #endregion crear Ubicación
+        #endregion 
+
+        #region Obtener  Bateria suministradora
+        [Transactional]
+        public double obtenerCapacidadCargadorBateriaSuministradora(long ubicacionId)
+        {
+
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+
+            if (ubicacion.bateriaSuministradora != null)
+            {
+                // obtenemos la bateria
+                return ServicioBateria.capacidadCargadorBateriaSuministradora((long)ubicacion.bateriaSuministradora);
+            }
+            else
+            { // no tiene bateria asociada
+                throw new InstanceNotFoundException(ubicacionId,
+                    typeof(Ubicacion).FullName);
+            }
+        }
+
+        #endregion 
+
+
         #region Modificacar Ubicacion
         [Transactional]
         public void modificarUbicacion(long ubicacionId, long? codigoPostal, string localidad, string calle, string portal, long? numero, string etiqueta)
@@ -141,6 +166,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             c.ubicacionId = ubicacionId;
 
             consumoDao.Create(c);
+
+            // siempre que se crea un consumo se indica en la ubicacion a la que pertenece
+            ponerUltimoConsumoEnUbicacion(ubicacionId, c.consumoId);
+
             return c.consumoId;
 
 
@@ -148,32 +177,92 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion crear Consumo
 
+        #region poner ultimo consumo en la ubicacion
+        [Transactional]
+        public void ponerUltimoConsumoEnUbicacion(long ubicacionId, long ultimoConsumo)
+        {
+            // buscamos la ubicacions
+            Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // ponemos el ultimo consumo de la ubicacion
+            u.ultimoConsumo = ultimoConsumo;
+
+            // actualizamos
+            ubicacionDao.Update(u);
+        }
+
+        #endregion 
+
         #region finalizar Consumo
         [Transactional]
-        public void finalizarConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual, string estado)
+        public bool finalizarConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual, string estado, long bateriaSuministradora)
         {
-  
+            bool gestionRatios = false;
+
             //buscamos el consumo (entidad) actual
             Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
 
-            //calculamos KWTotal
-            double kwTotal = calcularConsumo(consumoActual, c.horaIni, horaActual);
-
             //finalizar consumo
             c.horaFin = horaActual;
-            if (estado == "sin actividad" || estado == "cargando")
+
+            //-----------------------------------
+            //dependiendo del estado          
+            if (estado == "sin actividad") // "sin actividad"
+            {   if (consumoActual > 0)
+                {
+                    // consumoAnterior => consumido por la red
+                    c.kwRed = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                    //actualizamos
+                    consumoDao.Update(c);
+                }
+            }
+            else if (estado == "cargando") // "cargando"
             {
-                c.kwRed = c.kwRed + kwTotal;
 
-            } else if (estado == "suministrando" || estado == "carga y suministra")
-                    {
-                        c.kwSuministrados = c.kwSuministrados + kwTotal;
-                    }
+                // consumoAnterior => consumido por la red
+                c.kwRed = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
-            //actualizamos
-            consumoDao.Update(c);
+                // calculamos lo que ha cargado la bateria
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
+                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+
+                //actualizamos
+                consumoDao.Update(c);
+
+                // ponemos en la entidad Carga los datos obtenidos
+                gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, (double)c.kwCargados, 0, horaActual);
 
 
+            }
+            else if (estado == "suministrando") // "suministrando"
+            {
+
+                // consumoAnterior => suministra
+                c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                //actualizamos
+                consumoDao.Update(c);
+
+                //ponemos en la entidad Suministra los datos obtenidos
+                gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, 0, (double)c.kwSuministrados, horaActual);
+
+            }
+            else if (estado == "carga y suministra")// "carga y suministra"
+            {
+                // consumoAnterior => suministra
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
+                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                //actualizamos
+                consumoDao.Update(c);
+
+                // ponemos en la entidad Carga los datos obtenidos
+                gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, (double)c.kwCargados, (double)c.kwSuministrados, horaActual);
+            }
+
+            return gestionRatios;
         }
 
         #endregion finalizar Consumo
@@ -198,7 +287,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         }
 
-        #endregion crear Ubicación
+        #endregion 
 
 
 
@@ -206,24 +295,51 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         public long modificarConsumoActual(long ubicacionId, double consumoActual)
         {
+            bool gestionRatios = false;
+
             // hora actual
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
             // buscamos el consumo (entidad) actual
             Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            double consumoAnterior = c.consumoActual;
 
-            //calculamos el estado
-                // buscamos ubicacion
+            // buscamos ubicacion
             Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // obtenemos el estado
             string estado = ServicioBateria.EstadoDeLaBateria((long) u.bateriaSuministradora);
 
 
             // finalizar consumo
-            finalizarConsumo(ubicacionId, c.consumoActual, horaActual, estado);
+            gestionRatios = finalizarConsumo(ubicacionId, consumoAnterior, horaActual, estado, (long)u.bateriaSuministradora);
 
             // creamos el nuevo consumo
             long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
 
+            if (gestionRatios)// ratio de carga >= %Bateria => gestion de ratios
+            {
+                double kwHcargadosFinal = 0;
+                double kwhsuministradosFinal = 0;
+
+                //obtenemos la carga
+                Carga carga= ServicioBateria.UltimaCarga((long)u.bateriaSuministradora);
+
+                if (carga != null) { // la carga que hay sin contabilizar en la bateria
+                    kwHcargadosFinal = carga.kwH;
+                }
+
+                //obtenemos suministra
+                Suministra suministra = ServicioBateria.UltimaSuministra((long)u.bateriaSuministradora);
+
+                if (carga != null) // lo suministrado que hay sin contabilizar
+                {
+                    kwhsuministradosFinal = carga.kwH;
+                }
+
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                ServicioBateria.gestionDeRatios((long)u.bateriaSuministradora, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
+            }
             //devolvemos el id del nuevo consumo
             return consumoNuevo;
         }
@@ -232,16 +348,50 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region Obtener la entidad Consumo vigente
         [Transactional]
-        public Consumo ConsumoActualUbicacionActual(long ubicacionId)
+        public long? UltimoConsumoEnUbicacion(long ubicacionId)
         {
-
+            // buscamos ubicacion
+            Ubicacion u = buscarUbicacionById(ubicacionId);
             //buscamos el consumo (entidad) actual
-            return consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            return u.ultimoConsumo;
 
         }
 
+        #endregion
+
+        #region Buscar Consumo por ID
+        [Transactional]
+        public Consumo buscarConsumoById(long consumoId)
+        {
+            try
+            {
+                return consumoDao.Find(consumoId);
+
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                throw new InstanceNotFoundException(consumoId,
+                    typeof(Ubicacion).FullName);
+
+            }
+        }
+
+
         #endregion  Consumo
-        
+
+        //#region Obtener la entidad Consumo vigente
+        //[Transactional]
+        //public Consumo ConsumoMostrarKwAlmacenadosYSuministrados(long ubicacionId)
+        //{
+
+        //    //buscamos el consumo (entidad) actual
+        //    return consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+        //}
+
+        //#endregion  Consumo
+
         #region Eliminar Ubicacion
         [Transactional]
         public void eliminarUbicacion(long ubicacionId)
@@ -278,6 +428,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             }
         }
         #endregion
+
     }
 
 }

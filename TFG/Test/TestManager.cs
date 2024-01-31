@@ -21,6 +21,7 @@ using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
+using Es.Udc.DotNet.TFG.Model.Service.Consumos;
 
 namespace Es.Udc.DotNet.TFG.Test
 {
@@ -51,6 +52,7 @@ namespace Es.Udc.DotNet.TFG.Test
             kernel.Bind<IServiceTarifa>().To<ServiceTarifa>();
             kernel.Bind<IServiceBateria>().To<ServiceBateria>();
             kernel.Bind<IServiceEstado>().To<ServiceEstado>();
+            kernel.Bind<IServiceConsumo>().To<ServiceConsumo>();
 
 
 

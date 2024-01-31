@@ -107,7 +107,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        #region mostrar el peor precio del dia
+        #region mostrar tarifa actual
         [Transactional]
         public TarifaDTO TarifaActual(DateTime fecha, int hora)
         {
@@ -118,6 +118,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         }
 
         #endregion
+
+        //#region Crear Tarifa
+        //public long crearTarifa(long precio, long hora, DateTime fecha)
+        //{
+        //    Tarifa t = new Tarifa();
+        //    t.precio = precio;
+        //    t.hora = hora;
+        //    t.fecha = fecha;
+        //    tarifaDao.Create(t);
+        //    return t.tarifaId;
+        //}
+
+        //#endregion
 
     }
 

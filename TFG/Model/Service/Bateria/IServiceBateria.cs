@@ -19,11 +19,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
 
         [Transactional]
+        double capacidadDelCargador(long bateriaId);
+
+        [Transactional]
         void ModificarRatios(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
 
         [Transactional]
-        void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual,
-            TarifaDTO tarifa);
+        RatiosDTO MostrarRatios(long bateriaId);
+
+        [Transactional]
+        void gestionDeRatios(long bateriaId, double kwHCargados, double kwHSuministrados, DateTime fechaActual, TimeSpan horaActual);
 
 
         [Transactional]
@@ -37,6 +42,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         
         [Transactional]
         double porcentajeDeCarga(long bateriaId);
+
+        [Transactional]
+        bool cumpleRatioDeCarga(long bateriaId);
 
         [Transactional]
         List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count);
@@ -54,6 +62,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             TimeSpan horaIni);
 
         [Transactional]
+        long CrearCargaEnBateria(long bateriaId);
+
+        [Transactional]
+        bool CargaAñadida(long bateriaId, double kwHcargados, double kwhsuministrados, TimeSpan horaActual);
+
+        [Transactional]
         bool FinalizarCarga(long cargaID, TimeSpan horaFin, double kwH);
 
         [Transactional]
@@ -67,6 +81,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         long IniciarSuministra(long bateriaId, long tarifaId, TimeSpan horaIni);
+
+        [Transactional]
+        long CrearSuministraEnBateria(long bateriaId);
         [Transactional]
         bool FinalizarSuministra(long suministraID, TimeSpan horaFin, double kwH, double ahorro);
         [Transactional]
@@ -85,6 +102,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         string EstadoDeLaBateria(long bateriaId);
+
+        [Transactional]
+        double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId);
 
     }
 }
