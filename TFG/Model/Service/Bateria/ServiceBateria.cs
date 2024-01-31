@@ -9,7 +9,6 @@ using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
-using Es.Udc.DotNet.TFG.Model.Service.Consumos;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;

@@ -12,6 +12,9 @@ using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Ninject;
+using HtmlAgilityPack;
+using ScrapySharp.Extensions;
+using System.Globalization;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 {
@@ -119,18 +122,46 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        //#region Crear Tarifa
-        //public long crearTarifa(long precio, long hora, DateTime fecha)
-        //{
-        //    Tarifa t = new Tarifa();
-        //    t.precio = precio;
-        //    t.hora = hora;
-        //    t.fecha = fecha;
-        //    tarifaDao.Create(t);
-        //    return t.tarifaId;
-        //}
+        #region Crear Tarifa
+        public long crearTarifa(double precio, long hora, DateTime fecha)
+        {
+            Tarifa t = new Tarifa();
+            t.precio = precio;
+            t.hora = hora;
+            t.fecha = fecha;
+            tarifaDao.Create(t);
+            return t.tarifaId;
+        }
 
-        //#endregion
+        #endregion
+
+        #region Scrapy de las tarifas
+        [Transactional]
+        public void scrapyTarifas()
+        {
+            // fecha y hora
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            long hora = 0;
+
+            HtmlWeb oWeb = new HtmlWeb();
+            HtmlDocument doc = oWeb.Load("https://tarifaluzhora.es/");
+            //var nodo = doc.DocumentNode.CssSelect(".template-tlh__colors--hours-price").First();
+            foreach (var nodo in doc.DocumentNode.CssSelect(".template-tlh__colors--hours-price"))
+            {
+                var elemento = nodo.CssSelect("span").First();
+                string span = elemento.InnerHtml;
+
+                //nos quedamos con la parte del precio
+                string p = span.Substring(0, span.IndexOf(" "));
+                double precio = double.Parse(p, CultureInfo.InvariantCulture); // hacemos que tome el punto sin cultura expacifica
+
+                //creamos las tarifas de forma individual
+                crearTarifa(precio, hora, fecha);
+                hora++;
+            }
+        }
+
+        #endregion
 
     }
 

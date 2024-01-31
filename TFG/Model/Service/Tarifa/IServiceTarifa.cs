@@ -24,8 +24,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tarifas
         List<TarifaDTO> OrdenarPeorPrecioTarifasDelDia(DateTime fecha);
         [Transactional]
         TarifaDTO TarifaActual(DateTime fecha, int hora);
-        //[Transactional]
-        //long crearTarifa(long precio, long hora, DateTime fecha);
+        [Transactional]
+        long crearTarifa(double precio, long hora, DateTime fecha);
+        [Transactional]
+        void scrapyTarifas();
 
     }
 }
