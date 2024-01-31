@@ -111,7 +111,7 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             t2.fecha = t.fecha;
             tarifaDao.Create(t2);
 
-            long mtarifa = tarifaDao.PrecioMejorTarifa(t2.fecha);
+            double mtarifa = tarifaDao.PrecioMejorTarifa(t2.fecha);
 
             Assert.AreEqual(t.precio, mtarifa);
         }
@@ -133,7 +133,7 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             t2.fecha = t.fecha;
             tarifaDao.Create(t2);
 
-            long mtarifa = tarifaDao.PrecioPeorTarifa(t2.fecha);
+            double mtarifa = tarifaDao.PrecioPeorTarifa(t2.fecha);
 
             Assert.AreEqual(t2.precio, mtarifa);
         }

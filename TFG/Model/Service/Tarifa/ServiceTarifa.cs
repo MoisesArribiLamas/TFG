@@ -49,7 +49,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #region mostrar mejor precio del dia
         [Transactional]
-        public long BuscarMejorTarifa(DateTime fecha)
+        public double BuscarMejorTarifa(DateTime fecha)
         {
             return tarifaDao.PrecioMejorTarifa(fecha);
         }
@@ -78,7 +78,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #region mostrar el peor precio del dia
         [Transactional]
-        public long BuscarpeorTarifa(DateTime fecha)
+        public double BuscarpeorTarifa(DateTime fecha)
         {
 
             return tarifaDao.PrecioPeorTarifa(fecha);

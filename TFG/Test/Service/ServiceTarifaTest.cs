@@ -184,7 +184,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                long ta = servicio.BuscarMejorTarifa(fecha);
+                double ta = servicio.BuscarMejorTarifa(fecha);
 
 
                 
@@ -228,7 +228,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                long ta = servicio.BuscarpeorTarifa(fecha);
+                double ta = servicio.BuscarpeorTarifa(fecha);
 
 
              

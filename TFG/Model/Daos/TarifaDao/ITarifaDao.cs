@@ -9,9 +9,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 {
     public interface ITarifaDao : IGenericDao<Tarifa, Int64>
     {
-        bool updateInformacion(long tarifaId, long precio, long hora, DateTime fecha);
-        long PrecioPeorTarifa(DateTime fecha);
-        long PrecioMejorTarifa(DateTime fecha);
+        bool updateInformacion(long tarifaId, double precio, long hora, DateTime fecha);
+        double PrecioPeorTarifa(DateTime fecha);
+        double PrecioMejorTarifa(DateTime fecha);
         double CalcularMediaTarifa(DateTime fecha, DateTime fecha2);
         List<Tarifa> verTarifasDelDia(DateTime fecha);
         List<Tarifa> OrdenarPeorPrecioTarifasDelDia(DateTime fecha);

@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 		#region ITarifaDao Members. Specific Operations
 		/// <exception cref="InstanceNotFoundException"/>
 
-		public bool updateInformacion(long tarifaId, long precio, long hora, DateTime fecha)
+		public bool updateInformacion(long tarifaId, double precio, long hora, DateTime fecha)
 		{
 			Tarifa u = Find(tarifaId);
 			if (u != null)
@@ -39,7 +39,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return false;
 		}
 
-		public long PrecioMejorTarifa(DateTime fecha)
+		public double PrecioMejorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa mTarifa = null;
@@ -78,7 +78,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 		}
 		#endregion
 
-		public long PrecioPeorTarifa(DateTime fecha)
+		public double PrecioPeorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
