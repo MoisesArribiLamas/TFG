@@ -163,6 +163,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
+        #region Ver si existen tarifas del dia
+        [Transactional]
+        public bool ExistenTarifasDelDia(DateTime fecha)
+        {
+            return tarifaDao.ExistenTarifasDelDia(fecha);
+        }
+
+        #endregion
+
     }
 
 }

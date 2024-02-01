@@ -17,6 +17,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
         List<Tarifa> OrdenarPeorPrecioTarifasDelDia(DateTime fecha);
         List<Tarifa> OrdenarMejorPrecioTarifasDelDia(DateTime fecha);
         Tarifa TarifaActual(DateTime fecha, int hora);
+        bool ExistenTarifasDelDia(DateTime fecha);
 
     }
 }

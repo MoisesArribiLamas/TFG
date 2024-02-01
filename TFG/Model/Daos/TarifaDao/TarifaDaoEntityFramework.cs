@@ -115,9 +115,29 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return result;
 
 		}
-		#endregion
+        #endregion
 
-		public double CalcularMediaTarifa(DateTime fecha, DateTime fecha2) {
+        #region Ver si existen tarifas del dia
+        public bool ExistenTarifasDelDia(DateTime fecha)
+        {
+            DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
+            Tarifa mTarifa = null;
+
+            var result =
+                (from t in tarifa
+                 where (t.fecha == fecha)
+                 select t).ToList();
+            mTarifa = result.FirstOrDefault();
+            if (mTarifa == null)
+                return false;
+
+
+            return true;
+
+        }
+        #endregion
+
+        public double CalcularMediaTarifa(DateTime fecha, DateTime fecha2) {
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
 

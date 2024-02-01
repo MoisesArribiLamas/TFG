@@ -27,6 +27,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tarifas
         [Transactional]
         long crearTarifa(double precio, long hora, DateTime fecha);
         [Transactional]
+        bool ExistenTarifasDelDia(DateTime fecha);
+        [Transactional]
         void scrapyTarifas();
 
     }
