@@ -343,7 +343,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             {
 
                 DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                DateTime fecha2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+                DateTime fecha2 = fecha.AddDays(1);
 
                 crearTarifa(1, 0, fecha);// mejor tarifa
                 crearTarifa(100, 1, fecha);
@@ -398,6 +398,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 TarifaDTO ta23 = servicio.TarifaActual(fecha, 23);
                 Assert.AreEqual(ta23.precio, 2300);
+
+            }
+        }
+
+        [TestMethod()]
+        public void ExistenTarifasDelDiaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+                //comprobamos que NO hay tarifa
+                Assert.IsFalse(servicio.ExistenTarifasDelDia(fecha));
+
+                //obtenemos las tarifas
+                servicio.scrapyTarifas();
+                
+                //comprobamos que hay tarifa
+                Assert.IsTrue(servicio.ExistenTarifasDelDia(fecha));
+               
 
             }
         }

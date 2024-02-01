@@ -347,5 +347,47 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             Tarifa ta23 = tarifaDao.TarifaActual(t.fecha, 23);
             Assert.AreEqual(ta23.precio, 2300);
         }
+
+        [TestMethod()]
+        public void ExistenTarifasDelDiaTest()
+        {
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            //comprobamos que NO existe una tarifa en esa fecha
+            Assert.IsFalse(tarifaDao.ExistenTarifasDelDia(fecha));
+
+            Tarifa t = new Tarifa();
+            t.precio = 100;
+            t.hora = 1;
+            t.fecha = fecha;
+            tarifaDao.Create(t);
+
+            crearTarifa(200, 2, t.fecha);
+            crearTarifa(300, 3, t.fecha);
+            crearTarifa(400, 4, t.fecha);
+            crearTarifa(500, 5, t.fecha);
+            crearTarifa(600, 6, t.fecha);
+            crearTarifa(700, 7, t.fecha);
+            crearTarifa(800, 8, t.fecha);
+            crearTarifa(900, 9, t.fecha);
+            crearTarifa(1000, 10, t.fecha);
+            crearTarifa(1100, 11, t.fecha);
+            crearTarifa(1200, 12, t.fecha);
+            crearTarifa(1300, 13, t.fecha);
+            crearTarifa(1400, 14, t.fecha);
+            crearTarifa(1500, 15, t.fecha);
+            crearTarifa(1600, 16, t.fecha);
+            crearTarifa(1700, 17, t.fecha);
+            crearTarifa(1800, 18, t.fecha);
+            crearTarifa(1900, 19, t.fecha);
+            crearTarifa(2000, 20, t.fecha);
+            crearTarifa(2100, 21, t.fecha);
+            crearTarifa(2200, 22, t.fecha);
+            crearTarifa(2300, 23, t.fecha);
+            crearTarifa(0, 0, t.fecha);
+
+            //comprobamos que existe una tarifa en esa fecha
+            Assert.IsTrue(tarifaDao.ExistenTarifasDelDia(t.fecha));
+        }
     }
 }
