@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>BIENVENID@ </value>
-  </data>
-  <data name="lblWelcome.ToolTip" xml:space="preserve">
-    <value>Te damos la bienvenida a nuestro sistema</value>
-  </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Realizado por Moisés Arribí Lamas  y  Tutorizado por Marcos Gestal Pose</value>
-  </data>
-  <data name="lnkCreateAccount.Text" xml:space="preserve">
-    <value>Crear cuenta</value>
-  </data>
-  <data name="lnkCreateAccount.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea crear una cuenta</value>
-  </data>
-  <data name="lnkHome.Text" xml:space="preserve">
-    <value>Inicio</value>
-  </data>
-  <data name="lnkHome.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea ir a la página de inicio</value>
-  </data>
-  <data name="lnkLogUser.Text" xml:space="preserve">
-    <value>Iniciar sesión</value>
-  </data>
-  <data name="lnkLogUser.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea ir al página de iniciar sesion</value>
+  <data name="campoObligatorio" xml:space="preserve">
+    <value>Mandatory Field</value>
   </data>
 </root>
