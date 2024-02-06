@@ -117,7 +117,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
            long id =  servicio.registrarUsuario(contraseña, userDetails);
   
            servicio.modificarContraseña(id, contraseña, nuevaPass );
-           servicio.logearUsuario(userDetails.email, nuevaPass, false);
+           servicio.logearUsuario(userDetails.Email, nuevaPass, false);
 
 
         }

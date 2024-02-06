@@ -15,7 +15,7 @@
         <form id="form1" runat="server">
             <div class="field">
                 <span class="label">
-                    <asp:Localize ID="Localize1ModifyUser" runat="server" Text="Mail" meta:resourcekey="Localize1ModifyUserResource1"></asp:Localize>
+                    <asp:Localize ID="Localize1ModifyUser" runat="server" Text="Email" meta:resourcekey="Localize1ModifyUserResource1"></asp:Localize>
                 </span>
                 <asp:TextBox ID="BoxUserMailModifyUser" runat="server" meta:resourcekey="BoxUserMailModifyUserResource1"></asp:TextBox>
 
@@ -62,12 +62,12 @@
             <div class="field">
                 <span class="label">
 
-                    <asp:Localize ID="Localize5ModifyUser" runat="server" Text="Codigo Postal" meta:resourcekey="Localize5ModifyUserResource1"></asp:Localize>
+                    <asp:Localize ID="Localize5ModifyUser" runat="server" Text="Telefono" meta:resourcekey="Localize5ModifyUserResource1"></asp:Localize>
 
 
                 </span>
 
-                <asp:TextBox ID="BoxCPModModifyUser" runat="server" meta:resourcekey="BoxCPModModifyUserResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxTelefonoModModifyUser" runat="server" meta:resourcekey="BoxTelefonoModModifyUserResource1"></asp:TextBox>
             
             </div>
             <div class="field">

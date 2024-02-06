@@ -46,7 +46,7 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
             /* Insert necessary objects in the session. */
             UserSession userSession = new UserSession();
             userSession.UserProfileId = usrId;
-            userSession.FirstName = userProfileDetails.nombre;
+            userSession.FirstName = userProfileDetails.Nombre;
 
            Locale locale = new Locale(userProfileDetails.Language,
                userProfileDetails.Country);
@@ -54,7 +54,7 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
 
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
 
-            FormsAuthentication.SetAuthCookie(userProfileDetails.email, false);
+            FormsAuthentication.SetAuthCookie(userProfileDetails.Email, false);
         }
         /// <summary>
         /// Login method. Authenticates an user in the current context.
@@ -151,7 +151,7 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
             Locale locale = new Locale(userProfileDetails.Language,
               userProfileDetails.Country);
 
-            userSession.FirstName = userProfileDetails.nombre;
+            userSession.FirstName = userProfileDetails.Nombre;
 
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
         }

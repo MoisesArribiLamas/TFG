@@ -11,7 +11,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            imagenExito.Text += "<img src=" + "~/Img/lclSucccessSuccessfullOperation.ico" + "/>";
         }
     }
 }

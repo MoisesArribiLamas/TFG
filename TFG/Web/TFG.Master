@@ -30,22 +30,22 @@
                     <li id="menuWelcome">
 
                         <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuWelcome" runat="server">
-                            <asp:Label ID="lblWelcome" runat="server" Text="Welcome" Font-Bold="true" ForeColor="White" Display="Dynamic" />
+                            <asp:Label ID="lblWelcome" runat="server" meta:resourcekey="lblWelcome" Font-Bold="true" ForeColor="White" Display="Dynamic" />
                         </asp:ContentPlaceHolder>
                     </li>
                     <li>
                         <asp:HyperLink ID="lnkHome" runat="server" Display="Dynamic"
-                            Text="Inicio" NavigateUrl="~/Pages/MainPage.aspx" />
+                            meta:resourcekey="lnkHome" NavigateUrl="~/Pages/MainPage.aspx" />
                     </li>
 
                     <li>
                         <asp:HyperLink ID="lnkCreateAccount" runat="server" Display="Dynamic"
-                            Text="Crear cuenta" NavigateUrl="~/Pages/User/CreateAccount.aspx" />
+                            meta:resourcekey="lnkCreateAccount" NavigateUrl="~/Pages/User/CreateAccount.aspx" />
                     </li>
 
                     <li>
                         <asp:HyperLink ID="lnkLogUser" runat="server" Display="Dynamic"
-                            Text="Iniciar sesión" NavigateUrl="~/Pages/User/LogUser.aspx" />
+                            meta:resourcekey="lnkLogUser" NavigateUrl="~/Pages/User/LogUser.aspx" />
                     </li>
 
                     <li>

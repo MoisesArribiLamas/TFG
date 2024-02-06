@@ -178,6 +178,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             // buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
 
+            //
+            //obtenemos la carga
+            Carga carga = UltimaCarga(bateriaId);
+
+            if (carga != null)
+            { // la carga que hay sin contabilizar en la bateria
+                kwHCargados = carga.kwH;
+            }
+
+            //obtenemos suministra
+            Suministra suministra = UltimaSuministra(bateriaId);
+
+            if (carga != null) // lo suministrado que hay sin contabilizar
+            {
+                kwHSuministrados = carga.kwH;
+            }
+            //
+
 
             // Tarifa actual (hora)
             int horaTarifa = horaActual.Hours;
@@ -474,6 +492,242 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
                     //calculamos la media del precio
                      
+
+                    //ponemos el total almacenado y precio medioNuevo
+                    b.kwHAlmacenados = almacenados;
+                    b.precioMedio = preciomedioNuevo;
+
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+                }
+
+                bateriaDao.Update(b);
+            }
+
+        }
+
+        #endregion
+
+        #region cambiar estado bateria
+
+        [Transactional]
+        public void CambiarEstadoEnBateriaPorCambioDeHora(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
+        {
+
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, 0); // los segundos los ponemos a 0 por que es cuando acaba la hora
+
+            // buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            // estado anterior
+            string estadoAnterior = ServicioEstado.NombreEstadoEnEstadoBateriaById(b.estadoBateria);
+
+            // estado posterior
+            string estadoPosterior = ServicioEstado.BuscarEstadoPorId(estadoId);
+
+            if (!(("sin actividad" == estadoAnterior) && ("sin actividad" == estadoPosterior))) // "sin actividad" -> "sin actividad"
+            {
+                // Tarifa actual (hora)
+                int horaTarifa = horaActual.Hours;
+
+                // cerrar estadoBateria anterior
+                ServicioEstado.PonerHorafinEstadoBateria((long)b.estadoBateria, horaActual);
+
+                // Creamos EstadoBateria y cambiamos el estado actual en la bateria
+                long estadoBateriaIdActual = ServicioEstado.CrearEstadoBateria(horaActual, fechaActual, bateriaId, estadoId);
+
+
+
+                // Buscar la tarifa actual
+                TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+                if ("sin actividad" == estadoAnterior) // "sin actividad" ->
+                {
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                }
+                if ("cargando" == estadoAnterior) // "cargando" ->
+                {
+                    // Carga actual
+                    Carga cargaActual = UltimaCarga(bateriaId);
+
+                    //cerramos carga
+                    FinalizarCarga(cargaActual.cargaId, horaActual, kwHCargados);
+
+                    //Calculamos los kwH almacenados
+                    double almacenados = b.kwHAlmacenados + kwHCargados;
+
+                    //calculamos la media del precio
+                    double preciomedioNuevo = ((b.kwHAlmacenados * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
+
+                    //ponemos el total almacenado y precio medioNuevo
+                    b.kwHAlmacenados = almacenados;
+                    b.precioMedio = preciomedioNuevo;
+
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+                }
+                if ("suministrando" == estadoAnterior) // "suministrando" ->
+                {
+                    // Suministro actual
+                    Suministra suministroActual = UltimaSuministra(bateriaId);
+
+                    //calculamos el ahorro
+                    double ahorro = kwHSuministrados * (tarifa.precio - b.precioMedio);
+
+                    //cerramos Suministro
+                    FinalizarSuministra(suministroActual.suministraId, horaActual, kwHSuministrados, ahorro);
+
+                    //Calculamos los kwH almacenados
+                    double almacenados = b.kwHAlmacenados - kwHSuministrados;
+
+                    //ponemos el total almacenado y precio medioNuevo
+                    b.kwHAlmacenados = almacenados;
+
+
+                    if ("cargando" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+
+                    if ("suministrando" == estadoPosterior)
+                    {
+                        // Creamos el nuevo suministrando
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+
+                    }
+
+                    if ("carga y suministra" == estadoPosterior)
+                    {
+                        //Creamos la carga nueva
+                        IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
+
+                        //Creamoscuministrando nuevo
+                        IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
+                    }
+                }
+                if ("carga y suministra" == estadoAnterior) // "carga y suministra" ->
+                {
+
+                    //Calculamos los kwH almacenados
+                    double almacenados = b.kwHAlmacenados + kwHCargados - kwHSuministrados;
+
+                    #region CARGA
+                    // CARGA actual
+                    Carga cargaActual = UltimaCarga(bateriaId);
+
+                    //cerramos carga
+                    FinalizarCarga(cargaActual.cargaId, horaActual, kwHCargados);
+                    #endregion
+
+                    #region SUMINISTRO
+                    // SUMINISTRO actual
+                    Suministra suministroActual = UltimaSuministra(bateriaId);
+
+                    //calculamos el ahorro y el precio medio
+                    double ahorro;
+                    double preciomedioNuevo;
+
+                    if (b.precioMedio <= tarifa.precio) // el almacenado tiene un precio inferior al actual
+                    {
+                        if (b.kwHAlmacenados >= kwHSuministrados)
+                        {
+                            ahorro = kwHSuministrados * (tarifa.precio - b.precioMedio);
+                            preciomedioNuevo = (((b.kwHAlmacenados - kwHSuministrados) * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
+                        }
+                        else
+                        { // b.kwHAlmacenados < kwHSuministrados => kwHSuministrados = b.kwHAlmacenados + N (estan siendo suministrados y cargados por lo que no cuentan en el ahorro)
+
+                            ahorro = b.kwHAlmacenados * (tarifa.precio - b.precioMedio);
+                            preciomedioNuevo = tarifa.precio;
+                        }
+                    }
+                    else // si se carga a una tarifa menor que la media de lo cargado
+                    {
+                        if (kwHCargados >= kwHSuministrados)  // lo toma directamente de la red => no hay ahorro 
+                        {
+                            ahorro = 0;
+                            preciomedioNuevo = (b.kwHAlmacenados * b.precioMedio + (kwHCargados - kwHSuministrados) * tarifa.precio) / (b.kwHAlmacenados + (kwHCargados - kwHSuministrados));
+                        }
+                        else
+                        { // En ningun caso se deberia entrar en esta opcion. seria suministrar mas potencia que la red general. Y el ahorro saldria negativo!!! 
+
+                            ahorro = (kwHCargados - kwHSuministrados) * (b.precioMedio - tarifa.precio);
+                            preciomedioNuevo = b.precioMedio; //no se introduce kwh
+
+                        }
+                    }
+
+                    //cerramos Suministro
+                    FinalizarSuministra(suministroActual.suministraId, horaActual, kwHSuministrados, ahorro);
+                    #endregion
+
+
+                    //calculamos la media del precio
+
 
                     //ponemos el total almacenado y precio medioNuevo
                     b.kwHAlmacenados = almacenados;

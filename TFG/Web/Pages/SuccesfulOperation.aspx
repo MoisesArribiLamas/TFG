@@ -5,5 +5,10 @@
     <br />
     <br />
     <br />
+    <div>
+      <asp:Literal ID="imagenExito" runat="server" />
+   </div>
+    <br />
+    <br />
     <br />
 </asp:Content>

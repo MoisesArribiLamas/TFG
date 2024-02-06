@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btLoggingLogUserResource1.Text" xml:space="preserve">
-    <value>Iniciar Sesion</value>
+    <value>Log in</value>
   </data>
   <data name="btLoggingLogUserResource1.ToolTip" xml:space="preserve">
     <value />
@@ -130,25 +130,25 @@
     <value />
   </data>
   <data name="Label2LogUserResource1.Text" xml:space="preserve">
-    <value>Recordar contraseña?(cookies deben estar activadas)</value>
+    <value>Remember password?(cookies must to activate)</value>
   </data>
   <data name="Label2LogUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lblPassErrorLogUserResource1.Text" xml:space="preserve">
-    <value>Contraseña erronea</value>
+    <value>Wrong password</value>
   </data>
   <data name="lblPassErrorLogUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lblUserErrorLogUserResource1.Text" xml:space="preserve">
-    <value>Mail no encontrado</value>
+    <value>User not found</value>
   </data>
   <data name="lblUserErrorLogUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lnkCreateAccountLogUserResource1.Text" xml:space="preserve">
-    <value>¿Aún no tienes cuenta? Regístrate aquí</value>
+    <value>¿You still don't have an account? Sign up here</value>
   </data>
   <data name="lnkCreateAccountLogUserResource1.ToolTip" xml:space="preserve">
     <value />
@@ -157,39 +157,15 @@
     <value>User</value>
   </data>
   <data name="Localize2LogUserResource1.Text" xml:space="preserve">
-    <value>Contraseña</value>
+    <value>Password</value>
   </data>
   <data name="PageResource1.Title" xml:space="preserve">
     <value>TFG</value>
   </data>
-  <data name="RequiredFieldValidator1LogUserResource1.ErrorMessage" xml:space="preserve">
-    <value>Campo obligatorio</value>
+  <data name="lblLoginError.Text" xml:space="preserve">
+    <value>User not found</value>
   </data>
-  <data name="RequiredFieldValidator1LogUserResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator1LogUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator2LogUserResource1.ErrorMessage" xml:space="preserve">
-    <value>Campo obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator2LogUserResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator2LogUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TBPassLogUserResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TBPassLogUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TBUserNameLogUserResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TBUserNameLogUserResource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblLoginError.ToolTip" xml:space="preserve">
+    <value>This user no not have in our system</value>
   </data>
 </root>

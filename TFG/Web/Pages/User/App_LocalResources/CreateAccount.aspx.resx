@@ -117,121 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxApellidosCreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxApellidosCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxCPCreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxCPCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxNombreCreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxNombreCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxPasswordCreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxPasswordCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxUserMailCreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxUserMailCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="BoxApellido1CreateAccountResource1.ToolTip" xml:space="preserve">
+    <value>write your surname.</value>
   </data>
   <data name="btRegistrarCreateAccountResource1.Text" xml:space="preserve">
-    <value>Registrar</value>
+    <value>registering</value>
   </data>
   <data name="btRegistrarCreateAccountResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lblLoginErrorCreateAccountResource1.Text" xml:space="preserve">
-    <value>Error Al registrar User</value>
-  </data>
-  <data name="lblLoginErrorCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ListaIdiomasCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ListaPaisesCreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
+    <value>Error registering User</value>
   </data>
   <data name="Localize1CreateAccountResource1.Text" xml:space="preserve">
-    <value>Mail</value>
+    <value>Email</value>
   </data>
   <data name="Localize2CreateAccountResource1.Text" xml:space="preserve">
-    <value>Contraseña</value>
+    <value>Password</value>
   </data>
   <data name="Localize3CreateAccountResource1.Text" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Name</value>
   </data>
   <data name="Localize4CreateAccountResource1.Text" xml:space="preserve">
-    <value>Apellidos</value>
+    <value>Surname</value>
   </data>
   <data name="Localize5CreateAccountResource1.Text" xml:space="preserve">
-    <value>Direccion Postal</value>
+    <value>Secoond Surname</value>
   </data>
   <data name="Localize6CreateAccountResource1.Text" xml:space="preserve">
-    <value>Pais</value>
+    <value>Country</value>
   </data>
   <data name="Localize7CreateAccountResource1.Text" xml:space="preserve">
-    <value>Idioma</value>
+    <value>Language</value>
   </data>
   <data name="PageResource1.Title" xml:space="preserve">
     <value>TFG</value>
   </data>
-  <data name="RequiredFieldValidator1CreateAccountResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
+  <data name="BoxApellido2CreateAccountResource1.ToolTip" xml:space="preserve">
+    <value>If you don't have a second last name, you don't need to enter anything.</value>
   </data>
-  <data name="RequiredFieldValidator1CreateAccountResource1.Text" xml:space="preserve">
-    <value />
+  <data name="BoxNombreCreateAccountResource1.ToolTip" xml:space="preserve">
+    <value>Write your name</value>
   </data>
-  <data name="RequiredFieldValidator1CreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="BoxPasswordCreateAccountResource1.ToolTip" xml:space="preserve">
+    <value>Write your password</value>
   </data>
-  <data name="RequiredFieldValidator2CreateAccountResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
+  <data name="BoxTelefonoCreateAccountResource1.ToolTip" xml:space="preserve">
+    <value>Write your phone number</value>
   </data>
-  <data name="RequiredFieldValidator2CreateAccountResource1.Text" xml:space="preserve">
-    <value />
+  <data name="BoxUserMailCreateAccountResource1.ToolTip" xml:space="preserve">
+    <value>Write your email</value>
   </data>
-  <data name="RequiredFieldValidator2CreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator3CreateAccountResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator3CreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator3CreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator4CreateAccountResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator4CreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator4CreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator5CreateAccountResource1.ErrorMessage" xml:space="preserve">
-    <value>Este campo es obligatorio</value>
-  </data>
-  <data name="RequiredFieldValidator5CreateAccountResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldValidator5CreateAccountResource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="Localize8CreateAccountResource1.Text" xml:space="preserve">
+    <value>Phone</value>
   </data>
 </root>

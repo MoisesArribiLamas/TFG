@@ -10,24 +10,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service
     {
         public UserProfileDetails(string email, string nombre, string apellido1, string apellido2,string telefono, string language, string country)
         {
-            this.email = email;
-            this.nombre = nombre;
-            this.apellido1 = apellido1;
-            this.apellido2 = apellido2;
-            this.telefono = telefono;
+            this.Email = email;
+            this.Nombre = nombre;
+            this.Apellido1 = apellido1;
+            this.Apellido2 = apellido2;
+            this.Telefono = telefono;
             this.Language = language;
             this.Country = country;
            
         }
 
-        public string email { get; set; }
-        public string nombre { get; set; }
-        public string apellido1 { get; set; }
-        public string apellido2 { get; set; }
+        public string Email { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido1 { get; set; }
+        public string Apellido2 { get; set; }
 
         public string Language { get; private set; }
 
-        public string telefono { get; private set; }
+        public string Telefono { get; private set; }
 
         public string Country { get; private set; }
 
@@ -35,9 +35,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         {
             var details = obj as UserProfileDetails;
             return details != null &&
-                   nombre == details.nombre &&
-                   apellido1 == details.apellido1 &&
-                   apellido2 == details.apellido2
+                   Nombre == details.Nombre &&
+                   Apellido1 == details.Apellido1 &&
+                   Apellido2 == details.Apellido2
                    && (this.Language == details.Language)
                  && (this.Country == details.Country);
         }
@@ -45,9 +45,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         public override int GetHashCode()
         {
             var hashCode = -801872377;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(nombre);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(apellido1);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(apellido2);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nombre);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Apellido1);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Apellido2);
             return hashCode;
         }
 

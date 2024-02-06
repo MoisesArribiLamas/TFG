@@ -1,6 +1,6 @@
-﻿using Es.Udc.DotNet.ModelUtil.IoC;
+﻿using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Log;
-using Es.Udc.DotNet.TFG.Model.Service;
+using Es.Udc.DotNet.TFG.Model.Service; 
 using Es.Udc.DotNet.TFG.Web.HTTP.Session;
 using Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects;
 using System;
@@ -13,21 +13,13 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages
 {
-    public partial class ModifyUser : System.Web.UI.Page
+    public partial class CreateAccount : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             if (!IsPostBack)
             {
-
-                if (!SessionManager.IsUserAuthenticated(Context))
-                {
-                    Response.Redirect(
-                   Response.ApplyAppPathModifier("~/Pages/User/LogUser.aspx"));
-                }
-
-
                 /* Get current language and country from browser */
                 String defaultLanguage =
                    GetLanguageFromBrowserPreferences();
@@ -37,19 +29,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 /* Combo box initialization */
                 UpdateListaIdiomas(defaultLanguage);
                 UpdateListaPaises(defaultLanguage, defaultCountry);
-
-
-
-
-            }
-            if (!SessionManager.IsUserAuthenticated(Context))
-            {
-                Response.Redirect(
-               Response.ApplyAppPathModifier("~/Pages/User/LogUser.aspx"));
             }
         }
-
-
         private String GetLanguageFromBrowserPreferences()
         {
             String language;
@@ -85,22 +66,45 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             return country;
         }
 
+        protected void btRegistrar_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                try
+                {
+                    UserProfileDetails userProfileDetailsVO = 
+                        new UserProfileDetails(BoxUserMailCreateAccount.Text, BoxNombreCreateAccount.Text,
+                            BoxApellido1CreateAccount.Text, BoxApellido2CreateAccount.Text, BoxTelefonoCreateAccount.Text, ListaIdiomasCreateAccount.SelectedValue,
+                            ListaPaisesCreateAccount.SelectedValue);
+
+                    SessionManager.RegisterUser(Context,
+                        BoxPasswordCreateAccount.Text, userProfileDetailsVO);
+
+                    Response.Redirect(Response.
+                        ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));
+                }
+                catch (DuplicateInstanceException)
+                {
+                    lblLoginErrorCreateAccount.Visible = true;
+                }
+            }
+        }
         private void UpdateListaIdiomas(String selectedLanguage)
         {
-            this.ListaIdiomasModModifyUser.DataSource = Languages.GetLanguages(selectedLanguage);
-            this.ListaIdiomasModModifyUser.DataTextField = "text";
-            this.ListaIdiomasModModifyUser.DataValueField = "value";
-            this.ListaIdiomasModModifyUser.DataBind();
-            this.ListaIdiomasModModifyUser.SelectedValue = selectedLanguage;
+            this.ListaIdiomasCreateAccount.DataSource = Languages.GetLanguages(selectedLanguage);
+            this.ListaIdiomasCreateAccount.DataTextField = "text";
+            this.ListaIdiomasCreateAccount.DataValueField = "value";
+            this.ListaIdiomasCreateAccount.DataBind();
+            this.ListaIdiomasCreateAccount.SelectedValue = selectedLanguage;
         }
 
         private void UpdateListaPaises(String selectedLanguage, String selectedCountry)
         {
-            this.ListaPaisesModModifyUser.DataSource = Countries.GetCountries(selectedLanguage);
-            this.ListaPaisesModModifyUser.DataTextField = "text";
-            this.ListaPaisesModModifyUser.DataValueField = "value";
-            this.ListaPaisesModModifyUser.DataBind();
-            this.ListaPaisesModModifyUser.SelectedValue = selectedCountry;
+            this.ListaPaisesCreateAccount.DataSource = Countries.GetCountries(selectedLanguage);
+            this.ListaPaisesCreateAccount.DataTextField = "text";
+            this.ListaPaisesCreateAccount.DataValueField = "value";
+            this.ListaPaisesCreateAccount.DataBind();
+            this.ListaPaisesCreateAccount.SelectedValue = selectedCountry;
         }
 
 
@@ -110,7 +114,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             /* After a language change, the countries are printed in the
              * correct language.
              */
-            this.UpdateListaPaises(ListaIdiomasModModifyUser.SelectedValue, ListaPaisesModModifyUser.SelectedValue);
+            this.UpdateListaPaises(ListaIdiomasCreateAccount.SelectedValue, ListaPaisesCreateAccount.SelectedValue
+                );
         }
 
         protected void ListaPaises_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,30 +123,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             /* After a language change, the countries are printed in the
              * correct language.
              */
-            this.UpdateListaPaises(ListaIdiomasModModifyUser.SelectedValue, ListaPaisesModModifyUser.SelectedValue
+            this.UpdateListaPaises(ListaIdiomasCreateAccount.SelectedValue, ListaPaisesCreateAccount.SelectedValue
                 );
-        }
-
-        protected void btModificar_Click(object sender, EventArgs e)
-        {
-            if (Page.IsValid)
-            {
-
-                UserSession sesion = SessionManager.GetUserSession(Context);
-
-                UserProfileDetails userProfileDetails =
-               new UserProfileDetails(BoxUserMailModifyUser.Text, BoxNombreModModifyUser.Text, BoxApellido1ModModifyUser.Text,
-                     BoxApellido2ModModifyUser.Text, BoxTelefonoModModifyUser.Text, ListaIdiomasModModifyUser.SelectedValue,
-                            ListaPaisesModModifyUser.SelectedValue);
-                
-
-                SessionManager.UpdateUserProfileDetails(Context,
-              userProfileDetails);
-
-                Response.Redirect(
-                    Response.ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));
-
-            }
         }
     }
 }

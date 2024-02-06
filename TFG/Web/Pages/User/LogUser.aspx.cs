@@ -30,16 +30,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                     SessionManager.Login(Context, TBUserNameLogUser.Text,
                         TBPassLogUser.Text, CheckCookiesLogUser.Checked);
 
-                    if (Request.Params.Get("from") == "carrito")
-                    {
-                        Response.Redirect(Response.
-                        ApplyAppPathModifier("~/Pages/VerCarrito.aspx"));
-                    }
-                    if(Request.Params.Get("from") == "comentario")
-                    {
-                            Response.Redirect(Response.
-                            ApplyAppPathModifier("~/Pages/Comentarios/crearComentario.aspx?idProducto=")+ Request.Params.Get("idProducto"));
-                        }
                     FormsAuthentication.
                         RedirectFromLoginPage(btLoggingLogUser.Text,
                             CheckCookiesLogUser.Checked);

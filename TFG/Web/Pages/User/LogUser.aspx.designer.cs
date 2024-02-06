@@ -49,6 +49,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.TextBox TBUserNameLogUser;
         
         /// <summary>
+        /// Control lblLoginError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLoginError;
+        
+        /// <summary>
         /// Control Localize2LogUser.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.TextBox TBPassLogUser;
         
         /// <summary>
+        /// Control lblPasswordError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPasswordError;
+        
+        /// <summary>
         /// Control Label2LogUser.
         /// </summary>
         /// <remarks>
@@ -94,13 +112,13 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.CheckBox CheckCookiesLogUser;
         
         /// <summary>
-        /// Control lnkCreateAccountLogUser.
+        /// Control HyperLink1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCreateAccountLogUser;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
         
         /// <summary>
         /// Control btLoggingLogUser.
