@@ -17,8 +17,9 @@
                 <span class="label">
                     <asp:Localize ID="Localize1ModifyUser" runat="server" Text="Email" meta:resourcekey="Localize1ModifyUserResource1"></asp:Localize>
                 </span>
-                <asp:TextBox ID="BoxUserMailModifyUser" runat="server" meta:resourcekey="BoxUserMailModifyUserResource1"></asp:TextBox>
-
+                <span class="entry">
+                    <asp:TextBox ID="BoxUserMailModifyUser" runat="server" meta:resourcekey="BoxUserMailModifyUserResource1"></asp:TextBox>
+                </span>
             </div>
 
             <div class="field">
@@ -28,8 +29,9 @@
 
 
                 </span>
-                <asp:TextBox ID="BoxNombreModModifyUser" runat="server" meta:resourcekey="BoxNombreModModifyUserResource1"></asp:TextBox>
-
+                <span class="entry">
+                    <asp:TextBox ID="BoxNombreModModifyUser" runat="server" meta:resourcekey="BoxNombreModModifyUserResource1"></asp:TextBox>
+                </span>
             </div>
 
 
@@ -38,12 +40,11 @@
 
                     <asp:Localize ID="Localize4ModifyUser" runat="server" Text="1º Apellido" meta:resourcekey="Localize4ModifyUserResource1"></asp:Localize>
 
-
-
-
                 </span>
-                <asp:TextBox ID="BoxApellidosModModifyUser" runat="server" meta:resourcekey="BoxApellidosModModifyUserResource1"></asp:TextBox>
 
+                <span class="entry">
+                    <asp:TextBox ID="BoxApellidosModModifyUser" runat="server" meta:resourcekey="BoxApellidosModModifyUserResource1"></asp:TextBox>
+                </span>
             </div>
 
             <div class="field">
@@ -55,8 +56,10 @@
 
 
                 </span>
-                <asp:TextBox ID="BoxApellidosModModifyUser2" runat="server" meta:resourcekey="BoxApellidosModModifyUserResource2"></asp:TextBox>
 
+                <span class="entry">
+                    <asp:TextBox ID="BoxApellidosModModifyUser2" runat="server" meta:resourcekey="BoxApellidosModModifyUserResource2"></asp:TextBox>
+                </span>
             </div>
 
             <div class="field">
@@ -66,9 +69,9 @@
 
 
                 </span>
-
-                <asp:TextBox ID="BoxTelefonoModModifyUser" runat="server" meta:resourcekey="BoxTelefonoModModifyUserResource1"></asp:TextBox>
-            
+                <span class="entry">
+                    <asp:TextBox ID="BoxTelefonoModModifyUser" runat="server" meta:resourcekey="BoxTelefonoModModifyUserResource1"></asp:TextBox>
+                </span>
             </div>
             <div class="field">
                 <span class="label">
@@ -77,10 +80,11 @@
 
 
                 </span>
-                <asp:DropDownList ID="ListaPaisesModModifyUser" runat="server" AutoPostBack="True"
-                    Width="100px" OnSelectedIndexChanged="ListaPaises_SelectedIndexChanged" meta:resourcekey="ListaPaisesModModifyUserResource1">
-                </asp:DropDownList>
-
+                <span class="entry">
+                    <asp:DropDownList ID="ListaPaisesModModifyUser" runat="server" AutoPostBack="True"
+                        Width="100px" OnSelectedIndexChanged="ListaPaises_SelectedIndexChanged" meta:resourcekey="ListaPaisesModModifyUserResource1">
+                    </asp:DropDownList>
+                </span>
             </div>
             <div class="field">
                 <span class="label">
@@ -89,11 +93,15 @@
 
 
                 </span>
-                <asp:DropDownList ID="ListaIdiomasModModifyUser" runat="server" AutoPostBack="True"
-                    Width="100px" OnSelectedIndexChanged="ListaIdiomas_SelectedIndexChanged" meta:resourcekey="ListaIdiomasModModifyUserResource1">
-                </asp:DropDownList>
+                <span class="entry">
+                    <asp:DropDownList ID="ListaIdiomasModModifyUser" runat="server" AutoPostBack="True"
+                        Width="100px" OnSelectedIndexChanged="ListaIdiomas_SelectedIndexChanged" meta:resourcekey="ListaIdiomasModModifyUserResource1">
+                    </asp:DropDownList>
+                </span>
 
             </div>
+
+            <br />
 
             <div class="button">
 

@@ -84,14 +84,37 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
             user.contraseña = PasswordEncrypter.Crypt(contrasena);
             */
-            user.email = userProfileDetails.Email;
-            user.nombre = userProfileDetails.Nombre;
-            user.apellido1 = userProfileDetails.Apellido1;
-            user.apellido2 = userProfileDetails.Apellido2;
-            user.email = userProfileDetails.Email;
-            user.telefono = userProfileDetails.Telefono;
-            user.idioma = userProfileDetails.Language;
-            user.pais = userProfileDetails.Country;
+            if (userProfileDetails.Email != null) {
+                user.email = userProfileDetails.Email;
+            }
+            if (userProfileDetails.Nombre != null)
+            {
+                user.nombre = userProfileDetails.Nombre;
+            }
+            if (userProfileDetails.Apellido1 != null)
+            {
+                user.apellido1 = userProfileDetails.Apellido1;
+            }
+            if (userProfileDetails.Apellido2 != null)
+            {
+                user.apellido2 = userProfileDetails.Apellido2;
+            }
+            if (userProfileDetails.Email != null)
+            {
+                user.email = userProfileDetails.Email;
+            }
+            if (userProfileDetails.Telefono != null)
+            {
+                user.telefono = userProfileDetails.Telefono;
+            }
+            if (userProfileDetails.Language != null)
+            {
+                user.idioma = userProfileDetails.Language;
+            }
+            if (userProfileDetails.Country != null)
+            {
+                user.pais = userProfileDetails.Country;
+            }
             UsuarioDao.Update(user);
         }
 

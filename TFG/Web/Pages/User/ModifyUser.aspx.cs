@@ -130,8 +130,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 UserSession sesion = SessionManager.GetUserSession(Context);
 
                 UserProfileDetails userProfileDetails =
-               new UserProfileDetails(BoxUserMailModifyUser.Text, BoxNombreModModifyUser.Text, BoxApellido1ModModifyUser.Text,
-                     BoxApellido2ModModifyUser.Text, BoxTelefonoModModifyUser.Text, ListaIdiomasModModifyUser.SelectedValue,
+               new UserProfileDetails(BoxUserMailModifyUser.Text, BoxNombreModModifyUser.Text, BoxApellidosModModifyUser.Text,
+                     BoxApellidosModModifyUser.Text, BoxTelefonoModModifyUser.Text, ListaIdiomasModModifyUser.SelectedValue,
                             ListaPaisesModModifyUser.SelectedValue);
                 
 
