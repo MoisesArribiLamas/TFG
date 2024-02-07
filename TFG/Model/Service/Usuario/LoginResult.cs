@@ -11,7 +11,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
     {
 
 
-        public LoginResult(long userId, String nombre, String apellido1, String apellido2, String passEncriptada, String email, string language, string country)
+        public LoginResult(long userId, String nombre, String apellido1, String apellido2, String passEncriptada, String email, String telefono, string language, string country)
         {
             this.userId = userId;
             this.nombre = nombre;
@@ -19,6 +19,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             this.apellido2 = apellido2;
             this.passEncriptada = passEncriptada;
             this.email = email;
+            this.telefono = telefono;
             this.Language = language;
             this.Country = country;
 
@@ -39,6 +40,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         public String email { get; private set; }
 
+        public String telefono { get; private set; }
+
         public string Language { get; private set; }
 
         public string Country { get; private set; }
@@ -57,7 +60,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                    && (this.apellido1 == target.apellido1)
                    && (this.apellido2 == target.apellido2)
                    && (this.passEncriptada == target.passEncriptada)
-                   && (this.email == target.email);
+                   && (this.email == target.email)
+                   && (this.telefono == target.telefono);
 
         }
 
@@ -86,7 +90,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 "nombre = " + nombre + " | " +
                 "apellidos = " + apellido1 + " " + apellido2 + " | " +
                 "passEncriptada = " + passEncriptada + " | " +
-                "email = " + email + "]";
+                "email = " + email + " | " +
+                "telefono = " + telefono + "]";
 
             return strLoginResult;
         }

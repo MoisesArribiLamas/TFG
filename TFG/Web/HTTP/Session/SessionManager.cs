@@ -96,8 +96,14 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
                 UserSession userSession = new UserSession();
                 userSession.UserProfileId = loginResult.userId;
                 userSession.FirstName = loginResult.nombre;
+                userSession.Apellido1 = loginResult.apellido1;
+                userSession.Apellido2 = loginResult.apellido2;
+                userSession.Email = loginResult.email;
+                userSession.Telefono = loginResult.telefono;
+                userSession.Idioma = loginResult.Language;
+                userSession.Pais = loginResult.Country;
 
-                Locale locale =
+            Locale locale =
                    new Locale(loginResult.Language, loginResult.Country);
 
                 UpdateSessionForAuthenticatedUser(context, userSession, locale);
@@ -152,6 +158,13 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
               userProfileDetails.Country);
 
             userSession.FirstName = userProfileDetails.Nombre;
+            userSession.Apellido1 = userProfileDetails.Apellido1;
+            userSession.Apellido2 = userProfileDetails.Apellido2;
+            userSession.Email = userProfileDetails.Email;
+            userSession.Telefono = userProfileDetails.Telefono;
+            userSession.Idioma = userProfileDetails.Language;
+            userSession.Pais = userProfileDetails.Country;
+
 
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
         }
@@ -260,6 +273,27 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.Session
                 return false;
             else
                 return (context.Session[LOCALE_SESSION_ATTRIBUTE] != null);
+        }
+
+        public static void LoadUserProfileDetails(HttpContext context,
+           UserProfileDetails userProfileDetails)
+        {
+            
+            // Obtenemos la sesion de usuario
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            //UserProfileDetails BuscarUsuarioPorEmail(string email)
+            serviceUsuario.BuscarUsuarioPorID(userSession.UserProfileId);
+
+            /* Update user's session objects. */
+
+            Locale locale = new Locale(userProfileDetails.Language,
+              userProfileDetails.Country);
+
+            userSession.FirstName = userProfileDetails.Nombre;
+
+            UpdateSessionForAuthenticatedUser(context, userSession, locale);
         }
     }
 }

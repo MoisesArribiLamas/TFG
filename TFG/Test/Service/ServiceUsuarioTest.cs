@@ -167,7 +167,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             var userId = servicio.registrarUsuario( clearPassword, userDetails);
             //        public LoginResult(long userId, String nombre, String apellido1, String apellido2, String passEncriptada, String email, string language, string country)
 
-            var expected = new LoginResult(userId, nombre, apellido1, apellido2, PasswordEncrypter.Crypt(clearPassword), email,language, country);
+            var expected = new LoginResult(userId, nombre, apellido1, apellido2, PasswordEncrypter.Crypt(clearPassword), email, telefono,language, country);
 
             var actual =
                   servicio.logearUsuario(email, clearPassword, false);
@@ -175,6 +175,54 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             Assert.AreEqual(expected, actual);
 
         }
-        
+
+
+
+        [TestMethod()]
+        public void BuscarUsuarioPorIDTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                Usuario user = new Usuario();
+                user.nombre = "Pedro";
+                user.email = "micorreo@gmail.com";
+                user.apellido1 = "Alonso";
+                user.apellido2 = "Díaz";
+                user.telefono = "987654321";
+                user.contraseña = "unacontraseña";
+                user.idioma = "es-ES";
+                user.pais = "Spain";
+
+
+                usuarioDao.Create(user);
+
+                Usuario user2 = new Usuario();
+                user2.nombre = "Manuel";
+                user2.email = "micorreo2@gmail.com";
+                user2.apellido1 = "Alonso";
+                user2.apellido2 = "Díaz";
+                user2.telefono = "123456789";
+                user2.contraseña = "unacontraseña2";
+                user2.idioma = "en-GR";
+                user2.pais = "England";
+                usuarioDao.Create(user2);
+
+                UserProfileDetails usuarioEncontrado = servicio.BuscarUsuarioPorID(user.usuarioId);
+
+                var obtained =
+                    usuarioDao.findUserByName(user.email);
+
+                // Check changes
+                Assert.AreEqual(usuarioEncontrado.Apellido1, "Alonso");
+                Assert.AreEqual(usuarioEncontrado.Apellido2, "Díaz");
+                Assert.AreEqual(usuarioEncontrado.Country, "Spain");
+                Assert.AreEqual(usuarioEncontrado.Email, "micorreo@gmail.com");
+                Assert.AreEqual(usuarioEncontrado.Language, "es-ES");
+                Assert.AreEqual(usuarioEncontrado.Nombre, "Pedro");
+                Assert.AreEqual(usuarioEncontrado.Telefono, "987654321");
+            }
+        }
+
     }
 }

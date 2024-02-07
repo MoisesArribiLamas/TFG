@@ -84,37 +84,34 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
             user.contraseña = PasswordEncrypter.Crypt(contrasena);
             */
-            if (userProfileDetails.Email != null) {
+            if (userProfileDetails.Email != "") {
                 user.email = userProfileDetails.Email;
             }
-            if (userProfileDetails.Nombre != null)
+            if (userProfileDetails.Nombre != "")
             {
                 user.nombre = userProfileDetails.Nombre;
             }
-            if (userProfileDetails.Apellido1 != null)
+            if (userProfileDetails.Apellido1 != "")
             {
                 user.apellido1 = userProfileDetails.Apellido1;
             }
-            if (userProfileDetails.Apellido2 != null)
+            if (userProfileDetails.Apellido2 != "")
             {
                 user.apellido2 = userProfileDetails.Apellido2;
             }
-            if (userProfileDetails.Email != null)
+            if (userProfileDetails.Email != "")
             {
                 user.email = userProfileDetails.Email;
             }
-            if (userProfileDetails.Telefono != null)
+            if (userProfileDetails.Telefono != "")
             {
                 user.telefono = userProfileDetails.Telefono;
             }
-            if (userProfileDetails.Language != null)
-            {
-                user.idioma = userProfileDetails.Language;
-            }
-            if (userProfileDetails.Country != null)
-            {
-                user.pais = userProfileDetails.Country;
-            }
+            
+            user.idioma = userProfileDetails.Language;
+            
+            user.pais = userProfileDetails.Country;
+            
             UsuarioDao.Update(user);
         }
 
@@ -146,9 +143,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
 
             return new LoginResult(usuario.usuarioId, usuario.nombre, usuario.apellido1, usuario.apellido2,
-                    storedPassword, usuario.email, usuario.idioma, usuario.pais);
+                    storedPassword, usuario.email, usuario.telefono, usuario.idioma, usuario.pais);
+
+        } 
+
+        [Transactional]
+        public UserProfileDetails BuscarUsuarioPorID(long usuarioId)
+        {
+            Usuario usuario = UsuarioDao.Find(usuarioId);
+
+            return new UserProfileDetails(usuario.email, usuario.nombre, usuario.apellido1, usuario.apellido2,
+                    usuario.telefono, usuario.idioma, usuario.pais);
 
         }
-    
+
     }
 }

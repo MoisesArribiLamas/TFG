@@ -18,8 +18,16 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+
             if (!IsPostBack)
             {
+                //ponemos los valores que tiene el usuario.
+                BoxUserMailModifyUser.Text = SessionManager.GetUserSession(Context).Email;
+                BoxNombreModModifyUser.Text = SessionManager.GetUserSession(Context).FirstName;
+                BoxApellidosModModifyUser.Text = SessionManager.GetUserSession(Context).Apellido1;
+                BoxApellidosModModifyUser2.Text = SessionManager.GetUserSession(Context).Apellido2;
+                BoxTelefonoModModifyUser.Text = SessionManager.GetUserSession(Context).Telefono;
+
 
                 if (!SessionManager.IsUserAuthenticated(Context))
                 {
@@ -39,7 +47,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 UpdateListaPaises(defaultLanguage, defaultCountry);
 
 
-
+                ListaPaisesModModifyUser.Text = SessionManager.GetUserSession(Context).Pais;
+                ListaIdiomasModModifyUser.Text = SessionManager.GetUserSession(Context).Idioma;
 
             }
             if (!SessionManager.IsUserAuthenticated(Context))
@@ -121,6 +130,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             this.UpdateListaPaises(ListaIdiomasModModifyUser.SelectedValue, ListaPaisesModModifyUser.SelectedValue
                 );
         }
+
 
         protected void btModificar_Click(object sender, EventArgs e)
         {
