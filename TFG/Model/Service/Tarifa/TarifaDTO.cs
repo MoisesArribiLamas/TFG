@@ -9,7 +9,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
     public class TarifaDTO
     {
 
-        public TarifaDTO(long tarifaId, long precio, long hora, DateTime fecha)
+        public TarifaDTO(long tarifaId, double precio, long hora, DateTime fecha)
         {
             this.tarifaId = tarifaId;
             this.precio = precio;
@@ -21,7 +21,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         public long tarifaId { get; set; }
 
-        public long precio { get; set; }
+        public double precio { get; set; }
         public long hora { get; set; }
         public DateTime fecha { get; set; }
 

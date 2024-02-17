@@ -22,7 +22,7 @@ namespace Es.Udc.DotNet.TFG.Model
         }
     
         public long tarifaId { get; set; }
-        public long precio { get; set; }
+        public double precio { get; set; }
         public long hora { get; set; }
         public System.DateTime fecha { get; set; }
     

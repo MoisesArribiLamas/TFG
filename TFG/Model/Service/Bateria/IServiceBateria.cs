@@ -34,6 +34,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados);
 
+        [Transactional]
+        void CambiarEstadoEnBateriaPorCambioDeHora(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados);
+
 
         [Transactional]
         void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,

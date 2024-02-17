@@ -5,5 +5,14 @@
     <br />
     <br />
     <br />
+
+    <div class="container">
+        <div style="text-align:center;">
+            <asp:Image ID="IS" runat="server" height="33%" width="12%" ImageUrl= "~/Img/successfull.jpg" />
+        </div>
+
+    </div>
+    <br />
+    <br />
     <br />
 </asp:Content>

@@ -112,13 +112,13 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Localize Localize5ModifyUser;
         
         /// <summary>
-        /// Control BoxCPModModifyUser.
+        /// Control BoxTelefonoModModifyUser.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxCPModModifyUser;
+        protected global::System.Web.UI.WebControls.TextBox BoxTelefonoModModifyUser;
         
         /// <summary>
         /// Control Localize6ModifyUser.

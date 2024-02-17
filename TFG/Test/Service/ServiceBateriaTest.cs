@@ -114,7 +114,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
         // TARIFA
 
-        public long crearTarifa(long precio, long hora, DateTime fecha)
+        public long crearTarifa(double precio, long hora, DateTime fecha)
         {
             Tarifa t = new Tarifa();
             t.precio = precio;

@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 		#region ITarifaDao Members. Specific Operations
 		/// <exception cref="InstanceNotFoundException"/>
 
-		public bool updateInformacion(long tarifaId, long precio, long hora, DateTime fecha)
+		public bool updateInformacion(long tarifaId, double precio, long hora, DateTime fecha)
 		{
 			Tarifa u = Find(tarifaId);
 			if (u != null)
@@ -39,7 +39,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return false;
 		}
 
-		public long PrecioMejorTarifa(DateTime fecha)
+		public double PrecioMejorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa mTarifa = null;
@@ -78,7 +78,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 		}
 		#endregion
 
-		public long PrecioPeorTarifa(DateTime fecha)
+		public double PrecioPeorTarifa(DateTime fecha)
 		{
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
@@ -115,9 +115,29 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.TarifaDao
 			return result;
 
 		}
-		#endregion
+        #endregion
 
-		public double CalcularMediaTarifa(DateTime fecha, DateTime fecha2) {
+        #region Ver si existen tarifas del dia
+        public bool ExistenTarifasDelDia(DateTime fecha)
+        {
+            DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
+            Tarifa mTarifa = null;
+
+            var result =
+                (from t in tarifa
+                 where (t.fecha == fecha)
+                 select t).ToList();
+            mTarifa = result.FirstOrDefault();
+            if (mTarifa == null)
+                return false;
+
+
+            return true;
+
+        }
+        #endregion
+
+        public double CalcularMediaTarifa(DateTime fecha, DateTime fecha2) {
 			DbSet<Tarifa> tarifa = Context.Set<Tarifa>();
 			Tarifa pTarifa = null;
 

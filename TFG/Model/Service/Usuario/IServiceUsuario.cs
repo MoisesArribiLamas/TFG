@@ -30,7 +30,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         LoginResult logearUsuario(String email, String pass, bool passwordIsEncrypted);
         #endregion
 
-     
-
+        [Transactional]
+        UserProfileDetails BuscarUsuarioPorID(long usuarioId);
     }
 }

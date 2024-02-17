@@ -117,31 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>BIENVENID@ </value>
+  <data name="btLoggingLogUserResource1.Text" xml:space="preserve">
+    <value>Acceso</value>
   </data>
-  <data name="lblWelcome.ToolTip" xml:space="preserve">
-    <value>Te damos la bienvenida a nuestro sistema</value>
+  <data name="btLoggingLogUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Realizado por Moisés Arribí Lamas  y  Tutorizado por Marcos Gestal Pose</value>
+  <data name="CheckCookiesLogUserResource1.Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkCreateAccount.Text" xml:space="preserve">
-    <value>Crear cuenta</value>
+  <data name="CheckCookiesLogUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkCreateAccount.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea crear una cuenta</value>
+  <data name="Label2LogUserResource1.Text" xml:space="preserve">
+    <value>¿Lembrar contrasinal?(cookies deben estár activadas)</value>
   </data>
-  <data name="lnkHome.Text" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="Label2LogUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkHome.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea ir a la página de inicio</value>
+  <data name="lblPassErrorLogUserResource1.Text" xml:space="preserve">
+    <value>Contraseña trabucada.</value>
   </data>
-  <data name="lnkLogUser.Text" xml:space="preserve">
-    <value>Iniciar sesión</value>
+  <data name="lblPassErrorLogUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkLogUser.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea ir al página de iniciar sesion</value>
+  <data name="lblUserErrorLogUserResource1.Text" xml:space="preserve">
+    <value>Usuario non atopado.</value>
+  </data>
+  <data name="lblUserErrorLogUserResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lnkCreateAccountLogUserResource1.Text" xml:space="preserve">
+    <value>Todavía non tes conta? Preme aquí</value>
+  </data>
+  <data name="lnkCreateAccountLogUserResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Localize1LogUserResource1.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Localize2LogUserResource1.Text" xml:space="preserve">
+    <value>Contrasinal</value>
+  </data>
+  <data name="PageResource1.Title" xml:space="preserve">
+    <value>TFG</value>
+  </data>
+  <data name="lblLoginError.Text" xml:space="preserve">
+    <value>Non se atopou ó usuario.</value>
+  </data>
+  <data name="lblLoginError.ToolTip" xml:space="preserve">
+    <value>O usuario non se atopa no sistema.</value>
   </data>
 </root>

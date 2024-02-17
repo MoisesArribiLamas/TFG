@@ -43,9 +43,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         {
             try
             {
-                UsuarioDao.findUserByName(userProfileDetails.email);
+                UsuarioDao.findUserByName(userProfileDetails.Email);
 
-                throw new DuplicateInstanceException(userProfileDetails.email,
+                throw new DuplicateInstanceException(userProfileDetails.Email,
                     typeof(Usuario).FullName);
             }
             catch (InstanceNotFoundException)
@@ -54,12 +54,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
                 Usuario user = new Usuario();
 
-                user.nombre = userProfileDetails.nombre;
-                user.apellido1 = userProfileDetails.apellido1;
-                user.apellido2 = userProfileDetails.apellido2;
+                user.nombre = userProfileDetails.Nombre;
+                user.apellido1 = userProfileDetails.Apellido1;
+                user.apellido2 = userProfileDetails.Apellido2;
                 user.contraseña = encryptedPassword;
-                user.email = userProfileDetails.email;
-                user.telefono = userProfileDetails.telefono;
+                user.email = userProfileDetails.Email;
+                user.telefono = userProfileDetails.Telefono;
                 user.idioma = userProfileDetails.Language;
                 user.pais = userProfileDetails.Country;
 
@@ -84,14 +84,34 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
             user.contraseña = PasswordEncrypter.Crypt(contrasena);
             */
-            user.email = userProfileDetails.email;
-            user.nombre = userProfileDetails.nombre;
-            user.apellido1 = userProfileDetails.apellido1;
-            user.apellido2 = userProfileDetails.apellido2;
-            user.email = userProfileDetails.email;
-            user.telefono = userProfileDetails.telefono;
+            if (userProfileDetails.Email != "") {
+                user.email = userProfileDetails.Email;
+            }
+            if (userProfileDetails.Nombre != "")
+            {
+                user.nombre = userProfileDetails.Nombre;
+            }
+            if (userProfileDetails.Apellido1 != "")
+            {
+                user.apellido1 = userProfileDetails.Apellido1;
+            }
+            if (userProfileDetails.Apellido2 != "")
+            {
+                user.apellido2 = userProfileDetails.Apellido2;
+            }
+            if (userProfileDetails.Email != "")
+            {
+                user.email = userProfileDetails.Email;
+            }
+            if (userProfileDetails.Telefono != "")
+            {
+                user.telefono = userProfileDetails.Telefono;
+            }
+            
             user.idioma = userProfileDetails.Language;
+            
             user.pais = userProfileDetails.Country;
+            
             UsuarioDao.Update(user);
         }
 
@@ -123,9 +143,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
 
             return new LoginResult(usuario.usuarioId, usuario.nombre, usuario.apellido1, usuario.apellido2,
-                    storedPassword, usuario.email, usuario.idioma, usuario.pais);
+                    storedPassword, usuario.email, usuario.telefono, usuario.idioma, usuario.pais);
+
+        } 
+
+        [Transactional]
+        public UserProfileDetails BuscarUsuarioPorID(long usuarioId)
+        {
+            Usuario usuario = UsuarioDao.Find(usuarioId);
+
+            return new UserProfileDetails(usuario.email, usuario.nombre, usuario.apellido1, usuario.apellido2,
+                    usuario.telefono, usuario.idioma, usuario.pais);
 
         }
-    
+
     }
 }

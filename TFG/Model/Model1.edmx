@@ -84,7 +84,7 @@
             <PropertyRef Name="tarifaId" />
           </Key>
           <Property Name="tarifaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="precio" Type="bigint" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
           <Property Name="hora" Type="bigint" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
@@ -386,7 +386,7 @@
             <PropertyRef Name="tarifaId" />
           </Key>
           <Property Name="tarifaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="precio" Type="Int64" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
           <Property Name="hora" Type="Int64" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Cargas" Relationship="Self.FK_TARIFA_CARGA" FromRole="Tarifa" ToRole="Carga" />

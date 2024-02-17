@@ -117,31 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>BIENVENID@ </value>
+  <data name="BoxApellidosModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Escribe un Apellido nuevo en caso de que quieras cambiarlo.</value>
   </data>
-  <data name="lblWelcome.ToolTip" xml:space="preserve">
-    <value>Te damos la bienvenida a nuestro sistema</value>
+  <data name="BoxTelefonoModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Escribe un número de teléfono nuevo en caso de que quieras cambiarlo.</value>
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Realizado por Moisés Arribí Lamas  y  Tutorizado por Marcos Gestal Pose</value>
+  <data name="BoxNombreModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Escribe un Nombre nuevo en caso de que quieras cambiarlo.</value>
   </data>
-  <data name="lnkCreateAccount.Text" xml:space="preserve">
-    <value>Crear cuenta</value>
+  <data name="BoxUserMailModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Escribe un email nuevo en caso de que quieras cambiarlo.</value>
   </data>
-  <data name="lnkCreateAccount.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea crear una cuenta</value>
+  <data name="btModificarModifyUserResource1.Text" xml:space="preserve">
+    <value>Modificar</value>
   </data>
-  <data name="lnkHome.Text" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="btModificarModifyUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkHome.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea ir a la página de inicio</value>
+  <data name="ListaIdiomasModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkLogUser.Text" xml:space="preserve">
-    <value>Iniciar sesión</value>
+  <data name="ListaPaisesModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkLogUser.ToolTip" xml:space="preserve">
-    <value>Pulsa si desea ir al página de iniciar sesion</value>
+  <data name="lnkChangePasswordModifyUserResource1.Text" xml:space="preserve">
+    <value>Cambiar mi contraseña.</value>
+  </data>
+  <data name="lnkChangePasswordModifyUserResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Localize1ModifyUserResource1.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Localize3ModifyUserResource1.Text" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Localize4ModifyUserResource1.Text" xml:space="preserve">
+    <value>Primer Apellido</value>
+  </data>
+  <data name="Localize5ModifyUserResource1.Text" xml:space="preserve">
+    <value>nº Teléfono</value>
+  </data>
+  <data name="Localize6ModifyUserResource1.Text" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Localize7ModifyUserResource1.Text" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="PageResource1.Title" xml:space="preserve">
+    <value>TFG</value>
+  </data>
+  <data name="RegularExpressionValidator1Resource1.ErrorMessage" xml:space="preserve">
+    <value>Sólo se permiten números.</value>
+  </data>
+  <data name="RegularExpressionValidator1Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegularExpressionValidator1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BoxApellidosModModifyUserResource2.ToolTip" xml:space="preserve">
+    <value>Escribe un Apellido nuevo en caso de que quieras cambiarlo.</value>
+  </data>
+  <data name="Localize4ModifyUserResource2.Text" xml:space="preserve">
+    <value>Segundo Apellido</value>
   </data>
 </root>

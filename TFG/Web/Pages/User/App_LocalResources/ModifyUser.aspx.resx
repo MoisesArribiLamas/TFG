@@ -117,29 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxApellidosModModifyUserResource1.Text" xml:space="preserve">
-    <value />
-  </data>
   <data name="BoxApellidosModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
+    <value>Write Surname If you want to change.</value>
   </data>
-  <data name="BoxCPModModifyUserResource1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxCPModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxNombreModModifyUserResource1.Text" xml:space="preserve">
-    <value />
+  <data name="BoxTelefonoModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Write number Phone If you want to change.</value>
   </data>
   <data name="BoxNombreModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BoxUserMailModifyUserResource1.Text" xml:space="preserve">
-    <value />
+    <value>Write Name If you want to change.</value>
   </data>
   <data name="BoxUserMailModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
+    <value>Write Email If you want to change.</value>
   </data>
   <data name="btModificarModifyUserResource1.Text" xml:space="preserve">
     <value>Modificar</value>
@@ -154,28 +142,28 @@
     <value />
   </data>
   <data name="lnkChangePasswordModifyUserResource1.Text" xml:space="preserve">
-    <value>Cambiar mi contraseña</value>
+    <value>Change my password</value>
   </data>
   <data name="lnkChangePasswordModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="Localize1ModifyUserResource1.Text" xml:space="preserve">
-    <value>Mail</value>
+    <value>Email</value>
   </data>
   <data name="Localize3ModifyUserResource1.Text" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Name</value>
   </data>
   <data name="Localize4ModifyUserResource1.Text" xml:space="preserve">
-    <value>Primer Apellido</value>
+    <value>Surname</value>
   </data>
   <data name="Localize5ModifyUserResource1.Text" xml:space="preserve">
-    <value>Codigo Postal</value>
+    <value>Phone</value>
   </data>
   <data name="Localize6ModifyUserResource1.Text" xml:space="preserve">
-    <value>Pais</value>
+    <value>Country</value>
   </data>
   <data name="Localize7ModifyUserResource1.Text" xml:space="preserve">
-    <value>Idioma</value>
+    <value>Language</value>
   </data>
   <data name="PageResource1.Title" xml:space="preserve">
     <value>TFG</value>
@@ -189,10 +177,10 @@
   <data name="RegularExpressionValidator1Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="BoxApellidosModModifyUserResource2.Text" xml:space="preserve">
-    <value />
+  <data name="BoxApellidosModModifyUserResource2.ToolTip" xml:space="preserve">
+    <value>Write Second Surname If you want to change.</value>
   </data>
   <data name="Localize4ModifyUserResource2.Text" xml:space="preserve">
-    <value>Segundo Apellido</value>
+    <value>Second Surname</value>
   </data>
 </root>
