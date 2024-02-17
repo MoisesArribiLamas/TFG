@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages
 {
-    public partial class ModifyUser : System.Web.UI.Page
+    public partial class ModifyUser : SpecificCulturePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

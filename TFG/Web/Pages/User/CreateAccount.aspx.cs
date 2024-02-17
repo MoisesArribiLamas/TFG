@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages
 {
-    public partial class CreateAccount : System.Web.UI.Page
+    public partial class CreateAccount : SpecificCulturePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

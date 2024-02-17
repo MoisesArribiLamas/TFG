@@ -117,55 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btLoggingLogUserResource1.Text" xml:space="preserve">
-    <value>Log in</value>
+  <data name="BoxApellidosModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Queres trocar o Primer Apelido? Escribe un novo.</value>
   </data>
-  <data name="btLoggingLogUserResource1.ToolTip" xml:space="preserve">
+  <data name="BoxTelefonoModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Queres trocar o Número de teléfono? Escribe un novo.</value>
+  </data>
+  <data name="BoxNombreModModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Queres trocar o Nome? Escribe un novo.</value>
+  </data>
+  <data name="BoxUserMailModifyUserResource1.ToolTip" xml:space="preserve">
+    <value>Queres trocar o Email? Escribe un novo.</value>
+  </data>
+  <data name="btModificarModifyUserResource1.Text" xml:space="preserve">
+    <value>Trocar</value>
+  </data>
+  <data name="btModificarModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="CheckCookiesLogUserResource1.Text" xml:space="preserve">
+  <data name="ListaIdiomasModModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="CheckCookiesLogUserResource1.ToolTip" xml:space="preserve">
+  <data name="ListaPaisesModModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Label2LogUserResource1.Text" xml:space="preserve">
-    <value>Remember password?(cookies must to activate)</value>
+  <data name="lnkChangePasswordModifyUserResource1.Text" xml:space="preserve">
+    <value>Trocar Contrasinal</value>
   </data>
-  <data name="Label2LogUserResource1.ToolTip" xml:space="preserve">
+  <data name="lnkChangePasswordModifyUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lblPassErrorLogUserResource1.Text" xml:space="preserve">
-    <value>Wrong password</value>
-  </data>
-  <data name="lblPassErrorLogUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblUserErrorLogUserResource1.Text" xml:space="preserve">
-    <value>User not found</value>
-  </data>
-  <data name="lblUserErrorLogUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lnkCreateAccountLogUserResource1.Text" xml:space="preserve">
-    <value>¿You still don't have an account? Sign up here</value>
-  </data>
-  <data name="lnkCreateAccountLogUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Localize1LogUserResource1.Text" xml:space="preserve">
+  <data name="Localize1ModifyUserResource1.Text" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Localize2LogUserResource1.Text" xml:space="preserve">
-    <value>Password</value>
+  <data name="Localize3ModifyUserResource1.Text" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Localize4ModifyUserResource1.Text" xml:space="preserve">
+    <value>Apelido</value>
+  </data>
+  <data name="Localize5ModifyUserResource1.Text" xml:space="preserve">
+    <value>Número de teléfono</value>
+  </data>
+  <data name="Localize6ModifyUserResource1.Text" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Localize7ModifyUserResource1.Text" xml:space="preserve">
+    <value>Idioma</value>
   </data>
   <data name="PageResource1.Title" xml:space="preserve">
     <value>TFG</value>
   </data>
-  <data name="lblLoginError.Text" xml:space="preserve">
-    <value>User not found</value>
+  <data name="RegularExpressionValidator1Resource1.ErrorMessage" xml:space="preserve">
+    <value>Permitense soamente números.</value>
   </data>
-  <data name="lblLoginError.ToolTip" xml:space="preserve">
-    <value>This user no not have in our system</value>
+  <data name="RegularExpressionValidator1Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegularExpressionValidator1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BoxApellidosModModifyUserResource2.ToolTip" xml:space="preserve">
+    <value>Queres trocar o Segundo Apelido? Escribe un novo.</value>
+  </data>
+  <data name="Localize4ModifyUserResource2.Text" xml:space="preserve">
+    <value>Segundo Apelido</value>
   </data>
 </root>

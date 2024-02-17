@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btLoggingLogUserResource1.Text" xml:space="preserve">
-    <value>Log in</value>
+    <value>Acceso</value>
   </data>
   <data name="btLoggingLogUserResource1.ToolTip" xml:space="preserve">
     <value />
@@ -130,25 +130,25 @@
     <value />
   </data>
   <data name="Label2LogUserResource1.Text" xml:space="preserve">
-    <value>Remember password?(cookies must to activate)</value>
+    <value>¿Lembrar contrasinal?(cookies deben estár activadas)</value>
   </data>
   <data name="Label2LogUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lblPassErrorLogUserResource1.Text" xml:space="preserve">
-    <value>Wrong password</value>
+    <value>Contraseña trabucada.</value>
   </data>
   <data name="lblPassErrorLogUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lblUserErrorLogUserResource1.Text" xml:space="preserve">
-    <value>User not found</value>
+    <value>Usuario non atopado.</value>
   </data>
   <data name="lblUserErrorLogUserResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lnkCreateAccountLogUserResource1.Text" xml:space="preserve">
-    <value>¿You still don't have an account? Sign up here</value>
+    <value>Todavía non tes conta? Preme aquí</value>
   </data>
   <data name="lnkCreateAccountLogUserResource1.ToolTip" xml:space="preserve">
     <value />
@@ -157,15 +157,15 @@
     <value>Email</value>
   </data>
   <data name="Localize2LogUserResource1.Text" xml:space="preserve">
-    <value>Password</value>
+    <value>Contrasinal</value>
   </data>
   <data name="PageResource1.Title" xml:space="preserve">
     <value>TFG</value>
   </data>
   <data name="lblLoginError.Text" xml:space="preserve">
-    <value>User not found</value>
+    <value>Non se atopou ó usuario.</value>
   </data>
   <data name="lblLoginError.ToolTip" xml:space="preserve">
-    <value>This user no not have in our system</value>
+    <value>O usuario non se atopa no sistema.</value>
   </data>
 </root>
