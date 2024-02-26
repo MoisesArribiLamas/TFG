@@ -5437,7 +5437,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //obtenemos la bateria
                 var b = bateriaDao.Find(bateriaId);
 
-                // El ratio menor valor que el precio de la tarifa
+                // El ratio mayor valor que el precio de la tarifa
                 double? ratioCompraNuevo = 2500;
                 double? ratioCargaNuevo = 3;
                 double? ratioUsoNuevo = null;
