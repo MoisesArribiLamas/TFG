@@ -41,6 +41,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         double calcularConsumo(double consumoActual, TimeSpan fechaIni, TimeSpan fechaFin);
 
         [Transactional]
+        double CalcularConsumoParaCalculoRatios(long ubicacionId, TimeSpan horaActual, string estado, long bateriaSuministradora);
+
+
+        [Transactional]
         bool finalizarConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual, string estado, long bateriaSuministradora);
 
         [Transactional]
@@ -54,7 +58,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Transactional]
         void eliminarUbicacion(long ubicacionId);
-       
+
+        [Transactional]
+        long actualizarConsumoActual(long ubicacionId);
+
 
     }
 }

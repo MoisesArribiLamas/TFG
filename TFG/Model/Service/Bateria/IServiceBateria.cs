@@ -47,7 +47,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         double porcentajeDeCarga(long bateriaId);
 
         [Transactional]
-        bool cumpleRatioDeCarga(long bateriaId);
+        double porcentajeDeCargaConConsumo(long bateriaId, double cargaEnConsumo);
+
 
         [Transactional]
         List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count);

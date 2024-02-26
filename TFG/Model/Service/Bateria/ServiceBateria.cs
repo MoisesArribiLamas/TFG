@@ -184,15 +184,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
             if (carga != null)
             { // la carga que hay sin contabilizar en la bateria
-                kwHCargados = carga.kwH;
+                kwHCargados = kwHCargados + carga.kwH;
             }
 
             //obtenemos suministra
             Suministra suministra = UltimaSuministra(bateriaId);
 
-            if (carga != null) // lo suministrado que hay sin contabilizar
+            if (suministra != null) // lo suministrado que hay sin contabilizar
             {
-                kwHSuministrados = carga.kwH;
+                kwHSuministrados = kwHSuministrados + suministra.kwH;
             }
             //
 
@@ -210,84 +210,85 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
                 if ((b.ratioUso < tarifa.precio)) // "sin actividad" -> "cargando" 
                 {
-                    if (porcentajeDeCarga(bateriaId) < 100) //  si la bateria esta al 100% no puede cargar
-                    { 
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                    }
-                    else
+                    if (EstadoDeLaBateria(bateriaId) != "carga y suministra")
                     {
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
+                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
                         CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
                     }
 
                 }
                 else
-                    if (porcentajeDeCarga(bateriaId) < 100) //  si la bateria esta al 100% no puede cargar
-                    {                  
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
-                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);         
-                    }
-                    else
+
+                {
+                    if (EstadoDeLaBateria(bateriaId) != "cargando")
                     {
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
                         CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
                     }
+                }
+
             }
             else
+            {
                 // el ratio de compra < precio tarifa
-                if (b.ratioCompra < tarifa.precio )
+                if (b.ratioCompra < tarifa.precio)
                 {
 
                     if ((b.ratioUso < tarifa.precio))
                     {
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
-                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        if (EstadoDeLaBateria(bateriaId) != "suministrando")
+                        {
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
+                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        }
 
-                    
+
                     }
                     else
                     {
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
-                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        if (EstadoDeLaBateria(bateriaId) != "sin actividad")
+                        {
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        }
                     }
 
                 }
 
                 else
+                {
                     // el ratio de compra >= precio tarifa
-                    if (b.ratioCompra >= tarifa.precio)
-                    {
+                    //if (b.ratioCompra >= tarifa.precio)
+                    //{
 
                         if ((b.ratioUso < tarifa.precio))
                         {
                             if (porcentajeDeCarga(bateriaId) < 100) //  si la bateria esta al 100% no puede cargar
                             {
-                                long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                                CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                                if (EstadoDeLaBateria(bateriaId) != "carga y suministra")
+                                {
+                                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                                }
                             }
-                            else
-                            {
-                                long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
-                                CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                            }
-
-
                         }
                         else
+                        {
                             if (porcentajeDeCarga(bateriaId) < 100) //  si la bateria esta al 100% no puede cargar
                             {
-                                long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
-                                CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                                if (EstadoDeLaBateria(bateriaId) != "cargando")
+                                {
+                                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                                }
                             }
-                            else
-                            {
-                                long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
-                                CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                            }
+                        }
 
-                    }
 
+                    //}
+                  
+                }
+            }
         }
         #endregion
 
@@ -515,7 +516,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                         //Creamos la carga nueva
                         IniciarCarga(bateriaId, tarifa.tarifaId, horaActual);
 
-                        //Creamoscuministrando nuevo
+                        //Creamos Suministrando nuevo
                         IniciarSuministra(bateriaId, tarifa.tarifaId, horaActual);
                     }
                 }
@@ -527,7 +528,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
-        #region cambiar estado bateria
+        #region cambiar estado bateria (por cambio de hora)
 
         [Transactional]
         public void CambiarEstadoEnBateriaPorCambioDeHora(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
@@ -794,7 +795,38 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
-        #region calcular porcentaje de la bateria
+        #region calcular porcentaje de la bateria pasandole lo que hay en consumo
+
+        [Transactional]
+        public double porcentajeDeCargaConConsumo(long bateriaId, double consumo)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+            double carga = 0;
+            double suministra = 0;
+
+            // buscamos carga 
+            Carga c = UltimaCarga(bateriaId);
+
+            if (c != null)
+            {
+                carga = c.kwH;
+            }
+
+            // buscamos Suministra
+            Suministra s = UltimaSuministra(bateriaId);
+
+            if (s != null)
+            {
+                suministra = s.kwH;
+            }
+
+            double total = b.kwHAlmacenados + carga - suministra + consumo;
+            return (total * 100 / b.almacenajeMaximoKwH);
+        }
+#endregion
+
+        #region indica si cumple el Ratio De Carga
 
         [Transactional]
         public bool cumpleRatioDeCarga(long bateriaId)

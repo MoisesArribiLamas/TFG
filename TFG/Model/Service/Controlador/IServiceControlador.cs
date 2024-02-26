@@ -11,7 +11,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
 {
     public interface IServiceControlador
     {
-
+        [Transactional]
+        void gestionDeRatiosBateriaSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual);
 
         //[Transactional]
         //double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId);
