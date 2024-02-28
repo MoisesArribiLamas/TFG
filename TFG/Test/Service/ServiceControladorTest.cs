@@ -4267,6 +4267,105 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //}
 
 
+        //[TestMethod()]
+        //public void cambiarRatiosBateriaTest()
+        //{
+        //    // Estado: "carga y suministra"
+        //    // ratioCompra >=  Tarifa
+        //    //  ratioCarga >=  %Bateria
+        //    //    ratioUso < Tarifa 
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        //kwHAlmacenados = 1000;
+        //        //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+        //        /*
+        //            precioMedio = 100;
+        //            kwHAlmacenados = 1000;
+        //            almacenajeMaximoKwH = 20000;
+        //            ratioCompra = 50;                 =>  ratioCompra <   Tarifa
+        //            ratioCarga = 40;                  =>   ratioCarga >=  %Bateria
+        //            ratioUso = 45;                    =>     ratioUso <   Tarifa
+        //         */
+        //        crearEstados();
+        //        long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+        //        long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+        //        //Creamos Tarifaz
+        //        DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        //        crearTarifas24H(fechaActual);
+
+        //        //Creamos Bateria
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+        //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+        //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+        //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+        //        //Ponemos el estado a "carga y suministra"
+        //        long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+        //        Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
+        //        //  hora actual
+        //        TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+        //        servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
+
+        //        //comprobamos que el estado es "carga y suministra"
+        //        SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+        //        Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+
+        //        //obtenemos la bateria
+        //        var b = bateriaDao.Find(bateriaId);
+
+        //        // El ratio menor valor que el precio de la tarifa
+        //        double? ratioCompraNuevo = 2500;
+        //        double? ratioCargaNuevo = 10;
+        //        double? ratioUsoNuevo = null;
+
+
+        //        servicioBateria.ModificarRatios(bateriaId, ratioCargaNuevo, ratioCompraNuevo, ratioUsoNuevo);
+
+        //        // hora actual
+        //        horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+        //        // Tarifa actual
+        //        int horaTarifa = horaActual.Hours;
+        //        TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+
+        //        //ponemos la bateria suministradora
+        //        servicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+        //        //creamos el consumo de la ubicacion
+        //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
+        //        double consumoActual = 1;
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+
+        //        //comprobamos que la ubicacion tiene el ultimo consumo
+        //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
+        //        Assert.AreEqual(consumoId, u.ultimoConsumo);
+
+        //        // gestion de :   Estado: "carga y suministra"
+        //        servicio.gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
+
+        //        //cambiamos ratios de bateria suministradora
+        //        ratioCompraNuevo = 2500;
+        //        ratioCargaNuevo = 3;
+        //        ratioUsoNuevo = 2500;
+
+        //        servicio.cambiarRatiosBateria( bateriaId, ratioCompraNuevo, ratioCargaNuevo, ratioUsoNuevo);
+
+        //        //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> " cargando"
+        //        long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+        //        SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+        //        Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
+        //        //cambiamos ratios de bateria NO suministradora
+        //        servicio.cambiarRatiosBateria(bateriaId2, ratioCompra, ratioCarga, ratioUso);
+
+        //        //comprobamos que no acectan a la ubicacion
+        //        estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+        //        estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+        //        Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+        //    }
+        //}
 
     }
 }
