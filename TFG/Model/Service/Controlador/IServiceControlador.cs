@@ -14,8 +14,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         [Transactional]
         void gestionDeRatiosBateriaSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual);
 
+
         //[Transactional]
-        //double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId);
 
     }
 }

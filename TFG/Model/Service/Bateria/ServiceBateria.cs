@@ -213,7 +213,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                     if (EstadoDeLaBateria(bateriaId) != "carga y suministra")
                     {
                         long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                     }
 
                 }
@@ -223,7 +223,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                     if (EstadoDeLaBateria(bateriaId) != "cargando")
                     {
                         long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
-                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                        CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                     }
                 }
 
@@ -239,7 +239,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                         if (EstadoDeLaBateria(bateriaId) != "suministrando")
                         {
                             long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
-                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                         }
 
 
@@ -249,7 +249,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                         if (EstadoDeLaBateria(bateriaId) != "sin actividad")
                         {
                             long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
-                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                            CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                         }
                     }
 
@@ -268,7 +268,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                                 if (EstadoDeLaBateria(bateriaId) != "carga y suministra")
                                 {
                                     long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                                 }
                             }
                         }
@@ -279,7 +279,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                                 if (EstadoDeLaBateria(bateriaId) != "cargando")
                                 {
                                     long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
-                                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                                    CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                                 }
                             }
                         }
@@ -295,12 +295,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         #region cambiar estado bateria
 
         [Transactional]
-        public void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
+        public void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados, TimeSpan horaActual)
         {
 
             // Fecha y hora actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
             // buscamos la bateria
             Bateria b = bateriaDao.Find(bateriaId);
@@ -1023,7 +1022,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             }
             else
             {
-                if (b.ratioCarga >= ((b.kwHAlmacenados + kwhNetos) * 100 / b.almacenajeMaximoKwH))
+                if (b.ratioCarga >= (total * 100 / b.almacenajeMaximoKwH))
                 {
                     gestionRatios = true; //vulnera el ratio de carga
                 }

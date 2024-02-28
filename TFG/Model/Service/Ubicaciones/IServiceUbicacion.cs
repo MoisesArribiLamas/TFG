@@ -60,7 +60,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         void eliminarUbicacion(long ubicacionId);
 
         [Transactional]
-        long actualizarConsumoActual(long ubicacionId);
+        long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual);
 
 
     }

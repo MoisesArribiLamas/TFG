@@ -399,11 +399,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region actualizar los datos de Consumo (carga y suministra) 
         [Transactional]
-        public long actualizarConsumoActual(long ubicacionId)
+        public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual)
         {
-
-            // hora actual
-            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
             // buscamos el consumo (entidad) actual
             Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);

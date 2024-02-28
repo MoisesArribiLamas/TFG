@@ -8,6 +8,7 @@ using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
@@ -28,6 +29,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
 
         [Inject]
         public IUsuarioDao UsuarioDao { private get; set; }
+
+        [Inject]
+        public IConsumoDao ConsumoDao { private get; set; }
 
         [Inject]
         public ICargaDao CargaDao { private get; set; }
@@ -98,45 +102,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             // Comprobamos si la bateria siministradora es la misma que la de los cambios.
             if ((long)b.Ubicacion.bateriaSuministradora == bateriaId)
             {
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-            }
-            else // no es la bateria suministradora
-            {
+                gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
 
             }
             
         }
         #endregion
 
-        #region Gestion de los ratios
+        #region Gestion de los ratios en una bateria suministradora
 
         [Transactional]
         public void gestionDeRatiosBateriaSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual)
         {
             double kwHCargados = 0;
             double kwHSuministrados = 0;
+            long? consumo =null;
 
             // buscamos la bateria
-            Bateria b = bateriaDao.Find(bateriaId);
-            
-            //
-            //obtenemos la carga
-            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
-
-            if (carga != null)
-            { // la carga que hay sin contabilizar en la bateria
-                kwHCargados = carga.kwH;
-            }
-
-            //obtenemos suministra
-            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
-
-            if (suministra != null) // lo suministrado que hay sin contabilizar
-            {
-                kwHSuministrados = suministra.kwH;
-            }
-            //
-
+            Bateria b = bateriaDao.Find(bateriaId);                      
 
             // Tarifa actual (hora)
             int horaTarifa = horaActual.Hours;
@@ -151,126 +137,514 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             // porcentaje de la bateria sumandole el consumo pendiente
             double porcentajeCargaConConsumo = ServicioBateria.porcentajeDeCargaConConsumo(bateriaId, consumoPendiente);
 
+            if (porcentajeCargaConConsumo > 100) {
+                // Buscamos ultimo consumo, para modificarlo en caso de que se pase
+                Ubicacion u = ServicioUbicacion.buscarUbicacionById(b.ubicacionId);
+                consumo = (long)ServicioUbicacion.UltimoConsumoEnUbicacion(u.ubicacionId);
+            }
+
             // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
             if (b.ratioCarga >= porcentajeCargaConConsumo)
             {
 
                 if ((b.ratioUso < tarifa.precio)) // "sin actividad" -> "cargando" 
                 {
-                    if (ServicioBateria.EstadoDeLaBateria(bateriaId)!= "carga y suministra")
+                    if (porcentajeCargaConConsumo < 99) //  si la bateria esta al 100% no puede cargar
                     {
-                        //ponemos consumo en carga y/o suministra
-                        ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "carga y suministra")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
 
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                        ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
                     }
+                    //--------------------------------------------------------------------------------------------------------------
+                    else
+                    {
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "suministrando")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
+                    }
+                    //--------------------------------------------------------------------------------------------------------------------
 
                 }
                 else
                 {
-                    if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "cargando")
+                    if (porcentajeCargaConConsumo < 99) //  si la bateria esta al 100% no puede cargar
                     {
-                        //ponemos consumo en carga y/o suministra
-                        ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "cargando")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
 
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
-                        ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
                     }
+                    //--------------------------------------------------------------------------------------------------------------
+                    else
+                    {
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
+                    }
+                    //--------------------------------------------------------------------------------------------------------------------
                 }
-               
+
             }
             else
                 // el ratio de compra < precio tarifa
                 if (b.ratioCompra < tarifa.precio)
                 {
 
-                if ((b.ratioUso < tarifa.precio))
-                {
-                    if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "suministrando")
-                    {
-                        //ponemos consumo en carga y/o suministra
-                        ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
-
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
-                        ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                    }
-
-                }
-                else
-                {
-                    if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
-                    {
-                        //ponemos consumo en carga y/o suministra
-                        ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
-
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
-                        ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                    }
-                }
-
-            }
-
-            else
-                    // el ratio de compra >= precio tarifa
-                    if (b.ratioCompra >= tarifa.precio)
-            {
-
-                if ((b.ratioUso < tarifa.precio))
-                {
-                    if (porcentajeCargaConConsumo < 100) //  si la bateria esta al 100% no puede cargar
-                    {
-                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "carga y suministra")
-                        {
-                            //ponemos consumo en carga y/o suministra
-                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
-
-                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                        }
-                    }
-                    else
+                    if ((b.ratioUso < tarifa.precio))
                     {
                         if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "suministrando")
                         {
                             //ponemos consumo en carga y/o suministra
-                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
 
                             long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
-                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
+
+                    }
+                    else
+                    {
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
                         }
                     }
 
+                }
 
+            else
+                    // el ratio de compra >= precio tarifa
+            //        if (b.ratioCompra >= tarifa.precio)
+            //{
+
+                if ((b.ratioUso < tarifa.precio))
+                {
+                    if (porcentajeCargaConConsumo < 99) //  si la bateria esta al 100% no puede cargar
+                    {
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "carga y suministra")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
+                    }
+                    //--------------------------------------------------------------------------------------------------------------
+                    else {
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "suministrando")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("suministrando");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
+                    }
+                    //--------------------------------------------------------------------------------------------------------------------
                 }
                 else
-                    if (porcentajeCargaConConsumo < 100) //  si la bateria esta al 100% no puede cargar
                 {
-                    if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "cargando")
+                    if (porcentajeCargaConConsumo < 99) //  si la bateria esta al 100% no puede cargar
                     {
-                        //ponemos consumo en carga y/o suministra
-                        ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "cargando")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
 
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
-                        ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
                     }
+                //--------------------------------------------------------------------------------------------------------------
+                    else
+                    {
+                        if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
+                        {
+                            //ponemos consumo en carga y/o suministra
+                            ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+                            //obtenemos la carga
+                            Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+                            if (carga != null)
+                            { // la carga que hay sin contabilizar en la bateria
+                                kwHCargados = carga.kwH;
+                            }
+
+                            //obtenemos suministra
+                            Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+                            if (suministra != null) // lo suministrado que hay sin contabilizar
+                            {
+                                kwHSuministrados = suministra.kwH;
+                            }
+
+                            long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                            ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                        }
+                    }
+                    //--------------------------------------------------------------------------------------------------------------------
                 }
-                else
-                {
-                    if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
-                    {
-                        //ponemos consumo en carga y/o suministra
-                        ServicioUbicacion.actualizarConsumoActual(b.ubicacionId);
 
-                        long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
-                        ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados);
-                    }
+
+            if (porcentajeCargaConConsumo > 100)
+            {
+                correccionConsumoBateria( bateriaId, (long)consumo, consumoPendiente);
+
+            }
+
+            //}
+
+        }
+        #endregion
+
+        //#region Gestion de los ratios en una bateria NO suministradora
+
+        //[Transactional]
+        //public void gestionDeRatiosBateriaNOSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual)
+        //{
+        //    double kwHCargados = 0;
+        //    double kwHSuministrados = 0;
+
+        //    // buscamos la bateria
+        //    Bateria b = bateriaDao.Find(bateriaId);
+
+        //    // Tarifa actual (hora)
+        //    int horaTarifa = horaActual.Hours;
+
+        //    // Buscar la tarifa actual
+        //    TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+        //    //consumo pendiente
+        //    string estado = ServicioBateria.EstadoDeLaBateria(bateriaId);
+        //    double consumoPendiente = ServicioUbicacion.CalcularConsumoParaCalculoRatios(b.ubicacionId, horaActual, estado, bateriaId);
+
+        //    // porcentaje de la bateria sumandole el consumo pendiente
+        //    double porcentajeCargaConConsumo = ServicioBateria.porcentajeDeCargaConConsumo(bateriaId, consumoPendiente);
+
+        //    // si el ratio de carga (minimo 10%) es menor al porcentaje de la bateria => carga
+        //    if (b.ratioCarga >= porcentajeCargaConConsumo)
+        //    {
+
+        //        if (porcentajeCargaConConsumo < 99) //  si la bateria esta al 100% no puede cargar
+        //        {
+        //            if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "cargando")
+        //            {
+        //                //ponemos consumo en carga y/o suministra
+        //                ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+        //                //obtenemos la carga
+        //                Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+        //                if (carga != null)
+        //                { // la carga que hay sin contabilizar en la bateria
+        //                    kwHCargados = carga.kwH;
+        //                }
+
+        //                //obtenemos suministra
+        //                Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+        //                if (suministra != null) // lo suministrado que hay sin contabilizar
+        //                {
+        //                    kwHSuministrados = suministra.kwH;
+        //                }
+
+        //                long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+        //                ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
+        //            {
+        //                //ponemos consumo en carga y/o suministra
+        //                ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+        //                //obtenemos la carga
+        //                Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+        //                if (carga != null)
+        //                { // la carga que hay sin contabilizar en la bateria
+        //                    kwHCargados = carga.kwH;
+        //                }
+
+        //                //obtenemos suministra
+        //                Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+        //                if (suministra != null) // lo suministrado que hay sin contabilizar
+        //                {
+        //                    kwHSuministrados = suministra.kwH;
+        //                }
+
+        //                long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+        //                ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+        //            }
+        //        }
+        //    }
+        //    else
+        //        if (porcentajeCargaConConsumo < 99)
+        //        {
+        //            if ((b.ratioCompra >= tarifa.precio))
+        //            {
+        //                if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "cargando")
+        //                {
+        //                    //ponemos consumo en carga y/o suministra
+        //                    ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+        //                    //obtenemos la carga
+        //                    Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+        //                    if (carga != null)
+        //                    { // la carga que hay sin contabilizar en la bateria
+        //                        kwHCargados = carga.kwH;
+        //                    }
+
+        //                    //obtenemos suministra
+        //                    Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+        //                    if (suministra != null) // lo suministrado que hay sin contabilizar
+        //                    {
+        //                        kwHSuministrados = suministra.kwH;
+        //                    }
+
+        //                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("cargando");
+        //                    ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+        //                }
+        //            }
+
+        //        }
+        //        else {
+        //            if (ServicioBateria.EstadoDeLaBateria(bateriaId) != "sin actividad")
+        //            {
+        //                //ponemos consumo en carga y/o suministra
+        //                ServicioUbicacion.actualizarConsumoActual(b.ubicacionId, horaActual);
+
+        //                //obtenemos la carga
+        //                Carga carga = ServicioBateria.UltimaCarga(bateriaId);
+
+        //                if (carga != null)
+        //                { // la carga que hay sin contabilizar en la bateria
+        //                    kwHCargados = carga.kwH;
+        //                }
+
+        //                //obtenemos suministra
+        //                Suministra suministra = ServicioBateria.UltimaSuministra(bateriaId);
+
+        //                if (suministra != null) // lo suministrado que hay sin contabilizar
+        //                {
+        //                    kwHSuministrados = suministra.kwH;
+        //                }
+
+        //                long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+        //                ServicioBateria.CambiarEstadoEnBateria(bateriaId, estadoId, kwHCargados, kwHSuministrados, horaActual);
+        //            }
+        //        }
+
+        //}
+        //#endregion
+
+        #region %bateria con Correccion del consumo en caso de desbordamiento
+
+        [Transactional]
+        public void correccionConsumoBateria(long bateriaId, long consumo, double consumoPendiente)
+        {
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+            double total = b.almacenajeMaximoKwH;
+            double almacenados = b.kwHAlmacenados;
+
+            if (total < almacenados + consumoPendiente) {
+                // Buscamos ultimo consumo
+                Consumo c = ConsumoDao.Find(consumo);
+
+                //calculamos lo que no se ha cargado
+                double noCargado = almacenados + consumoPendiente - total;
+
+                c.kwCargados = c.kwCargados - noCargado;
+                ConsumoDao.Update(c);
+
+                // buscamos carga 
+                Carga ca = ServicioBateria.UltimaCarga(bateriaId);
+
+                if (ca != null)
+                {
+                    ca.kwH = ca.kwH - noCargado;
+                    CargaDao.Update(ca);
                 }
 
             }
 
+            
         }
         #endregion
     }
-        
+
 }
