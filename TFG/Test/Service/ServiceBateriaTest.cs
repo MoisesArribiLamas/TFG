@@ -1293,7 +1293,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
                 //Intentamos cambiar el estado:  "sin actividad" -> "sin actividad"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdSA, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdSA, 0, 0, horaActual);
 
 
                 //Buscamos y Comprobamos que no se ha modificado nada.
@@ -1342,7 +1342,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //cambiamos el estado:  "sin actividad" -> "cargando"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC,0,0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC,0,0, horaActual);
 
 
                 //Buscamos y Comprobamos
@@ -1408,7 +1408,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
                 //cambiamos el estado:  "sin actividad" -> "suministrando"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS,0,0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS,0,0, horaActual);
 
 
                 //Buscamos y Comprobamos
@@ -1472,7 +1472,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 // CAMBIAMOS EL ESTADO:  "sin actividad" -> "carga y suministra"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
 
                 //Buscamos y Comprobamos
@@ -1538,7 +1538,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -1573,7 +1573,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //cambiamos el estado:  "Cargando" -> "sin actividad"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCSA, 300, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCSA, 300, 0, horaActual);
 
 
                 //Buscamos y Comprobamos
@@ -1619,7 +1619,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -1652,7 +1652,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //cambiamos el estado:  "Cargando" -> "Cargando"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC2, 300, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC2, 300, 0, horaActual);
 
 
                 //Buscamos y Comprobamos
@@ -1709,7 +1709,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     // hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0); 
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual); 
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -1743,7 +1743,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //cambiamos el estado:  "Cargando" -> "suministrando"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 300, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 300, 0, horaActual);
 
 
                 //Buscamos y Comprobamos
@@ -1801,7 +1801,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -1834,7 +1834,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                
                 //cambiamos el estado:  "Cargando" -> "carga y suministra"
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 300, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 300, 0, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -1902,7 +1902,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -1937,7 +1937,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 
                 //cambiamos el estado:  "suministrando" -> "sin actividad"
                 int suministrados = 300;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -1980,7 +1980,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2016,7 +2016,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //cambiamos el estado:  "suministrando" -> "Cargando
                 int suministrados = 300;        
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2071,7 +2071,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2108,7 +2108,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //cambiamos el estado:  "suministrando" -> "suministrando"
                 int suministrados = 300;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2163,7 +2163,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> cargando
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2199,7 +2199,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //cambiamos el estado:  "suministrando" -> "carga y suministra"
                 int suministrados = 300;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, 0, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2266,7 +2266,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     //  hora actual
                     TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2312,7 +2312,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "suministrando" -> "sin actividad"
                 int suministrados = 300;
                 int cargados = 1000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2365,7 +2365,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2411,7 +2411,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "suministrando" -> "sin actividad"
                 int suministrados = 1300;
                 int cargados = 14000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2465,7 +2465,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2511,7 +2511,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "suministrando" -> "sin actividad"
                 int suministrados = 1300;
                 int cargados = 14000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2566,7 +2566,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2612,7 +2612,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "suministrando" -> "sin actividad"
                 int suministrados = 1300;
                 int cargados = 1000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2664,7 +2664,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2710,7 +2710,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "suministrando" -> "sin actividad"
                 int suministrados = 300;
                 int cargados = 1000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2775,7 +2775,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2821,7 +2821,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "carga y suministra" -> "suministrando"
                 int suministrados = 300;
                 int cargados = 1000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -2888,7 +2888,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 // -> carga y suministra
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos el estado anterior
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -2934,7 +2934,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //cambiamos el estado:  "carga y suministra" -> "carga y suministra"
                 int suministrados = 300;
                 int cargados = 1000;
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdCS, cargados, suministrados, horaActual);
 
 
                 //Buscamos y Comprobamos el estado actual de la bateria
@@ -3224,7 +3224,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3300,7 +3300,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3376,7 +3376,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3452,7 +3452,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3528,7 +3528,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3604,7 +3604,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3680,7 +3680,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3756,7 +3756,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3832,7 +3832,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3908,7 +3908,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -3984,7 +3984,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4060,7 +4060,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4136,7 +4136,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4212,7 +4212,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4288,7 +4288,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4364,7 +4364,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4440,7 +4440,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4516,7 +4516,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4592,7 +4592,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4668,7 +4668,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4744,7 +4744,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4820,7 +4820,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4896,7 +4896,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -4972,7 +4972,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5048,7 +5048,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5124,7 +5124,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5200,7 +5200,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5276,7 +5276,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5352,7 +5352,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5428,7 +5428,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5437,7 +5437,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //obtenemos la bateria
                 var b = bateriaDao.Find(bateriaId);
 
-                // El ratio menor valor que el precio de la tarifa
+                // El ratio mayor valor que el precio de la tarifa
                 double? ratioCompraNuevo = 2500;
                 double? ratioCargaNuevo = 3;
                 double? ratioUsoNuevo = null;
@@ -5504,7 +5504,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5580,7 +5580,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5656,7 +5656,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //  hora actual
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5701,7 +5701,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
                 long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-                //Creamos Tarifaz
+                //Creamos Tarifas
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
 
@@ -5715,7 +5715,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
                 Bateria bateria = servicio.BuscarBateriaById(bateriaId);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5728,7 +5730,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Ponemos el estado a "cargando"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5741,7 +5743,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Ponemos el estado a "suministrando"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5754,7 +5756,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Ponemos el estado a "carga y suministra"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5806,7 +5808,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
                 Bateria bateria = servicio.BuscarBateriaById(bateriaId);
 
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "sin actividad"
                 SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5825,7 +5829,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Ponemos el estado a "cargando"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("cargando");
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "cargando"
                 estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5843,7 +5847,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double kwhsuministrados = 0;
 
                 // cargamos los datos
-                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 servicio.CargaAñadida(bateriaId, kwHcargados, kwhsuministrados, horaActual); // 1100
 
                 // Comprobamos
@@ -5879,7 +5882,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Ponemos el estado a "suministrando"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("suministrando");
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "suministrando"
                 estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
@@ -5922,7 +5925,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //Ponemos el estado a "carga y suministra"
                 estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
-                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                servicio.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 //comprobamos que el estado es "carga y suministra"
                 estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);

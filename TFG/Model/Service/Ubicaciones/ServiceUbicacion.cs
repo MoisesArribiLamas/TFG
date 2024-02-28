@@ -287,11 +287,62 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         }
 
-        #endregion 
+        #endregion
 
 
+        #region Calcula el consumo que hay (sin pasar a carga o suministra) segun el estado 
+        [Transactional]
+        public double CalcularConsumoParaCalculoRatios(long ubicacionId, TimeSpan horaActual, string estado, long bateriaSuministradora)
+        {
 
-        #region modificar Consumo
+            //buscamos el consumo (entidad) actual
+            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+            //finalizar consumo
+            c.horaFin = horaActual;
+
+            //-----------------------------------
+            //dependiendo del estado          
+            if (estado == "sin actividad") // "sin actividad"
+            {
+                return 0;
+            }
+            else if (estado == "cargando") // "cargando"
+            {
+
+
+                // calculamos lo que ha cargado la bateria
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
+                return calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+
+              
+
+            }
+            else if (estado == "suministrando") // "suministrando"
+            {
+
+                // consumoAnterior => suministra
+                return -(calcularConsumo(c.consumoActual, c.horaIni, horaActual)); //negativo lo que se ha perdido de la bateria
+
+
+            }
+            else if (estado == "carga y suministra")// "carga y suministra"
+            {
+                // consumoAnterior => suministra
+                double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
+                //c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                //c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
+
+                return calcularConsumo(capacidadCarga, c.horaIni, horaActual) - calcularConsumo(c.consumoActual, c.horaIni, horaActual);
+            }
+
+            return 0;
+        }
+
+        #endregion
+
+
+        #region modificar Consumo (cierra el consumo previo y crea uno nuevo)
         [Transactional]
         public long modificarConsumoActual(long ubicacionId, double consumoActual)
         {
@@ -332,9 +383,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 //obtenemos suministra
                 Suministra suministra = ServicioBateria.UltimaSuministra((long)u.bateriaSuministradora);
 
-                if (carga != null) // lo suministrado que hay sin contabilizar
+                if (suministra != null) // lo suministrado que hay sin contabilizar
                 {
-                    kwhsuministradosFinal = carga.kwH;
+                    kwhsuministradosFinal = suministra.kwH;
                 }
 
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -345,6 +396,34 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
 
         #endregion modificar Consumo
+
+        #region actualizar los datos de Consumo (carga y suministra) 
+        [Transactional]
+        public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual)
+        {
+
+            // buscamos el consumo (entidad) actual
+            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            double consumoActual = c.consumoActual;
+
+            // buscamos ubicacion
+            Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // obtenemos el estado
+            string estado = ServicioBateria.EstadoDeLaBateria((long)u.bateriaSuministradora);
+
+
+            // finalizar consumo
+            finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
+
+            // creamos el nuevo consumo
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
+
+            //devolvemos el id del nuevo consumo
+            return consumoNuevo;
+        }
+
+        #endregion actuallizar Consumo
 
         #region Obtener la entidad Consumo vigente
         [Transactional]

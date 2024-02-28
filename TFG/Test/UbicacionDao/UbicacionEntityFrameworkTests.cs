@@ -381,5 +381,51 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             Assert.AreEqual(bat3.Count, 0);
 
         }
+
+        [TestMethod()]
+        public void TodasLasUbicaciones()
+        {
+
+            // CREAMOS UBICACIONES
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15405;
+            u.localidad = "Ferrol";
+            u.calle = "calle de Ferrol";
+            u.portal = "A";
+            u.numero = 1;
+            ubicacionDao.Create(u);
+
+
+            Ubicacion u2 = new Ubicacion();
+            u2.localidad = "A Coruña";
+            u2.codigoPostal = 15005;
+            u2.calle = "calle de Coruña";
+            u2.portal = "B";
+            u2.numero = 1;
+            ubicacionDao.Create(u2);
+
+            Ubicacion u3 = new Ubicacion();
+            u3.localidad = "A Coruña";
+            u3.codigoPostal = 15005;
+            u3.calle = "calle de Coruña";
+            u3.portal = "B";
+            u3.numero = 1;
+            ubicacionDao.Create(u3);
+
+            //modificamos ubicacion
+            ubicacionDao.updateInformacion(u.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u2.etiqueta);
+
+
+            //COMPROBAMOS
+            List<Ubicacion> bat1 = ubicacionDao.TodasLasUbicaciones();
+
+
+            Assert.AreEqual(bat1[2], u);
+            Assert.AreEqual(bat1[1], u2);
+            Assert.AreEqual(bat1[0], u3);
+            Assert.AreEqual(bat1.Count, 3);
+
+
+        }
     }
 }
