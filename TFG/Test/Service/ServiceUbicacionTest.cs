@@ -829,9 +829,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Ponemos el estado a "Cargando"
                 long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
                 Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
-                
+
                 // -> cargando
-                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
 
                 double consumo = 1000;
 
@@ -1012,7 +1013,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
 
                 // -> cargando
-                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 double consumo = 1000;
 
@@ -1195,7 +1197,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
 
                 // -> cargando
-                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
                 double consumo = 1000;
 
@@ -1892,7 +1895,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
 
                 TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                long consumoIdNuevo = servicio.actualizarConsumoActual(ubicacionId);
+                long consumoIdNuevo = servicio.actualizarConsumoActual(ubicacionId, horafinal);
 
                 // buscamos ubicacion
                 Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
@@ -1975,7 +1978,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
 
                 // -> cargando
-                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0);
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
 
                 double consumo = 1000;
                 int hour1 = 1;
@@ -1990,7 +1994,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //modificamos el consumo ,finalizamos el consumo creado
 
                 TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                long consumoId2 = servicio.actualizarConsumoActual(ubicacionId);        //consumo 1000 
+                long consumoId2 = servicio.actualizarConsumoActual(ubicacionId, horafinal);        //consumo 1000 
 
                 // buscamos ubicacion
                 Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
@@ -2055,7 +2059,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double consumoActual3 = 1000;
 
                 TimeSpan horafinal2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                long consumoId3 = servicio.actualizarConsumoActual(ubicacionId);  //consumo 2000 
+                long consumoId3 = servicio.actualizarConsumoActual(ubicacionId, horafinal2);  //consumo 2000 
 
                 // buscamos ubicacion
                 u = servicio.buscarUbicacionById(ubicacionId);
