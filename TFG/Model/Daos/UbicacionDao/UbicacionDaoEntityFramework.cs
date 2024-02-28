@@ -100,5 +100,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
         }
         #endregion
+
+        #region Todas las Ubicaciones 
+        public List<Ubicacion> TodasLasUbicaciones()
+        {
+
+
+            DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
+
+            var result =
+                (from u in ubicacion
+                 select u).Distinct().OrderByDescending(u => u.ubicacionId).ToList();
+
+            return result;
+
+        }
+        #endregion
     }
 }

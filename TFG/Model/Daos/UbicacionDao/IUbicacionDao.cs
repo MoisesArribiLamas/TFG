@@ -15,6 +15,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
         List<Ubicacion> ubicacionesUsuario(long userId, int startIndex, int count);
 
+        List<Ubicacion> TodasLasUbicaciones();
 
     }
 }

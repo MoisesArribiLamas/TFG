@@ -92,9 +92,20 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         }
         #endregion
 
-        #region
+        #region cambio hora comprobar ratios de todas las ubicaciones
         [Transactional]
-        public void cambiarRatiosBateria(long bateriaId)
+        public void ComprobarRatiosUbicaciones()
+        {
+            // buscar todas la ubicaciones
+            // obtener baterias suministradoras
+            // comprobar los ratios
+        }
+        #endregion
+
+
+        #region cambio manual de los ratios
+        [Transactional]
+        public void cambiarRatiosBateria(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso)
         {
             // buscamos la bateria.
             Bateria b = bateriaDao.Find(bateriaId);
@@ -102,13 +113,21 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             // Comprobamos si la bateria siministradora es la misma que la de los cambios.
             if ((long)b.Ubicacion.bateriaSuministradora == bateriaId)
             {
+                ServicioBateria.ModificarRatios(bateriaId, ratioCarga, ratioCompra, ratioUso);
+
+
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
 
             }
-            
+            else // no es la bateria suministradora
+            {
+                ServicioBateria.ModificarRatios(bateriaId, ratioCarga, ratioCompra, ratioUso);
+
+            }
+
         }
         #endregion
 
