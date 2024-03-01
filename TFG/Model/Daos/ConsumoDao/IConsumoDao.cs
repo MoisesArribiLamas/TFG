@@ -13,5 +13,6 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         List<Consumo> MostrarConsumosUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count);
         Consumo UltimoConsumoUbicacion(long ubicacionID);
         double ConsumoUbicacionActual(long ubicacionID);
+        DateTime FechaUltimoConsumoSistema();
     }
 }

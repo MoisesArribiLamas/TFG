@@ -18,5 +18,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         [Transactional]
         void cambiarRatiosBateria(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
 
+        [Transactional]
+        void ComprobarRatiosUbicaciones(DateTime fechaActual, TimeSpan horaActual);
     }
 }
