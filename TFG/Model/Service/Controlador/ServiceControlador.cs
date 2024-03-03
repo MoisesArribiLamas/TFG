@@ -50,7 +50,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         public IServiceEstado ServicioEstado { private get; set; }
 
         [Inject]
-        public IServiceTarifa TarifaEstado { private get; set; }
+        public IServiceTarifa ServicioTarifa { private get; set; }
 
         //[Inject]
         //public IServiceUbicacion ServicioUbicacion { private get; set; } 
@@ -72,15 +72,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         }
         #endregion
 
-        #region Creamos consumo (si es el primer consumo se hace scrapyTarifas)
-        [Transactional]
-        public void CrearConumoInicial(DateTime fechaActual, long ubicacionId, double consumoActual, TimeSpan horaActual)
-        {
-            // no existe un consumo en el dia de hoy
-            // Creamos el consumo
-            ServicioUbicacion.crearConsumo( ubicacionId, consumoActual, horaActual);
-        }
-        #endregion
+        
 
         #region cambio hora comprobar ratios de todas las ubicaciones
         [Transactional]
@@ -147,7 +139,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             int horaTarifa = horaActual.Hours;
 
             // Buscar la tarifa actual
-            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+            TarifaDTO tarifa = ServicioTarifa.TarifaActual(fechaActual, horaTarifa);
 
             //consumo pendiente
             string estado = ServicioBateria.EstadoDeLaBateria(bateriaId);
