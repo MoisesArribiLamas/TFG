@@ -602,7 +602,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumoActual, horaActual); 
+                long consumoId = servicio.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual); 
 
                 //buscamos el consumo creado
                 Consumo consumonProfile = consumoDao.Find(consumoId);
@@ -678,7 +678,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumoActual, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumoActual, fechaActual, horaInicio);
 
                 // buscamos ubicacion
                 Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
@@ -742,7 +742,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual = 2000;
@@ -846,7 +846,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual2 = 2000;
@@ -1028,7 +1028,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual2 = 2000;
@@ -1212,7 +1212,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual2 = 2000;
@@ -1375,7 +1375,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual = 2000;
@@ -1475,7 +1475,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaInicio = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
                 double consumoActual = 2000;
@@ -1892,7 +1892,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 long consumoIdNuevo = servicio.actualizarConsumoActual(ubicacionId, horafinal);
@@ -1989,7 +1989,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
 
                 //creamos el consumo
-                long consumoId = servicio.crearConsumo(ubicacionId, consumo, horaInicio);
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
 
                 //modificamos el consumo ,finalizamos el consumo creado
 

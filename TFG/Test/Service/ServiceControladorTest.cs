@@ -336,7 +336,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -436,7 +436,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -535,7 +535,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -634,7 +634,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -733,7 +733,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -832,7 +832,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -930,7 +930,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1029,7 +1029,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaActual);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1127,7 +1127,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
+
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1151,7 +1152,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 + consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, (1000*100 + (consumoCargaBateria * tarifa.precio)) / (1000 + consumoCargaBateria));
+        //        Assert.AreEqual(b.precioMedio, (1000 * 100 + (consumoCargaBateria * tarifa.precio)) / (1000 + consumoCargaBateria));
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1231,7 +1232,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1334,7 +1335,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1437,7 +1438,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1540,7 +1541,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1642,7 +1643,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1663,10 +1664,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        double consumoCargaBateria = servicioUbicacion.calcularConsumo(b.capacidadCargador, horaIni, horaActual);
 
         //        // Comprobamos kwh almacenados 
-        //        Assert.AreEqual(b.kwHAlmacenados, 1000 ); // no cambia de estado
+        //        Assert.AreEqual(b.kwHAlmacenados, 1000); // no cambia de estado
 
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 ); // no cambia de estado
+        //        Assert.AreEqual(b.precioMedio, 100); // no cambia de estado
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1745,7 +1746,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1848,7 +1849,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -1952,7 +1953,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2055,7 +2056,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2157,7 +2158,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2180,7 +2181,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 - consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 );
+        //        Assert.AreEqual(b.precioMedio, 100);
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2259,14 +2260,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
         //        Assert.AreEqual(consumoId, u.ultimoConsumo);
 
         //        // gestion de :   Estado: "suministrando"
-        //        servicio.gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual); 
+        //        servicio.gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
 
 
         //        //comprobamos que se ha cometido el cambio de estado: "suministrando" -> "cargando"
@@ -2283,7 +2284,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 - consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 );
+        //        Assert.AreEqual(b.precioMedio, 100);
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2362,7 +2363,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2386,7 +2387,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 - consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 );
+        //        Assert.AreEqual(b.precioMedio, 100);
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2465,7 +2466,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2489,7 +2490,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 - consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 );
+        //        Assert.AreEqual(b.precioMedio, 100);
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2568,7 +2569,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2592,7 +2593,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 - consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 );
+        //        Assert.AreEqual(b.precioMedio, 100);
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2671,7 +2672,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2695,7 +2696,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 - consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
-        //        Assert.AreEqual(b.precioMedio, 100 );
+        //        Assert.AreEqual(b.precioMedio, 100);
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2776,7 +2777,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2797,14 +2798,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        // calculamos el consumo
         //        double suministra = servicioUbicacion.calcularConsumo(consumoActual, horaIni, horaActual);
         //        double carga = servicioUbicacion.calcularConsumo(b.capacidadCargador, horaIni, horaActual);
-               
+
         //        double consumoCargaBateria = carga - suministra;
 
         //        // Comprobamos kwh almacenados 
         //        Assert.AreEqual(b.kwHAlmacenados, (1000 + consumoCargaBateria));
         //        // Comprobamos precio medio   100 precio medio anterior| kwHAlmacenados Antes = 1000;
         //        //preciomedioNuevo = (((b.kwHAlmacenados - kwHSuministrados) * b.precioMedio) + (kwHCargados * tarifa.precio)) / (b.kwHAlmacenados + kwHCargados);
-        //        Assert.AreEqual(b.precioMedio, ((1000- suministra)*100 + (carga * tarifa.precio)) / (1000 + carga));
+        //        Assert.AreEqual(b.precioMedio, ((1000 - suministra) * 100 + (carga * tarifa.precio)) / (1000 + carga));
 
         //        //comprobamos el ultimo consumo
         //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2885,7 +2886,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -2991,7 +2992,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3098,7 +3099,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3113,8 +3114,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
         //        Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
 
-        //         //obtenemos la bateria
-        //         b = bateriaDao.Find(bateriaId);
+        //        //obtenemos la bateria
+        //        b = bateriaDao.Find(bateriaId);
 
         //        // calculamos el consumo
         //        double suministra = servicioUbicacion.calcularConsumo(consumoActual, horaIni, horaActual);
@@ -3123,7 +3124,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        double consumoCargaBateria = carga - suministra;
 
         //        // Comprobamos kwh almacenados 
-        //        Assert.AreEqual(b.kwHAlmacenados, 1000 );
+        //        Assert.AreEqual(b.kwHAlmacenados, 1000);
         //        // no hay cambio de estado
         //        Assert.AreEqual(b.precioMedio, 100);
 
@@ -3204,7 +3205,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3311,7 +3312,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3416,7 +3417,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3523,7 +3524,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3587,7 +3588,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH-8, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 8, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -3627,7 +3628,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3676,7 +3677,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH-7, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 7, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -3716,7 +3717,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3764,7 +3765,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH-6, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 6, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -3804,7 +3805,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3852,7 +3853,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH-5, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 5, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -3892,7 +3893,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -3941,7 +3942,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH-4, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 4, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -3981,7 +3982,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -4030,7 +4031,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH -2, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 2, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -4070,7 +4071,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -4119,7 +4120,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        crearTarifas24H(fechaActual);
 
         //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH-1, almacenajeMaximoKwH,
+        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, almacenajeMaximoKwH - 1, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
         //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
         //        fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
@@ -4159,7 +4160,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 10;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -4247,7 +4248,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -4336,7 +4337,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -4350,7 +4351,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        ratioCargaNuevo = 3;
         //        ratioUsoNuevo = 2500;
 
-        //        servicio.cambiarRatiosBateria( bateriaId, ratioCompraNuevo, ratioCargaNuevo, ratioUsoNuevo);
+        //        servicio.cambiarRatiosBateria(bateriaId, ratioCompraNuevo, ratioCargaNuevo, ratioUsoNuevo);
 
         //        //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> " cargando"
         //        long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
@@ -4465,9 +4466,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        //creamos el consumo de la ubicacion
         //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
         //        double consumoActual = 1;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
-        //        long consumoId2 = servicioUbicacion.crearConsumo(ubicacionId2, consumoActual, horaIni);
-        //        long consumoId3 = servicioUbicacion.crearConsumo(ubicacionId3, consumoActual, horaIni);
+        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
+        //        long consumoId2 = servicioUbicacion.crearConsumo(ubicacionId2, consumoActual, fechaActual, horaIni);
+        //        long consumoId3 = servicioUbicacion.crearConsumo(ubicacionId3, consumoActual, fechaActual, horaIni);
 
         //        //comprobamos que la ubicacion tiene el ultimo consumo
         //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
@@ -4478,7 +4479,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //        Assert.AreEqual(consumoId3, u3.ultimoConsumo);
 
         //        // gestion de :   Estado: "carga y suministra"
-        //        servicio.ComprobarRatiosUbicaciones( fechaActual, horaActual);
+        //        servicio.ComprobarRatiosUbicaciones(fechaActual, horaActual);
 
 
         //        //comprobamos que se ha cometido el cambio de estado: "carga y suministra" -> " carga y suministra"
@@ -4502,7 +4503,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //    }
         //}
 
-        
+
 
         [TestMethod()]
         public void CambiarBateriaSuministradoraTest()
@@ -4569,8 +4570,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 //obtenemos las baterias
                 var b = bateriaDao.Find(bateriaId);
-                var b2 = bateriaDao.Find(bateriaId);
-                var b3 = bateriaDao.Find(bateriaId);
+                var b2 = bateriaDao.Find(bateriaId2);
+                var b3 = bateriaDao.Find(bateriaId3);
 
                 // bateria -> "carga y suministra"
                 double? ratioCompraNuevo = 2500; //  ratioCompra >=  Tarifa
@@ -4613,7 +4614,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //creamos el consumo de la ubicacion
                 TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
                 double consumoActual = 1;
-                long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, horaIni);
+                long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaIni);
 
 
                 //comprobamos que la ubicacion tiene el ultimo consumo
@@ -4647,6 +4648,75 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId4);
                 SeEncuentraDTO estadoBateriaNuevo4 = servicioEstado.BuscarEstadoBateriaById(bateria4.estadoBateria);
                 Assert.AreEqual(estadoBateriaNuevo4.estadoId, estadoIdSA);
+
+            }
+        }
+
+        [TestMethod()]
+        public void crearConsumoInicialTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
+
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCompra = 50;                 =>  ratioCompra <   Tarifa
+                    ratioCarga = 40;                  =>   ratioCarga >=  %Bateria
+                    ratioUso = 45;                    =>     ratioUso <   Tarifa
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Tarifas
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                //obtenemos las baterias
+                var b = bateriaDao.Find(bateriaId);
+
+                // bateria -> "cargando "
+                double? ratioCompraNuevo = 2500; //  ratioCompra >=  Tarifa
+                double? ratioCargaNuevo = 3;    //   ratioCarga <  %Bateria
+                double? ratioUsoNuevo = 2500;    //     ratioUso >=   Tarifa
+
+
+                servicioBateria.ModificarRatios(bateriaId, ratioCargaNuevo, ratioCompraNuevo, ratioUsoNuevo);
+
+
+
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+
+                //ponemos la bateria suministradora
+                servicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+
+                //creamos el consumo de la ubicacion
+                double consumoActual = 1;
+                servicio.CrearConsumoInicial(ubicacionId, consumoActual);
+
+                //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "cargando"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("cargando");
+
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(b.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+
 
             }
         }
