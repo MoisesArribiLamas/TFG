@@ -156,11 +156,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Consumo
         [Transactional]
-        public long crearConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual)
+        public long crearConsumo(long ubicacionId, double consumoActual, DateTime fechaActual, TimeSpan horaActual)
         {
-            // Fecha actual
-            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-
             // Comprobar si las tarifas son las de hoy
             if (!TarifaDao.ExistenTarifasDelDia(fechaActual))
             {
@@ -365,6 +362,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
             // hora actual
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
             // buscamos el consumo (entidad) actual
             Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
@@ -381,7 +379,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             gestionRatios = finalizarConsumo(ubicacionId, consumoAnterior, horaActual, estado, (long)u.bateriaSuministradora);
 
             // creamos el nuevo consumo
-            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
             if (gestionRatios)// ratio de carga >= %Bateria => gestion de ratios
             {
@@ -403,7 +401,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                     kwhsuministradosFinal = suministra.kwH;
                 }
 
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 ServicioBateria.gestionDeRatios((long)u.bateriaSuministradora, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
             }
             //devolvemos el id del nuevo consumo
@@ -432,7 +429,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
 
             // creamos el nuevo consumo
-            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
             //devolvemos el id del nuevo consumo
             return consumoNuevo;

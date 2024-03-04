@@ -181,6 +181,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
 
         #endregion Cambiar bateria
 
+        #region crear Consumo inicial
+        [Transactional]
+        public void CrearConsumoInicial(long ubicacionId, double consumoActual)
+        {
+            // obtenemos la hora y la fecha 
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            // Creamos el consumo
+            long consumoId = ServicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+
+            //Comprobamos los ratios en la bateriasuministradora de la ubicacion
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+            if (ubicacion.bateriaSuministradora != null)
+            {
+                gestionDeRatiosBateriaSuministradora((long)ubicacion.bateriaSuministradora, fechaActual, horaActual);
+            }
+
+
+        }
+
+        #endregion crear Consumo
+
         #region Gestion de los ratios en una bateria suministradora
 
         [Transactional]
@@ -714,6 +737,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             
         }
         #endregion
+
     }
 
 }
