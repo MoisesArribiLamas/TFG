@@ -123,6 +123,64 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         }
         #endregion
 
+        #region Cambiar bateria suministradora
+        [Transactional]
+        public void CambiarBateriaSuministradora(long ubicacionId, long? bateriaSuministradora)
+        {
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+
+            // si hay bateriaSuministradora previa
+            long? bateriaSuministradoraPrevia = ubicacion.bateriaSuministradora;
+            if (bateriaSuministradoraPrevia != null)
+            {
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // Obtenemos el estado
+                String estado = ServicioBateria.EstadoDeLaBateria((long)bateriaSuministradoraPrevia);
+                
+                // Cerramos el consumo
+                Consumo consumo = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+                ServicioUbicacion.finalizarConsumo(ubicacionId, consumo.consumoActual, horaActual, estado, (long)bateriaSuministradoraPrevia);
+
+                if (estado != "sin actividad")
+                {
+                    //ponemos el estado a "sin actividad"
+                    //obtenemos la carga
+                    Carga carga = ServicioBateria.UltimaCarga((long)bateriaSuministradoraPrevia);
+
+                    if (carga != null)
+                    { // la carga que hay sin contabilizar en la bateria
+                        kwHCargados = carga.kwH;
+                    }
+
+                    //obtenemos suministra
+                    Suministra suministra = ServicioBateria.UltimaSuministra((long)bateriaSuministradoraPrevia);
+
+                    if (suministra != null) // lo suministrado que hay sin contabilizar
+                    {
+                        kwHSuministrados = suministra.kwH;
+                    }
+
+                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                    ServicioBateria.CambiarEstadoEnBateria((long)bateriaSuministradoraPrevia, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                    
+                }
+            }
+
+            ServicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaSuministradora);
+
+            //comprobar los ratios con la nueva bateriaSuministradora
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            gestionDeRatiosBateriaSuministradora((long)bateriaSuministradora, fechaActual, horaActual);
+
+
+        }
+
+        #endregion Cambiar bateria
+
         #region Gestion de los ratios en una bateria suministradora
 
         [Transactional]
