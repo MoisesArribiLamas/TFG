@@ -10,6 +10,7 @@ using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
@@ -24,6 +25,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
 
         [Inject]
         public IBateriaDao bateriaDao { private get; set; }
+
+
+        [Inject]
+        public ITarifaDao TarifaDao { private get; set; }
 
         [Inject]
         public IUbicacionDao ubicacionDao { private get; set; }
@@ -558,6 +563,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         }
         #endregion
 
+
+        #region Mostrar Tarifas
+        [Transactional]
+        public List<TarifaDTO> TarifasDeHoy()
+        {
+            // obtenemos la hora y la fecha 
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            // Comprobar si las tarifas son las de hoy
+            if (!TarifaDao.ExistenTarifasDelDia(fechaActual))
+            {
+                // actualizamos las tarifas
+                ServicioTarifa.scrapyTarifas();
+
+            }
+
+                return ServicioTarifa.verTarifasDelDia(fechaActual);
+        }
+
+        #endregion
+
         //#region Gestion de los ratios en una bateria NO suministradora
 
         //[Transactional]
@@ -740,4 +767,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
 
     }
 
-}
+    
+
+    }
