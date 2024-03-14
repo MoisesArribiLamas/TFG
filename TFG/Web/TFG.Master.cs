@@ -13,8 +13,9 @@ namespace Es.Udc.DotNet.TFG.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!SessionManager.IsUserAuthenticated(Context))
-            {
-
+            { //lo que se ve sin el usuario no esta autenticado
+                if (lnkRates != null)
+                    lnkRates.Visible = false;
                 if (lnkLogout != null)
                     lnkLogout.Visible = false;
                 if (lnkModifyUser != null)

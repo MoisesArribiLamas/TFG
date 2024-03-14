@@ -35,7 +35,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         Ubicacion buscarUbicacionById(long ubicacionId);
 
         [Transactional]
-        long crearConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual);
+        long crearConsumo(long ubicacionId, double consumoActual, DateTime fechaActual, TimeSpan horaActual);
 
         [Transactional]
         double calcularConsumo(double consumoActual, TimeSpan fechaIni, TimeSpan fechaFin);

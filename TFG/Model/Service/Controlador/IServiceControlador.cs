@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
+namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public interface IServiceControlador
     {
@@ -17,6 +17,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
 
         [Transactional]
         void cambiarRatiosBateria(long bateriaId, double? ratioCarga, double? ratioCompra, double? ratioUso);
+
+        [Transactional]
+        void ComprobarRatiosUbicaciones(DateTime fechaActual, TimeSpan horaActual);
+        [Transactional]
+        void CambiarBateriaSuministradora(long ubicacionId, long? bateriaSuministradora);
+        [Transactional]
+        void CrearConsumoInicial(long ubicacionId, double consumoActual);
+
+        [Transactional]
+        List<TarifaDTO> TarifasDeHoy();
 
     }
 }

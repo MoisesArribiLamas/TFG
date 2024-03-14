@@ -10,13 +10,15 @@ using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
+using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Ninject;
 
-namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
+namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class ServiceControlador : IServiceControlador
     {
@@ -24,8 +26,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         [Inject]
         public IBateriaDao bateriaDao { private get; set; }
 
+
         [Inject]
-        public IBateriaDao ubicacionDao { private get; set; }
+        public ITarifaDao TarifaDao { private get; set; }
+
+        [Inject]
+        public IUbicacionDao ubicacionDao { private get; set; }
 
         [Inject]
         public IUsuarioDao UsuarioDao { private get; set; }
@@ -49,7 +55,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         public IServiceEstado ServicioEstado { private get; set; }
 
         [Inject]
-        public IServiceTarifa TarifaEstado { private get; set; }
+        public IServiceTarifa ServicioTarifa { private get; set; }
 
         //[Inject]
         //public IServiceUbicacion ServicioUbicacion { private get; set; } 
@@ -65,40 +71,31 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
 
-            //el cambio de hora (las que tienen estado distinto a "sin actividad")
-            if (horaActual.Minutes == 0)
-            {
-                // buscamos todas las baterias vincuadas a una ubicacion
-                // nuevo consumo para las baterias que no esten en "sin actividad"
-                // cambio de estado para todas las baterias que no esten en "sin actividad"
-                // buscamos la bateria
-                Bateria b = bateriaDao.Find(bateriaId);
-                //List<BateriaDTO> Baterias = VerBaterias(b.usuarioId, startIndex, count); --------------------------------------
-                //bucle cambiando todos los estados que haya que cambiar
-
-            }
-            //no exceder del maximo de capacidad de la bateria
-
-            //gestion de ratios
-            //buscamos todas las baterias
-
-
-            // Tarifa actual (hora)
-            int horaTarifa = horaActual.Hours;
-            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
-
-            //bucle con todas las baterias gestion de ratios
-            //alertas de si se esta agotando la bateria en caso de que se suministre mas de lo que se carga.
+            //Mirar si hay que traer todas las tarifas del dia
+            // mirar si se ha cambiado de dia
+            // mirar si se ha cambiado de hora
         }
         #endregion
 
+        
+
         #region cambio hora comprobar ratios de todas las ubicaciones
         [Transactional]
-        public void ComprobarRatiosUbicaciones()
+        public void ComprobarRatiosUbicaciones(DateTime fechaActual, TimeSpan horaActual)
         {
             // buscar todas la ubicaciones
-            // obtener baterias suministradoras
-            // comprobar los ratios
+            List<Ubicacion> ubicaciones = ubicacionDao.TodasLasUbicaciones();
+
+
+            // obtener baterias suministradoras 
+            foreach (Ubicacion u in ubicaciones)
+            {
+                // comprobar los ratios
+                gestionDeRatiosBateriaSuministradora((long)u.bateriaSuministradora, fechaActual, horaActual);
+
+
+            }
+            
         }
         #endregion
 
@@ -131,6 +128,87 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         }
         #endregion
 
+        #region Cambiar bateria suministradora
+        [Transactional]
+        public void CambiarBateriaSuministradora(long ubicacionId, long? bateriaSuministradora)
+        {
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+
+            // si hay bateriaSuministradora previa
+            long? bateriaSuministradoraPrevia = ubicacion.bateriaSuministradora;
+            if (bateriaSuministradoraPrevia != null)
+            {
+                double kwHCargados = 0;
+                double kwHSuministrados = 0;
+
+                // Obtenemos el estado
+                String estado = ServicioBateria.EstadoDeLaBateria((long)bateriaSuministradoraPrevia);
+                
+                // Cerramos el consumo
+                Consumo consumo = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+                ServicioUbicacion.finalizarConsumo(ubicacionId, consumo.consumoActual, horaActual, estado, (long)bateriaSuministradoraPrevia);
+
+                if (estado != "sin actividad")
+                {
+                    //ponemos el estado a "sin actividad"
+                    //obtenemos la carga
+                    Carga carga = ServicioBateria.UltimaCarga((long)bateriaSuministradoraPrevia);
+
+                    if (carga != null)
+                    { // la carga que hay sin contabilizar en la bateria
+                        kwHCargados = carga.kwH;
+                    }
+
+                    //obtenemos suministra
+                    Suministra suministra = ServicioBateria.UltimaSuministra((long)bateriaSuministradoraPrevia);
+
+                    if (suministra != null) // lo suministrado que hay sin contabilizar
+                    {
+                        kwHSuministrados = suministra.kwH;
+                    }
+
+                    long estadoId = ServicioEstado.BuscarEstadoPorNombre("sin actividad");
+                    ServicioBateria.CambiarEstadoEnBateria((long)bateriaSuministradoraPrevia, estadoId, kwHCargados, kwHSuministrados, horaActual);
+                    
+                }
+            }
+
+            ServicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaSuministradora);
+
+            //comprobar los ratios con la nueva bateriaSuministradora
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            gestionDeRatiosBateriaSuministradora((long)bateriaSuministradora, fechaActual, horaActual);
+
+
+        }
+
+        #endregion Cambiar bateria
+
+        #region crear Consumo inicial
+        [Transactional]
+        public void CrearConsumoInicial(long ubicacionId, double consumoActual)
+        {
+            // obtenemos la hora y la fecha 
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            // Creamos el consumo
+            long consumoId = ServicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+
+            //Comprobamos los ratios en la bateriasuministradora de la ubicacion
+            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+            if (ubicacion.bateriaSuministradora != null)
+            {
+                gestionDeRatiosBateriaSuministradora((long)ubicacion.bateriaSuministradora, fechaActual, horaActual);
+            }
+
+
+        }
+
+        #endregion crear Consumo
+
         #region Gestion de los ratios en una bateria suministradora
 
         [Transactional]
@@ -147,7 +225,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             int horaTarifa = horaActual.Hours;
 
             // Buscar la tarifa actual
-            TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+            TarifaDTO tarifa = ServicioTarifa.TarifaActual(fechaActual, horaTarifa);
 
             //consumo pendiente
             string estado = ServicioBateria.EstadoDeLaBateria(bateriaId);
@@ -485,6 +563,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
         }
         #endregion
 
+
+        #region Mostrar Tarifas
+        [Transactional]
+        public List<TarifaDTO> TarifasDeHoy()
+        {
+            // obtenemos la hora y la fecha 
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            // Comprobar si las tarifas son las de hoy
+            if (!TarifaDao.ExistenTarifasDelDia(fechaActual))
+            {
+                // actualizamos las tarifas
+                ServicioTarifa.scrapyTarifas();
+
+            }
+
+                return ServicioTarifa.verTarifasDelDia(fechaActual);
+        }
+
+        #endregion
+
         //#region Gestion de los ratios en una bateria NO suministradora
 
         //[Transactional]
@@ -664,6 +764,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
             
         }
         #endregion
+
     }
 
-}
+    
+
+    }

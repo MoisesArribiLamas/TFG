@@ -7,9 +7,11 @@ using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
+using Es.Udc.DotNet.TFG.Model.Daos.TarifaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
+using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Ninject;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
@@ -20,10 +22,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Inject]
         public IUbicacionDao ubicacionDao { private get; set; }
         [Inject]
-        public IConsumoDao consumoDao { private get; set; }
+        public IConsumoDao ConsumoDao { private get; set; }
+        [Inject]
+        public ITarifaDao TarifaDao { private get; set; }
 
         [Inject]
         public IServiceBateria ServicioBateria { private get; set; }
+
+        [Inject]
+        public IServiceTarifa ServicioTarifa { private get; set; }
 
 
         #region crear Ubicación
@@ -149,10 +156,14 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Consumo
         [Transactional]
-        public long crearConsumo(long ubicacionId, double consumoActual, TimeSpan horaActual)
+        public long crearConsumo(long ubicacionId, double consumoActual, DateTime fechaActual, TimeSpan horaActual)
         {
-            // Fecha actual
-            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            // Comprobar si las tarifas son las de hoy
+            if (!TarifaDao.ExistenTarifasDelDia(fechaActual))
+            {
+                // actualizamos las tarifas
+                ServicioTarifa.scrapyTarifas();
+            }
 
             Consumo c = new Consumo();
 
@@ -165,7 +176,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             c.horaFin = null;
             c.ubicacionId = ubicacionId;
 
-            consumoDao.Create(c);
+            ConsumoDao.Create(c);
 
             // siempre que se crea un consumo se indica en la ubicacion a la que pertenece
             ponerUltimoConsumoEnUbicacion(ubicacionId, c.consumoId);
@@ -176,6 +187,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
 
         #endregion crear Consumo
+
 
         #region poner ultimo consumo en la ubicacion
         [Transactional]
@@ -200,7 +212,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             bool gestionRatios = false;
 
             //buscamos el consumo (entidad) actual
-            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
 
             //finalizar consumo
             c.horaFin = horaActual;
@@ -214,7 +226,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                     c.kwRed = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
                     //actualizamos
-                    consumoDao.Update(c);
+                    ConsumoDao.Update(c);
                 }
             }
             else if (estado == "cargando") // "cargando"
@@ -228,7 +240,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
 
                 //actualizamos
-                consumoDao.Update(c);
+                ConsumoDao.Update(c);
 
                 // ponemos en la entidad Carga los datos obtenidos
                 gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, (double)c.kwCargados, 0, horaActual);
@@ -242,7 +254,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
                 //actualizamos
-                consumoDao.Update(c);
+                ConsumoDao.Update(c);
 
                 //ponemos en la entidad Suministra los datos obtenidos
                 gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, 0, (double)c.kwSuministrados, horaActual);
@@ -256,7 +268,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
                 //actualizamos
-                consumoDao.Update(c);
+                ConsumoDao.Update(c);
 
                 // ponemos en la entidad Carga los datos obtenidos
                 gestionRatios = ServicioBateria.CargaAñadida(bateriaSuministradora, (double)c.kwCargados, (double)c.kwSuministrados, horaActual);
@@ -296,7 +308,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         {
 
             //buscamos el consumo (entidad) actual
-            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
 
             //finalizar consumo
             c.horaFin = horaActual;
@@ -350,9 +362,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
             // hora actual
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
             // buscamos el consumo (entidad) actual
-            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
             double consumoAnterior = c.consumoActual;
 
             // buscamos ubicacion
@@ -366,7 +379,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             gestionRatios = finalizarConsumo(ubicacionId, consumoAnterior, horaActual, estado, (long)u.bateriaSuministradora);
 
             // creamos el nuevo consumo
-            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
             if (gestionRatios)// ratio de carga >= %Bateria => gestion de ratios
             {
@@ -388,7 +401,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                     kwhsuministradosFinal = suministra.kwH;
                 }
 
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 ServicioBateria.gestionDeRatios((long)u.bateriaSuministradora, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
             }
             //devolvemos el id del nuevo consumo
@@ -403,7 +415,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         {
 
             // buscamos el consumo (entidad) actual
-            Consumo c = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
             double consumoActual = c.consumoActual;
 
             // buscamos ubicacion
@@ -417,7 +429,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
 
             // creamos el nuevo consumo
-            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, horaActual);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
             //devolvemos el id del nuevo consumo
             return consumoNuevo;
@@ -444,7 +457,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         {
             try
             {
-                return consumoDao.Find(consumoId);
+                return ConsumoDao.Find(consumoId);
 
 
             }
@@ -491,7 +504,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             {
                 List<ConsumoDTO> ConsumosDTO = new List<ConsumoDTO>();
 
-                List<Consumo> consumos = consumoDao.MostrarConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2, startIndex, count);
+                List<Consumo> consumos = ConsumoDao.MostrarConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2, startIndex, count);
 
                 foreach (Consumo c in consumos) //long consumoId, long ubicacionId, double? kwTotal, DateTime fecha, TimeSpan horaIni, TimeSpan? horaFin, double consumoActual, long ubicacion)
                 {

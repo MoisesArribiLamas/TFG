@@ -120,10 +120,25 @@
   <data name="lblInicioMainPageResource1.Text" xml:space="preserve">
     <value>Bienvenido</value>
   </data>
-  <data name="lblInicioMainPageResource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblInicioAveragePriceResource1.Text" xml:space="preserve">
+    <value>Precio Medio</value>
   </data>
-  <data name="PageResource2.Title" xml:space="preserve">
+  <data name="lblInicioAveragePriceResource1.ToolTip" xml:space="preserve">
+    <value>El precio medio del día.</value>
+  </data>
+  <data name="lblInicioHighestPriceResource1.Text" xml:space="preserve">
+    <value>Precio Más Alto</value>
+  </data>
+  <data name="lblInicioHighestPriceResource1.ToolTip" xml:space="preserve">
+    <value>El precio más alto del día.</value>
+  </data>
+  <data name="lblInicioLowestPriceResource1.Text" xml:space="preserve">
+    <value>Precio Más Bajo</value>
+  </data>
+  <data name="lblInicioLowestPriceResource1.ToolTip" xml:space="preserve">
+    <value>El precio más bajo del día.</value>
+  </data>
+  <data name="PageResource2.Title1" xml:space="preserve">
     <value>TFG</value>
   </data>
 </root>

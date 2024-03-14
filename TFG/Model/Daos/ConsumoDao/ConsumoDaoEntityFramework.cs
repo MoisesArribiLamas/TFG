@@ -64,6 +64,20 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         }
         #endregion
 
+        #region mostrar ultimo consumo Del sistema
+
+        public DateTime FechaUltimoConsumoSistema()
+        {
+            DbSet<Consumo> Consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in Consumos
+                 select c).OrderByDescending(c => c.fecha).FirstOrDefault();
+
+            return result.fecha;
+        }
+        #endregion
+
         //mostrar consumo actual
         #region mostrar ultimo consumo (numero) en una ubicacion
 
