@@ -49,13 +49,13 @@ namespace Es.Udc.DotNet.TFG.Web {
         protected global::System.Web.UI.WebControls.Label lblWelcome;
         
         /// <summary>
-        /// Control lnkRates.
+        /// Control lnkHome.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRates;
+        protected global::System.Web.UI.WebControls.HyperLink lnkHome;
         
         /// <summary>
         /// Control lnkCreateAccount.

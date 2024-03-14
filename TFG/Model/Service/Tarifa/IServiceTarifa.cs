@@ -14,10 +14,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tarifas
 
         [Transactional]
         List<TarifaDTO> verTarifasDelDia(DateTime fecha);
+
         [Transactional]
-        double BuscarMejorTarifa(DateTime fecha);
+        List<TarifaDetails> TarifasDelDia(DateTime fecha);
+
         [Transactional]
-        double BuscarpeorTarifa(DateTime fecha);
+        TarifaDTO BuscarMejorTarifa(DateTime fecha);
+
+        [Transactional]
+        TarifaDTO BuscarpeorTarifa(DateTime fecha);
+        [Transactional]
+        double PrecioMedioTarifasHoy();
         [Transactional]
         List<TarifaDTO> OrdenarMejorPrecioTarifasDelDia(DateTime fecha);
         [Transactional]

@@ -184,11 +184,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                double ta = servicio.BuscarMejorTarifa(fecha);
+                TarifaDTO ta = servicio.BuscarMejorTarifa(fecha);
 
 
-                
-                Assert.AreEqual(ta, 100);
+                Assert.AreEqual(ta.hora, 1);
+                Assert.AreEqual(ta.precio, 100);
 
 
             }
@@ -228,11 +228,56 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifa(400, 23, fecha);
 
 
-                double ta = servicio.BuscarpeorTarifa(fecha);
+                TarifaDTO ta = servicio.BuscarpeorTarifa(fecha);
 
 
              
-                Assert.AreEqual(ta, 900);
+                Assert.AreEqual(ta.precio, 900);
+
+
+            }
+        }
+
+        [TestMethod()]
+        public void CalcularMediaTarifasHoyTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+                crearTarifa(500, 0, fecha);
+                crearTarifa(100, 1, fecha);
+                crearTarifa(200, 2, fecha);
+                crearTarifa(300, 3, fecha);
+                crearTarifa(400, 4, fecha);
+                crearTarifa(500, 5, fecha);
+                crearTarifa(600, 6, fecha);
+                crearTarifa(700, 7, fecha);
+                crearTarifa(800, 8, fecha);
+                crearTarifa(900, 9, fecha);
+                crearTarifa(100, 10, fecha);
+                crearTarifa(200, 11, fecha);
+                crearTarifa(300, 12, fecha);
+                crearTarifa(400, 13, fecha);
+                crearTarifa(500, 14, fecha);
+                crearTarifa(600, 15, fecha);
+                crearTarifa(700, 16, fecha);
+                crearTarifa(800, 17, fecha);
+                crearTarifa(900, 18, fecha);
+                crearTarifa(400, 19, fecha);
+                crearTarifa(200, 20, fecha);
+                crearTarifa(200, 21, fecha);
+                crearTarifa(300, 22, fecha);
+                crearTarifa(400, 23, fecha);
+
+                double total = 500+100+200+300+400+500+600+700+800+900+100+200+300 + 400 + 500 + 600 + 700 + 800 + 900 + 400 + 200 + 200 + 300 + 400;
+                double media = total / 24;
+                double ta = servicio.PrecioMedioTarifasHoy();
+
+
+
+                Assert.AreEqual(ta, media);
 
 
             }

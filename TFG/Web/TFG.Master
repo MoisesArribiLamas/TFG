@@ -34,8 +34,8 @@
                         </asp:ContentPlaceHolder>
                     </li>
                     <li>
-                        <asp:HyperLink ID="lnkRates" runat="server" Display="Dynamic"
-                            meta:resourcekey="lnkRates" NavigateUrl="~/Pages/User/UserMainPage.aspx" />
+                        <asp:HyperLink ID="lnkHome" runat="server" Display="Dynamic"
+                            meta:resourcekey="lnkHome" NavigateUrl="~/Pages/User/UserMainPage.aspx" />
                     </li>
 
                     <li>
@@ -50,7 +50,7 @@
 
                     <li>
                         <asp:HyperLink ID="lnkModifyUser" runat="server" Display="Dynamic"
-                            Text="Modificar mis datos" NavigateUrl="~/Pages/User/ModifyUser.aspx" />
+                             meta:resourcekey="lnkModifyUser" Text="Modificar mis datos" NavigateUrl="~/Pages/User/ModifyUser.aspx" />
                     </li>
                     
                     <li>

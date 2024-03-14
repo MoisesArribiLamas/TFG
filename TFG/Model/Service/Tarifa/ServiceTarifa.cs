@@ -50,15 +50,48 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        #region mostrar mejor precio del dia
+
+        #region mostrar las tarifas del dia (TarifaDetails)
         [Transactional]
-        public double BuscarMejorTarifa(DateTime fecha)
+        public List<TarifaDetails> TarifasDelDia(DateTime fecha)
         {
-            return tarifaDao.PrecioMejorTarifa(fecha);
+            try
+            {
+                List<TarifaDetails> tarifasDetails = new List<TarifaDetails>();
+
+                List<Tarifa> tarifas = tarifaDao.verTarifasDelDia(fecha);
+
+                foreach (Tarifa t in tarifas)
+                {
+                    long h = t.hora;
+                    long h2 = h + 1;
+                    //string intervalo = h+":00 - " +h+1+ ":00"
+                    tarifasDetails.Add(new TarifaDetails(t.precio, h + ":00 - " + h2 + ":00"));
+                }
+                return tarifasDetails;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
         }
 
         #endregion
-        
+
+        #region mostrar mejor precio del dia
+        [Transactional]
+        public TarifaDTO BuscarMejorTarifa(DateTime fecha)
+        {
+            Tarifa t = tarifaDao.PrecioMejorTarifa(fecha);
+            TarifaDTO tarifaDto = new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha);
+            return tarifaDto;
+        }
+
+        #endregion
+
+       
+
         #region Ver las tarifas del dia ordenadas por peor precio
         [Transactional]
         public List<TarifaDTO> OrdenarMejorPrecioTarifasDelDia(DateTime fecha)
@@ -81,10 +114,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #region mostrar el peor precio del dia
         [Transactional]
-        public double BuscarpeorTarifa(DateTime fecha)
+        public TarifaDTO BuscarpeorTarifa(DateTime fecha)
         {
-
-            return tarifaDao.PrecioPeorTarifa(fecha);
+            Tarifa t = tarifaDao.PrecioPeorTarifa(fecha);
+            TarifaDTO tarifaDto = new TarifaDTO(t.tarifaId, t.precio, t.hora, t.fecha);
+            return tarifaDto;
 
         }
 
@@ -105,6 +139,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
             }
 
             return tarifaDTO;
+
+        }
+
+        #endregion
+
+        #region mostrar el precio medio del dia
+        [Transactional]
+        public double PrecioMedioTarifasHoy()
+        {
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return tarifaDao.CalcularMediaTarifasHoy(fecha);
 
         }
 
