@@ -21,7 +21,6 @@ using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
-using Es.Udc.DotNet.TFG.Model.Service.Controlador;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 

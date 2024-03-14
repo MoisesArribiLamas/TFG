@@ -152,7 +152,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
                 string span = elemento.InnerHtml;
 
                 //nos quedamos con la parte del precio
-                string p = span.Substring(0, span.IndexOf(" "));
+                string p = span.Substring(0, span.IndexOf("\n"));
                 double precio = double.Parse(p, CultureInfo.InvariantCulture); // hacemos que tome el punto sin cultura expacifica
 
                 //creamos las tarifas de forma individual

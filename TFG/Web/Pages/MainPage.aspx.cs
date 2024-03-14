@@ -12,7 +12,11 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (SessionManager.IsUserAuthenticated(Context))
+            {
+                if (lblInicioMainPage != null)
+                    lblInicioMainPage.Visible = false;
+            }
         }
     }
 }

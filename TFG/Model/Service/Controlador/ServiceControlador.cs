@@ -18,7 +18,7 @@ using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Ninject;
 
-namespace Es.Udc.DotNet.TFG.Model.Service.Controlador
+namespace Es.Udc.DotNet.TFG.Model.Service
 {
     public class ServiceControlador : IServiceControlador
     {
