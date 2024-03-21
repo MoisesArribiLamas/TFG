@@ -57,6 +57,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                  && (this.horaFin == details.horaFin);
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = 315884658;
+            hashCode = hashCode * -1521134295 + consumoId.GetHashCode();
+            hashCode = hashCode * -1521134295 + ubicacionId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(kwCargados);
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(kwSuministrados);
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(kwRed);
+            hashCode = hashCode * -1521134295 + fecha.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan>.Default.GetHashCode(horaIni);
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan?>.Default.GetHashCode(horaFin);
+            hashCode = hashCode * -1521134295 + consumoActual.GetHashCode();
+            hashCode = hashCode * -1521134295 + ubicacion.GetHashCode();
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return base.ToString();

@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta);
+        long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta, long usuarioId);
 
         #endregion
 
@@ -31,6 +31,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count);
 
+        [Transactional] // más óptimo
+        List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count);
+
+
+        [Transactional]
+        int numeroUbicacionesUsuario(long idUsuario);
         [Transactional]
         Ubicacion buscarUbicacionById(long ubicacionId);
 

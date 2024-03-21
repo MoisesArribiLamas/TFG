@@ -25,6 +25,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                    && (this.nombre == details.nombre);
         }
 
+        public override int GetHashCode()
+        {
+            return -1597784800 + EqualityComparer<string>.Default.GetHashCode(nombre);
+        }
+
         public override string ToString()
         {
             return base.ToString();

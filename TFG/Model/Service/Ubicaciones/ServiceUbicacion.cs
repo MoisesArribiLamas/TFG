@@ -35,7 +35,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region crear Ubicación
         [Transactional]
-        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta)
+        public long crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta, long usuarioId)
         {
             try
             {
@@ -56,6 +56,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 u.etiqueta = etiqueta;
                 u.bateriaSuministradora = null;
                 u.ultimoConsumo = null;
+                u.usuario = usuarioId;
 
                 ubicacionDao.Create(u);
                 return u.ubicacionId;
@@ -121,7 +122,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                 foreach (Ubicacion u in ubicaciones)
                 {
-                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero));
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
                 }
                 return ubicacionesDTO;
 
@@ -130,6 +131,40 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             {
                 return null;
             }
+        }
+
+        #endregion
+
+        #region ubicaciones del Usuario
+        [Transactional]
+        public List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count)
+        {
+            try
+            {
+                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesPertenecientesAlUsuario(idUsuario, startIndex, count);
+
+                foreach (Ubicacion u in ubicaciones)
+                {
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
+                }
+                return ubicacionesDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region ubicaciones del Usuario
+        [Transactional]
+        public int numeroUbicacionesUsuario(long idUsuario)
+        {
+            return numeroUbicacionesUsuario(idUsuario);
         }
 
         #endregion

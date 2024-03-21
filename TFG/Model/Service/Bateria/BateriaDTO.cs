@@ -62,6 +62,25 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    && (this.ratioUso == details.ratioUso);
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = -704018385;
+            hashCode = hashCode * -1521134295 + bateriaId.GetHashCode();
+            hashCode = hashCode * -1521134295 + ubicacionId.GetHashCode();
+            hashCode = hashCode * -1521134295 + usuarioId.GetHashCode();
+            hashCode = hashCode * -1521134295 + precioMedio.GetHashCode();
+            hashCode = hashCode * -1521134295 + kwHAlmacenados.GetHashCode();
+            hashCode = hashCode * -1521134295 + almacenajeMaximoKwH.GetHashCode();
+            hashCode = hashCode * -1521134295 + fechaDeAdquisicion.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(marca);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(modelo);
+            hashCode = hashCode * -1521134295 + ratioCarga.GetHashCode();
+            hashCode = hashCode * -1521134295 + ratioCompra.GetHashCode();
+            hashCode = hashCode * -1521134295 + ratioUso.GetHashCode();
+            hashCode = hashCode * -1521134295 + capacidadCargador.GetHashCode();
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return base.ToString();
