@@ -20,6 +20,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             if (!SessionManager.IsUserAuthenticated(Context))
             {
                 Response.Redirect(
@@ -30,6 +31,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
                 IServiceControlador serviceControlador = iocManager.Resolve<IServiceControlador>();
                 List<TarifaDetails> tarifasHoy = serviceControlador.TarifasDeHoy();
+
                 DateTime fecha = System.DateTime.Today;
                 string año = fecha.Year.ToString();
                 string mes = fecha.Month.ToString();
