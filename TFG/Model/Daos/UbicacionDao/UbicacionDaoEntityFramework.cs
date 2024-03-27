@@ -81,7 +81,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         }
         #endregion
 
-        #region Ubicaciones del usuario
+        #region Ubicaciones del usuario (por bateria)
         public List<Ubicacion> ubicacionesUsuario(long userId, int startIndex, int count)
         {
 
@@ -101,6 +101,37 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         }
         #endregion
 
+        #region Ubicaciones del usuario
+        public List<Ubicacion> ubicacionesPertenecientesAlUsuario(long userId, int startIndex, int count)
+        {
+            DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
+
+            var result =
+                (from u in ubicacion
+                 where u.usuario == userId
+                 select u).Distinct().OrderByDescending(u => u.ubicacionId).Skip(startIndex).Take(count).ToList();
+
+            return result;
+
+        }
+        #endregion
+
+        public int numeroUbicacionesUsuario(long userId) 
+        {
+            DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
+            DbSet<Bateria> baterias = Context.Set<Bateria>();
+            
+                int result =
+                           (from u in ubicacion
+                            where u.usuario == userId
+                            select u).Distinct().Count();
+
+
+
+                return result;
+            
+        }
+
         #region Todas las Ubicaciones 
         public List<Ubicacion> TodasLasUbicaciones()
         {
@@ -116,5 +147,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
         }
         #endregion
+
+
+        
+
     }
 }

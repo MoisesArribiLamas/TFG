@@ -30,6 +30,7 @@ namespace Es.Udc.DotNet.TFG.Model
         public string etiqueta { get; set; }
         public Nullable<long> bateriaSuministradora { get; set; }
         public Nullable<long> ultimoConsumo { get; set; }
+        public long usuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bateria> Baterias { get; set; }

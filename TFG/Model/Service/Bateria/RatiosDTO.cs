@@ -33,6 +33,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    && (this.ratioUso == details.ratioUso);
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = 658225453;
+            hashCode = hashCode * -1521134295 + ratioCarga.GetHashCode();
+            hashCode = hashCode * -1521134295 + ratioCompra.GetHashCode();
+            hashCode = hashCode * -1521134295 + ratioUso.GetHashCode();
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return base.ToString();

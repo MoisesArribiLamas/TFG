@@ -26,7 +26,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         void CrearConsumoInicial(long ubicacionId, double consumoActual);
 
         [Transactional]
-        List<TarifaDTO> TarifasDeHoy();
+        List<TarifaDetails> TarifasDeHoy();
 
     }
 }

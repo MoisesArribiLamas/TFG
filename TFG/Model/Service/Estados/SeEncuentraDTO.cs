@@ -40,6 +40,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                    && (this.estadoId == details.estadoId);
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = 465295446;
+            hashCode = hashCode * -1521134295 + seEncuentraId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan>.Default.GetHashCode(horaIni);
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan?>.Default.GetHashCode(horaFin);
+            hashCode = hashCode * -1521134295 + fecha.GetHashCode();
+            hashCode = hashCode * -1521134295 + bateriaId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<long?>.Default.GetHashCode(estadoId);
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return base.ToString();

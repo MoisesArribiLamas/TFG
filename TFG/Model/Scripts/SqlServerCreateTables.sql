@@ -82,6 +82,7 @@ CREATE TABLE Ubicacion (
 	etiqueta VARCHAR(50),
 	bateriaSuministradora BIGINT ,
 	ultimoConsumo BIGINT ,
+	usuario BIGINT NOT NULL,
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
 

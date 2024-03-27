@@ -12,6 +12,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+
             if (SessionManager.IsUserAuthenticated(Context))
             {
                 if (lblInicioMainPage != null)

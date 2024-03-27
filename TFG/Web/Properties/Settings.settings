@@ -3,10 +3,28 @@
   <Profiles />
   <Settings>
     <Setting Name="TFG_defaultCount" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">3</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="TFG_applicationURL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/TFG</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowUbicaciones_IServiceUbicacion" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Es.Udc.DotNet.TFG.Model.Service.Ubicaciones.IServiceUbicacion</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowUbicaciones_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ubicacionesPertenecientesAlUsuario</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowUbicaciones_StartIndexParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">startIndex</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowUbicaciones_CountParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">count</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowUbicaciones_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">numeroUbicacionesUsuario</Value>
+    </Setting>
+    <Setting Name="TFG_defaultStartIndex" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -42,6 +42,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                    && (this.kwH == details.kwH);
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = -1818352513;
+            hashCode = hashCode * -1521134295 + cargaId.GetHashCode();
+            hashCode = hashCode * -1521134295 + bateriaId.GetHashCode();
+            hashCode = hashCode * -1521134295 + tarifaId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan>.Default.GetHashCode(horaIni);
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan>.Default.GetHashCode(horaFin);
+            hashCode = hashCode * -1521134295 + kwH.GetHashCode();
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return base.ToString();

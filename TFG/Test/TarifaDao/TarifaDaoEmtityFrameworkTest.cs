@@ -99,7 +99,7 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
         {
 
             Tarifa t = new Tarifa();
-            t.precio = 100;
+            t.precio = 0;
             t.hora = 1;
             t.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             tarifaDao.Create(t);
@@ -111,9 +111,11 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
             t2.fecha = t.fecha;
             tarifaDao.Create(t2);
 
-            double mtarifa = tarifaDao.PrecioMejorTarifa(t2.fecha);
+            Tarifa mtarifa = tarifaDao.PrecioMejorTarifa(t2.fecha);
 
-            Assert.AreEqual(t.precio, mtarifa);
+            Assert.AreEqual(t.precio, mtarifa.precio);
+            Assert.AreEqual(t.hora, mtarifa.hora);
+            Assert.AreEqual(t.fecha, mtarifa.fecha);
         }
 
         [TestMethod()]
@@ -128,14 +130,18 @@ namespace Es.Udc.DotNet.TFG.Model.TarifaDao.Tests
 
 
             Tarifa t2 = new Tarifa();
-            t2.precio = 105;
+            t2.precio = 99999;
             t2.hora = 5;
             t2.fecha = t.fecha;
             tarifaDao.Create(t2);
 
-            double mtarifa = tarifaDao.PrecioPeorTarifa(t2.fecha);
+            Tarifa mtarifa = tarifaDao.PrecioPeorTarifa(t2.fecha);
 
-            Assert.AreEqual(t2.precio, mtarifa);
+            Assert.AreEqual(t2.precio, mtarifa.precio);
+            Assert.AreEqual(t2.hora, mtarifa.hora);
+            Assert.AreEqual(t2.fecha, mtarifa.fecha);
+
+
         }
 
         [TestMethod()]
