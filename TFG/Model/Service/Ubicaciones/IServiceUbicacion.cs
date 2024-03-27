@@ -37,6 +37,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Transactional]
         int numeroUbicacionesUsuario(long idUsuario);
+
         [Transactional]
         Ubicacion buscarUbicacionById(long ubicacionId);
 

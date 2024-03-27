@@ -294,7 +294,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 1);
 
                 var ubicacionProfile = ubicacionDao.Find(ubicacionId);
 
@@ -319,7 +319,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         {
             using (var scope = new TransactionScope())
             {
-                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                var ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 2);
 
                 // comprobamos que existe
                 var ubicacionProfile = ubicacionDao.Find(ubicacionId);
@@ -365,7 +365,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                     ubicacionDao.Find(u.ubicacionId);
 
                 // Check changes
-                Assert.AreEqual(u, obtained);
+                Assert.AreEqual(u.codigoPostal, u2.codigoPostal);
+                Assert.AreEqual(u.localidad, u2.localidad);
+                Assert.AreEqual(u.calle, u2.calle);
+                Assert.AreEqual(u.portal, u2.portal);
+                Assert.AreEqual(u.numero, u2.numero);
+                Assert.AreEqual(u.etiqueta, u2.etiqueta);
             }
         }
 
@@ -513,8 +518,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
 
 
-                UbicacionProfileDetails o1 = new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero);
-                UbicacionProfileDetails o2 = new UbicacionProfileDetails(u2.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero);
+                UbicacionProfileDetails o1 = new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta);
+                UbicacionProfileDetails o2 = new UbicacionProfileDetails(u2.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u.etiqueta);
 
 
                 //COMPROBAMOS
@@ -524,6 +529,125 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(obteined.Count, 1);
                 Assert.AreEqual(obteined2[0], o2);
                 Assert.AreEqual(obteined2.Count, 1);
+            }
+        }
+
+
+        [TestMethod()]
+        public void numeroUbicacionesUsuarioTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                //CREAMOS LOS USUARIOS
+                Usuario user = new Usuario();
+                user.nombre = "Dani";
+                user.email = "micorreo@gmail.com";
+                user.apellido1 = "Díaz";
+                user.apellido2 = "González";
+                user.contraseña = "unacontraseña";
+                user.telefono = "981123456";
+                user.pais = "España";
+                user.idioma = "es-ES";
+                usuarioDao.Create(user);
+
+                Usuario user2 = new Usuario();
+                user2.nombre = "María";
+                user2.contraseña = "nos olvidamos ups";
+                user2.email = "micorreo@gmail.com";
+                user2.apellido1 = "Pérez";
+                user2.apellido2 = "Fernández";
+                user2.telefono = "981123457";
+                user2.idioma = "es-ES";
+                user2.pais = "España";
+                usuarioDao.Create(user2);
+
+                Usuario user3 = new Usuario();
+                user3.nombre = "María";
+                user3.contraseña = "nos olvidamos ups";
+                user3.email = "micorreo@gmail.com";
+                user3.apellido1 = "Pérez";
+                user3.apellido2 = "Fernández";
+                user3.telefono = "981123457";
+                user3.idioma = "es-ES";
+                user3.pais = "España";
+                usuarioDao.Create(user3);
+
+                // CREAMOS UBICACIONES
+                Ubicacion u = new Ubicacion();
+                u.codigoPostal = 15405;
+                u.localidad = "Ferrol";
+                u.calle = "calle de Ferrol";
+                u.portal = "A";
+                u.numero = 1;
+                u.usuario = user2.usuarioId;
+                ubicacionDao.Create(u);
+
+
+                Ubicacion u2 = new Ubicacion();
+                u2.localidad = "A Coruña";
+                u2.codigoPostal = 15005;
+                u2.calle = "calle de Coruña";
+                u2.portal = "B";
+                u2.numero = 1;
+                u2.usuario = user2.usuarioId;
+
+                ubicacionDao.Create(u2);
+
+                
+
+                //CREAMOS LA BATERIA
+                Bateria b = new Bateria();
+                b.ubicacionId = u.ubicacionId;
+                b.usuarioId = user2.usuarioId;
+                b.precioMedio = 111;
+                b.kwHAlmacenados = 1000;
+                b.almacenajeMaximoKwH = 1000;
+                b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                b.marca = "MARCA 1";
+                b.modelo = "MODELO 1";
+                b.ratioCarga = 10;
+                b.ratioCompra = 10;
+                b.ratioUso = 10;
+                bateriaDao.Create(b);
+
+                // DISTINTA UBICACION Y MISMO USUARIO QUE LA B1
+                Bateria b2 = new Bateria();
+                b2.ubicacionId = u2.ubicacionId;
+                b2.usuarioId = user2.usuarioId;
+                b2.precioMedio = 222;
+                b2.kwHAlmacenados = 2000;
+                b2.almacenajeMaximoKwH = 2000;
+                b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                b2.marca = "MARCA 2";
+                b2.modelo = "MODELO 2";
+                b2.ratioCarga = 20;
+                b2.ratioCompra = 20;
+                b2.ratioUso = 20;
+                bateriaDao.Create(b2);
+
+                //MISMA UBICACION Y MISMO USUARIO QUE LA B2
+                Bateria b3 = new Bateria();
+                b3.ubicacionId = u2.ubicacionId;
+                b3.usuarioId = user2.usuarioId;
+                b3.precioMedio = 222;
+                b3.kwHAlmacenados = 2000;
+                b3.almacenajeMaximoKwH = 2000;
+                b3.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                b3.marca = "MARCA 2";
+                b3.modelo = "MODELO 2";
+                b3.ratioCarga = 20;
+                b3.ratioCompra = 20;
+                b3.ratioUso = 20;
+                bateriaDao.Create(b3);
+
+
+                //COMPROBAMOS
+                int ubicacionesU1 = ubicacionDao.numeroUbicacionesUsuario(user.usuarioId);
+                int ubicacionesU2 = ubicacionDao.numeroUbicacionesUsuario(user2.usuarioId);
+
+
+                Assert.AreEqual(ubicacionesU1, 0);
+                Assert.AreEqual(ubicacionesU2, 2);
             }
         }
 
@@ -594,7 +718,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 4);
                 
                 double consumoActual = 1000; 
                 // Fecha y hora actual
@@ -670,7 +794,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             using (var scope = new TransactionScope())
             {
 
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 5);
 
                 double consumoActual = 1000;
                 // Fecha y hora actual
@@ -716,7 +840,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 6);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -812,7 +936,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 7);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -994,7 +1118,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 8);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -1178,7 +1302,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 9);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -1352,7 +1476,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 10);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -1415,7 +1539,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 11);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -1453,7 +1577,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 13);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -1869,7 +1993,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 15);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);
@@ -1959,7 +2083,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Creamos los estados usuario y ubicacion
                 crearEstados();
                 long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta,16);
                 //Creamos Tarifa
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 crearTarifas24H(fechaActual);

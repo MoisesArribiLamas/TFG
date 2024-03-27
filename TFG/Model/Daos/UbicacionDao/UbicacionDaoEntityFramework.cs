@@ -116,15 +116,14 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         }
         #endregion
 
-        public int numeroUbicacionesUsuario(long userId)
+        public int numeroUbicacionesUsuario(long userId) 
         {
             DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
             DbSet<Bateria> baterias = Context.Set<Bateria>();
             
                 int result =
                            (from u in ubicacion
-                            join b in baterias on u.ubicacionId equals b.ubicacionId
-                            where b.usuarioId == userId
+                            where u.usuario == userId
                             select u).Distinct().Count();
 
 

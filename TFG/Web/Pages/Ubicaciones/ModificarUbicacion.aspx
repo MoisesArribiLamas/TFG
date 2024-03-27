@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CrearUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.CrearUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
     <div id="form" style="height: 342px">
@@ -86,12 +86,12 @@
  
                <div>
 
-                   <asp:Label ID="lblErrorCrearUbicacion" runat="server" ForeColor="Red" Style="position: relative"
-                            Visible="False" text="Error Al crear Ubicación" meta:resourcekey="lblErrorCrearUbicacionResource1"></asp:Label>
+                   <asp:Label ID="lblErrorModificarUbicacion" runat="server" ForeColor="Red" Style="position: relative"
+                            Visible="False" text="Error Al crear Ubicación" meta:resourcekey="lblErrorModificarUbicacionResource1"></asp:Label>
                </div>
                 <div class="button"> 
 
-            <asp:Button ID="btCrearUbicacion" runat="server" Text="Registrar" OnClick="btRegistrar_Click" meta:resourcekey="btCrearUbicacionResource1"  />
+            <asp:Button ID="btModificarUbicacion" runat="server" Text="Modificar" OnClick="btModificar_Click" meta:resourcekey="btModificarUbicacionResource1"  />
 
         </div>
         </div>

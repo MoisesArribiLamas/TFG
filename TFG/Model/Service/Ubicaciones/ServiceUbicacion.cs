@@ -164,7 +164,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         public int numeroUbicacionesUsuario(long idUsuario)
         {
-            return numeroUbicacionesUsuario(idUsuario);
+            return ubicacionDao.numeroUbicacionesUsuario(idUsuario);
         }
 
         #endregion

@@ -22,6 +22,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// Control lblUbicaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUbicaciones;
+        
+        /// <summary>
         /// Control BtnCrearUbicacion.
         /// </summary>
         /// <remarks>
@@ -29,5 +38,14 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCrearUbicacion;
+        
+        /// <summary>
+        /// Control gvUbicaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvUbicaciones;
     }
 }

@@ -25,7 +25,7 @@ namespace Es.Udc.DotNet.TFG.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int TFG_defaultCount {
             get {
                 return ((int)(this["TFG_defaultCount"]));
@@ -38,6 +38,60 @@ namespace Es.Udc.DotNet.TFG.Web.Properties {
         public string TFG_applicationURL {
             get {
                 return ((string)(this["TFG_applicationURL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.TFG.Model.Service.Ubicaciones.IServiceUbicacion")]
+        public string ObjectDS_ShowUbicaciones_IServiceUbicacion {
+            get {
+                return ((string)(this["ObjectDS_ShowUbicaciones_IServiceUbicacion"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ubicacionesPertenecientesAlUsuario")]
+        public string ObjectDS_ShowUbicaciones_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowUbicaciones_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
+        public string ObjectDS_ShowUbicaciones_StartIndexParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowUbicaciones_StartIndexParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("count")]
+        public string ObjectDS_ShowUbicaciones_CountParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowUbicaciones_CountParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("numeroUbicacionesUsuario")]
+        public string ObjectDS_ShowUbicaciones_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowUbicaciones_CountMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TFG_defaultStartIndex {
+            get {
+                return ((int)(this["TFG_defaultStartIndex"]));
             }
         }
     }

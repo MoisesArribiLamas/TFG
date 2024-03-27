@@ -10,6 +10,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
     {
         public UbicacionProfileDetails(long ubicacionId,long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta)
         {
+            this.ubicacionId = ubicacionId;
             this.codigoPostal = codigoPostal;
             this.localidad = localidad;
             this.calle = calle;

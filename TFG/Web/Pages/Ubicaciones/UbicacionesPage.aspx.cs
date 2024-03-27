@@ -25,16 +25,48 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
         {
             if (!SessionManager.IsUserAuthenticated(Context))
             {
-               // Response.Redirect(
-               //Response.ApplyAppPathModifier("~/Pages/User/LogUser.aspx"));
+                Response.Redirect(
+               Response.ApplyAppPathModifier("~/Pages/User/LogUser.aspx"));
             }
-            if (!IsPostBack)
+
+            pbpDataSource.ObjectCreating += this.PbpDataSource_ObjectCreating;
+
+            pbpDataSource.TypeName =
+                 Settings.Default.ObjectDS_ShowUbicaciones_IServiceUbicacion;
+
+            pbpDataSource.EnablePaging = true;
+
+            pbpDataSource.SelectMethod =
+                Settings.Default.ObjectDS_ShowUbicaciones_SelectMethod;
+
+            long idUser = SessionManager.GetUserSession(Context).UserProfileId;
+
+            pbpDataSource.SelectParameters.Add("idUsuario", DbType.Int64, idUser.ToString());
+
+
+            pbpDataSource.SelectCountMethod =
+                  Settings.Default.ObjectDS_ShowUbicaciones_CountMethod;
+
+            pbpDataSource.StartRowIndexParameterName =
+                    Settings.Default.ObjectDS_ShowUbicaciones_StartIndexParameter;
+
+            pbpDataSource.MaximumRowsParameterName =
+                    Settings.Default.ObjectDS_ShowUbicaciones_CountParameter;
+
+            gvUbicaciones.AllowPaging = true;
+            gvUbicaciones.PageSize = Settings.Default.TFG_defaultCount;
+
+            gvUbicaciones.DataSource = pbpDataSource;
+            gvUbicaciones.DataBind();
+
+
+
+            foreach (GridViewRow row in gvUbicaciones.Rows)
             {
 
-                
+                HyperLink link = row.Cells[1].Controls[0] as HyperLink;
 
-
-
+                link.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
                 
             }
         }
@@ -43,6 +75,42 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
         {
             Response.Redirect(Response.
                         ApplyAppPathModifier("~/Pages/Ubicaciones/CrearUbicacion.aspx"));
+        }
+
+        protected void PbpDataSource_ObjectCreating(object sender, ObjectDataSourceEventArgs e)
+        {
+            /* Get the Service */
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceUbicacion pedidoUbicacion = iocManager.Resolve<IServiceUbicacion>();
+
+            e.ObjectInstance = pedidoUbicacion;
+
+        }
+
+
+        protected void gvUbicaciones_RowCommand(Object sender, GridViewCommandEventArgs e)
+        {
+
+
+
+        }
+        protected void gvUbicacionesPageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvUbicaciones.PageIndex = e.NewPageIndex;
+            gvUbicaciones.DataBind();
+            foreach (GridViewRow row in gvUbicaciones.Rows)
+            {
+
+                HyperLink link = row.Cells[1].Controls[0] as HyperLink;
+
+                link.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
+                
+            }
+        }
+
+        protected void gvUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

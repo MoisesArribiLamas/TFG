@@ -31,13 +31,13 @@ DROP DATABASE [tfg_test]
 
 
 /* DataBase Creation */
-                                  
+								  
 DECLARE @sql nvarchar(500)
 
 SET @sql = 
   N'CREATE DATABASE [tfg_test] 
-    ON PRIMARY ( NAME = tfg_test, FILENAME = "' + @Default_DB_Path + N'tfg_test.mdf")
-    LOG ON ( NAME = tfg_test_log, FILENAME = "' + @Default_DB_Path + N'tfg_test_log.ldf")'
+	ON PRIMARY ( NAME = tfg_test, FILENAME = "' + @Default_DB_Path + N'tfg_test.mdf")
+	LOG ON ( NAME = tfg_test_log, FILENAME = "' + @Default_DB_Path + N'tfg_test_log.ldf")'
 
 EXEC(@sql)
 PRINT N'Database tfg_test creada.'
@@ -109,6 +109,8 @@ CREATE TABLE Ubicacion (
 	etiqueta VARCHAR(50),
 	bateriaSuministradora BIGINT ,
 	ultimoConsumo BIGINT ,
+	usuario BIGINT NOT NULL,
+
 
 	CONSTRAINT [PK_UBICACION] PRIMARY KEY (ubicacionId),
 
