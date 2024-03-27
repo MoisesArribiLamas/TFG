@@ -18,6 +18,10 @@ namespace Es.Udc.DotNet.TFG.Web
                     lblWelcome.Visible = false;
                 if (lnkHome != null)
                     lnkHome.Visible = false;
+                if (lnkUbicaciones != null)
+                    lnkUbicaciones.Visible = false;
+                if (lnkBaterias != null)
+                    lnkBaterias.Visible = false;
                 if (lnkLogout != null)
                     lnkLogout.Visible = false;
                 if (lnkModifyUser != null)

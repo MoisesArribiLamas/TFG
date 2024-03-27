@@ -58,6 +58,24 @@ namespace Es.Udc.DotNet.TFG.Web {
         protected global::System.Web.UI.WebControls.HyperLink lnkHome;
         
         /// <summary>
+        /// Control lnkUbicaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkUbicaciones;
+        
+        /// <summary>
+        /// Control lnkBaterias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkBaterias;
+        
+        /// <summary>
         /// Control lnkCreateAccount.
         /// </summary>
         /// <remarks>

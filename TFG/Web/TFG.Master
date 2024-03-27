@@ -39,6 +39,16 @@
                     </li>
 
                     <li>
+                        <asp:HyperLink ID="lnkUbicaciones" runat="server" Display="Dynamic"
+                            meta:resourcekey="lnkUbicaciones" NavigateUrl="~/Pages/Ubicaciones/UbicacionesPage.aspx" />
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkBaterias" runat="server" Display="Dynamic"
+                            meta:resourcekey="lnkBaterias" NavigateUrl="~/Pages/User/UserMainPage.aspx" />
+                    </li>
+
+                    <li>
                         <asp:HyperLink ID="lnkCreateAccount" runat="server" Display="Dynamic"
                             meta:resourcekey="lnkCreateAccount" NavigateUrl="~/Pages/User/CreateAccount.aspx" />
                     </li>
@@ -55,7 +65,7 @@
                     
                     <li>
                         <asp:HyperLink ID="lnkLogout" runat="server" Display="Dynamic"
-                            Text="Logout" NavigateUrl="~/Pages/User/Logout.aspx" />
+                            meta:resourcekey="lnkLogout" Text="Logout" NavigateUrl="~/Pages/User/Logout.aspx" />
                     </li>
                 </ul>
             </div>
