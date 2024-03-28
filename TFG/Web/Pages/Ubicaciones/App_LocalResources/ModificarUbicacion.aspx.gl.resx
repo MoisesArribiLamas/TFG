@@ -117,70 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxApellidosModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value>Write Surname If you want to change.</value>
+  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
+    <value>Etiqueta</value>
   </data>
-  <data name="BoxTelefonoModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value>Write number Phone If you want to change.</value>
-  </data>
-  <data name="BoxNombreModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value>Write Name If you want to change.</value>
-  </data>
-  <data name="BoxUserMailModifyUserResource1.ToolTip" xml:space="preserve">
-    <value>Write Email If you want to change.</value>
-  </data>
-  <data name="btModificarModifyUserResource1.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="btModificarModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ListaIdiomasModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ListaPaisesModModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lnkChangePasswordModifyUserResource1.Text" xml:space="preserve">
-    <value>Change my password</value>
-  </data>
-  <data name="lnkChangePasswordModifyUserResource1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Localize1ModifyUserResource1.Text" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="Localize3ModifyUserResource1.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Localize4ModifyUserResource1.Text" xml:space="preserve">
-    <value>Surname</value>
-  </data>
-  <data name="Localize5ModifyUserResource1.Text" xml:space="preserve">
-    <value>Phone</value>
-  </data>
-  <data name="Localize6ModifyUserResource1.Text" xml:space="preserve">
-    <value>Country</value>
-  </data>
-  <data name="Localize7ModifyUserResource1.Text" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="PageResource1.Title" xml:space="preserve">
+  <data name="PageResource2.Title1" xml:space="preserve">
     <value>TFG</value>
   </data>
-  <data name="RegularExpressionValidator1Resource1.ErrorMessage" xml:space="preserve">
-    <value>Only Numbers allowed</value>
+  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Crear</value>
   </data>
-  <data name="RegularExpressionValidator1Resource1.Text" xml:space="preserve">
+  <data name="btRegistrarCreateUbicacionResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="RegularExpressionValidator1Resource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="Localize1CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Nome ou etiqueta pola que se coñerá a ubicación.</value>
   </data>
-  <data name="BoxApellidosModModifyUserResource2.ToolTip" xml:space="preserve">
-    <value>Write Second Surname If you want to change.</value>
+  <data name="Localize2CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Localidade</value>
   </data>
-  <data name="Localize4ModifyUserResource2.Text" xml:space="preserve">
-    <value>Second Surname</value>
+  <data name="Localize2CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Cidade na que atopase a Ubicación.</value>
+  </data>
+  <data name="Localize3CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Rúa</value>
+  </data>
+  <data name="Localize3CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Nome da rúa na que atópase a Ubicación.</value>
+  </data>
+  <data name="Localize4CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="Localize4CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Número da rúa na que atopase a Ubicación.</value>
+  </data>
+  <data name="Localize5CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Portal</value>
+  </data>
+  <data name="Localize5CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>No caso de que atopense varios portalis, por o portal correspondente</value>
+  </data>
+  <data name="Localize8CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Código Postal</value>
   </data>
 </root>
