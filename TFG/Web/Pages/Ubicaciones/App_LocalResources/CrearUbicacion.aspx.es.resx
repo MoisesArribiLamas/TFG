@@ -117,55 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
+    <value>Etiqueta</value>
   </data>
-  <data name="lblWelcome.ToolTip" xml:space="preserve">
-    <value>Welcome to our system.</value>
+  <data name="PageResource2.Title1" xml:space="preserve">
+    <value>TFG</value>
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Maked by Moisés Arribí Lamas and Tutored by Marcos Gestal Pose.</value>
+  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Crear</value>
   </data>
-  <data name="lnkBaterias.Text" xml:space="preserve">
-    <value>Batteries</value>
+  <data name="btRegistrarCreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lnkBaterias.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Batteries.</value>
+  <data name="Localize1CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Nombre o etiqueta por la cual se conocerá a la ubicacion.</value>
   </data>
-  <data name="lnkCreateAccount.Text" xml:space="preserve">
-    <value>Create account</value>
+  <data name="Localize2CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Localidad</value>
   </data>
-  <data name="lnkCreateAccount.ToolTip" xml:space="preserve">
-    <value>Tap if you want to create an account.</value>
+  <data name="Localize2CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Ciudad en la que se encuentra la Ubicación.</value>
   </data>
-  <data name="lnkHome.Text" xml:space="preserve">
-    <value>Today's Rates</value>
+  <data name="Localize3CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Calle</value>
   </data>
-  <data name="lnkHome.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Today's Rates</value>
+  <data name="Localize3CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Nombre de la calle en la que se encuentra la Ubicación.</value>
   </data>
-  <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Log out</value>
+  <data name="Localize4CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Numero</value>
   </data>
-  <data name="lnkLogout.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Log out.</value>
+  <data name="Localize4CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>Número de la calle en la que se encuentra la Ubicación.</value>
   </data>
-  <data name="lnkLogUser.Text" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="Localize5CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Portal</value>
   </data>
-  <data name="lnkLogUser.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Sign in</value>
+  <data name="Localize5CreateUbicacionResource1.ToolTip" xml:space="preserve">
+    <value>En caso de que existan varios portales, poner el portal correspondiente</value>
   </data>
-  <data name="lnkModifyUser.Text" xml:space="preserve">
-    <value>Modify my details</value>
-  </data>
-  <data name="lnkModifyUser.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to modify my details.</value>
-  </data>
-  <data name="lnkUbicaciones.Text" xml:space="preserve">
-    <value>Locations</value>
-  </data>
-  <data name="lnkUbicaciones.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Locations.</value>
+  <data name="Localize8CreateUbicacionResource1.Text" xml:space="preserve">
+    <value>Código Postal</value>
   </data>
 </root>

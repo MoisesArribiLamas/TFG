@@ -118,54 +118,54 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Welcome</value>
+    <value>BENVID@ </value>
   </data>
   <data name="lblWelcome.ToolTip" xml:space="preserve">
-    <value>Welcome to our system.</value>
+    <value>Damoslle a bemvida ó noso sistema.</value>
   </data>
   <data name="lclFooter.Text" xml:space="preserve">
-    <value>Maked by Moisés Arribí Lamas and Tutored by Marcos Gestal Pose.</value>
+    <value>Realizado por Moisés Arribí Lamas  e  Tutorizado por Marcos Gestal Pose</value>
   </data>
   <data name="lnkBaterias.Text" xml:space="preserve">
-    <value>Batteries</value>
+    <value>Baterias</value>
   </data>
   <data name="lnkBaterias.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Batteries.</value>
+    <value>Prema pra xestionar as baterías.</value>
   </data>
   <data name="lnkCreateAccount.Text" xml:space="preserve">
-    <value>Create account</value>
+    <value>Crear conta</value>
   </data>
   <data name="lnkCreateAccount.ToolTip" xml:space="preserve">
-    <value>Tap if you want to create an account.</value>
+    <value>Preme se desexa crear unha conta</value>
   </data>
   <data name="lnkHome.Text" xml:space="preserve">
-    <value>Today's Rates</value>
+    <value>Tarifas de Hoxe</value>
   </data>
   <data name="lnkHome.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Today's Rates</value>
+    <value>Preme se desexa ver as Tarifas.</value>
   </data>
   <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Log out</value>
+    <value>Saír</value>
   </data>
   <data name="lnkLogout.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Log out.</value>
+    <value>Prema se desexa saír.</value>
   </data>
   <data name="lnkLogUser.Text" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Iniciar sesión</value>
   </data>
   <data name="lnkLogUser.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Sign in</value>
+    <value>Preme se desexa iniciar sesion</value>
   </data>
   <data name="lnkModifyUser.Text" xml:space="preserve">
-    <value>Modify my details</value>
+    <value>Trocar ós meus datos persoáis</value>
   </data>
   <data name="lnkModifyUser.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to modify my details.</value>
+    <value>Prema se desexa trocar os seus datos personáis.</value>
   </data>
   <data name="lnkUbicaciones.Text" xml:space="preserve">
-    <value>Locations</value>
+    <value>Ubicacions</value>
   </data>
   <data name="lnkUbicaciones.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Locations.</value>
+    <value>Prema pra xestionar as ubicacions.</value>
   </data>
 </root>

@@ -73,7 +73,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
 
                     serviceUbicacion.modificarUbicacion(idUbicacion, Convert.ToInt64(BoxCodigoPostalCrearUbicacion.Text), BoxLocalidadCrearUbicacion.Text, BoxCalleCrearUbicacion.Text, BoxPortalCrearUbicacion.Text, Convert.ToInt64(BoxNumeroCrearUbicacion.Text), BoxEtiquetaCrearUbicacion.Text);
-                                              //        (long ubicacionId, long? codigoPostal, string localidad, string calle, string portal, long? numero, string etiqueta);
 
                     Response.Redirect(Response.
                         ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));

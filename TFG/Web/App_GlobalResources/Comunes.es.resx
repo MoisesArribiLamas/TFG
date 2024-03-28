@@ -117,55 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="campoObligatorio" xml:space="preserve">
+    <value>Campo obligatorio</value>
   </data>
-  <data name="lblWelcome.ToolTip" xml:space="preserve">
-    <value>Welcome to our system.</value>
+  <data name="Next" xml:space="preserve">
+    <value>Siguiente</value>
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Maked by Moisés Arribí Lamas and Tutored by Marcos Gestal Pose.</value>
-  </data>
-  <data name="lnkBaterias.Text" xml:space="preserve">
-    <value>Batteries</value>
-  </data>
-  <data name="lnkBaterias.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Batteries.</value>
-  </data>
-  <data name="lnkCreateAccount.Text" xml:space="preserve">
-    <value>Create account</value>
-  </data>
-  <data name="lnkCreateAccount.ToolTip" xml:space="preserve">
-    <value>Tap if you want to create an account.</value>
-  </data>
-  <data name="lnkHome.Text" xml:space="preserve">
-    <value>Today's Rates</value>
-  </data>
-  <data name="lnkHome.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Today's Rates</value>
-  </data>
-  <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Log out</value>
-  </data>
-  <data name="lnkLogout.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Log out.</value>
-  </data>
-  <data name="lnkLogUser.Text" xml:space="preserve">
-    <value>Sign in</value>
-  </data>
-  <data name="lnkLogUser.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Sign in</value>
-  </data>
-  <data name="lnkModifyUser.Text" xml:space="preserve">
-    <value>Modify my details</value>
-  </data>
-  <data name="lnkModifyUser.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to modify my details.</value>
-  </data>
-  <data name="lnkUbicaciones.Text" xml:space="preserve">
-    <value>Locations</value>
-  </data>
-  <data name="lnkUbicaciones.ToolTip" xml:space="preserve">
-    <value>Tap if you want to go to Locations.</value>
+  <data name="Previous" xml:space="preserve">
+    <value>Antrior</value>
   </data>
 </root>
