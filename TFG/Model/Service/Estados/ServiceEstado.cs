@@ -28,6 +28,26 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         //[Inject]
         //public IServiceBateria servicioBateria { private get; set; }
 
+        [Transactional]
+        public void CrearTodosLosEstados()
+        {
+            Estado estado = new Estado();
+            estado.nombre = "sin actividad";
+            estadoDao.Create(estado);
+
+            Estado estado2 = new Estado();
+            estado2.nombre = "cargando";
+            estadoDao.Create(estado2);
+
+            Estado estado3 = new Estado();
+            estado3.nombre = "suministrando";
+            estadoDao.Create(estado3);
+
+            Estado estado4 = new Estado();
+            estado4.nombre = "carga y suministra";
+            estadoDao.Create(estado4);
+
+        }
 
         [Transactional]
         public long CrearEstadoBateria(TimeSpan horaIni, DateTime fecha, long bateriaId, long estadoId)

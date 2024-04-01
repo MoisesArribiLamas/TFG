@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional] // más óptimo
         List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count);
 
+        [Transactional]
+        List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion, int startIndex, int count);
 
         [Transactional]
         int numeroUbicacionesUsuario(long idUsuario);

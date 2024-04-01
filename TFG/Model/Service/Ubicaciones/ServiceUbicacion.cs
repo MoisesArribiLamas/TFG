@@ -160,6 +160,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion
 
+        #region Baterias de la ubicacion
+        [Transactional]
+        public List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion, int startIndex, int count)
+        {
+
+            List<BateriaDTO> ubicacionesDTO = new List<BateriaDTO>();
+
+            List<Bateria> ubicaciones = ubicacionDao.bateriasDeUnaUbicacion(idUbicacion, startIndex, count);
+
+            foreach (Bateria u in ubicaciones)
+            {
+                ubicacionesDTO.Add(new BateriaDTO( u.bateriaId, u.ubicacionId, u.usuarioId, u.precioMedio, u.kwHAlmacenados, u.almacenajeMaximoKwH,
+                u.fechaDeAdquisicion, u.marca, u.modelo, u.ratioCarga, u.ratioCompra, u.ratioUso, u.capacidadCargador));
+            } 
+            return ubicacionesDTO;
+
+
+        }
+
+        #endregion
+
         #region ubicaciones del Usuario
         [Transactional]
         public int numeroUbicacionesUsuario(long idUsuario)
