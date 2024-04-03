@@ -31,6 +31,7 @@ namespace Es.Udc.DotNet.TFG.Model
         public System.DateTime fechaDeAdquisicion { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
+        public string nSerie { get; set; }
         public double ratioCarga { get; set; }
         public double ratioCompra { get; set; }
         public double ratioUso { get; set; }

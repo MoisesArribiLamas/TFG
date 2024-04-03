@@ -162,12 +162,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #region Baterias de la ubicacion
         [Transactional]
-        public List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion, int startIndex, int count)
+        public List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion)
         {
 
             List<BateriaDTO> ubicacionesDTO = new List<BateriaDTO>();
 
-            List<Bateria> ubicaciones = ubicacionDao.bateriasDeUnaUbicacion(idUbicacion, startIndex, count);
+            List<Bateria> ubicaciones = ubicacionDao.bateriasDeUnaUbicacion(idUbicacion);
 
             foreach (Bateria u in ubicaciones)
             {

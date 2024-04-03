@@ -127,6 +127,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioCompra = 10 ;
             b.ratioUso = 10;
             b.capacidadCargador = 10;
+            b.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -142,6 +143,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioCompra = 20;
             b2.ratioUso = 20;
             b2.capacidadCargador = 10;
+            b2.nSerie = "HDOSN24JSDC62";
             bateriaDao.Create(b2);
 
 

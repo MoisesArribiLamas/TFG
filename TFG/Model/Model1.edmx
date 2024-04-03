@@ -18,6 +18,7 @@
           <Property Name="fechaDeAdquisicion" Type="datetime" Nullable="false" />
           <Property Name="marca" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="modelo" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="nSerie" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="ratioCarga" Type="float" Nullable="false" />
           <Property Name="ratioCompra" Type="float" Nullable="false" />
           <Property Name="ratioUso" Type="float" Nullable="false" />
@@ -308,6 +309,7 @@
           <Property Name="fechaDeAdquisicion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="marca" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="modelo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nSerie" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ratioCarga" Type="Double" Nullable="false" />
           <Property Name="ratioCompra" Type="Double" Nullable="false" />
           <Property Name="ratioUso" Type="Double" Nullable="false" />
@@ -616,6 +618,7 @@
                 <ScalarProperty Name="fechaDeAdquisicion" ColumnName="fechaDeAdquisicion" />
                 <ScalarProperty Name="marca" ColumnName="marca" />
                 <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="nSerie" ColumnName="nSerie" />
                 <ScalarProperty Name="ratioCarga" ColumnName="ratioCarga" />
                 <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
                 <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />

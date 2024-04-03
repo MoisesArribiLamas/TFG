@@ -17,7 +17,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
         List<Ubicacion> ubicacionesPertenecientesAlUsuario(long userId, int startIndex, int count);// más óptimo
 
-        List<Bateria> bateriasDeUnaUbicacion(long ubicacionId, int startIndex, int count);
+        List<Bateria> bateriasDeUnaUbicacion(long ubicacionId);
 
         int numeroUbicacionesUsuario(long userId);
 

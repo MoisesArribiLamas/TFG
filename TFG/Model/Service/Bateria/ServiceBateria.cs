@@ -843,7 +843,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
+            DateTime fechaDeAdquisicion, string marca, string modelo, string nSerie, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
         {
 
 
@@ -856,6 +856,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             b.fechaDeAdquisicion = fechaDeAdquisicion;
             b.marca = marca;
             b.modelo = modelo;
+            b.nSerie = nSerie;
             b.ratioCarga = ratioCarga;
             b.ratioCompra = ratioCompra;
             b.ratioUso = ratioUso;

@@ -117,14 +117,14 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         #endregion
 
         #region Ubicaciones del usuario
-        public List<Bateria> bateriasDeUnaUbicacion(long ubicacionId, int startIndex, int count)
+        public List<Bateria> bateriasDeUnaUbicacion(long ubicacionId)
         {
             DbSet<Bateria> baterias = Context.Set<Bateria>();
 
             var result =
                 (from b in baterias
                  where b.ubicacionId == ubicacionId
-                 select b).Distinct().OrderByDescending(b => b.ubicacionId).Skip(startIndex).Take(count).ToList();
+                 select b).Distinct().OrderByDescending(b => b.ubicacionId).ToList();
 
             return result;
 

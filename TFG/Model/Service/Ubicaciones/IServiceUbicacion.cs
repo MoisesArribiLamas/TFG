@@ -36,7 +36,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count);
 
         [Transactional]
-        List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion, int startIndex, int count);
+        List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion);
 
         [Transactional]
         int numeroUbicacionesUsuario(long idUsuario);

@@ -113,6 +113,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ratioCarga = 10 ;
             b.ratioCompra = 10 ;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b);
 
             //CREAMOS LA TARIFA
@@ -190,6 +191,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC61";
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -204,6 +206,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ratioCarga = 10;
             b2.ratioCompra = 10;
             b2.ratioUso = 10;
+            b2.nSerie = "HDOSN24JSDC62";
             bateriaDao.Create(b2);
 
             //CREAMOS LAS TARIFAS
@@ -323,6 +326,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -337,6 +341,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ratioCarga = 10;
             b2.ratioCompra = 10;
             b2.ratioUso = 10;
+            b2.nSerie = "HDOSN24JSDC62";
             bateriaDao.Create(b2);
 
             //CREAMOS LAS TARIFAS
@@ -447,6 +452,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC61";
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -461,6 +467,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ratioCarga = 10;
             b2.ratioCompra = 10;
             b2.ratioUso = 10;
+            b2.nSerie = "HDOSN24JSDC62";
             bateriaDao.Create(b2);
 
             //CREAMOS LAS TARIFAS
@@ -584,6 +591,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC61";
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -598,6 +606,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b2.ratioCarga = 10;
             b2.ratioCompra = 10;
             b2.ratioUso = 10;
+            b2.nSerie = "HDOSN24JSDC62";
             bateriaDao.Create(b2);
 
             Bateria b3 = new Bateria();
@@ -612,6 +621,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             b3.ratioCarga = 10;
             b3.ratioCompra = 10;
             b3.ratioUso = 10;
+            b3.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b3);
 
             //CREAMOS LAS TARIFAS
