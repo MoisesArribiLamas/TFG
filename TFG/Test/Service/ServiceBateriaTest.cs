@@ -463,7 +463,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
-        public void MostrarBateriasUsuarioTest()
+        public void MostrarBateriasUsuarioYnumeroBateriasUsuarioTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -501,6 +501,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 List<BateriaDTO> bateriasUsuario = servicio.VerBateriasUsuario(usuarioId, 0, 3);
                 List<BateriaDTO> bateriasUsuario2 = servicio.VerBateriasUsuario(usuarioId2, 0, 3);
 
+                int numeroBateriasUsuario = servicio.numeroBateriasUsuario(usuarioId);
+                int numeroBateriasUsuario2 = servicio.numeroBateriasUsuario(usuarioId2);
+
 
                 //Comprobamos los cambios
 
@@ -510,6 +513,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(bateriaId3, bateriasUsuario[2].bateriaId);
 
                 Assert.AreEqual(bateriaId4, bateriasUsuario2[0].bateriaId);
+
+                Assert.AreEqual(numeroBateriasUsuario, 3);
+                Assert.AreEqual(numeroBateriasUsuario2, 1);
 
             }
         }

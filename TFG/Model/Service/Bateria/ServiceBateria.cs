@@ -921,6 +921,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
+        #region Numero de baterias del Usuario
+        [Transactional]
+        public int numeroBateriasUsuario(long idUsuario)
+        {
+
+            return bateriaDao.counterBateriaByUser(idUsuario);
+
+        }
+
+        #endregion
+
         #region Buscar Bateria por ID
 
         [Transactional]

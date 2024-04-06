@@ -54,6 +54,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count);
 
         [Transactional]
+        int numeroBateriasUsuario(long idUsuario);
+
+        [Transactional]
         Bateria BuscarBateriaById(long bateriaId);
 
         [Transactional]
