@@ -1,4 +1,6 @@
-﻿using Es.Udc.DotNet.TFG.Web.HTTP.Session;
+﻿using Es.Udc.DotNet.ModelUtil.IoC;
+using Es.Udc.DotNet.TFG.Model.Service.Estados;
+using Es.Udc.DotNet.TFG.Web.HTTP.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             {
                 if (lblInicioMainPage != null)
                     lblInicioMainPage.Visible = false;
+            }
+
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceEstado serviceEstado = iocManager.Resolve<IServiceEstado>();
+
+            if (!serviceEstado.hayEstados())
+            {
+                serviceEstado.CrearTodosLosEstados();
+
             }
         }
     }

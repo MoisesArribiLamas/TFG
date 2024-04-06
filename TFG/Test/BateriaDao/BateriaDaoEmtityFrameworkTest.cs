@@ -127,6 +127,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioCompra = 10 ;
             b.ratioUso = 10;
             b.capacidadCargador = 10;
+            b.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -142,6 +143,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioCompra = 20;
             b2.ratioUso = 20;
             b2.capacidadCargador = 10;
+            b2.nSerie = "HDOSN24JSDC62";
             bateriaDao.Create(b2);
 
 
@@ -167,8 +169,99 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
 
         }
 
-
+        // long getBateriaIdByNSerie(string nserie);
         //----------------------------------------------------------
+
+        [TestMethod()]
+        public void getBateriaIdByNSerieTest()
+        {
+            // CREAMOS UBICACIONES
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15405;
+            u.localidad = "Ferrol";
+            u.calle = "calle de Ferrol";
+            u.portal = "A";
+            u.numero = 1;
+            ubicacionDao.Create(u);
+
+
+            Ubicacion u2 = new Ubicacion();
+
+            u2.localidad = "A Coruña";
+            u2.codigoPostal = 15005;
+            u2.calle = "calle de Coruña";
+            u2.portal = "B";
+            u2.numero = 1;
+            ubicacionDao.Create(u2);
+
+            //CREAMOS LOS USUARIOS
+            Usuario user = new Usuario();
+            user.nombre = "Dani";
+            user.email = "micorreo@gmail.com";
+            user.apellido1 = "Díaz";
+            user.apellido2 = "González";
+            user.contraseña = "unacontraseña";
+            user.telefono = "981123456";
+            user.pais = "España";
+            user.idioma = "es-ES";
+            usuarioDao.Create(user);
+
+            Usuario user2 = new Usuario();
+            user2.usuarioId = user.usuarioId;
+            user2.nombre = "María";
+            user2.contraseña = "nos olvidamos ups";
+            user2.email = "micorreo@gmail.com";
+            user2.apellido1 = "Pérez";
+            user2.apellido2 = "Fernández";
+            user2.telefono = "981123457";
+            user2.idioma = "es-ES";
+            user2.pais = "España";
+            usuarioDao.Create(user2);
+
+            //CREAMOS LA BATERIA
+            Bateria b = new Bateria();
+            b.ubicacionId = u.ubicacionId;
+            b.usuarioId = user.usuarioId;
+            b.precioMedio = 111;
+            b.kwHAlmacenados = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b.marca = "MARCA 1";
+            b.modelo = "MODELO 1";
+            b.ratioCarga = 10;
+            b.ratioCompra = 10;
+            b.ratioUso = 10;
+            b.capacidadCargador = 10;
+            b.nSerie = "HDOSN24JSDC63";
+            bateriaDao.Create(b);
+
+            Bateria b2 = new Bateria();
+            b2.ubicacionId = u2.ubicacionId;
+            b2.usuarioId = user2.usuarioId;
+            b2.precioMedio = 222;
+            b2.kwHAlmacenados = 2000;
+            b2.almacenajeMaximoKwH = 2000;
+            b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b2.marca = "MARCA 2";
+            b2.modelo = "MODELO 2";
+            b2.ratioCarga = 20;
+            b2.ratioCompra = 20;
+            b2.ratioUso = 20;
+            b2.capacidadCargador = 10;
+            b2.nSerie = "HDOSN24JSDC62";
+            bateriaDao.Create(b2);
+
+
+
+            //COMPROBAMOS
+            long id1 = bateriaDao.getBateriaIdByNSerie(b.nSerie);
+            long id2 = bateriaDao.getBateriaIdByNSerie(b2.nSerie);
+
+            Assert.AreEqual(id1, b.bateriaId);
+            Assert.AreEqual(id2, b2.bateriaId);
+
+
+        }
 
         public void findBateriaByUserTest()
         {

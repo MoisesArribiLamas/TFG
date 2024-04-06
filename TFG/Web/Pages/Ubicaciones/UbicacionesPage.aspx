@@ -1,16 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UbicacionesPage.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones.UbicacionesPage"MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource2" uiculture="auto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UbicacionesPage.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones.UbicacionesPage"MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     
     <form id="form1" runat="server">
     
-        <asp:Label ID="lblUbicaciones" runat="server" Text="Ubicaciones"  Display="Dynamic" Font-Size="Large"></asp:Label>
+        <asp:Label ID="lblUbicaciones" runat="server" Text="Ubicaciones"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblUbicacionesTitulo"></asp:Label>
 
         
         <br/>
         
         <div class="button"> 
-            <asp:Button ID="BtnCrearUbicacion" runat="server" OnClick="Button1_Click" Text="Crear Ubicación" Width="130px" Height="35px" />
+            <asp:Button ID="BtnCrearUbicacion" runat="server" OnClick="Button1_Click" Text="Crear Ubicación" Width="130px" Height="35px" meta:resourcekey="lblUbicacionesBoton"/>
         </div>
           
         <br/>

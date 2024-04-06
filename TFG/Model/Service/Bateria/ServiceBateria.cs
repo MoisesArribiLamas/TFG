@@ -843,7 +843,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         public long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
+            DateTime fechaDeAdquisicion, string marca, string modelo, string nSerie, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
         {
 
 
@@ -856,6 +856,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             b.fechaDeAdquisicion = fechaDeAdquisicion;
             b.marca = marca;
             b.modelo = modelo;
+            b.nSerie = nSerie;
             b.ratioCarga = ratioCarga;
             b.ratioCompra = ratioCompra;
             b.ratioUso = ratioUso;
@@ -906,7 +907,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 foreach (Bateria b in baterias)
                 {
                     bateriasDTO.Add(new BateriaDTO(b.bateriaId, b.ubicacionId, b.usuarioId, b.precioMedio, b.kwHAlmacenados,
-                b.almacenajeMaximoKwH, b.fechaDeAdquisicion, b.marca, b.modelo, b.ratioCarga,
+                b.almacenajeMaximoKwH, b.fechaDeAdquisicion, b.marca, b.modelo, b.nSerie, b.ratioCarga,
                 b.ratioCompra, b.ratioUso, b.capacidadCargador));
                 }
                 return bateriasDTO;
@@ -930,6 +931,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             
         }
         #endregion Buscar por ID
+
+        #region Buscar BateriaID por Numero Serie
+
+        [Transactional]
+        public long getBateriaIdByNSerie(string nserie)
+        {
+
+            return bateriaDao.getBateriaIdByNSerie( nserie);
+
+        }
+        #endregion 
 
         #region Eliminar Bateria
         [Transactional]

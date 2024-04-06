@@ -258,6 +258,30 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
         }
 
         [TestMethod()]
+        public void UltimoConsumoUbicacionSinConsumoTest()
+        {
+            // Creamos Ubicacion
+            long codigoPostal = 15000;
+            string localidad = "Coruña";
+            string calle = "San Juan";
+            string portal = "";
+            long numero = 100;
+            string etiqueta = "bichito";
+            long bateriaSuministradora = 1;
+
+            Ubicacion u = crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, bateriaSuministradora);
+
+            long ubicacionId = u.ubicacionId;
+
+            
+            //COMPROBAMOS   
+            Consumo consumoResult = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+            Assert.AreEqual(consumoResult, null);
+
+        }
+
+        [TestMethod()]
         public void ConsumoUbicacionActualTest()
         {
             // Creamos Ubicacion

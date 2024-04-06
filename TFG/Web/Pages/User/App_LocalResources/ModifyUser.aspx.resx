@@ -130,7 +130,7 @@
     <value>Write Email If you want to change.</value>
   </data>
   <data name="btModificarModifyUserResource1.Text" xml:space="preserve">
-    <value>Modificar</value>
+    <value>Change</value>
   </data>
   <data name="btModificarModifyUserResource1.ToolTip" xml:space="preserve">
     <value />

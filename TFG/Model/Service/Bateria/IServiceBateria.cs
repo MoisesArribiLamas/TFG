@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         long CrearBateria(long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
+            DateTime fechaDeAdquisicion, string marca, string modelo, string nSerie, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
 
         [Transactional]
         double capacidadDelCargador(long bateriaId);
@@ -56,6 +56,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         [Transactional]
         Bateria BuscarBateriaById(long bateriaId);
 
+        [Transactional]
+        long getBateriaIdByNSerie(string nserie);
 
         [Transactional]
         void EliminarBateria(long bateriaId);

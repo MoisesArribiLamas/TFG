@@ -9,7 +9,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
     public class BateriaDTO
     {
         public BateriaDTO(long bateriaId, long ubicacionId, long usuarioId, double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH, 
-            DateTime fechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
+            DateTime fechaDeAdquisicion, string marca, string modelo, string nSerie, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador)
         {
             this.bateriaId = bateriaId;
             this.ubicacionId = ubicacionId;
@@ -20,6 +20,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             this.fechaDeAdquisicion = fechaDeAdquisicion;
             this.marca = marca;
             this.modelo = modelo;
+            this.nSerie = nSerie;
             this.ratioCarga = ratioCarga;
             this.ratioCompra = ratioCompra;
             this.ratioUso = ratioUso;
@@ -38,6 +39,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         public string marca { get; set; }
         public string modelo { get; set; }
 
+        public string nSerie { get; set; }
+
         public double ratioCarga { get; private set; }
 
         public double ratioCompra { get; private set; }
@@ -46,25 +49,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         public override bool Equals(object obj)
         {
-            var details = obj as BateriaDTO;
-            return details != null &&
-                   bateriaId == details.bateriaId &&
-                   ubicacionId == details.ubicacionId &&
-                   usuarioId == details.usuarioId &&
-                   precioMedio == details.precioMedio
-                   && (this.kwHAlmacenados == details.kwHAlmacenados)
-                   && (this.almacenajeMaximoKwH == details.almacenajeMaximoKwH)
-                   && (this.fechaDeAdquisicion == details.fechaDeAdquisicion)
-                   && (this.marca == details.marca)
-                   && (this.modelo == details.modelo)
-                   && (this.ratioCarga == details.ratioCarga)
-                   && (this.ratioCompra == details.ratioCompra)
-                   && (this.ratioUso == details.ratioUso);
+            var dTO = obj as BateriaDTO;
+            return dTO != null &&
+                   bateriaId == dTO.bateriaId &&
+                   ubicacionId == dTO.ubicacionId &&
+                   usuarioId == dTO.usuarioId &&
+                   precioMedio == dTO.precioMedio &&
+                   kwHAlmacenados == dTO.kwHAlmacenados &&
+                   almacenajeMaximoKwH == dTO.almacenajeMaximoKwH &&
+                   fechaDeAdquisicion == dTO.fechaDeAdquisicion &&
+                   marca == dTO.marca &&
+                   modelo == dTO.modelo &&
+                   nSerie == dTO.nSerie &&
+                   ratioCarga == dTO.ratioCarga &&
+                   ratioCompra == dTO.ratioCompra &&
+                   ratioUso == dTO.ratioUso &&
+                   capacidadCargador == dTO.capacidadCargador;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = -704018385;
+            var hashCode = -745843626;
             hashCode = hashCode * -1521134295 + bateriaId.GetHashCode();
             hashCode = hashCode * -1521134295 + ubicacionId.GetHashCode();
             hashCode = hashCode * -1521134295 + usuarioId.GetHashCode();
@@ -74,6 +79,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             hashCode = hashCode * -1521134295 + fechaDeAdquisicion.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(marca);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(modelo);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(nSerie);
             hashCode = hashCode * -1521134295 + ratioCarga.GetHashCode();
             hashCode = hashCode * -1521134295 + ratioCompra.GetHashCode();
             hashCode = hashCode * -1521134295 + ratioUso.GetHashCode();

@@ -183,6 +183,7 @@ CREATE TABLE Bateria (
 	fechaDeAdquisicion DATETIME NOT NULL,
 	marca VARCHAR(30) NOT NULL,
 	modelo VARCHAR(40) NOT NULL,
+	nSerie VARCHAR(40) UNIQUE NOT NULL,
 	ratioCarga FLOAT NOT NULL,
 	ratioCompra FLOAT NOT NULL,
 	ratioUso FLOAT NOT NULL,

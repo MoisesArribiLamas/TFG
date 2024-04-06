@@ -160,6 +160,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion
 
+        #region Baterias de la ubicacion
+        [Transactional]
+        public List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion)
+        {
+
+            List<BateriaDTO> ubicacionesDTO = new List<BateriaDTO>();
+
+            List<Bateria> ubicaciones = ubicacionDao.bateriasDeUnaUbicacion(idUbicacion);
+
+            foreach (Bateria u in ubicaciones)
+            {
+                ubicacionesDTO.Add(new BateriaDTO( u.bateriaId, u.ubicacionId, u.usuarioId, u.precioMedio, u.kwHAlmacenados, u.almacenajeMaximoKwH,
+                u.fechaDeAdquisicion, u.marca, u.modelo, u.nSerie, u.ratioCarga, u.ratioCompra, u.ratioUso, u.capacidadCargador));
+            } 
+            return ubicacionesDTO;
+
+
+        }
+
+        #endregion
+
         #region ubicaciones del Usuario
         [Transactional]
         public int numeroUbicacionesUsuario(long idUsuario)
@@ -389,7 +410,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         #endregion
 
 
-        #region modificar Consumo (cierra el consumo previo y crea uno nuevo)
+        #region modificar Consumo (cierra el consumo previo y crea uno nuevo) con gestion de ratios
         [Transactional]
         public long modificarConsumoActual(long ubicacionId, double consumoActual)
         {
@@ -444,7 +465,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion modificar Consumo
 
-        #region actualizar los datos de Consumo (carga y suministra) 
+        #region actualizar los datos de Consumo (carga y suministra) sin cambio del consumoActual
         [Transactional]
         public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual)
         {

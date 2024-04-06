@@ -22,6 +22,24 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// Control lblUbicaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUbicaciones;
+        
+        /// <summary>
+        /// Control btUbicacionCrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btUbicacionCrearBateria;
+        
+        /// <summary>
         /// Control Localize1CrearUbicacion.
         /// </summary>
         /// <remarks>
@@ -173,6 +191,24 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox BoxCodigoPostalCrearUbicacion;
+        
+        /// <summary>
+        /// Control Localize9CrearUbicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize Localize9CrearUbicacion;
+        
+        /// <summary>
+        /// Control ListaBateriasUbicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ListaBateriasUbicacion;
         
         /// <summary>
         /// Control lblErrorModificarUbicacion.

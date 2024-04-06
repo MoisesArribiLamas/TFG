@@ -10,7 +10,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1CrearUbicacion" runat="server" ErrorMessage="Este campo es obligatorio" Display="Dynamic"  Font-Italic="True" ForeColor="Red" ControlToValidate="BoxEtiquetaCrearUbicacion" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
             </span>
             <span class="entry">
-                    <asp:TextBox ID="BoxEtiquetaCrearUbicacion" runat="server" meta:resourcekey="BoxEtiquetaCrearUbicacionResource1"></asp:TextBox>
+                    <asp:TextBox ID="BoxEtiquetaCrearUbicacion" runat="server" ></asp:TextBox>
             </span>
         </div>
         <div class = "field">
@@ -24,7 +24,7 @@
 
             </span>
             <span class="entry">  
-                <asp:TextBox ID="BoxLocalidadCrearUbicacion" runat="server" meta:resourcekey="BoxLocalidadCrearUbicacionResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxLocalidadCrearUbicacion" runat="server"></asp:TextBox>
             </span>
 
         </div>
@@ -39,7 +39,7 @@
          
             </span>
             <span class="entry">            
-                <asp:TextBox ID="BoxCalleCrearUbicacion" runat="server" meta:resourcekey="BoxCalleCrearUbicacionResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxCalleCrearUbicacion" runat="server"></asp:TextBox>
             </span>
         </div>
 
@@ -54,7 +54,7 @@
 
             </span>
             <span class="entry">
-                <asp:TextBox ID="BoxNumeroCrearUbicacion" runat="server" meta:resourcekey="BoxNumeroCrearUbicacionResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxNumeroCrearUbicacion" runat="server"></asp:TextBox>
             </span>
         </div>
 
@@ -66,7 +66,7 @@
 
             </span>
             <span class="entry">
-                <asp:TextBox ID="BoxPortalCrearUbicacion" runat="server" meta:resourcekey="BoxPortalCrearUbicacionResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxPortalCrearUbicacion" runat="server" ></asp:TextBox>
             </span>
 
             <div class = "field">
@@ -91,7 +91,7 @@
                </div>
                 <div class="button"> 
 
-            <asp:Button ID="btCrearUbicacion" runat="server" Text="Registrar" OnClick="btRegistrar_Click" meta:resourcekey="btCrearUbicacionResource1"  />
+            <asp:Button ID="btCrearUbicacion" runat="server" Text="Registrar" OnClick="btRegistrar_Click" meta:resourcekey="btRegistrarCreateUbicacionResource1"  />
 
         </div>
         </div>

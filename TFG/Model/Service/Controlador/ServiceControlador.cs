@@ -136,6 +136,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
             Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
 
+            // Obtenemos el consumo
+            Consumo consumo = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+
             // si hay bateriaSuministradora previa
             long? bateriaSuministradoraPrevia = ubicacion.bateriaSuministradora;
             if (bateriaSuministradoraPrevia != null)
@@ -147,9 +150,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 String estado = ServicioBateria.EstadoDeLaBateria((long)bateriaSuministradoraPrevia);
 
                 // Cerramos el consumo
-                Consumo consumo = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
-                ServicioUbicacion.finalizarConsumo(ubicacionId, consumo.consumoActual, horaActual, estado, (long)bateriaSuministradoraPrevia);
 
+                if (ubicacion.ultimoConsumo != null)
+                {  //en el caso de que no exista consumo, no hace falta cerrarlo
+                    //ServicioUbicacion.finalizarConsumo(ubicacionId, consumo.consumoActual, horaActual, estado, (long)bateriaSuministradoraPrevia);
+                    ServicioUbicacion.actualizarConsumoActual(ubicacionId, horaActual);
+                }
                 if (estado != "sin actividad")
                 {
                     //ponemos el estado a "sin actividad"
@@ -174,13 +180,20 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
                 }
             }
+            else
+            {
+
+                // cuando se pone la primera bateria y no hay un consumo, se crea un consumo inicial a 0
+                double consumoinicial = 0;
+                CrearConsumoInicial(ubicacionId, consumoinicial);
+            }
 
             ServicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaSuministradora);
 
             //comprobar los ratios con la nueva bateriaSuministradora
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             gestionDeRatiosBateriaSuministradora((long)bateriaSuministradora, fechaActual, horaActual);
-
+       
 
         }
 
@@ -197,12 +210,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             // Creamos el consumo
             long consumoId = ServicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
-            //Comprobamos los ratios en la bateriasuministradora de la ubicacion
-            Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
-            if (ubicacion.bateriaSuministradora != null)
-            {
-                gestionDeRatiosBateriaSuministradora((long)ubicacion.bateriaSuministradora, fechaActual, horaActual);
-            }
+            ////Comprobamos los ratios en la bateriasuministradora de la ubicacion
+            //Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
+            //if (ubicacion.bateriaSuministradora != null)
+            //{
+            //    gestionDeRatiosBateriaSuministradora((long)ubicacion.bateriaSuministradora, fechaActual, horaActual);
+            //}
 
 
         }

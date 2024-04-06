@@ -120,4 +120,10 @@
   <data name="campoObligatorio" xml:space="preserve">
     <value>Mandatory Field</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
 </root>

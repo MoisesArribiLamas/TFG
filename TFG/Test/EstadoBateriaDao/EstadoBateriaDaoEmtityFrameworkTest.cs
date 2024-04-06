@@ -132,6 +132,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b);
 
             TimeSpan Minuto = new TimeSpan(0, 1, 0);
@@ -250,6 +251,7 @@ namespace Es.Udc.DotNet.TFG.Model.EstadoBateriaDao.Tests
             b.ratioCarga = 10;
             b.ratioCompra = 10;
             b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC63";
             bateriaDao.Create(b);
 
             //CREAMOS  ESTADOBATERIA
