@@ -88,6 +88,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const string calle = "calle";
         private const string portal = "portal";
         private const long numero = 1;
+        private const string etiqueta = "Casa";
+        private const string etiqueta2 = "Piso";
+        private const string etiqueta3 = "Bodega";
 
         // constructor de Ubicaciones
         public long crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
@@ -4719,6 +4722,71 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Consumo consumo = servicioUbicacion.buscarConsumoById((long)ubicacion.ultimoConsumo);
                 Assert.AreEqual(consumo.consumoActual, consumoActual);
 
+
+            }
+        }
+
+
+        [TestMethod()]
+        public void VerBateriasUsuarioConEtiquetaUbicacionYNumeroBateriasUsuarioTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                string nSerie = "HDOSN24JSDC66";
+                string nSerie2 = "HDOSN24JSDC662";
+                string nSerie3 = "HDOSN24JSDC663";
+                string nSerie4 = "HDOSN24JSDC664";
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long usuarioId2 = crearUsuario("nombre2", "email2", apellido1, apellido2, "contraseña2", telefono, pais, idioma);
+
+
+                // Creamos las ubicaciones
+                long ubicacionId = servicioUbicacion.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, usuarioId);
+                long ubicacionId2 = servicioUbicacion.crearUbicacion(codigoPostal, localidad, calle, "10B", numero, etiqueta2, usuarioId);
+                long ubicacionId3 = servicioUbicacion.crearUbicacion(codigoPostal, localidad, calle, "11B", numero, etiqueta3, usuarioId);
+
+                // crearUbicacion( long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta, long usuarioId)
+
+
+                // creamos las baterias
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                long bateriaId3 = servicioBateria.CrearBateria(ubicacionId2, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie3, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                long bateriaId4 = servicioBateria.CrearBateria(ubicacionId3, usuarioId2, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie4, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Buscamos los baterias que pertenecen al usuario (dos en la misma residencia y una en otra)
+
+                List<BateriaDTOEtiquetaUbicacion> bateriasUsuario = servicio.VerBateriasUsuarioConEtiquetaUbicacion(usuarioId, 0, 3);
+                List<BateriaDTOEtiquetaUbicacion> bateriasUsuario2 = servicio.VerBateriasUsuarioConEtiquetaUbicacion(usuarioId2, 0, 3);
+
+                int numeroBateriasUsuario = servicio.numeroBateriasUsuario(usuarioId);
+                int numeroBateriasUsuario2 = servicio.numeroBateriasUsuario(usuarioId2);
+
+
+                //Comprobamos los cambios
+
+
+                Assert.AreEqual(nSerie, bateriasUsuario[0].nSerie);
+                Assert.AreEqual(etiqueta, bateriasUsuario[0].etiquetaUbicacion);
+
+                Assert.AreEqual(nSerie2, bateriasUsuario[1].nSerie);
+                Assert.AreEqual(etiqueta, bateriasUsuario[1].etiquetaUbicacion);
+                Assert.AreEqual(nSerie3, bateriasUsuario[2].nSerie);
+                Assert.AreEqual(etiqueta2, bateriasUsuario[2].etiquetaUbicacion);
+
+                Assert.AreEqual(nSerie4, bateriasUsuario2[0].nSerie);
+                Assert.AreEqual(etiqueta3, bateriasUsuario2[0].etiquetaUbicacion);
+
+                Assert.AreEqual(numeroBateriasUsuario, 3);
+                Assert.AreEqual(numeroBateriasUsuario2, 1);
 
             }
         }

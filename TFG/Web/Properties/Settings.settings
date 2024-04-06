@@ -26,5 +26,20 @@
     <Setting Name="TFG_defaultStartIndex" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="ObjectDS_ShowBaterias_IServiceBateria" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Es.Udc.DotNet.TFG.Model.Service.IServiceControlador</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowBaterias_SelectMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">VerBateriasUsuarioConEtiquetaUbicacion</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowBaterias_StartIndexParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">startIndex</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowBaterias_CountParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">count</Value>
+    </Setting>
+    <Setting Name="ObjectDS_ShowBaterias_CountMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">numeroBateriasUsuario</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

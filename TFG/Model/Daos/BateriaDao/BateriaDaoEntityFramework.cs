@@ -80,7 +80,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
 
                 return true;
             }
-            return false;
+            return false; 
         }
 
         public List<Bateria> findBateriaByUser(long usuarioID, int startIndex, int count)
@@ -91,7 +91,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
             var result =
             (from b in baterias
              where (b.usuarioId == usuarioID)
-             select b).OrderBy(b => b.bateriaId).Skip(startIndex).Take(count).ToList();
+             select b).OrderBy(b => b.ubicacionId).ThenBy(b => b.bateriaId).Skip(startIndex).Take(count).ToList();
 
             return result;
            

@@ -94,5 +94,50 @@ namespace Es.Udc.DotNet.TFG.Web.Properties {
                 return ((int)(this["TFG_defaultStartIndex"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Es.Udc.DotNet.TFG.Model.Service.IServiceControlador")]
+        public string ObjectDS_ShowBaterias_IServiceBateria {
+            get {
+                return ((string)(this["ObjectDS_ShowBaterias_IServiceBateria"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("VerBateriasUsuarioConEtiquetaUbicacion")]
+        public string ObjectDS_ShowBaterias_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowBaterias_SelectMethod"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("startIndex")]
+        public string ObjectDS_ShowBaterias_StartIndexParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowBaterias_StartIndexParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("count")]
+        public string ObjectDS_ShowBaterias_CountParameter {
+            get {
+                return ((string)(this["ObjectDS_ShowBaterias_CountParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("numeroBateriasUsuario")]
+        public string ObjectDS_ShowBaterias_CountMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowBaterias_CountMethod"]));
+            }
+        }
     }
 }

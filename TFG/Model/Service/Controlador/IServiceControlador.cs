@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         [Transactional]
         List<TarifaDetails> TarifasDeHoy();
 
+        [Transactional]
+        List<BateriaDTOEtiquetaUbicacion> VerBateriasUsuarioConEtiquetaUbicacion(long idUsuario, int startIndex, int count);
+
+        [Transactional]
+        int numeroBateriasUsuario(long idUsuario);
     }
 }

@@ -894,7 +894,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion Modificar
 
-        #region baterias del Usuario
+        #region baterias del Usuario (muestra la ubicacion con un ID)
         [Transactional]
         public List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count)
         {

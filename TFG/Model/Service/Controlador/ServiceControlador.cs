@@ -599,6 +599,44 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         #endregion
 
+        #region baterias del Usuario (muestra la ubicacion por la etiqueta)
+        [Transactional]
+        public List<BateriaDTOEtiquetaUbicacion> VerBateriasUsuarioConEtiquetaUbicacion(long idUsuario, int startIndex, int count)
+        {
+            try
+            {
+                List<BateriaDTOEtiquetaUbicacion> bateriaDTOEtiquetaUbicacion = new List<BateriaDTOEtiquetaUbicacion>();
+
+                List<Bateria> baterias = bateriaDao.findBateriaByUser(idUsuario, startIndex, count);
+
+                foreach (Bateria b in baterias)
+                {
+                    //Obtenemos la etiquetad de la ubicacion
+                    Ubicacion u = ServicioUbicacion.buscarUbicacionById(b.ubicacionId);
+                    double porcentajeCarga = 100 * b.kwHAlmacenados / b.almacenajeMaximoKwH;
+                    bateriaDTOEtiquetaUbicacion.Add(new BateriaDTOEtiquetaUbicacion( u.etiqueta, b.precioMedio, porcentajeCarga,
+                        b.nSerie, b.ratioCarga, b.ratioCompra, b.ratioUso));
+                }
+                return bateriaDTOEtiquetaUbicacion;
+                
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region baterias del Usuario (número)
+
+        public int numeroBateriasUsuario(long idUsuario)
+        {
+            return ServicioBateria.numeroBateriasUsuario(idUsuario);
+        }
+
+        #endregion
+
         //#region Gestion de los ratios en una bateria NO suministradora
 
         //[Transactional]
