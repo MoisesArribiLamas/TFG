@@ -15,6 +15,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
 
         List<Bateria> findBateriaByUser(long usuarioID, int startIndex, int count);
 
+        int counterBateriaByUser(long usuarioID);
+
         List<Bateria> findBateriaByUbicacion(long ubicacionID, int startIndex, int count);
 
         long getBateriaIdByNSerie(string nserie);

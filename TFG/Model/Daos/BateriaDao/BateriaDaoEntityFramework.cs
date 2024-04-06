@@ -97,6 +97,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
            
         }
 
+        public int counterBateriaByUser(long usuarioID)
+        {
+
+            DbSet<Bateria> baterias = Context.Set<Bateria>();
+
+            var result =
+            (from b in baterias
+             where (b.usuarioId == usuarioID)
+             select b).Distinct().Count();
+
+            return result;
+
+        }
+
+
 
         public List<Bateria> findBateriaByUbicacion(long ubicacionID, int startIndex, int count)
         {

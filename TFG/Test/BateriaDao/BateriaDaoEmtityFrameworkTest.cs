@@ -263,7 +263,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
 
         }
 
-        public void findBateriaByUserTest()
+        [TestMethod()]
+        public void findBateriaByUserAndfindBateriaByUserTest()
         {
             // CREAMOS UBICACIONES
             Ubicacion u = new Ubicacion();
@@ -308,6 +309,18 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             user2.pais = "España";
             usuarioDao.Create(user2);
 
+            Usuario user3 = new Usuario();
+            user3.usuarioId = user.usuarioId;
+            user3.nombre = "Sabela";
+            user3.contraseña = "Botoni";
+            user3.email = "micorreo@gmail.com";
+            user3.apellido1 = "Fernández";
+            user3.apellido2 = "Condesa";
+            user3.telefono = "983123457";
+            user3.idioma = "es-ES";
+            user3.pais = "España";
+            usuarioDao.Create(user3);
+
             //CREAMOS LA BATERIA
             Bateria b = new Bateria();
             b.ubicacionId = u.ubicacionId;
@@ -322,7 +335,9 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioCompra = 10;
             b.ratioUso = 10;
             b.capacidadCargador = 10;
+            b.nSerie = "SDOSN24JSDC61";
             bateriaDao.Create(b);
+
 
             Bateria b2 = new Bateria();
             b2.ubicacionId = u2.ubicacionId;
@@ -337,6 +352,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioCompra = 20;
             b2.ratioUso = 20;
             b2.capacidadCargador = 10;
+            b2.nSerie = "SDOSN24JSDC62";
             bateriaDao.Create(b2);
 
             Bateria b3 = new Bateria();
@@ -352,6 +368,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b3.ratioCompra = 30;
             b3.ratioUso = 30;
             b3.capacidadCargador = 10;
+            b3.nSerie = "SDOSN24JSDC63";
             bateriaDao.Create(b3);
 
             int count = 2;
@@ -362,10 +379,18 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             List<Bateria> bat1 = bateriaDao.findBateriaByUser(user.usuarioId, startOfIndex, count);
             List<Bateria> bat2 = bateriaDao.findBateriaByUser(user2.usuarioId, startOfIndex, count);
 
-
             Assert.AreEqual(bat1[0], b);
             Assert.AreEqual(bat2[0], b2);
             Assert.AreEqual(bat2[1], b3);
+
+            int bateriasUsuario1 = bateriaDao.counterBateriaByUser(user.usuarioId);
+            int bateriasUsuario2 = bateriaDao.counterBateriaByUser(user2.usuarioId);
+            int bateriasUsuario3 = bateriaDao.counterBateriaByUser(user3.usuarioId);
+
+            Assert.AreEqual(bateriasUsuario1, 1);
+            Assert.AreEqual(bateriasUsuario2, 2);
+            Assert.AreEqual(bateriasUsuario3, 0);
+
         }
 
         public void findBateriaByUbicacionTest()
