@@ -1,19 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
     <div id="form" style="height: 342px">
 
     <form id="form1" runat="server" >
-        
-        <asp:Label ID="lblUbicaciones" runat="server" Text="UBICACIÓN"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblUbicacionesTitulo"></asp:Label>
-        <br/>
-        <div class ="field">
-            
-            <span class="button">
-                <asp:Button ID="btUbicacionCrearBateria" runat="server" Text="Crear Bateria" OnClick="btCrearBateria_Click" meta:resourcekey="bUbicacionCrearBateriaResource1"  />
-            </span>
-        </div>
-        <br/>
         <div class ="field">
             <span class="label">
                         <asp:Localize ID="Localize1CrearUbicacion" runat="server" Text="Etiqueta" meta:resourcekey="Localize1CrearUbicacionResource1"></asp:Localize>
@@ -88,19 +78,6 @@
                 </span>
             <span class="entry">            
                 <asp:TextBox ID="BoxCodigoPostalCrearUbicacion" runat="server" meta:resourcekey="BoxCodigoPostalCrearUbicacionResource1"></asp:TextBox>
-            </span>
-        </div>
-
-        <div class = "field">
-            <span class="label">
-
-                       <asp:Localize ID="Localize9CrearUbicacion" runat="server" Text="Bateria Suministradora" meta:resourcekey="Localize9CrearUbicacionResource1"></asp:Localize>
-         
-
-            </span>
-            <span class="entry">
-                      <asp:DropDownList ID="ListaBateriasUbicacion" runat="server" AutoPostBack="True"
-                            Width="100px" OnSelectedIndexChanged="ListaBateriasUbicacion_SelectedIndexChanged" meta:resourcekey="ListaBateriasUbicacionResource1"></asp:DropDownList>
             </span>
         </div>
 

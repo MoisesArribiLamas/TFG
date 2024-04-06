@@ -22,157 +22,229 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control Localize1CrearUbicacion.
+        /// Control lblCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize1CrearUbicacion;
+        protected global::System.Web.UI.WebControls.Label lblCrearBateria;
         
         /// <summary>
-        /// Control RequiredFieldValidator1CrearUbicacion.
+        /// Control Localize1CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1CrearUbicacion;
+        protected global::System.Web.UI.WebControls.Localize Localize1CrearBateria;
         
         /// <summary>
-        /// Control BoxEtiquetaCrearUbicacion.
+        /// Control RequiredFieldValidator1CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxEtiquetaCrearUbicacion;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1CrearBateria;
         
         /// <summary>
-        /// Control Localize2CrearUbicacion.
+        /// Control BoxMarcaCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize2CrearUbicacion;
+        protected global::System.Web.UI.WebControls.TextBox BoxMarcaCrearBateria;
         
         /// <summary>
-        /// Control RequiredFieldValidator2CrearUbicacion.
+        /// Control Localize2CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2CrearUbicacion;
+        protected global::System.Web.UI.WebControls.Localize Localize2CrearBateria;
         
         /// <summary>
-        /// Control BoxLocalidadCrearUbicacion.
+        /// Control RequiredFieldValidator2CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxLocalidadCrearUbicacion;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2CrearBateria;
         
         /// <summary>
-        /// Control Localize3CrearUbicacion.
+        /// Control BoxModeloCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize3CrearUbicacion;
+        protected global::System.Web.UI.WebControls.TextBox BoxModeloCrearBateria;
         
         /// <summary>
-        /// Control RequiredFieldValidator3CrearUbicacion.
+        /// Control Localize3CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3CrearUbicacion;
+        protected global::System.Web.UI.WebControls.Localize Localize3CrearBateria;
         
         /// <summary>
-        /// Control BoxCalleCrearUbicacion.
+        /// Control RequiredFieldValidator3CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxCalleCrearUbicacion;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3CrearBateria;
         
         /// <summary>
-        /// Control Localize4CrearUbicacion.
+        /// Control BoxNSerieCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize4CrearUbicacion;
+        protected global::System.Web.UI.WebControls.TextBox BoxNSerieCrearBateria;
         
         /// <summary>
-        /// Control RequiredFieldValidator4CrearUbicacion.
+        /// Control Localize4CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4CrearUbicacion;
+        protected global::System.Web.UI.WebControls.Localize Localize4CrearBateria;
         
         /// <summary>
-        /// Control BoxNumeroCrearUbicacion.
+        /// Control RequiredFieldValidator4CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxNumeroCrearUbicacion;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4CrearBateria;
         
         /// <summary>
-        /// Control Localize5CrearUbicacion.
+        /// Control BoxAlmacenajeMaximoCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize5CrearUbicacion;
+        protected global::System.Web.UI.WebControls.TextBox BoxAlmacenajeMaximoCrearBateria;
         
         /// <summary>
-        /// Control BoxPortalCrearUbicacion.
+        /// Control Localize5CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxPortalCrearUbicacion;
+        protected global::System.Web.UI.WebControls.Localize Localize5CrearBateria;
         
         /// <summary>
-        /// Control Localize8CrearUbicacion.
+        /// Control RequiredFieldValidator5CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize8CrearUbicacion;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5CrearBateria;
         
         /// <summary>
-        /// Control RequiredFieldValidator8CrearUbicacion.
+        /// Control BoxCapacidadCargadorCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8CrearUbicacion;
+        protected global::System.Web.UI.WebControls.TextBox BoxCapacidadCargadorCrearBateria;
         
         /// <summary>
-        /// Control BoxCodigoPostalCrearUbicacion.
+        /// Control Localize6CrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoxCodigoPostalCrearUbicacion;
+        protected global::System.Web.UI.WebControls.Localize Localize6CrearBateria;
+        
+        /// <summary>
+        /// Control RequiredFieldValidator6CrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6CrearBateria;
+        
+        /// <summary>
+        /// Control BoxRatioCargaCrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox BoxRatioCargaCrearBateria;
+        
+        /// <summary>
+        /// Control Localize7CrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize Localize7CrearBateria;
+        
+        /// <summary>
+        /// Control RequiredFieldValidator7CrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7CrearBateria;
+        
+        /// <summary>
+        /// Control BoxRatioCompraCrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox BoxRatioCompraCrearBateria;
+        
+        /// <summary>
+        /// Control Localize8CrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize Localize8CrearBateria;
+        
+        /// <summary>
+        /// Control RequiredFieldValidator8CrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8CrearBateria;
+        
+        /// <summary>
+        /// Control BoxRatioUsoCrearBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox BoxRatioUsoCrearBateria;
         
         /// <summary>
         /// Control lblErrorCrearBateria.
@@ -184,12 +256,12 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Label lblErrorCrearBateria;
         
         /// <summary>
-        /// Control btCrearUbicacion.
+        /// Control btCrearBateria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btCrearUbicacion;
+        protected global::System.Web.UI.WebControls.Button btCrearBateria;
     }
 }
