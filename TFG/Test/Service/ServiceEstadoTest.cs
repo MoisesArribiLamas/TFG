@@ -119,6 +119,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         private const double ratioUso = 45;
         private const double capacidadCargador = 10;
         private const string nSerie = "HDOSN24JSDC63";
+        private const string nSerie2 = "HDOSN24JSDC632";
 
 
         // TARIFA
@@ -222,10 +223,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                     } 
 
-        }
-        
+                }
 
-                [TestMethod()]
+        [TestMethod()]
+        public void hayEstadosTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Comprobamos que no hay estados
+                Assert.IsFalse(servicioEstado.hayEstados());
+
+                Crearestados();
+
+                // Comprobamos que hay estados  (4 estados)
+                Assert.IsTrue(servicioEstado.hayEstados());
+
+
+
+            }
+
+        }
+
+
+        [TestMethod()]
                 public void CrearEstadoBateriaTest()
                 {
                     using (var scope = new TransactionScope())
@@ -386,7 +406,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                      fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
                         long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                     fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                     fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
 
 
@@ -455,7 +475,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                         long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                      fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
                         long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                     fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                     fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
 
                         int hour1 = 1;
