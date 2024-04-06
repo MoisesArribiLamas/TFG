@@ -12,7 +12,11 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
         bool updateInformacion(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
             double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
             string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador);
+
         List<Bateria> findBateriaByUser(long usuarioID, int startIndex, int count);
+
         List<Bateria> findBateriaByUbicacion(long ubicacionID, int startIndex, int count);
+
+        long getBateriaIdByNSerie(string nserie);
     }
 }

@@ -12,7 +12,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
         List<Estado> FindAllEstados();
 
         long FindEstadoByName(string nombre);
-
+        int CantidadDeEstados();
 
     }
 }

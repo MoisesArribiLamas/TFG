@@ -907,7 +907,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 foreach (Bateria b in baterias)
                 {
                     bateriasDTO.Add(new BateriaDTO(b.bateriaId, b.ubicacionId, b.usuarioId, b.precioMedio, b.kwHAlmacenados,
-                b.almacenajeMaximoKwH, b.fechaDeAdquisicion, b.marca, b.modelo, b.ratioCarga,
+                b.almacenajeMaximoKwH, b.fechaDeAdquisicion, b.marca, b.modelo, b.nSerie, b.ratioCarga,
                 b.ratioCompra, b.ratioUso, b.capacidadCargador));
                 }
                 return bateriasDTO;
@@ -931,6 +931,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             
         }
         #endregion Buscar por ID
+
+        #region Buscar BateriaID por Numero Serie
+
+        [Transactional]
+        public long getBateriaIdByNSerie(string nserie)
+        {
+
+            return bateriaDao.getBateriaIdByNSerie( nserie);
+
+        }
+        #endregion 
 
         #region Eliminar Bateria
         [Transactional]

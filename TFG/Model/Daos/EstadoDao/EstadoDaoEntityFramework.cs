@@ -29,6 +29,25 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.EstadoDao
         }
         #endregion Estados
 
+        #region Todos los estados
+        public int CantidadDeEstados()
+        {
+            DbSet<Estado> estados = Context.Set<Estado>();
+
+
+            var result =
+                     (from c in estados
+
+                      select c).OrderBy(c => c.estadoId).Count();
+
+
+            return result;
+
+        }
+        #endregion Estados
+
+
+
 
         #region buscar estado por nombre
         public long FindEstadoByName(string nombre)

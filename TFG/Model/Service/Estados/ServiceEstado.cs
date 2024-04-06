@@ -125,7 +125,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
 
         #endregion
 
-        
+        #region número de estados diferentes
+        [Transactional]
+        public bool hayEstados()
+        {
+
+                return 0 < estadoDao.CantidadDeEstados();
+
+        }
+
+        #endregion
+
+
         #region cargas de una bateria
         [Transactional]
         public List<SeEncuentraDTO> MostrarEstadoBateriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count)

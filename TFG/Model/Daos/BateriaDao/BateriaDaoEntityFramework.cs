@@ -112,6 +112,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
 
         }
 
+        #region Buscar id de la bateria Bateria por numero de serie
+        public long getBateriaIdByNSerie(string nserie)
+        {
+            DbSet<Bateria> Baterias = Context.Set<Bateria>();
+
+            var result =
+                (from b in Baterias
+                 where b.nSerie == nserie
+                 select b).FirstOrDefault();
+
+            return result.bateriaId;
+        }
+        #endregion
+
         #endregion IBateriaDao Members. Specific Operations
+
+
     }
 }

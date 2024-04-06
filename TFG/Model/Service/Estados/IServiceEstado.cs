@@ -20,6 +20,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Estados
         [Transactional]
         List<EstadoDTO> verTodosLosEstados();
         [Transactional]
+        bool hayEstados();
+        [Transactional]
         void CrearTodosLosEstados();
         [Transactional]
         List<SeEncuentraDTO> MostrarEstadoBateriaPorFecha(long bateriaId, DateTime fecha, DateTime fecha2, int startIndex, int count);
