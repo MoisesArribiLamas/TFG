@@ -3,6 +3,7 @@ using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.ModelUtil.Log;
 using Es.Udc.DotNet.TFG.Model;
 using Es.Udc.DotNet.TFG.Model.Service;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Es.Udc.DotNet.TFG.Web.HTTP.Session;
 using Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects;
@@ -28,34 +29,26 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
 
             //Obtenemos parametro
-            String ubicacionId = Request.Params.Get("idUbicacion");
+            String bateriaId = Request.Params.Get("idBateria");
 
-            // obtenemos el servicio Ubicacion
+            // obtenemos el servicio Bateria
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-            IServiceUbicacion pedidoUbicacion = iocManager.Resolve<IServiceUbicacion>();
+            IServiceBateria servicioBateria = iocManager.Resolve<IServiceBateria>();
 
-            Ubicacion ubicacion = pedidoUbicacion.buscarUbicacionById(Convert.ToInt64(ubicacionId));
+            Bateria bateria = servicioBateria.BuscarBateriaById(Convert.ToInt64(bateriaId));
 
-            BoxEtiquetaCrearUbicacion.Text = ubicacion.etiqueta;
-            BoxLocalidadCrearUbicacion.Text = ubicacion.localidad;
-            BoxCalleCrearUbicacion.Text = ubicacion.calle;
-            BoxNumeroCrearUbicacion.Text = ubicacion.numero.ToString();
-            BoxPortalCrearUbicacion.Text = ubicacion.portal;
-            BoxCodigoPostalCrearUbicacion.Text = ubicacion.codigoPostal.ToString();
+            BoxNSerieModificarBateria.Text = bateria.nSerie;
+            BoxMarcaModificarBateria.Text = bateria.marca;
+            BoxCapacidadCargadorModificarBateria.Text = bateria.capacidadCargador.ToString();
+            BoxModeloModificarBateria.Text = bateria.modelo.ToString();
+            BoxRatioCompra.Text = bateria.ratioCompra.ToString();
+            BoxRatioCarga.Text = bateria.ratioCarga.ToString();
+            BoxRatioUso.Text = bateria.ratioUso.ToString();
+            lblAlmacenajeMaximoN.Text = bateria.almacenajeMaximoKwH.ToString();
+            lblKwAlmacenadosNumero.Text = bateria.kwHAlmacenados.ToString();
+            lblPrecioMedioNumero.Text = bateria.precioMedio.ToString();
 
-            //long CrearBateria( double precioMedio, double kwHAlmacenados, double almacenajeMaximoKwH,
-            //DafechaDeAdquisicion, string marca, string modelo, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
 
-
-            // Usuario
-            long idUser = SessionManager.GetUserSession(Context).UserProfileId;
-            Trace.Warn("Usuario", Convert.ToString(idUser));
-            Trace.Warn("Etiqueta", Convert.ToString(BoxEtiquetaCrearUbicacion.Text));
-            Trace.Warn("Localidad", Convert.ToString(BoxLocalidadCrearUbicacion.Text));
-            Trace.Warn("Calle", Convert.ToString(BoxCalleCrearUbicacion.Text));
-            Trace.Warn("Numero", Convert.ToString(BoxNumeroCrearUbicacion.Text));
-            Trace.Warn("Portal", Convert.ToString(BoxPortalCrearUbicacion.Text));
-            Trace.Warn("CodigoPostal", Convert.ToString(BoxCodigoPostalCrearUbicacion.Text));
 
         }
 
@@ -69,23 +62,30 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 try
                 {
                     IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-                    IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
+                    IServiceBateria servicioBateria = iocManager.Resolve<IServiceBateria>();
 
                     // Obtenemos el id de la ubicacion por parametro
-                    long idUbicacion = Int32.Parse(Request.Params.Get("idUbicacion"));
+                    long idBateria = Int32.Parse(Request.Params.Get("idBateria"));
 
 
-                    serviceUbicacion.modificarUbicacion(idUbicacion, Convert.ToInt64(BoxCodigoPostalCrearUbicacion.Text), BoxLocalidadCrearUbicacion.Text, BoxCalleCrearUbicacion.Text, BoxPortalCrearUbicacion.Text, Convert.ToInt64(BoxNumeroCrearUbicacion.Text), BoxEtiquetaCrearUbicacion.Text);
+                    // serviceUbicacion.modificarUbicacion(idUbicacion, Convert.ToInt64(BoxCodigoPostalCrearUbicacion.Text), BoxLocalidadCrearUbicacion.Text, BoxCalleCrearUbicacion.Text, BoxPortalCrearUbicacion.Text, Convert.ToInt64(BoxNumeroCrearUbicacion.Text), BoxEtiquetaCrearUbicacion.Text);
+
+            //        servicioBateria.ModificarBateria(idBateria, null , null , null, null, null, null, BoxMarcaModificarBateria.Text,
+            //string modelo, double ? ratioCarga, double ? ratioCompra, double ? ratioUso, double ? capacidadCargador);
 
                     Response.Redirect(Response.
                         ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));
                 }
                 catch (DuplicateInstanceException)
                 {
-                    lblErrorModificarUbicacion.Visible = true;
+                    //lblErrorModificarUbicacion.Visible = true;
                 }
             }
         }
-       
+
+        protected void btModificarRatios_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

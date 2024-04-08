@@ -8,10 +8,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 {
     public class BateriaDTOEtiquetaUbicacion
     {
-        public BateriaDTOEtiquetaUbicacion(String etiquetaUbicacion, double precioMedio, double porcentajeCarga, 
+        public BateriaDTOEtiquetaUbicacion(long bateriaId , String etiquetaUbicacion, double precioMedio, double porcentajeCarga, 
              string nSerie, double ratioCarga, double ratioCompra, double ratioUso)
         {
-           
+            this.bateriaid = bateriaId;
             this.etiquetaUbicacion = etiquetaUbicacion;
             this.precioMedio = precioMedio;
             this.porcentajeCarga = porcentajeCarga;
@@ -23,7 +23,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         }
 
-        
+        public long bateriaid { get; set; }
+
         public string etiquetaUbicacion { get; set; }
 
         public double precioMedio { get; set; }
@@ -41,6 +42,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         {
             var ubicacion = obj as BateriaDTOEtiquetaUbicacion;
             return ubicacion != null &&
+                   bateriaid == ubicacion.bateriaid &&
                    etiquetaUbicacion == ubicacion.etiquetaUbicacion &&
                    precioMedio == ubicacion.precioMedio &&
                    porcentajeCarga == ubicacion.porcentajeCarga &&
@@ -52,7 +54,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         public override int GetHashCode()
         {
-            var hashCode = -1374454651;
+            var hashCode = 1019851621;
+            hashCode = hashCode * -1521134295 + bateriaid.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(etiquetaUbicacion);
             hashCode = hashCode * -1521134295 + precioMedio.GetHashCode();
             hashCode = hashCode * -1521134295 + porcentajeCarga.GetHashCode();

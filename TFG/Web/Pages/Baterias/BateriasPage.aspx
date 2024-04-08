@@ -27,7 +27,7 @@
             <SortedDescendingHeaderStyle BackColor="#00547E" />
 
              <Columns>
-                <asp:BoundField headertext="id" DataField="etiquetaUbicacion" ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol" meta:resourcekey="BoundFieldResource1" >
+                <asp:BoundField headertext="id" DataField="bateriaId" ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol" meta:resourcekey="BoundFieldResource1" >
                     <HeaderStyle CssClass="hiddencol"></HeaderStyle>
 
                     <ItemStyle CssClass="hiddencol"></ItemStyle>

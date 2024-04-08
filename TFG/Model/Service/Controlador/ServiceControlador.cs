@@ -614,7 +614,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                     //Obtenemos la etiquetad de la ubicacion
                     Ubicacion u = ServicioUbicacion.buscarUbicacionById(b.ubicacionId);
                     double porcentajeCarga = 100 * b.kwHAlmacenados / b.almacenajeMaximoKwH;
-                    bateriaDTOEtiquetaUbicacion.Add(new BateriaDTOEtiquetaUbicacion( u.etiqueta, b.precioMedio, porcentajeCarga,
+                    bateriaDTOEtiquetaUbicacion.Add(new BateriaDTOEtiquetaUbicacion(b.bateriaId, u.etiqueta, b.precioMedio, porcentajeCarga,
                         b.nSerie, b.ratioCarga, b.ratioCompra, b.ratioUso));
                 }
                 return bateriaDTOEtiquetaUbicacion;

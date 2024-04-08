@@ -1,30 +1,32 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
-    <div id="form" style="height: 342px">
 
     <form id="form1" runat="server" >
+        
+        <asp:Label ID="lblBateria" runat="server" Text="Bateria"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblBateriaTitulo"></asp:Label>
+
         <div class ="field">
             <span class="label">
-                        <asp:Localize ID="Localize1CrearUbicacion" runat="server" Text="Etiqueta" meta:resourcekey="Localize1CrearUbicacionResource1"></asp:Localize>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1CrearUbicacion" runat="server" ErrorMessage="Este campo es obligatorio" Display="Dynamic"  Font-Italic="True" ForeColor="Red" ControlToValidate="BoxEtiquetaCrearUbicacion" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+                        <asp:Localize ID="Localize1ModificarBateria" runat="server" Text="Numero de serie" meta:resourcekey="Localize1ModificarBateriaResource1"></asp:Localize>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Display="Dynamic"  Font-Italic="True" ForeColor="Red" ControlToValidate="BoxNSerieModificarBateria" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
             </span>
             <span class="entry">
-                    <asp:TextBox ID="BoxEtiquetaCrearUbicacion" runat="server" meta:resourcekey="BoxEtiquetaCrearUbicacionResource1"></asp:TextBox>
+                    <asp:TextBox ID="BoxNSerieModificarBateria" runat="server" meta:resourcekey="BoxNSerieModificarBateriaResource1"></asp:TextBox>
             </span>
         </div>
         <div class = "field">
             <span class="label">
 
-                       <asp:Localize ID="Localize2CrearUbicacion" runat="server" Text="Localidad" meta:resourcekey="Localize2CrearUbicacionResource1"></asp:Localize>
+                       <asp:Localize ID="Localize2ModificarBateria" runat="server" Text="Marca" meta:resourcekey="Localize2ModificarBateriaResource1"></asp:Localize>
          
 
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2CrearUbicacion" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxLocalidadCrearUbicacion" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxMarcaModificarBateria" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
          
 
             </span>
             <span class="entry">  
-                <asp:TextBox ID="BoxLocalidadCrearUbicacion" runat="server" meta:resourcekey="BoxLocalidadCrearUbicacionResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxMarcaModificarBateria" runat="server" meta:resourcekey="BoxMarcaModificarBateriaResource1"></asp:TextBox>
             </span>
 
         </div>
@@ -32,75 +34,102 @@
         <div class = "field">
             <span class="label">
 
-                       <asp:Localize ID="Localize3CrearUbicacion" runat="server" Text="Calle" meta:resourcekey="Localize3CrearUbicacionResource1"></asp:Localize>
+                       <asp:Localize ID="Localize3ModificarBateria" runat="server" Text="Modelo" meta:resourcekey="Localize3ModificarBateriaResource1"></asp:Localize>
          
 
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3CrearUbicacion" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="BoxCalleCrearUbicacion" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
-         
-            </span>
-            <span class="entry">            
-                <asp:TextBox ID="BoxCalleCrearUbicacion" runat="server" meta:resourcekey="BoxCalleCrearUbicacionResource1"></asp:TextBox>
-            </span>
-        </div>
-
-           <div class = "field">
-            <span class="label">
-
-                       <asp:Localize ID="Localize4CrearUbicacion" runat="server" Text="Numero" meta:resourcekey="Localize4CrearUbicacionResource1"></asp:Localize>
-         
-
-               <asp:RequiredFieldValidator ID="RequiredFieldValidator4CrearUbicacion" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxNumeroCrearUbicacion" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxModeloModificarBateria" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
          
 
             </span>
-            <span class="entry">
-                <asp:TextBox ID="BoxNumeroCrearUbicacion" runat="server" meta:resourcekey="BoxNumeroCrearUbicacionResource1"></asp:TextBox>
+            <span class="entry">  
+                <asp:TextBox ID="BoxModeloModificarBateria" runat="server" meta:resourcekey="BoxModeloModificarBateriaResource1"></asp:TextBox>
             </span>
+
         </div>
 
         <div class = "field">
             <span class="label">
 
-                       <asp:Localize ID="Localize5CrearUbicacion" runat="server" Text="Portal" meta:resourcekey="Localize5CrearUbicacionResource1"></asp:Localize>
-                 
-
-            </span>
-            <span class="entry">
-                <asp:TextBox ID="BoxPortalCrearUbicacion" runat="server" meta:resourcekey="BoxPortalCrearUbicacionResource1"></asp:TextBox>
-            </span>
-
-            <div class = "field">
-                <span class="label">
-
-                    <asp:Localize ID="Localize8CrearUbicacion" runat="server" Text="Codigo Postal" meta:resourcekey="Localize8CrearUbicacionResource1"></asp:Localize>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8CrearUbicacion" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="BoxCodigoPostalCrearUbicacion" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+                       <asp:Localize ID="Localize4ModificarBateria" runat="server" Text="Capacidad Cargador" meta:resourcekey="Localize4ModificarBateriaResource1"></asp:Localize>
          
-                </span>
+
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="BoxCapacidadCargadorModificarBateria" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+         
+            </span>
             <span class="entry">            
-                <asp:TextBox ID="BoxCodigoPostalCrearUbicacion" runat="server" meta:resourcekey="BoxCodigoPostalCrearUbicacionResource1"></asp:TextBox>
+                <asp:TextBox ID="BoxCapacidadCargadorModificarBateria" runat="server" meta:resourcekey="BoxCapacidadCargadorModificarBateriaResource1"></asp:TextBox>
             </span>
         </div>
-
 
                   
  
-               <div>
+        <div>
 
-                   <asp:Label ID="lblErrorModificarUbicacion" runat="server" ForeColor="Red" Style="position: relative"
-                            Visible="False" text="Error Al crear Ubicación" meta:resourcekey="lblErrorModificarUbicacionResource1"></asp:Label>
-               </div>
-                <div class="button"> 
-
-            <asp:Button ID="btModificarUbicacion" runat="server" Text="Modificar" OnClick="btModificar_Click" meta:resourcekey="btModificarUbicacionResource1"  />
-
-        </div>
+            <asp:Label ID="lblErrorModificarBateria" runat="server" ForeColor="Red" Style="position: relative"
+                    Visible="False" text="Error Al modificar Bateria" meta:resourcekey="lblErrorModificarBateriaResource1"></asp:Label>
         </div>
 
+        <div class="button"> 
+
+            <asp:Button ID="btModificarBateria" runat="server" Text="Modificar" OnClick="btModificar_Click" meta:resourcekey="btModificarBateriaResource1"  />
+
+        </div>
+                    <hr/>
        <div>
+           <br />
         </div>
 
-    </form>
+        <div>
+            <asp:Label ID="lbRatioCompra" runat="server" Text="Ratio Compra"  Display="Dynamic"  meta:resourcekey="lbRatioCompra" Font-Bold="True"></asp:Label>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Display="Dynamic"  Font-Italic="True" ForeColor="Red" ControlToValidate="BoxRatioCompra" Text="<%$ Resources:Comunes, campoObligatorio %>" Font-Bold="True"></asp:RequiredFieldValidator>
+            <asp:TextBox ID="BoxRatioCompra" runat="server" meta:resourcekey="BoxRatioCompraResource1"  Width="43px" style="text-align: right" ></asp:TextBox>
+           
+
+            <asp:Label ID="lblRatioCarga" runat="server" Text="Ratio Carga"  Display="Dynamic"  meta:resourcekey="lblRatioCarga" Font-Bold="True"></asp:Label>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxRatioCarga" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+            <asp:TextBox ID="BoxRatioCarga" runat="server" meta:resourcekey="BoxRatioCargaResource1" Width="43px" style="text-align: right"></asp:TextBox>
+          
+
+            <asp:Label ID="lblRatioUso" runat="server" Text="Ratio Uso"  Display="Dynamic"  meta:resourcekey="lblRatioUso" Font-Bold="True"></asp:Label>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator7ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="BoxRatioUso" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+            <asp:TextBox ID="BoxRatioUso" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="43px" style="text-align: right"></asp:TextBox>
+            
         </div>
+
+        <div class="button"> 
+
+            <asp:Button ID="btModificarRatios" runat="server" Text="Modificar" OnClick="btModificarRatios_Click" meta:resourcekey="btModificarRatiosBateriaResource1"  />
+
+        </div>
+
+        
+            <hr/>
+       
+           <br />
+
+        <div class = "field">
+            
+            <asp:Label ID="lblAlmacenajeMaximo" runat="server" Text="Almacenaje Máximo (kwh) :" Display="Dynamic" meta:resourcekey="lblAlmacenajeMaximo"  Font-Size="Medium"></asp:Label>
+            
+             <asp:Label ID="lblAlmacenajeMaximoN" runat="server" Text="Almacenados"  Display="Dynamic"  Font-Bold="True" Font-Size="Medium"></asp:Label>
+            &nbsp;
+            &nbsp   
+            <asp:Label ID="lblKwAlmacenados" runat="server" Text="Almacenados (kwh) :"  Display="Dynamic"  meta:resourcekey="lblKwAlmacenados"  Font-Size="Medium"></asp:Label>   
+            <asp:Label ID="lblKwAlmacenadosNumero" runat="server" Text="Almacenados"  Display="Dynamic"  Font-Bold="True" Font-Size="Medium"></asp:Label>
+            &nbsp
+            &nbsp
+            <asp:Label ID="lblPrecioMedio" runat="server" Text="Precio Medio :"  Display="Dynamic"  meta:resourcekey="lblPrecioMedio"  Font-Size="Medium"></asp:Label>
+            <asp:Label ID="lblPrecioMedioNumero" runat="server" Text="Precio"  Display="Dynamic"  Font-Bold="True" Font-Size="Medium"></asp:Label>
+            
+        </div>
+        <br />
+        <div>
+            <asp:Label ID="lblEtiquetaEstado" runat="server" Text="Estado :"  Display="Dynamic"  meta:resourcekey="lblEtiquetaEstado"  Font-Size="Medium"></asp:Label>
+            <asp:Label ID="lblEstado" runat="server" Text="Estado"  Display="Dynamic" Font-Bold="True" meta:resourcekey="lblEstado"  Font-Size="Medium"></asp:Label>
+
+        </div>
+    </form>
+        
 
 
 </asp:Content>
