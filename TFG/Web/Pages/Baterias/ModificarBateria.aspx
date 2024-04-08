@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace ="True "%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
 
@@ -82,17 +82,17 @@
         <div>
             <asp:Label ID="lbRatioCompra" runat="server" Text="Ratio Compra"  Display="Dynamic"  meta:resourcekey="lbRatioCompra" Font-Bold="True"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Display="Dynamic"  Font-Italic="True" ForeColor="Red" ControlToValidate="BoxRatioCompra" Text="<%$ Resources:Comunes, campoObligatorio %>" Font-Bold="True"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="BoxRatioCompra" runat="server" meta:resourcekey="BoxRatioCompraResource1"  Width="43px" style="text-align: right" ></asp:TextBox>
-           
+            <asp:TextBox ID="BoxRatioCompra" runat="server" meta:resourcekey="BoxRatioCompraResource1"  Width="60px" style="text-align: right" ></asp:TextBox>
+            &nbsp;
 
             <asp:Label ID="lblRatioCarga" runat="server" Text="Ratio Carga"  Display="Dynamic"  meta:resourcekey="lblRatioCarga" Font-Bold="True"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxRatioCarga" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="BoxRatioCarga" runat="server" meta:resourcekey="BoxRatioCargaResource1" Width="43px" style="text-align: right"></asp:TextBox>
-          
+            <asp:TextBox ID="BoxRatioCarga" runat="server" meta:resourcekey="BoxRatioCargaResource1" Width="30px" style="text-align: right"></asp:TextBox>
+            &nbsp;
 
             <asp:Label ID="lblRatioUso" runat="server" Text="Ratio Uso"  Display="Dynamic"  meta:resourcekey="lblRatioUso" Font-Bold="True"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="BoxRatioUso" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="BoxRatioUso" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="43px" style="text-align: right"></asp:TextBox>
+            <asp:TextBox ID="BoxRatioUso" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="60px" style="text-align: right"></asp:TextBox>
             
         </div>
 
@@ -124,8 +124,11 @@
         </div>
         <br />
         <div>
-            <asp:Label ID="lblEtiquetaEstado" runat="server" Text="Estado :"  Display="Dynamic"  meta:resourcekey="lblEtiquetaEstado"  Font-Size="Medium"></asp:Label>
-            <asp:Label ID="lblEstado" runat="server" Text="Estado"  Display="Dynamic" Font-Bold="True" meta:resourcekey="lblEstado"  Font-Size="Medium"></asp:Label>
+            <asp:Label ID="lblBateriaSuministradora" runat="server" Text="Bateria"  Display="Dynamic"  meta:resourcekey="lblBateriaSuministradora"  Font-Size="Medium"></asp:Label>
+            <asp:Label ID="lblValorBateriaSuministradora" runat="server" Text="Estado"  Display="Dynamic" Font-Bold="True"   Font-Size="Medium"></asp:Label>
+            &nbsp
+            <asp:Label ID="lblEtiquetaEstado" runat="server" Text="Estado :"  Display="Dynamic"  meta:resourcekey="lblEtiquetaEstado" Font-Size="Medium"></asp:Label>
+            <asp:Label ID="lblEstado" runat="server" Text="Estado"  Display="Dynamic" Font-Bold="True" Font-Size="Medium"></asp:Label>
 
         </div>
     </form>

@@ -301,6 +301,24 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Label lblPrecioMedioNumero;
         
         /// <summary>
+        /// Control lblBateriaSuministradora.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBateriaSuministradora;
+        
+        /// <summary>
+        /// Control lblValorBateriaSuministradora.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblValorBateriaSuministradora;
+        
+        /// <summary>
         /// Control lblEtiquetaEstado.
         /// </summary>
         /// <remarks>
