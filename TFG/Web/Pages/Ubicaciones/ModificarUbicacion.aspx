@@ -100,8 +100,10 @@
 
             </span>
             <span class="entry">
-                      <asp:DropDownList ID="ListaBateriasUbicacion" runat="server" AutoPostBack="True"
+                    <asp:DropDownList ID="ListaBateriasUbicacion" runat="server" AutoPostBack="True"
                             Width="100px" OnSelectedIndexChanged="ListaBateriasUbicacion_SelectedIndexChanged" meta:resourcekey="ListaBateriasUbicacionResource1"></asp:DropDownList>
+                    <asp:Button ID="BtnQuitarSuministradora" runat="server" Text="Quitar" OnClick="BtnQuitarSuministradora_Click" meta:resourcekey="BtnQuitarSuministradoraResource1"  />
+
             </span>
         </div>
 

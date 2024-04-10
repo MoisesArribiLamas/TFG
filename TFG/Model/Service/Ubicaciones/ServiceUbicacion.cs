@@ -494,6 +494,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual)
         {
+            long consumoNuevo = 0;
 
             // buscamos el consumo (entidad) actual
             Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
@@ -509,9 +510,44 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             // finalizar consumo
             finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
 
+
             // creamos el nuevo consumo
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            
+
+            //devolvemos el id del nuevo consumo
+            return consumoNuevo;
+        }
+
+        #endregion actuallizar Consumo
+
+        #region actualizar los datos de Consumo (carga y suministra) sin cambio del consumoActual
+        [Transactional]
+        public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual, bool isBateriaSuministradoraNull)
+        {
+            long consumoNuevo = 0;
+
+            // buscamos el consumo (entidad) actual
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+            double consumoActual = c.consumoActual;
+
+            // buscamos ubicacion
+            Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // obtenemos el estado
+            string estado = ServicioBateria.EstadoDeLaBateria((long)u.bateriaSuministradora);
+
+
+            // finalizar consumo
+            finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
+
+            if (!isBateriaSuministradoraNull) // en el caso de que se quite la bateria suministradora por null
+            {
+                // creamos el nuevo consumo
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            }
 
             //devolvemos el id del nuevo consumo
             return consumoNuevo;

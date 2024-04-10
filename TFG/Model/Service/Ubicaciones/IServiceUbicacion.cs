@@ -75,6 +75,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual);
 
-
+        [Transactional]
+        long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual, bool isBateriaSuministradoraNull);
     }
 }

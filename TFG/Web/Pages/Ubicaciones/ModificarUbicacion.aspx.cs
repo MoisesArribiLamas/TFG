@@ -269,6 +269,113 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
         }
 
+        protected void BtnQuitarSuministradora_Click(object sender, EventArgs e)
+        {
 
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
+            IServiceControlador serviceControlador = iocManager.Resolve<IServiceControlador>();
+            IServiceBateria serviceBateria = iocManager.Resolve<IServiceBateria>();
+
+            // Obtenemos el id de la ubicacion por parametro
+            long idUbicacion = Int32.Parse(Request.Params.Get("idUbicacion"));
+
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+            String mensaje;
+            String operacion;
+
+            if (ListaBateriasUbicacion.Text != "-- NO --")
+            {
+                // consumoId
+                long? consumoU = serviceUbicacion.UltimoConsumoEnUbicacion(idUbicacion);
+                
+
+                // buscamos el ultimo consumo
+                Consumo consumoUltimo = serviceUbicacion.buscarConsumoById((long)consumoU);
+                if (consumoUltimo.consumoActual == 0)  // no hay consumo activo
+                {
+                    if (idioma == "es") // castellano
+                    {
+                        mensaje = "¿Está seguro de dejar la ubicación sin batería suministradora?";
+                        operacion = "Ubicación sin batería suministradora";
+
+                    }
+                    else if (idioma == "gl") // gallego
+                    {
+                        mensaje = "Está seguro de deixar la ubicación sen batería suministradora?";
+                        operacion = "Ubicación sen batería suministradora";
+                    }
+                    else // (idioma == "en") ingles
+                    {
+                        mensaje = "Are you sure to leave the location without a supply battery?";
+                        operacion = "Location without supply battery";
+
+                    }
+
+                    DialogResult dR = MessageBox.Show(mensaje, operacion, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (dR == DialogResult.OK)
+                    {
+                        //eliminar ubicacion
+                        
+                        serviceControlador.CambiarBateriaSuministradora(idUbicacion, null);
+
+                        ListaBateriasUbicacion.Text = "-- NO --";
+                        //Response.Redirect(Response.
+                        //    ApplyAppPathModifier("~/Pages/Ubicaciones/UbicacionesPage.aspx"));
+                    }
+
+                }
+                else
+                {
+                    if (idioma == "es") // castellano
+                    {
+                        mensaje = "No se puede quitar, la Ubicación tiene consumo activo";
+                        operacion = "Ubicación sin batería suministradora";
+
+                    }
+                    else if (idioma == "gl") // gallego
+                    {
+                        mensaje = "Non se pode quitar, a Ubicación ten consumo activo";
+                        operacion = "Ubicación sen batería suministradora";
+                    }
+                    else // (idioma == "en") ingles
+                    {
+                        mensaje = "Cannot be removed, Location has active consumption";
+                        operacion = "Location without supply battery";
+
+                    }
+
+                    MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+
+            else { // no hay bateria suministradora
+
+
+                if (idioma == "es") // castellano
+                {
+                    mensaje = "La Ubicacion no tiene Batería Suministradora ";
+                    operacion = "Ubicación sin batería suministradora";
+
+                }
+                else if (idioma == "gl") // gallego
+                {
+                    mensaje = "A Ubicacion carece de Batería Suministradora";
+                    operacion = "Ubicación sen batería suministradora";
+                }
+                else // (idioma == "en") ingles
+                {
+                    mensaje = "The Location does not have a Supply Battery";
+                    operacion = "Location without supply battery";
+
+                }
+
+                MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
     }
 }
