@@ -885,12 +885,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         public void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
-            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
-            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador)
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime? fechaDeAdquisicion, string marca,
+            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador,string nSerie)
         {
             bateriaDao.updateInformacion(bateriaId, ubicacionId, usuarioId, precioMedio, kwHAlmacenados,
                 almacenajeMaximoKwH, fechaDeAdquisicion, marca, modelo, ratioCarga,
-                ratioCompra, ratioUso, capacidadCargador);
+                ratioCompra, ratioUso, capacidadCargador, nSerie);
         }
         #endregion Modificar
 

@@ -40,8 +40,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
-            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
-            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador);
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime? fechaDeAdquisicion, string marca,
+            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador,string nSerie);
         
         [Transactional]
         double porcentajeDeCarga(long bateriaId);

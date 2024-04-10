@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages
 {
@@ -29,44 +30,48 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 Response.Redirect(
                Response.ApplyAppPathModifier("~/Pages/User/LogUser.aspx"));
             }
-
-            //Obtenemos parametro
-            String ubicacionId = Request.Params.Get("idUbicacion");
-
-            // obtenemos el servicio Ubicacion
-            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-            IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
-
-            Ubicacion ubicacion = serviceUbicacion.buscarUbicacionById(Convert.ToInt64(ubicacionId));
-
-            BoxEtiquetaCrearUbicacion.Text = ubicacion.etiqueta;
-            BoxLocalidadCrearUbicacion.Text = ubicacion.localidad;
-            BoxCalleCrearUbicacion.Text = ubicacion.calle;
-            BoxNumeroCrearUbicacion.Text = ubicacion.numero.ToString();
-            BoxPortalCrearUbicacion.Text = ubicacion.portal;
-            BoxCodigoPostalCrearUbicacion.Text = ubicacion.codigoPostal.ToString();
-
-
-            //// Obtenemos el id de la ubicacion por parametro
-            long idUbicacion = Int32.Parse(Request.Params.Get("idUbicacion"));
-
-            List<BateriaDTO> bateriasDTO = serviceUbicacion.bateriasDeUnaUbicacion(idUbicacion);
-
-            if (ubicacion.bateriaSuministradora != null) //hay bateria suministradora
+            if (!IsPostBack)
             {
-                IServiceBateria serviceBateria = iocManager.Resolve<IServiceBateria>();
-                Bateria bSuministradora = serviceBateria.BuscarBateriaById((long)(ubicacion.bateriaSuministradora));
+                //Obtenemos parametro
+                String ubicacionId = Request.Params.Get("idUbicacion");
 
-                this.ListaBateriasUbicacion.Items.Insert(0, bSuministradora.nSerie);
+                // obtenemos el servicio Ubicacion
+                IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+                IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
 
-            }
-            else // no hay bateria suministradora
-            {
-                this.ListaBateriasUbicacion.Items.Insert(0, " -- NO -- ");
-            }
-            foreach (BateriaDTO b in bateriasDTO)
-            {
-                this.ListaBateriasUbicacion.Items.Add(b.nSerie);
+                Ubicacion ubicacion = serviceUbicacion.buscarUbicacionById(Convert.ToInt64(ubicacionId));
+
+                BoxEtiquetaCrearUbicacion.Text = ubicacion.etiqueta;
+                BoxLocalidadCrearUbicacion.Text = ubicacion.localidad;
+                BoxCalleCrearUbicacion.Text = ubicacion.calle;
+                BoxNumeroCrearUbicacion.Text = ubicacion.numero.ToString();
+                BoxPortalCrearUbicacion.Text = ubicacion.portal;
+                BoxCodigoPostalCrearUbicacion.Text = ubicacion.codigoPostal.ToString();
+
+
+                //// Obtenemos el id de la ubicacion por parametro
+                long idUbicacion = Int32.Parse(Request.Params.Get("idUbicacion"));
+
+                List<BateriaDTO> bateriasDTO = serviceUbicacion.bateriasDeUnaUbicacion(idUbicacion);
+
+                if (ubicacion.bateriaSuministradora != null) //hay bateria suministradora
+                {
+                    IServiceBateria serviceBateria = iocManager.Resolve<IServiceBateria>();
+                    Bateria bSuministradora = serviceBateria.BuscarBateriaById((long)(ubicacion.bateriaSuministradora));
+
+                    this.ListaBateriasUbicacion.Items.Insert(0, bSuministradora.nSerie);
+
+                }
+                else // no hay bateria suministradora
+                {
+                    this.ListaBateriasUbicacion.Items.Insert(0, "-- NO --");
+                }
+                foreach (BateriaDTO b in bateriasDTO)
+                {
+                    this.ListaBateriasUbicacion.Items.Add(b.nSerie);
+                }
+
+                
             }
         }
 
@@ -87,18 +92,45 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                     // Obtenemos el id de la ubicacion por parametro
                     long idUbicacion = Int32.Parse(Request.Params.Get("idUbicacion"));
 
-                    //obtenemos el id de la bateria suministradora
-                    long batSum = serviceBateria.getBateriaIdByNSerie(ListaBateriasUbicacion.Text);
-
                     serviceUbicacion.modificarUbicacion(idUbicacion, Convert.ToInt64(BoxCodigoPostalCrearUbicacion.Text), BoxLocalidadCrearUbicacion.Text, BoxCalleCrearUbicacion.Text, BoxPortalCrearUbicacion.Text, Convert.ToInt64(BoxNumeroCrearUbicacion.Text), BoxEtiquetaCrearUbicacion.Text);
+                   
+                    if (ListaBateriasUbicacion.Text != "-- NO --")
+                    { 
+                        //obtenemos el id de la bateria suministradora
+                        long batSum = serviceBateria.getBateriaIdByNSerie(ListaBateriasUbicacion.Text);
 
-                    Trace.Warn("Bateria Suministradora", Convert.ToString(batSum));
+                        Trace.Warn("Bateria Suministradora", ListaBateriasUbicacion.Text);
 
-                    serviceControlador.CambiarBateriaSuministradora(idUbicacion, batSum);
-                    //CambiarBateriaSuministradora(long ubicacionId, long? bateriaSuministradora);
-                    //long getBateriaIdByNSerie(string nserie)
-                    Response.Redirect(Response.
-                        ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));
+                        serviceControlador.CambiarBateriaSuministradora(idUbicacion, batSum);
+                    }
+
+                    string idioma = SessionManager.GetUserSession(Context).Idioma;
+                    String mensaje;
+                    String operacion;
+
+                    if (idioma == "es") // castellano
+                    {
+                        mensaje = "Ubicación Modificada";
+                        operacion = "Modificar Ubicacion";
+
+                    }
+                    else if (idioma == "gl") // gallego
+                    {
+                        mensaje = "Ubicación Modificada";
+                        operacion = "Modificar Ubicacion";
+                    }
+                    else // (idioma == "en") ingles
+                    {
+                        mensaje = "Modified Location";
+                        operacion = "Modify Location";
+
+                    }
+
+                    MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //Response.Redirect(Response.
+                    //    ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));
+
                 }
                 catch (DuplicateInstanceException)
                 {
@@ -121,5 +153,122 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
         {
             
         }
+
+        protected void btnEliminarUbicacion_Click(object sender, EventArgs e)
+        {
+            // comprobar si hay consumo
+
+            //Obtenemos parametro
+            String ubicacionId = Request.Params.Get("idUbicacion");
+            long IdUbicacion = Convert.ToInt64(ubicacionId);
+
+            // obtenemos el servicio Ubicacion
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
+
+            // obtenemos la Ubicacion
+            Ubicacion ubicacion = serviceUbicacion.buscarUbicacionById(IdUbicacion);
+
+            long? consumoU = serviceUbicacion.UltimoConsumoEnUbicacion(IdUbicacion);
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+            String mensaje;
+            String operacion;
+
+            if (consumoU == null)
+            { // No Hubo consumo
+
+                if (idioma == "es") // castellano
+                {
+                    mensaje = "¿Está seguro de querer eliminar la Ubicación?";
+                    operacion = "Eliminar Ubicación";
+
+                }
+                else if (idioma == "gl") // gallego
+                {
+                    mensaje = "Está seguro de querer eliminar a Ubicación?";
+                    operacion = "Eliminar Ubicación";
+                }
+                else // (idioma == "en") ingles
+                {
+                    mensaje = "Are you sure you want to remove the Location?";
+                    operacion = "Remove Location";
+
+                }
+
+                DialogResult dR = MessageBox.Show(mensaje, operacion, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                if (dR == DialogResult.OK)
+                {
+                    //eliminar ubicacion
+                    serviceUbicacion.eliminarUbicacion(IdUbicacion);
+
+                    Response.Redirect(Response.
+                        ApplyAppPathModifier("~/Pages/Ubicaciones/UbicacionesPage.aspx"));
+                }
+                
+            }
+            else
+            {   // buscamos el ultimo consumo
+                Consumo consumoUltimo = serviceUbicacion.buscarConsumoById((long)consumoU);
+                if (consumoUltimo.consumoActual == 0)
+                {
+                    if (idioma == "es") // castellano
+                    {
+                        mensaje = "¿Está seguro de querer eliminar la Ubicación?";
+                        operacion = "Eliminar Ubicación";
+
+                    }
+                    else if (idioma == "gl") // gallego
+                    {
+                        mensaje = "Está seguro de querer eliminar a Ubicación?";
+                        operacion = "Eliminar Ubicación";
+                    }
+                    else // (idioma == "en") ingles
+                    {
+                        mensaje = "Are you sure you want to remove the Location?";
+                        operacion = "Remove Location";
+
+                    }
+
+                    DialogResult dR = MessageBox.Show(mensaje, operacion, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (dR == DialogResult.OK)
+                    {
+                        //eliminar ubicacion
+                        serviceUbicacion.eliminarUbicacion(IdUbicacion);
+
+                        Response.Redirect(Response.
+                            ApplyAppPathModifier("~/Pages/Baterias/UbicacionesPage.aspx"));
+                    }
+                    
+                }
+                else
+                {
+                    if (idioma == "es") // castellano
+                    {
+                        mensaje = "No se puede eliminar una Ubicación que está consumiendo";
+                        operacion = "Modificar Ubicacion";
+
+                    }
+                    else if (idioma == "gl") // gallego
+                    {
+                        mensaje = "No se pode eliminar una Ubicación que está consumindo";
+                        operacion = "Modificar Ubicacion";
+                    }
+                    else // (idioma == "en") ingles
+                    {
+                        mensaje = "Cannot delete a Location that is consuming";
+                        operacion = "Modify Location";
+
+                    }
+
+                    MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+        }
+
+
     }
 }

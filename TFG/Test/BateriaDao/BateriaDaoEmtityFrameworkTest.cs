@@ -150,7 +150,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
 
             //COMPROBAMOS
             bateriaDao.updateInformacion(b.bateriaId, b2.ubicacionId, b2.usuarioId, b2.precioMedio, b2.kwHAlmacenados, b2.almacenajeMaximoKwH,
-                b2.fechaDeAdquisicion, b2.marca, b2.modelo, b2.ratioCarga, b2.ratioCompra, b2.ratioUso, b2.capacidadCargador);
+                b2.fechaDeAdquisicion, b2.marca, b2.modelo, b2.ratioCarga, b2.ratioCompra, b2.ratioUso, b2.capacidadCargador, "WDOSN24JSDC62");
 
             Bateria b1 = bateriaDao.Find(b.bateriaId);
 
@@ -166,6 +166,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             Assert.AreEqual(b2.ratioCompra, b1.ratioCompra);
             Assert.AreEqual(b2.ratioUso, b1.ratioUso);
             Assert.AreEqual(b2.capacidadCargador, b1.capacidadCargador);
+            Assert.AreEqual( "WDOSN24JSDC62",b1.nSerie);
 
         }
 

@@ -135,7 +135,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion
 
-        #region ubicaciones del Usuario
+        #region ubicaciones del Usuario con paginación
         [Transactional]
         public List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count)
         {
@@ -144,6 +144,31 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
 
                 List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesPertenecientesAlUsuario(idUsuario, startIndex, count);
+
+                foreach (Ubicacion u in ubicaciones)
+                {
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
+                }
+                return ubicacionesDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region ubicaciones del Usuario sin paginación.
+        [Transactional]
+        public List<UbicacionProfileDetails> ubicacionesDelUsuario(long idUsuario)
+        {
+            try
+            {
+                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesDelUsuario(idUsuario);
 
                 foreach (Ubicacion u in ubicaciones)
                 {

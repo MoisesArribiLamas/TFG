@@ -238,6 +238,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.TextBox BoxRatioUso;
         
         /// <summary>
+        /// Control lblErrorModificarRatios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorModificarRatios;
+        
+        /// <summary>
         /// Control btModificarRatios.
         /// </summary>
         /// <remarks>
@@ -335,5 +344,14 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEstado;
+        
+        /// <summary>
+        /// Control btnEliminarBateria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminarBateria;
     }
 }

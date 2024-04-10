@@ -57,25 +57,30 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         [Inject]
         public IServiceTarifa ServicioTarifa { private get; set; }
 
-        //[Inject]
-        //public IServiceUbicacion ServicioUbicacion { private get; set; } 
 
 
-        //#region Parte Asincrona
+        #region Parte Asincrona
 
-        //[Transactional]
-        //public void Asincrono(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados)
-        //{
-        //    // Fecha y hora actual
-        //    DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        //    TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+        [Transactional]
+        public void Asincrono(long idUsuario)
+        {
+            // Fecha y hora actual
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
+            //
+            CrearTarifasDeHoy(fechaActual);
 
-        //    //Mirar si hay que traer todas las tarifas del dia
-        //    // mirar si se ha cambiado de dia
-        //    // mirar si se ha cambiado de hora
-        //}
-        //#endregion
+            //Mirar si hay que traer todas las tarifas del dia
+            // mirar si se ha cambiado de dia
+            // mirar si se ha cambiado de hora
+
+            List<UbicacionProfileDetails> ubicaciones = ServicioUbicacion.ubicacionesDelUsuario( idUsuario);
+            // comprobamos si hay que hacer cambios 
+
+            //gestionDeRatiosBateriaSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual);
+        }
+        #endregion
 
 
 
@@ -91,7 +96,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             foreach (Ubicacion u in ubicaciones)
             {
                 // comprobar los ratios
-                gestionDeRatiosBateriaSuministradora((long)u.bateriaSuministradora, fechaActual, horaActual);
+                if (u.bateriaSuministradora != null) // Ubicaciones que tienen bateria suministradora
+                {
+                    gestionDeRatiosBateriaSuministradora((long)u.bateriaSuministradora, fechaActual, horaActual);
+                }
 
 
             }
@@ -108,23 +116,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             Bateria b = bateriaDao.Find(bateriaId);
 
             // Comprobamos si la bateria siministradora es la misma que la de los cambios.
-            if ((long)b.Ubicacion.bateriaSuministradora == bateriaId)
-            {
+            if (b.Ubicacion.bateriaSuministradora == null) {
                 ServicioBateria.ModificarRatios(bateriaId, ratioCarga, ratioCompra, ratioUso);
-
-
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-
-                gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
-
             }
-            else // no es la bateria suministradora
-            {
-                ServicioBateria.ModificarRatios(bateriaId, ratioCarga, ratioCompra, ratioUso);
+            else
+            { 
+                // Comprobamos si la bateria siministradora es la misma que la de los cambios.
+                if ((long)b.Ubicacion.bateriaSuministradora == bateriaId)
+                {
+                    ServicioBateria.ModificarRatios(bateriaId, ratioCarga, ratioCompra, ratioUso);
 
+
+                    DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                    gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
+
+                }
+                else // no es la bateria suministradora
+                {
+                    ServicioBateria.ModificarRatios(bateriaId, ratioCarga, ratioCompra, ratioUso);
+
+                }
             }
-
         }
         #endregion
 
@@ -595,6 +609,23 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             }
 
             return ServicioTarifa.TarifasDelDia(fechaActual);
+        }
+
+        #endregion
+
+        #region Crear Tarifas si es necesario pasandole la fecha
+        [Transactional]
+        public void CrearTarifasDeHoy(DateTime fechaActual)
+        {
+
+            // Comprobar si las tarifas son las de hoy
+            if (!TarifaDao.ExistenTarifasDelDia(fechaActual))
+            {
+                // actualizamos las tarifas
+                ServicioTarifa.scrapyTarifas();
+
+            }
+
         }
 
         #endregion

@@ -71,7 +71,7 @@
 
         <div class="button"> 
 
-            <asp:Button ID="btModificarBateria" runat="server" Text="Modificar" OnClick="btModificar_Click" meta:resourcekey="btModificarBateriaResource1"  />
+            <asp:Button ID="btModificarBateria" runat="server" Text="Modificar" OnClick="btModificarRatios_Click" meta:resourcekey="btModificarBateriaResource1"  />
 
         </div>
                     <hr/>
@@ -95,7 +95,11 @@
             <asp:TextBox ID="BoxRatioUso" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="60px" style="text-align: right"></asp:TextBox>
             
         </div>
+        <div>
 
+            <asp:Label ID="lblErrorModificarRatios" runat="server" ForeColor="Red" Style="position: relative"
+                    Visible="False" text="Error Al modificar Bateria" meta:resourcekey="lblErrorModificarBateriaResource1"></asp:Label>
+        </div>
         <div class="button"> 
 
             <asp:Button ID="btModificarRatios" runat="server" Text="Modificar" OnClick="btModificarRatios_Click" meta:resourcekey="btModificarRatiosBateriaResource1"  />
@@ -129,6 +133,13 @@
             &nbsp
             <asp:Label ID="lblEtiquetaEstado" runat="server" Text="Estado :"  Display="Dynamic"  meta:resourcekey="lblEtiquetaEstado" Font-Size="Medium"></asp:Label>
             <asp:Label ID="lblEstado" runat="server" Text="Estado"  Display="Dynamic" Font-Bold="True" Font-Size="Medium"></asp:Label>
+
+        </div>
+         <br />
+        <hr/>
+        <div class="button"> 
+
+            <asp:Button ID="btnEliminarBateria" runat="server" Text="Eliminar" OnClick="btnEliminarBaterias_Click" meta:resourcekey="btnEliminarBateriaResource1"  />
 
         </div>
     </form>

@@ -30,6 +30,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         List<TarifaDetails> TarifasDeHoy();
 
         [Transactional]
+        void CrearTarifasDeHoy(DateTime fechaActual);
+
+        [Transactional]
         List<BateriaDTOEtiquetaUbicacion> VerBateriasUsuarioConEtiquetaUbicacion(long idUsuario, int startIndex, int count);
 
         [Transactional]
