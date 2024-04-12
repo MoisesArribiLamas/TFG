@@ -39,6 +39,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<UbicacionProfileDetails> ubicacionesDelUsuario(long idUsuario);
 
         [Transactional]
+        List<long?> todasLasBateriasSuministradoras();
+
+        [Transactional]
         List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion);
 
         [Transactional]
@@ -77,5 +80,6 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Transactional]
         long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual, bool isBateriaSuministradoraNull);
+
     }
 }

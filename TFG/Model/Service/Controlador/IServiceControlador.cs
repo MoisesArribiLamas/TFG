@@ -37,5 +37,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         [Transactional]
         int numeroBateriasUsuario(long idUsuario);
+
+        [Transactional]
+        void ControlCambioHoraODia();
     }
 }

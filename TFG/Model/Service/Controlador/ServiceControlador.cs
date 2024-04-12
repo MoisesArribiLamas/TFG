@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
@@ -57,28 +58,75 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         [Inject]
         public IServiceTarifa ServicioTarifa { private get; set; }
 
-
+        public void ControlCambioHoraODia() 
+        {
+            //ThreadStaticAttribute 
+            while (true) {
+                int milisegundos = Asincrono();
+                Thread.Sleep(milisegundos);
+            };
+        }
 
         #region Parte Asincrona
 
         [Transactional]
-        public void Asincrono(long idUsuario)
+        public int Asincrono()
         {
             // Fecha y hora actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            int hora = horaActual.Hours;
+            int minutos = horaActual.Minutes;
+            int segundos = horaActual.Seconds;
 
-            //
-            CrearTarifasDeHoy(fechaActual);
+            // Si cambiamos de dia, nuevas tarifas
+            if (hora == 0 || minutos == 0) {
+                CrearTarifasDeHoy(fechaActual);
+            }
 
-            //Mirar si hay que traer todas las tarifas del dia
-            // mirar si se ha cambiado de dia
-            // mirar si se ha cambiado de hora
+            // obtenemos todas las baterias suministradoras
+            List<long?> bS = ServicioUbicacion.todasLasBateriasSuministradoras();
+            bool corto = false;
 
-            List<UbicacionProfileDetails> ubicaciones = ServicioUbicacion.ubicacionesDelUsuario( idUsuario);
-            // comprobamos si hay que hacer cambios 
+            foreach (long? bateriaId in bS)
+            {
+                if (!corto)
+                { // si hay baterias con poca energia, hacemos un timer mas corto
+                    Bateria b = ServicioBateria.BuscarBateriaById((long)bateriaId);
+                    if (ServicioBateria.porcentajeDeCarga((long)bateriaId)-b.ratioCarga < 7) {
+                        corto = true;
+                    }
+                }
+                gestionDeRatiosBateriaSuministradora( (long)bateriaId, fechaActual, horaActual);
+            }
 
-            //gestionDeRatiosBateriaSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual);
+            if (corto)
+            {
+                int cambioHora = 59 - minutos;
+
+                if ((cambioHora) < 10)
+                {
+                    return ((cambioHora+1)*60000)+((segundos+1)*1000); // un segundo despues del cambio de hora
+
+                } else {
+                    return (600000); // 10 minutos
+                }
+                
+            }
+            else // no hay bateria cerca de acabarse
+            {
+                int cambioHora = 59 - minutos;
+
+                if ((cambioHora) < 30)
+                {
+                    return ((cambioHora + 1) * 60000) + ((segundos + 1) * 1000); // un segundo despues del cambio de hora
+
+                }
+                else
+                {
+                    return (1800000); // 30 minutos
+                }
+            }
         }
         #endregion
 

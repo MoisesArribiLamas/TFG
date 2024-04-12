@@ -7,6 +7,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Threading;
+using System.Timers;
+using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
+using Es.Udc.DotNet.TFG.Model.Service;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages
 {
@@ -30,6 +36,20 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 serviceEstado.CrearTodosLosEstados();
 
             }
+
+
+            ControlCambioHoraODia();
+        }
+        public void ControlCambioHoraODia()
+        {
+            
+            
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceControlador serviceControlador = iocManager.Resolve<IServiceControlador>();
+            //serviceUbicacion.ActualizarPrueba();
+            
+            Thread thread = new Thread(serviceControlador.ControlCambioHoraODia);
+            thread.Start();
         }
     }
 }

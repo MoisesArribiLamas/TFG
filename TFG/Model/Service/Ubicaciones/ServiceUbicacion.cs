@@ -182,6 +182,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 return null;
             }
         }
+        #endregion
+
+        #region Todas las baterias suministradodas.
+        [Transactional]
+        public List<long?> todasLasBateriasSuministradoras()
+        {
+            //List<long> longs = ubicacionDao.todasLasBateriasSuministradoras().ConvertAll(i => (long)i);
+
+            return ubicacionDao.todasLasBateriasSuministradoras();
+
+        }
 
         #endregion
 
@@ -638,6 +649,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion
 
+
+      
     }
 
 }

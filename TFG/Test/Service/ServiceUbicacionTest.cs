@@ -409,7 +409,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
-        public void verUbicacionesDeUnUsuarioTest()
+        public void verUbicacionesDeUnUsuarioYtodasLasBateriasSuministradorasTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -521,19 +521,28 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 List<UbicacionProfileDetails> obteined = servicio.verUbicaciones(user.usuarioId, startOfIndex, count);
                 List<UbicacionProfileDetails> obteined2 = servicio.verUbicaciones(user2.usuarioId, startOfIndex, count);
 
-
-
                 UbicacionProfileDetails o1 = new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta);
                 UbicacionProfileDetails o2 = new UbicacionProfileDetails(u2.ubicacionId, u2.codigoPostal, u2.localidad, u2.calle, u2.portal, u2.numero, u.etiqueta);
 
+                //ponemos las baterias suministradoras
+                u.bateriaSuministradora = b.bateriaId;
+                ubicacionDao.Update(u);
 
+                u2.bateriaSuministradora = b2.bateriaId;
+                ubicacionDao.Update(u2);
+
+                List<long?> suministradoras = servicio.todasLasBateriasSuministradoras();
+            
                 //COMPROBAMOS
-
 
                 Assert.AreEqual(obteined[0], o1);
                 Assert.AreEqual(obteined.Count, 1);
                 Assert.AreEqual(obteined2[0], o2);
                 Assert.AreEqual(obteined2.Count, 1);
+
+                Assert.AreEqual(suministradoras.Count, 2);
+                Assert.AreEqual(suministradoras[0], b.bateriaId);
+                Assert.AreEqual(suministradoras[1], b2.bateriaId);
             }
         }
 
