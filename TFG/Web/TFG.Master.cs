@@ -22,6 +22,8 @@ namespace Es.Udc.DotNet.TFG.Web
                     lnkUbicaciones.Visible = false;
                 if (lnkBaterias != null)
                     lnkBaterias.Visible = false;
+                if (lnkEstadisticas != null)
+                    lnkEstadisticas.Visible = false;
                 if (lnkLogout != null)
                     lnkLogout.Visible = false;
                 if (lnkModifyUser != null)

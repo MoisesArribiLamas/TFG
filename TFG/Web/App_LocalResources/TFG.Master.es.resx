@@ -168,4 +168,10 @@
   <data name="lnkUbicaciones.ToolTip" xml:space="preserve">
     <value>Pulse para gestionar las ubicaciones.</value>
   </data>
+  <data name="lnkEstadisticas.Text" xml:space="preserve">
+    <value>Estadisticas</value>
+  </data>
+  <data name="lnkEstadisticas.ToolTip" xml:space="preserve">
+    <value>Pulse Para ver las Estadisticas.</value>
+  </data>
 </root>

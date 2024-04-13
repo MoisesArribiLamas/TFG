@@ -76,6 +76,15 @@ namespace Es.Udc.DotNet.TFG.Web {
         protected global::System.Web.UI.WebControls.HyperLink lnkBaterias;
         
         /// <summary>
+        /// Control lnkEstadisticas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkEstadisticas;
+        
+        /// <summary>
         /// Control lnkCreateAccount.
         /// </summary>
         /// <remarks>
