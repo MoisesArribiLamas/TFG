@@ -160,6 +160,65 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion
 
+        #region ubicaciones del Usuario con paginación En mostrar estadísticas.
+        [Transactional]
+        public List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuarioEstadisticas(long idUsuario, int startIndex, int count)
+        {
+            try
+            {
+                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesPertenecientesAlUsuario(idUsuario, startIndex, count);
+
+                foreach (Ubicacion u in ubicaciones) //double consumoActual, string bateriaSuministradora
+                {
+                    // obtenemos el consumo actual de la ubicacion.
+                    double? consumoActual;
+                    string bateriaSuministradora;
+                    if (u.ultimoConsumo == null)
+                    {
+                        // no tiene asociado un consumo
+                        consumoActual = null;
+
+                        //si no hay asociado un consumo tampoco hay bateria suministradora
+                        bateriaSuministradora = null;
+
+                    }
+                    else
+                    {
+                        // obtenemos el consumo
+                        Consumo c = buscarConsumoById((long)u.ultimoConsumo);
+                        consumoActual = c.consumoActual;
+
+                        if (u.bateriaSuministradora != null)
+                        {
+                            bateriaSuministradora = ServicioBateria.getNSerieById((long)u.bateriaSuministradora);
+                        }
+                        else { bateriaSuministradora = "Pero que coño"; }
+  
+                        //bateriaSuministradora = ServicioBateria.getNSerieById((long)u.bateriaSuministradora);
+                        // obtenemos la bateria
+                        // Bateria b = ServicioBateria.BuscarBateriaById((long)u.bateriaSuministradora);
+                        //    bateriaSuministradora = b.nSerie;
+
+                    }
+
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.etiqueta, consumoActual, bateriaSuministradora));
+
+                    //ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
+
+                }
+                return ubicacionesDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
         #region ubicaciones del Usuario sin paginación.
         [Transactional]
         public List<UbicacionProfileDetails> ubicacionesDelUsuario(long idUsuario)
@@ -558,6 +617,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 // creamos el nuevo consumo
                 DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            }
+            else // en el caso de que se quite la bateria suministradora y no se ponga otra. quitamos el ultimo consumo.
+            {
+                u.ultimoConsumo = null;
+                ubicacionDao.Update(u);
             }
 
             //devolvemos el id del nuevo consumo
