@@ -194,18 +194,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                         {
                             bateriaSuministradora = ServicioBateria.getNSerieById((long)u.bateriaSuministradora);
                         }
-                        else { bateriaSuministradora = "Pero que coño"; }
+                        else { bateriaSuministradora = ""; }
   
-                        //bateriaSuministradora = ServicioBateria.getNSerieById((long)u.bateriaSuministradora);
-                        // obtenemos la bateria
-                        // Bateria b = ServicioBateria.BuscarBateriaById((long)u.bateriaSuministradora);
-                        //    bateriaSuministradora = b.nSerie;
 
                     }
 
                     ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.etiqueta, consumoActual, bateriaSuministradora));
-
-                    //ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
 
                 }
                 return ubicacionesDTO;

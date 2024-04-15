@@ -17,6 +17,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             this.portal = portal;
             this.numero = numero;
             this.etiqueta = etiqueta;
+            this.consumoActual = null;
+
+        }
+
+        public UbicacionProfileDetails(long ubicacionId, string etiqueta, double? consumoActual, string bateriaSuministradora)
+        {
+            this.ubicacionId = ubicacionId;
+            this.etiqueta = etiqueta;
+            this.consumoActual = consumoActual;
+            this.bateriaSuministradora = bateriaSuministradora;
+        }
+
+        public UbicacionProfileDetails(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta, double? consumoActual, string bateriaSuministradora)
+        {
+            this.ubicacionId = ubicacionId;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.calle = calle;
+            this.portal = portal;
+            this.numero = numero;
+            this.etiqueta = etiqueta;
+            this.consumoActual = consumoActual;
+            this.bateriaSuministradora = bateriaSuministradora;
         }
 
         public long ubicacionId { get; set; }
@@ -31,6 +54,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         public string etiqueta { get; set; }
 
+        public double? consumoActual { get; private set; }
+
+        public string bateriaSuministradora { get; set; }
+
         public override bool Equals(object obj)
         {
             var details = obj as UbicacionProfileDetails;
@@ -38,15 +65,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                    ubicacionId == details.ubicacionId &&
                    codigoPostal == details.codigoPostal &&
                    localidad == details.localidad &&
+                   calle == details.calle &&
+                   portal == details.portal &&
+                   numero == details.numero &&
                    etiqueta == details.etiqueta &&
-                   calle == details.calle
-                   && (this.portal == details.portal)
-                 && (this.numero == details.numero);
+                   EqualityComparer<double?>.Default.Equals(consumoActual, details.consumoActual) &&
+                   bateriaSuministradora == details.bateriaSuministradora;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1358148757;
+            var hashCode = -104618586;
             hashCode = hashCode * -1521134295 + ubicacionId.GetHashCode();
             hashCode = hashCode * -1521134295 + codigoPostal.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(localidad);
@@ -54,6 +83,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(portal);
             hashCode = hashCode * -1521134295 + numero.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(etiqueta);
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(consumoActual);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(bateriaSuministradora);
             return hashCode;
         }
 

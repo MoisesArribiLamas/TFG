@@ -178,6 +178,23 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         }
         #endregion
 
+        #region Todas las Baterias Suministradoras
+        public List<long?> todasLasBateriasSuministradoras()
+        {
+
+
+            DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
+
+            var result =
+                (from u in ubicacion
+                 where u.bateriaSuministradora != null
+                 select u.bateriaSuministradora).ToList();
+
+            return result;
+
+        }
+        #endregion
+
 
         
 

@@ -139,5 +139,14 @@ namespace Es.Udc.DotNet.TFG.Web.Properties {
                 return ((string)(this["ObjectDS_ShowBaterias_CountMethod"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ubicacionesPertenecientesAlUsuarioEstadisticas")]
+        public string ObjectDS_ShowUbicaciones_Estadisticas_SelectMethod {
+            get {
+                return ((string)(this["ObjectDS_ShowUbicaciones_Estadisticas_SelectMethod"]));
+            }
+        }
     }
 }

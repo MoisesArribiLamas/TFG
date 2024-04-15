@@ -25,5 +25,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
         List<Ubicacion> TodasLasUbicaciones();
 
+        List<long?> todasLasBateriasSuministradoras();
+
     }
 }

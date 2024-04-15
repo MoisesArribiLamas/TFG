@@ -63,6 +63,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         long getBateriaIdByNSerie(string nserie);
 
         [Transactional]
+        string getNSerieById(long? bateriaId);
+
+        [Transactional]
         void EliminarBateria(long bateriaId);
 
         [Transactional]

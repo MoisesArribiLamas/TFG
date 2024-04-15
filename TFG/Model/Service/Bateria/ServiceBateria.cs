@@ -952,6 +952,25 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             return bateriaDao.getBateriaIdByNSerie( nserie);
 
         }
+        #endregion
+
+        #region Buscar BateriaID por Numero Serie
+
+        [Transactional]
+        public string getNSerieById(long? bateriaId)
+        {
+            if (bateriaId != null)
+            {
+                Bateria b = BuscarBateriaById((long)bateriaId);
+                return b.nSerie;
+            }
+            else {
+
+                return "" ;
+            }
+            
+
+        }
         #endregion 
 
         #region Eliminar Bateria

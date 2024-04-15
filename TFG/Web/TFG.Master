@@ -50,7 +50,7 @@
 
                     <li>
                         <asp:HyperLink ID="lnkEstadisticas" runat="server" Display="Dynamic"
-                            meta:resourcekey="lnkEstadisticas" NavigateUrl="~/Pages/Baterias/BateriasPage.aspx" />
+                            meta:resourcekey="lnkEstadisticas" NavigateUrl="~/Pages/Estadisticas/EstadisticasPage.aspx" />
                     </li>
 
                     <li>

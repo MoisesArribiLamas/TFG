@@ -35,6 +35,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional] // más óptimo
         List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count);
 
+        [Transactional]
+        List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuarioEstadisticas(long idUsuario, int startIndex, int count);
+
         [Transactional] // sin paginación
         List<UbicacionProfileDetails> ubicacionesDelUsuario(long idUsuario);
 
