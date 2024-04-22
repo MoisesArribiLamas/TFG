@@ -20,8 +20,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             this.horaFin = horaFin;
             this.consumoActual = consumoActual;
             this.ubicacion = ubicacion;
+            this.criterio = null;
         }
-       
+
+        public ConsumoDTO(long consumoId, long ubicacionId, double? criterio, DateTime fecha, TimeSpan horaIni, TimeSpan? horaFin, double consumoActual, long ubicacion)
+        {
+            this.consumoId = consumoId;
+            this.ubicacionId = ubicacionId;
+            this.criterio = criterio;
+            this.kwCargados = null;
+            this.kwSuministrados = null;
+            this.kwRed = null;
+            this.fecha = fecha;
+            this.horaIni = horaIni;
+            this.horaFin = horaFin;
+            this.consumoActual = consumoActual;
+            this.ubicacion = ubicacion;
+        }
+
         public long consumoId { get; set; }
 
         public long ubicacionId { get; set; }
@@ -42,24 +58,35 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         public long ubicacion { get; set; }
 
+        public double? criterio { get; set; }
+
+        
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public override bool Equals(object obj)
         {
-            var details = obj as ConsumoDTO;
-            return details != null &&
-                   ubicacionId == details.ubicacionId &&
-                   kwCargados == details.kwCargados &&
-                   kwSuministrados == details.kwSuministrados &&
-                   kwRed == details.kwRed &&
-                   consumoActual == details.consumoActual &&
-                   ubicacion == details.ubicacion
-                   && (this.fecha == details.fecha)
-                 && (this.horaIni == details.horaIni)
-                 && (this.horaFin == details.horaFin);
+            var dTO = obj as ConsumoDTO;
+            return dTO != null &&
+                   consumoId == dTO.consumoId &&
+                   ubicacionId == dTO.ubicacionId &&
+                   EqualityComparer<double?>.Default.Equals(kwCargados, dTO.kwCargados) &&
+                   EqualityComparer<double?>.Default.Equals(kwSuministrados, dTO.kwSuministrados) &&
+                   EqualityComparer<double?>.Default.Equals(kwRed, dTO.kwRed) &&
+                   fecha == dTO.fecha &&
+                   horaIni.Equals(dTO.horaIni) &&
+                   EqualityComparer<TimeSpan?>.Default.Equals(horaFin, dTO.horaFin) &&
+                   consumoActual == dTO.consumoActual &&
+                   ubicacion == dTO.ubicacion &&
+                   EqualityComparer<double?>.Default.Equals(criterio, dTO.criterio);
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 315884658;
+            var hashCode = -798318096;
             hashCode = hashCode * -1521134295 + consumoId.GetHashCode();
             hashCode = hashCode * -1521134295 + ubicacionId.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(kwCargados);
@@ -70,15 +97,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan?>.Default.GetHashCode(horaFin);
             hashCode = hashCode * -1521134295 + consumoActual.GetHashCode();
             hashCode = hashCode * -1521134295 + ubicacion.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(criterio);
             return hashCode;
         }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-
     }
 }
 

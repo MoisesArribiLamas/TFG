@@ -196,6 +196,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         {
             TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
+            // obtenemos la ubicacion
             Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
 
             // Obtenemos el consumo

@@ -376,6 +376,57 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao.Tests
 
         }
 
+        [TestMethod()]
+        public void MostrarConsumosEnUnIntervaloTest()
+        {
+            // Creamos Ubicacion
+            long codigoPostal = 15000;
+            string localidad = "Coruña";
+            string calle = "San Juan";
+            string portal = "";
+            long numero = 100;
+            string etiqueta = "bichito";
+            long bateriaSuministradora = 1;
+
+            Ubicacion u = crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, bateriaSuministradora);
+
+            TimeSpan dosMinutos = new TimeSpan(0, 2, 0);
+            TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+
+            // Creamos Consumos
+            double consumoActual = 10;
+            double kwCargados = 100;
+            double kwSuministrados = 100;
+            double kwRed = 0;
+            DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime fecha2  = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1);
+            DateTime fecha3  = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(2);
+            TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            TimeSpan horaFin = horaIni.Add(tresMinutos);
+
+            long ubicacionId = u.ubicacionId;
+
+            // consumo 1
+            Consumo c1 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaIni, horaFin, ubicacionId);
+
+            consumoActual = 15;
+            TimeSpan horaFin2 = horaFin.Add(dosMinutos);
+            // consumo 2
+            Consumo c2 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha, horaFin, horaFin2, ubicacionId);
+
+            // consumo 3
+            Consumo c3 = crearConsumoUbicacion(consumoActual, kwCargados, kwSuministrados, kwRed, fecha3, horaFin, horaFin2, ubicacionId);
+
+            //COMPROBAMOS   
+            List<Consumo> consumoResult = consumoDao.MostrarConsumosUbicacionPorFecha(ubicacionId, fecha, fecha2, 0, 5);
+
+            Assert.AreEqual(consumoResult.Count(), 2);
+            Assert.AreEqual(consumoResult[0], c1);
+            Assert.AreEqual(consumoResult[1], c2);
+
+
+        }
+
 
     }
 }

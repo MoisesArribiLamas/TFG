@@ -66,7 +66,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
 
                 HyperLink link = row.Cells[1].Controls[0] as HyperLink;
 
-                link.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
+                link.NavigateUrl = "~/Pages/Estadisticas/EstadisticasUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
                 
             }
         }
@@ -99,7 +99,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
 
                 HyperLink link = row.Cells[1].Controls[0] as HyperLink;
 
-                link.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
+                link.NavigateUrl = "~/Pages/Estadisticas/EstadisticasUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
                 
             }
         }

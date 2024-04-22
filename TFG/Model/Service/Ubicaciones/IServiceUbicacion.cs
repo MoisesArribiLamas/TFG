@@ -84,5 +84,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual, bool isBateriaSuministradoraNull);
 
+        [Transactional]
+        List<ConsumoDTO> MostrarProporcionadoPorRedPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count);
+
+        [Transactional]
+        int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
     }
 }

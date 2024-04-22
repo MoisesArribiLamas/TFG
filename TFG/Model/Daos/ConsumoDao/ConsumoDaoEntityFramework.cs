@@ -36,7 +36,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
 
         }
 
-        #region suministros en un perriodo de tiempo
+        #region consumos en un perriodo de tiempo
         public List<Consumo> MostrarConsumosUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
             DbSet<Consumo> Consumos = Context.Set<Consumo>();
@@ -49,6 +49,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
             return result;
         }
         #endregion
+
+        #region numero de consumos en un perriodo de tiempo
+        public int numeroConsumosUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+            DbSet<Consumo> Consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in Consumos
+                 where ((c.fecha >= fecha) && (c.fecha <= fecha2) && (c.ubicacionId == ubicacionID))
+                 select c).Count();
+
+            return result;
+        }
+        #endregion
+
         #region mostrar ultimo consumo (Entidad) en una ubicacion
 
         public Consumo UltimoConsumoUbicacion(long ubicacionID)
@@ -89,6 +104,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         }
         #endregion
 
+
+        #region mostrar consumos de una ubicacion por fechas
+
+        public List<Consumo> MostrarConsumosEnUnIntervalo(long ubicacionId, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        {
+            DbSet<Consumo> consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in consumos
+                 where ((c.fecha >= fecha) && (c.fecha <= fecha2) && (c.ubicacionId == ubicacionId))
+                 select c).OrderBy(c => c.fecha).ThenBy(c => c.horaIni).Skip(startIndex).Take(count).ToList();
+
+            return result;
+        }
+        #endregion
+
         //#region finalizar Consumo
         //public bool FinalizarConsumo(long consumoID, double kwTotal, TimeSpan horaFin)
         //{
@@ -110,6 +141,6 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
 
         #endregion IConsumoaDao Members. Specific Operations
 
-        
+
     }
 }
