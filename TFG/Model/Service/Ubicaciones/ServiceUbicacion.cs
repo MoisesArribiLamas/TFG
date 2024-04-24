@@ -382,7 +382,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                 // calculamos lo que ha cargado la bateria
                 double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
-                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                c.kwCargados = c.kwCargados + calcularConsumo(capacidadCarga, c.horaIni, horaActual);
 
                 //actualizamos
                 ConsumoDao.Update(c);
@@ -409,7 +409,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             {
                 // consumoAnterior => suministra
                 double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
-                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                c.kwCargados = c.kwCargados + calcularConsumo(capacidadCarga, c.horaIni, horaActual);
                 c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
                 //actualizamos
