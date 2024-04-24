@@ -45,7 +45,12 @@
 
                     <li>
                         <asp:HyperLink ID="lnkBaterias" runat="server" Display="Dynamic"
-                            meta:resourcekey="lnkBaterias" NavigateUrl="~/Pages/User/UserMainPage.aspx" />
+                            meta:resourcekey="lnkBaterias" NavigateUrl="~/Pages/Baterias/BateriasPage.aspx" />
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkEstadisticas" runat="server" Display="Dynamic"
+                            meta:resourcekey="lnkEstadisticas" NavigateUrl="~/Pages/Estadisticas/EstadisticasPage.aspx" />
                     </li>
 
                     <li>

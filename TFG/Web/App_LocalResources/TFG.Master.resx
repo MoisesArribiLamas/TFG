@@ -168,4 +168,10 @@
   <data name="lnkUbicaciones.ToolTip" xml:space="preserve">
     <value>Tap if you want to go to Locations.</value>
   </data>
+  <data name="lnkEstadisticas.Text" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="lnkEstadisticas.ToolTip" xml:space="preserve">
+    <value>Tap if you want to go to Statistics.</value>
+  </data>
 </root>

@@ -10,10 +10,13 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
     public interface IBateriaDao : IGenericDao<Bateria, Int64>
     {
         bool updateInformacion(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
-            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
-            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador);
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime? fechaDeAdquisicion, string marca,
+            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador
+            , string nSerie);
 
         List<Bateria> findBateriaByUser(long usuarioID, int startIndex, int count);
+
+        int counterBateriaByUser(long usuarioID);
 
         List<Bateria> findBateriaByUbicacion(long ubicacionID, int startIndex, int count);
 

@@ -7,135 +7,153 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.TFG.Web {
+namespace Es.Udc.DotNet.TFG.Web.Pages {
     
     
-    public partial class TFG {
+    public partial class EstadisticasUbicacion {
         
         /// <summary>
-        /// Control Label1.
+        /// Control form1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control lclHeader.
+        /// Control lblUbicaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclHeader;
+        protected global::System.Web.UI.WebControls.Label lblUbicaciones;
         
         /// <summary>
-        /// Control ContentPlaceHolder_MenuWelcome.
+        /// Control lblSerapacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuWelcome;
+        protected global::System.Web.UI.WebControls.Label lblSerapacion;
         
         /// <summary>
-        /// Control lblWelcome.
+        /// Control lblNombreUbicacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWelcome;
+        protected global::System.Web.UI.WebControls.Label lblNombreUbicacion;
         
         /// <summary>
-        /// Control lnkHome.
+        /// Control lblFechaIni.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkHome;
+        protected global::System.Web.UI.WebControls.Label lblFechaIni;
         
         /// <summary>
-        /// Control lnkUbicaciones.
+        /// Control btnCalendario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUbicaciones;
+        protected global::System.Web.UI.WebControls.Button btnCalendario;
         
         /// <summary>
-        /// Control lnkBaterias.
+        /// Control Calendar1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkBaterias;
+        protected global::System.Web.UI.WebControls.Calendar Calendar1;
         
         /// <summary>
-        /// Control lnkEstadisticas.
+        /// Control txtFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkEstadisticas;
+        protected global::System.Web.UI.WebControls.TextBox txtFecha;
         
         /// <summary>
-        /// Control lnkCreateAccount.
+        /// Control lblFechaFin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCreateAccount;
+        protected global::System.Web.UI.WebControls.Label lblFechaFin;
         
         /// <summary>
-        /// Control lnkLogUser.
+        /// Control btnCalendario2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLogUser;
+        protected global::System.Web.UI.WebControls.Button btnCalendario2;
         
         /// <summary>
-        /// Control lnkModifyUser.
+        /// Control Calendar2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkModifyUser;
+        protected global::System.Web.UI.WebControls.Calendar Calendar2;
         
         /// <summary>
-        /// Control lnkLogout.
+        /// Control txtFecha2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLogout;
+        protected global::System.Web.UI.WebControls.TextBox txtFecha2;
         
         /// <summary>
-        /// Control ContentPlaceHolderMain.
+        /// Control lblCriterio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolderMain;
+        protected global::System.Web.UI.WebControls.Label lblCriterio;
         
         /// <summary>
-        /// Control lclFooter.
+        /// Control ddlListaCriterios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclFooter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlListaCriterios;
+        
+        /// <summary>
+        /// Control btnBuscar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        
+        /// <summary>
+        /// Control gvUbicacionesEstadisticas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvUbicacionesEstadisticas;
     }
 }

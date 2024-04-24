@@ -885,16 +885,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         public void ModificarBateria(long bateriaId, long? ubicacionId, long? usuarioId, double? precioMedio,
-            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime fechaDeAdquisicion, string marca,
-            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador)
+            double? kwHAlmacenados, double? almacenajeMaximoKwH, DateTime? fechaDeAdquisicion, string marca,
+            string modelo, double? ratioCarga, double? ratioCompra, double? ratioUso, double? capacidadCargador,string nSerie)
         {
             bateriaDao.updateInformacion(bateriaId, ubicacionId, usuarioId, precioMedio, kwHAlmacenados,
                 almacenajeMaximoKwH, fechaDeAdquisicion, marca, modelo, ratioCarga,
-                ratioCompra, ratioUso, capacidadCargador);
+                ratioCompra, ratioUso, capacidadCargador, nSerie);
         }
         #endregion Modificar
 
-        #region baterias del Usuario
+        #region baterias del Usuario (muestra la ubicacion con un ID)
         [Transactional]
         public List<BateriaDTO> VerBateriasUsuario(long idUsuario, int startIndex, int count)
         {
@@ -921,6 +921,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         #endregion
 
+        #region Numero de baterias del Usuario
+        [Transactional]
+        public int numeroBateriasUsuario(long idUsuario)
+        {
+
+            return bateriaDao.counterBateriaByUser(idUsuario);
+
+        }
+
+        #endregion
+
         #region Buscar Bateria por ID
 
         [Transactional]
@@ -939,6 +950,25 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         {
 
             return bateriaDao.getBateriaIdByNSerie( nserie);
+
+        }
+        #endregion
+
+        #region Buscar BateriaID por Numero Serie
+
+        [Transactional]
+        public string getNSerieById(long? bateriaId)
+        {
+            if (bateriaId != null)
+            {
+                Bateria b = BuscarBateriaById((long)bateriaId);
+                return b.nSerie;
+            }
+            else {
+
+                return "" ;
+            }
+            
 
         }
         #endregion 

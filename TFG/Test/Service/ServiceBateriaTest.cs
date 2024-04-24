@@ -322,7 +322,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double capacidadCargador2 =  10;
 
                 servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwHAlmacenados2, almacenajeMaximoKwH2,
-                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2, capacidadCargador2);
+                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2, capacidadCargador2, nSerie);
 
                 //Comprobamos los cambios
 
@@ -343,7 +343,49 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+        /*servicioBateria.ModificarBateria(idBateria, null, null, null, null, null, null, BoxMarcaModificarBateria.Text,
+                        BoxModeloModificarBateria.Text, null, null, null, Convert.ToDouble(BoxCapacidadCargadorModificarBateria.Text),
+                        BoxNSerieModificarBateria.Text);*/
 
+        [TestMethod()]
+        public void ModificarBateria2Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                string nSerie = "HDOSN24JSDC62";
+                string nSerie2 = "HDOSN24JSDC63";
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Modificamos datos
+
+                long ubicacionId2 = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                long usuarioId2 = crearUsuario("nombre2", email, "apellido1", apellido2, contraseña, telefono, pais, idioma);
+                DateTime fechaDeAdquisicion2 = fechaDeAdquisicion.AddDays(1);
+
+                string marca2 = "Marca2";
+                string modelo2 = "Modelo2";
+                double capacidadCargador2 = 10;
+
+                servicio.ModificarBateria(bateriaId, null, null, null, null, null,
+                null, marca2, modelo2, null, null, null, capacidadCargador2, nSerie2);
+
+                //Comprobamos los cambios
+
+                var bateriaProfile = bateriaDao.Find(bateriaId);
+
+
+                Assert.AreEqual(bateriaId, bateriaProfile.bateriaId);
+                Assert.AreEqual(marca2, bateriaProfile.marca);
+                Assert.AreEqual(modelo2, bateriaProfile.modelo);
+                Assert.AreEqual(capacidadCargador2, bateriaProfile.capacidadCargador);
+                Assert.AreEqual(nSerie2, bateriaProfile.nSerie);
+            }
+        }
 
         [TestMethod()]
         public void capacidadDelCargadorTest()
@@ -378,7 +420,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 double capacidadCargador2 = 20;
 
                 servicio.ModificarBateria(bateriaId, ubicacionId2, usuarioId2, precioMedio2, kwHAlmacenados2, almacenajeMaximoKwH2,
-                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2, capacidadCargador2);
+                fechaDeAdquisicion2, marca2, modelo2, ratioCarga2, ratioCompra2, ratioUso2, capacidadCargador2, nSerie);
 
                 //Comprobamos los cambios
                 Assert.AreEqual(capacidadCargador2, servicio.capacidadDelCargador(bateriaId));
@@ -463,7 +505,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
-        public void MostrarBateriasUsuarioTest()
+        public void MostrarBateriasUsuarioYnumeroBateriasUsuarioTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -501,6 +543,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 List<BateriaDTO> bateriasUsuario = servicio.VerBateriasUsuario(usuarioId, 0, 3);
                 List<BateriaDTO> bateriasUsuario2 = servicio.VerBateriasUsuario(usuarioId2, 0, 3);
 
+                int numeroBateriasUsuario = servicio.numeroBateriasUsuario(usuarioId);
+                int numeroBateriasUsuario2 = servicio.numeroBateriasUsuario(usuarioId2);
+
 
                 //Comprobamos los cambios
 
@@ -510,6 +555,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 Assert.AreEqual(bateriaId3, bateriasUsuario[2].bateriaId);
 
                 Assert.AreEqual(bateriaId4, bateriasUsuario2[0].bateriaId);
+
+                Assert.AreEqual(numeroBateriasUsuario, 3);
+                Assert.AreEqual(numeroBateriasUsuario2, 1);
 
             }
         }

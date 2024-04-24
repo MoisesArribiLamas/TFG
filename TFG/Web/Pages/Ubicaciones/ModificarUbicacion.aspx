@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
-    <div id="form" style="height: 342px">
 
     <form id="form1" runat="server" >
         
@@ -12,6 +11,7 @@
             <span class="button">
                 <asp:Button ID="btUbicacionCrearBateria" runat="server" Text="Crear Bateria" OnClick="btCrearBateria_Click" meta:resourcekey="bUbicacionCrearBateriaResource1"  />
             </span>
+            
         </div>
         <br/>
         <div class ="field">
@@ -53,7 +53,7 @@
             </span>
         </div>
 
-           <div class = "field">
+        <div class = "field">
             <span class="label">
 
                        <asp:Localize ID="Localize4CrearUbicacion" runat="server" Text="Numero" meta:resourcekey="Localize4CrearUbicacionResource1"></asp:Localize>
@@ -78,8 +78,9 @@
             <span class="entry">
                 <asp:TextBox ID="BoxPortalCrearUbicacion" runat="server" meta:resourcekey="BoxPortalCrearUbicacionResource1"></asp:TextBox>
             </span>
+        </div>
 
-            <div class = "field">
+        <div class = "field">
                 <span class="label">
 
                     <asp:Localize ID="Localize8CrearUbicacion" runat="server" Text="Codigo Postal" meta:resourcekey="Localize8CrearUbicacionResource1"></asp:Localize>
@@ -99,31 +100,36 @@
 
             </span>
             <span class="entry">
-                      <asp:DropDownList ID="ListaBateriasUbicacion" runat="server" AutoPostBack="True"
+                    <asp:DropDownList ID="ListaBateriasUbicacion" runat="server" AutoPostBack="True"
                             Width="100px" OnSelectedIndexChanged="ListaBateriasUbicacion_SelectedIndexChanged" meta:resourcekey="ListaBateriasUbicacionResource1"></asp:DropDownList>
+                    <asp:Button ID="BtnQuitarSuministradora" runat="server" Text="Quitar" OnClick="BtnQuitarSuministradora_Click" meta:resourcekey="BtnQuitarSuministradoraResource1"  />
+
             </span>
         </div>
 
 
                   
  
-               <div>
+        <div>
 
-                   <asp:Label ID="lblErrorModificarUbicacion" runat="server" ForeColor="Red" Style="position: relative"
-                            Visible="False" text="Error Al crear Ubicación" meta:resourcekey="lblErrorModificarUbicacionResource1"></asp:Label>
-               </div>
-                <div class="button"> 
+            <asp:Label ID="lblErrorModificarUbicacion" runat="server" ForeColor="Red" Style="position: relative"
+                    Visible="False" text="Error Al crear Ubicación" meta:resourcekey="lblErrorModificarUbicacionResource1"></asp:Label>
+        </div>
+        <div class="button"> 
 
             <asp:Button ID="btModificarUbicacion" runat="server" Text="Modificar" OnClick="btModificar_Click" meta:resourcekey="btModificarUbicacionResource1"  />
 
         </div>
-        </div>
-
-       <div>
+        <hr/>
+        <br />
+        <div>
+            <span class="button">
+                <asp:Button ID="btnEliminarUbicacion" runat="server" Text="Eliminar Ubicacion" OnClick="btnEliminarUbicacion_Click" meta:resourcekey="btnEliminarUbicacionResource1"  />
+            </span>
         </div>
 
     </form>
-        </div>
+        
 
 
 </asp:Content>

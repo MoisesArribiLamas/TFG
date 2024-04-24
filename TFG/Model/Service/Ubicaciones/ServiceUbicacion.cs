@@ -135,7 +135,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion
 
-        #region ubicaciones del Usuario
+        #region ubicaciones del Usuario con paginación
         [Transactional]
         public List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count)
         {
@@ -156,6 +156,95 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             {
                 return null;
             }
+        }
+
+        #endregion
+
+        #region ubicaciones del Usuario con paginación En mostrar estadísticas.
+        [Transactional]
+        public List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuarioEstadisticas(long idUsuario, int startIndex, int count)
+        {
+            try
+            {
+                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesPertenecientesAlUsuario(idUsuario, startIndex, count);
+
+                foreach (Ubicacion u in ubicaciones) //double consumoActual, string bateriaSuministradora
+                {
+                    // obtenemos el consumo actual de la ubicacion.
+                    double? consumoActual;
+                    string bateriaSuministradora;
+                    if (u.ultimoConsumo == null)
+                    {
+                        // no tiene asociado un consumo
+                        consumoActual = null;
+
+                        //si no hay asociado un consumo tampoco hay bateria suministradora
+                        bateriaSuministradora = null;
+
+                    }
+                    else
+                    {
+                        // obtenemos el consumo
+                        Consumo c = buscarConsumoById((long)u.ultimoConsumo);
+                        consumoActual = c.consumoActual;
+
+                        if (u.bateriaSuministradora != null)
+                        {
+                            bateriaSuministradora = ServicioBateria.getNSerieById((long)u.bateriaSuministradora);
+                        }
+                        else { bateriaSuministradora = ""; }
+  
+
+                    }
+
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.etiqueta, consumoActual, bateriaSuministradora));
+
+                }
+                return ubicacionesDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region ubicaciones del Usuario sin paginación.
+        [Transactional]
+        public List<UbicacionProfileDetails> ubicacionesDelUsuario(long idUsuario)
+        {
+            try
+            {
+                List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+                List<Ubicacion> ubicaciones = ubicacionDao.ubicacionesDelUsuario(idUsuario);
+
+                foreach (Ubicacion u in ubicaciones)
+                {
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.codigoPostal, u.localidad, u.calle, u.portal, u.numero, u.etiqueta));
+                }
+                return ubicacionesDTO;
+
+            }
+            catch (InstanceNotFoundException)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Todas las baterias suministradodas.
+        [Transactional]
+        public List<long?> todasLasBateriasSuministradoras()
+        {
+            //List<long> longs = ubicacionDao.todasLasBateriasSuministradoras().ConvertAll(i => (long)i);
+
+            return ubicacionDao.todasLasBateriasSuministradoras();
+
         }
 
         #endregion
@@ -293,7 +382,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                 // calculamos lo que ha cargado la bateria
                 double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
-                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                c.kwCargados = c.kwCargados + calcularConsumo(capacidadCarga, c.horaIni, horaActual);
 
                 //actualizamos
                 ConsumoDao.Update(c);
@@ -320,7 +409,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             {
                 // consumoAnterior => suministra
                 double capacidadCarga = ServicioBateria.capacidadCargadorBateriaSuministradora(bateriaSuministradora);
-                c.kwCargados = calcularConsumo(capacidadCarga, c.horaIni, horaActual);
+                c.kwCargados = c.kwCargados + calcularConsumo(capacidadCarga, c.horaIni, horaActual);
                 c.kwSuministrados = calcularConsumo(consumoActual, c.horaIni, horaActual);
 
                 //actualizamos
@@ -469,6 +558,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual)
         {
+            long consumoNuevo = 0;
 
             // buscamos el consumo (entidad) actual
             Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
@@ -484,9 +574,49 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             // finalizar consumo
             finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
 
+
             // creamos el nuevo consumo
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            
+
+            //devolvemos el id del nuevo consumo
+            return consumoNuevo;
+        }
+
+        #endregion actuallizar Consumo
+
+        #region actualizar los datos de Consumo (carga y suministra) sin cambio del consumoActual
+        [Transactional]
+        public long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual, bool isBateriaSuministradoraNull)
+        {
+            long consumoNuevo = 0;
+
+            // buscamos el consumo (entidad) actual
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+            double consumoActual = c.consumoActual;
+
+            // buscamos ubicacion
+            Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // obtenemos el estado
+            string estado = ServicioBateria.EstadoDeLaBateria((long)u.bateriaSuministradora);
+
+
+            // finalizar consumo
+            finalizarConsumo(ubicacionId, consumoActual, horaActual, estado, (long)u.bateriaSuministradora);
+
+            if (!isBateriaSuministradoraNull) // en el caso de que se quite la bateria suministradora por null
+            {
+                // creamos el nuevo consumo
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+            }
+            else // en el caso de que se quite la bateria suministradora y no se ponga otra. quitamos el ultimo consumo.
+            {
+                u.ultimoConsumo = null;
+                ubicacionDao.Update(u);
+            }
 
             //devolvemos el id del nuevo consumo
             return consumoNuevo;
@@ -552,31 +682,74 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion Modificar
 
-        #region Consumos de una ubicacion por fechas
+        #region Consumos directamente de la red una ubicacion por fechas
         [Transactional]
-        public List<ConsumoDTO> MostrarCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        public List<ConsumoDTO> MostrarProporcionadoPorRedPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)
         {
-            try
+
+            List<ConsumoDTO> ConsumosDTO = new List<ConsumoDTO>();
+
+            List<Consumo> consumos = ConsumoDao.MostrarConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2, startIndex, count);
+
+            foreach (Consumo c in consumos) 
             {
-                List<ConsumoDTO> ConsumosDTO = new List<ConsumoDTO>();
+                ConsumosDTO.Add(new ConsumoDTO(c.consumoId, c.ubicacionId, c.kwRed, c.fecha, c.horaIni, c.horaFin, c.consumoActual, c.ubicacionId));
 
-                List<Consumo> consumos = ConsumoDao.MostrarConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2, startIndex, count);
-
-                foreach (Consumo c in consumos) //long consumoId, long ubicacionId, double? kwTotal, DateTime fecha, TimeSpan horaIni, TimeSpan? horaFin, double consumoActual, long ubicacion)
-                {
-                    ConsumosDTO.Add(new ConsumoDTO(c.consumoId, c.ubicacionId, c.kwCargados, c.kwSuministrados, c.kwRed, c.fecha, c.horaIni, c.horaFin, c.consumoActual, c.ubicacionId));
-
-                }
-                return ConsumosDTO;
-                
             }
-            catch (InstanceNotFoundException)
-            {
-                return null;
-            }
+            return ConsumosDTO;
+
         }
         #endregion
 
+        #region Consumos directamente de la Bateria una ubicacion por fechas
+        [Transactional]
+        public List<ConsumoDTO> MostrarProporcionadoPorPareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        {
+
+            List<ConsumoDTO> ConsumosDTO = new List<ConsumoDTO>();
+
+            List<Consumo> consumos = ConsumoDao.MostrarConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2, startIndex, count);
+
+            foreach (Consumo c in consumos) 
+            {
+                ConsumosDTO.Add(new ConsumoDTO(c.consumoId, c.ubicacionId, c.kwSuministrados, c.fecha, c.horaIni, c.horaFin, c.consumoActual, c.ubicacionId));
+
+            }
+            return ConsumosDTO;
+
+        }
+        #endregion
+
+        #region Consumos directamente de la Bateria una ubicacion por fechas
+        [Transactional]
+        public List<ConsumoDTO> MostrarLoCargadoUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)
+        {
+
+            List<ConsumoDTO> ConsumosDTO = new List<ConsumoDTO>();
+
+            List<Consumo> consumos = ConsumoDao.MostrarConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2, startIndex, count);
+
+            foreach (Consumo c in consumos) 
+            {
+                ConsumosDTO.Add(new ConsumoDTO(c.consumoId, c.ubicacionId, c.kwCargados, c.fecha, c.horaIni, c.horaFin, c.consumoActual, c.ubicacionId));
+
+            }
+            return ConsumosDTO;
+
+        }
+        #endregion
+
+
+        #region numero de Consumos de una ubicacion por fechas
+        [Transactional]
+        public int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+
+            return ConsumoDao.numeroConsumosUbicacionPorFecha(ubicacionID, fecha, fecha2); 
+
+         
+        }
+        #endregion
     }
 
 }

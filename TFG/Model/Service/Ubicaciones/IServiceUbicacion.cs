@@ -36,6 +36,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count);
 
         [Transactional]
+        List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuarioEstadisticas(long idUsuario, int startIndex, int count);
+
+        [Transactional] // sin paginación
+        List<UbicacionProfileDetails> ubicacionesDelUsuario(long idUsuario);
+
+        [Transactional]
+        List<long?> todasLasBateriasSuministradoras();
+
+        [Transactional]
         List<BateriaDTO> bateriasDeUnaUbicacion(long idUbicacion);
 
         [Transactional]
@@ -72,6 +81,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual);
 
+        [Transactional]
+        long actualizarConsumoActual(long ubicacionId, TimeSpan horaActual, bool isBateriaSuministradoraNull);
 
+        [Transactional]
+        List<ConsumoDTO> MostrarProporcionadoPorRedPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count);
+
+        [Transactional]
+        int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
     }
 }

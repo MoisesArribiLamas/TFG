@@ -7,10 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.TFG.Web.Pages.Baterias {
+namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones {
     
     
-    public partial class BateriasPage {
+    public partial class EstadisticasPage {
         
         /// <summary>
         /// Control form1.
@@ -22,30 +22,21 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Baterias {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control lblBaterias.
+        /// Control lblUbicaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBaterias;
+        protected global::System.Web.UI.WebControls.Label lblUbicaciones;
         
         /// <summary>
-        /// Control BtnCrearBateria.
+        /// Control gvUbicaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCrearBateria;
-        
-        /// <summary>
-        /// Control gvBaterias.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBaterias;
+        protected global::System.Web.UI.WebControls.GridView gvUbicaciones;
     }
 }

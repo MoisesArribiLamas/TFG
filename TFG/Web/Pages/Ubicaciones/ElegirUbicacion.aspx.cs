@@ -15,9 +15,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Es.Udc.DotNet.TFG.Web.Pages.Baterias
+namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
 {
-    public partial class BateriasPage : SpecificCulturePage
+    public partial class ElegirUbicacion : SpecificCulturePage
     {
         private ObjectDataSource pbpDataSource = new ObjectDataSource();
 
@@ -32,12 +32,12 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Baterias
             pbpDataSource.ObjectCreating += this.PbpDataSource_ObjectCreating;
 
             pbpDataSource.TypeName =
-                 Settings.Default.ObjectDS_ShowBaterias_IServiceBateria;
+                 Settings.Default.ObjectDS_ShowUbicaciones_IServiceUbicacion;
 
             pbpDataSource.EnablePaging = true;
 
             pbpDataSource.SelectMethod =
-                Settings.Default.ObjectDS_ShowBaterias_SelectMethod;
+                Settings.Default.ObjectDS_ShowUbicaciones_SelectMethod;
 
             long idUser = SessionManager.GetUserSession(Context).UserProfileId;
 
@@ -45,65 +45,65 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Baterias
 
 
             pbpDataSource.SelectCountMethod =
-                  Settings.Default.ObjectDS_ShowBaterias_CountMethod;
+                  Settings.Default.ObjectDS_ShowUbicaciones_CountMethod;
 
             pbpDataSource.StartRowIndexParameterName =
-                    Settings.Default.ObjectDS_ShowBaterias_StartIndexParameter;
+                    Settings.Default.ObjectDS_ShowUbicaciones_StartIndexParameter;
 
             pbpDataSource.MaximumRowsParameterName =
-                    Settings.Default.ObjectDS_ShowBaterias_CountParameter;
+                    Settings.Default.ObjectDS_ShowUbicaciones_CountParameter;
 
-            gvBaterias.AllowPaging = true;
-            gvBaterias.PageSize = Settings.Default.TFG_defaultCount;
+            gvUbicaciones.AllowPaging = true;
+            gvUbicaciones.PageSize = Settings.Default.TFG_defaultCount;
 
-            gvBaterias.DataSource = pbpDataSource;
-            gvBaterias.DataBind();
+            gvUbicaciones.DataSource = pbpDataSource;
+            gvUbicaciones.DataBind();
 
 
 
-            foreach (GridViewRow row in gvBaterias.Rows)
+            foreach (GridViewRow row in gvUbicaciones.Rows)
             {
 
                 HyperLink link = row.Cells[1].Controls[0] as HyperLink;
 
-                link.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + row.Cells[0].Text;
+                link.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
                 
             }
         }
 
-        protected void ButtonCrearBateria_Click(object sender, EventArgs e)
+        protected void Button1_Click(object sender, EventArgs e)
         {
             Response.Redirect(Response.
-                        ApplyAppPathModifier("~/Pages/Ubicaciones/ElegirUbicacion.aspx?"));
+                        ApplyAppPathModifier("~/Pages/Ubicaciones/CrearUbicacion.aspx"));
         }
 
         protected void PbpDataSource_ObjectCreating(object sender, ObjectDataSourceEventArgs e)
         {
             /* Get the Service */
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-            IServiceControlador servicioControlador = iocManager.Resolve<IServiceControlador>();
+            IServiceUbicacion pedidoUbicacion = iocManager.Resolve<IServiceUbicacion>();
 
-            e.ObjectInstance = servicioControlador;
+            e.ObjectInstance = pedidoUbicacion;
 
         }
 
 
-        protected void gvBaterias_RowCommand(Object sender, GridViewCommandEventArgs e)
+        protected void gvUbicaciones_RowCommand(Object sender, GridViewCommandEventArgs e)
         {
 
 
 
         }
-        protected void gvBateriasPageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvUbicacionesPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvBaterias.PageIndex = e.NewPageIndex;
-            gvBaterias.DataBind();
-            foreach (GridViewRow row in gvBaterias.Rows)
+            gvUbicaciones.PageIndex = e.NewPageIndex;
+            gvUbicaciones.DataBind();
+            foreach (GridViewRow row in gvUbicaciones.Rows)
             {
 
                 HyperLink link = row.Cells[1].Controls[0] as HyperLink;
 
-                link.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + row.Cells[0].Text;
+                link.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + row.Cells[0].Text;
                 
             }
         }
