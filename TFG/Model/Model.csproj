@@ -136,6 +136,7 @@
     <Compile Include="SeEncuentra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\Bateria\BateriaDTOEtiquetaUbicacion.cs" />
     <Compile Include="Service\Controlador\IServiceControlador.cs" />
     <Compile Include="Service\Controlador\ServiceControlador.cs" />
     <Compile Include="Service\Bateria\RatiosDTO.cs" />

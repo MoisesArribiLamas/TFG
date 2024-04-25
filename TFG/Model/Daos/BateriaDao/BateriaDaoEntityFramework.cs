@@ -94,7 +94,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
 
             var result =
             (from b in baterias
-             where (b.usuarioId == usuarioID)
+             where b.usuarioId == usuarioID && b.BateriaActiva == true
              select b).OrderBy(b => b.ubicacionId).ThenBy(b => b.bateriaId).Skip(startIndex).Take(count).ToList();
 
             return result;
@@ -108,7 +108,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
 
             var result =
             (from b in baterias
-             where (b.usuarioId == usuarioID)
+             where (b.usuarioId == usuarioID && b.BateriaActiva == true)
              select b).Distinct().Count();
 
             return result;

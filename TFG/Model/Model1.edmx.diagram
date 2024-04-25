@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d8f223cacfca4f26b22eba7487fddcfe" Name="Diagram1">
-        <EntityTypeShape EntityType="tfgModel.Bateria" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+      <Diagram DiagramId="70f524a062fe4c2dba21f19e71615b40" Name="Diagram1">
+        <EntityTypeShape EntityType="tfgModel.Bateria" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="tfgModel.Carga" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="tfgModel.Consumo" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="tfgModel.Consumo" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="tfgModel.Estado" Width="1.5" PointX="6" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="tfgModel.SeEncuentra" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="tfgModel.Suministra" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
