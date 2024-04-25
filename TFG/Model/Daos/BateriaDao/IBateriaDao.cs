@@ -18,6 +18,10 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao
 
         int counterBateriaByUser(long usuarioID);
 
+        List<Bateria> findBateriaNoActivasByUser(long usuarioID, int startIndex, int count);
+
+        int counterBateriaNoActivasByUser(long usuarioID);
+
         List<Bateria> findBateriaByUbicacion(long ubicacionID, int startIndex, int count);
 
         long getBateriaIdByNSerie(string nserie);

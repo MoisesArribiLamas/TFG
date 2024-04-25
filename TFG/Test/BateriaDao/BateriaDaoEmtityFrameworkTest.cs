@@ -337,6 +337,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b.ratioUso = 10;
             b.capacidadCargador = 10;
             b.nSerie = "SDOSN24JSDC61";
+            b.BateriaActiva = true;
             bateriaDao.Create(b);
 
 
@@ -354,6 +355,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b2.ratioUso = 20;
             b2.capacidadCargador = 10;
             b2.nSerie = "SDOSN24JSDC62";
+            b2.BateriaActiva = true;
             bateriaDao.Create(b2);
 
             Bateria b3 = new Bateria();
@@ -370,7 +372,25 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.BateriaDao.Tests
             b3.ratioUso = 30;
             b3.capacidadCargador = 10;
             b3.nSerie = "SDOSN24JSDC63";
+            b3.BateriaActiva = true;
             bateriaDao.Create(b3);
+
+            Bateria b4 = new Bateria();
+            b4.ubicacionId = u2.ubicacionId;
+            b4.usuarioId = user2.usuarioId;
+            b4.precioMedio = 333;
+            b4.kwHAlmacenados = 3000;
+            b4.almacenajeMaximoKwH = 3000;
+            b4.fechaDeAdquisicion = new DateTime(DateTime.Now.AddYears(1).Year, DateTime.Now.Month, DateTime.Now.Day);
+            b4.marca = "MARCA 3";
+            b4.modelo = "MODELO 3";
+            b4.ratioCarga = 30;
+            b4.ratioCompra = 30;
+            b4.ratioUso = 30;
+            b4.capacidadCargador = 10;
+            b4.nSerie = "SDOSN24JSDC64";
+            b4.BateriaActiva = false;
+            bateriaDao.Create(b4);
 
             int count = 2;
             int startOfIndex = 0;
