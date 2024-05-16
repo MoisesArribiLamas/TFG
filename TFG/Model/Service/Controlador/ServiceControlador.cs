@@ -18,6 +18,8 @@ using Es.Udc.DotNet.TFG.Model.Service.Estados;
 using Es.Udc.DotNet.TFG.Model.Service.Tarifas;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Ninject;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Es.Udc.DotNet.TFG.Model.Service
 {
@@ -58,6 +60,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         [Inject]
         public IServiceTarifa ServicioTarifa { private get; set; }
 
+        #region
+
         public void ControlCambioHoraODia() 
         {
             //ThreadStaticAttribute 
@@ -66,8 +70,46 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 Thread.Sleep(milisegundos);
             };
         }
+        #endregion
 
-        #region Parte Asincrona
+        #region sockets
+
+        public void ConexionClientes()
+        {
+            Socket listen = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket conexion;
+            IPEndPoint connect = new IPEndPoint(IPAddress.Parse("127.0.0.1"),6500);
+
+            listen.Bind(connect);
+
+            // aceptamos hasta 10 conexiones
+            listen.Listen(10);
+
+            // conexion con el cliente
+            conexion = listen.Accept();
+
+            Console.WriteLine(" Conexion aceptada ");
+
+            // almacena la informacion recibida
+            byte[] recibir_info = new byte[100];
+
+            string data = "";
+            int array_size = 0;
+
+            // guardamos el nº de bytes que envio (donde se almacena la informacion, desde donde va a guardar la informacion, hasta donde)
+            array_size = conexion.Receive(recibir_info, 0, recibir_info.Length, 0);
+
+            // nos quedamos sólo con la información quitamos los blancos sobrantes
+            Array.Resize(ref recibir_info, array_size);
+
+            data = Encoding.Default.GetString(recibir_info);
+
+            Console.WriteLine(data);
+            Console.ReadKey();
+        }
+        #endregion
+
+        #region Parte Controla los cambios de hora para los calculos internos
 
         [Transactional]
         public int Asincrono()
