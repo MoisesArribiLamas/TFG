@@ -19,6 +19,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             DateTime fechaDeAdquisicion, string marca, string modelo, string nSerie, double ratioCarga, double ratioCompra, double ratioUso, double capacidadCargador);
 
         [Transactional]
+        void DesactivarBateria(long bateriaId);
+
+        [Transactional]
         double capacidadDelCargador(long bateriaId);
 
         [Transactional]

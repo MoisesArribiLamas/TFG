@@ -13,7 +13,11 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
         Ubicacion findUbicacionExistente(long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta);
 
-        List<Ubicacion> ubicacionesUsuario(long userId, int startIndex, int count); 
+        Ubicacion findUbicacionByName(string nombre);
+
+        List<Ubicacion> ubicacionesUsuario(long userId, int startIndex, int count);
+
+        Ubicacion primeraUbicacionDelUsuario(long userId);
 
         List<Ubicacion> ubicacionesPertenecientesAlUsuario(long userId, int startIndex, int count);// más óptimo
 

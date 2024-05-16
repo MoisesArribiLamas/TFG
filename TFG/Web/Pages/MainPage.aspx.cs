@@ -38,7 +38,10 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
 
 
+            //Conexion();
+
             //ControlCambioHoraODia();
+
         }
         public void ControlCambioHoraODia()
         {
@@ -51,5 +54,18 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             Thread thread = new Thread(serviceControlador.ControlCambioHoraODia);
             thread.Start();
         }
+
+        public void Conexion()
+        {
+
+
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceControlador serviceControlador = iocManager.Resolve<IServiceControlador>();
+            //serviceUbicacion.ActualizarPrueba();
+
+            Thread thread = new Thread(serviceControlador.ConexionClientes);
+            thread.Start();
+        }
+
     }
 }

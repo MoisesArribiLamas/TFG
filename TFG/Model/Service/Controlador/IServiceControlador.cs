@@ -13,6 +13,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
     public interface IServiceControlador
     {
         [Transactional]
+        void ConexionClientes();
+
+        [Transactional]
         void gestionDeRatiosBateriaSuministradora(long bateriaId, DateTime fechaActual, TimeSpan horaActual);
 
 

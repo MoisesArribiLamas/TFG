@@ -862,6 +862,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             b.ratioUso = ratioUso;
             b.estadoBateria = 0;
             b.capacidadCargador = capacidadCargador;
+            b.BateriaActiva = true;
 
             bateriaDao.Create(b);
 
@@ -880,6 +881,25 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
 
         #endregion crear baterias
+
+        #region Desactivar bateria
+
+        [Transactional]
+        public void DesactivarBateria(long bateriaId)
+        {
+
+            // obtenemos la bateria 
+            Bateria b = BuscarBateriaById(bateriaId);
+
+            // desactivamos la bateria
+            b.BateriaActiva = false;
+
+            bateriaDao.Update(b);
+
+
+        }
+
+        #endregion 
 
         #region Modificacar Bateria
 

@@ -312,7 +312,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 DialogResult dR = MessageBox.Show(mensaje, operacion, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
                 if (dR== DialogResult.OK) { 
-                    servicioBateria.EliminarBateria(IdBateria);
+                    servicioBateria.DesactivarBateria(IdBateria);
 
                     Response.Redirect(Response.
                         ApplyAppPathModifier("~/Pages/Baterias/BateriasPage.aspx"));
