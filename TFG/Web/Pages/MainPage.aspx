@@ -5,9 +5,13 @@
     <form id="form1" runat="server">
         <div class="field">
 
+               
+
                 <asp:Label ID="lblInicioMainPage" runat="server" Text="Bienvenido" meta:resourcekey="lblInicioMainPageResource1" Display="Dynamic" Font-Size="Large" Font-Bold="True"></asp:Label>
 
 
+                
+         
         </div>
     </form>
 

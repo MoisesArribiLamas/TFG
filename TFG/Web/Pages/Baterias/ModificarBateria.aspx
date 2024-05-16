@@ -98,7 +98,7 @@
         <div>
 
             <asp:Label ID="lblErrorModificarRatios" runat="server" ForeColor="Red" Style="position: relative"
-                    Visible="False" text="Error Al modificar Bateria" meta:resourcekey="lblErrorModificarBateriaResource1"></asp:Label>
+                    Visible="False" text="Error Al modificar Ratios" meta:resourcekey="lblErrorModificarBateriaResource1"></asp:Label>
         </div>
         <div class="button"> 
 
