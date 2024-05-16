@@ -81,6 +81,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
         }
         #endregion
 
+        #region Buscar Ubicacion por nombre
+        public Ubicacion findUbicacionByName(string nombre)
+        {
+            DbSet<Ubicacion> Ubicaciones = Context.Set<Ubicacion>();
+            Ubicacion ubicacion = null;
+
+            var result =
+                (from u in Ubicaciones
+                 where u.etiqueta == nombre
+                 select u);
+            ubicacion = result.FirstOrDefault();
+
+            return ubicacion;
+        }
+        #endregion
+
         #region Ubicaciones del usuario (por bateria)
         public List<Ubicacion> ubicacionesUsuario(long userId, int startIndex, int count)
         {
@@ -125,6 +141,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
                 (from u in ubicacion
                  where u.usuario == userId
                  select u).Distinct().OrderByDescending(u => u.ubicacionId).ToList();
+
+            return result;
+
+        }
+        #endregion
+
+
+        #region Primera ubicacion del usuario
+        public Ubicacion primeraUbicacionDelUsuario(long userId)
+        {
+            DbSet<Ubicacion> ubicacion = Context.Set<Ubicacion>();
+
+            var result =
+                (from u in ubicacion
+                 where u.usuario == userId
+                 select u).Distinct().OrderByDescending(u => u.ubicacionId).First();
 
             return result;
 

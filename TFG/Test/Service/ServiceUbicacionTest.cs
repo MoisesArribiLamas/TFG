@@ -847,6 +847,43 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
             }
         }
 
+
+        [TestMethod()]
+        public void buscarcarUbicacionByEtiquetaTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                Ubicacion u = new Ubicacion();
+                u.codigoPostal = 15401;
+                u.localidad = "Ferrol";
+                u.calle = "Real";
+                u.portal = "D";
+                u.numero = 2;
+                u.etiqueta = "bateria principal";
+
+                ubicacionDao.Create(u);
+
+                Ubicacion u2 = new Ubicacion();
+                u2.codigoPostal = 15009;
+                u2.localidad = "Coruña";
+                u2.calle = "Real";
+                u2.portal = "B";
+                u2.numero = 2;
+                u2.etiqueta = "bateria auxiliar";
+
+                ubicacionDao.Create(u2);
+
+                Ubicacion obtained = servicio.buscarUbicacionByNombre(u.etiqueta);
+                Ubicacion obtained2 = servicio.buscarUbicacionByNombre(u2.etiqueta);
+
+
+                // Check changes
+                Assert.AreEqual(u, obtained);
+                Assert.AreEqual(u2, obtained2);
+            }
+        }
+
         [TestMethod()]
         public void crearConsumoTest()
         {

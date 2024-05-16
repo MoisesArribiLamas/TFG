@@ -237,6 +237,20 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion
 
+        //primeraUbicacionDelUsuario
+
+        #region ubicaciones del Usuario sin paginación.
+        [Transactional]
+        public Ubicacion primeraUbicacionDelUsuario(long idUsuario)
+        {
+
+            List<UbicacionProfileDetails> ubicacionesDTO = new List<UbicacionProfileDetails>();
+
+            return ubicacionDao.primeraUbicacionDelUsuario(idUsuario);
+
+        }
+        #endregion
+
         #region Todas las baterias suministradodas.
         [Transactional]
         public List<long?> todasLasBateriasSuministradoras()
@@ -295,6 +309,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                     typeof(Ubicacion).FullName);
 
             }
+        }
+
+        #endregion crear Ubicación
+
+        #region Buscar Ubicación por nombre
+        [Transactional]
+        public Ubicacion buscarUbicacionByNombre(string nombre)
+        {
+                return ubicacionDao.findUbicacionByName(nombre);
+
         }
 
         #endregion crear Ubicación
@@ -750,6 +774,26 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
          
         }
         #endregion
+
+        #region actualizar los datos de Consumo (carga y suministra) sin cambio del consumoActual
+        [Transactional]
+        public double consumoEnEsteInstante(long ubicacionId)
+        {
+
+            // buscamos el consumo (entidad) actual
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+            if (c == null)
+            {
+                return 0;   
+            }
+            else { 
+                //devolvemos el consumo actual
+                return c.consumoActual;
+            }
+        }
+
+        #endregion 
     }
 
 }

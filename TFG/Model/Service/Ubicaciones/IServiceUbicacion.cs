@@ -32,6 +32,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         [Transactional]
         List<UbicacionProfileDetails> verUbicaciones(long idUsuario, int startIndex, int count);
 
+        [Transactional]
+        Ubicacion primeraUbicacionDelUsuario(long idUsuario);
+
         [Transactional] // más óptimo
         List<UbicacionProfileDetails> ubicacionesPertenecientesAlUsuario(long idUsuario, int startIndex, int count);
 
@@ -52,6 +55,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Transactional]
         Ubicacion buscarUbicacionById(long ubicacionId);
+
+        [Transactional]
+        Ubicacion buscarUbicacionByNombre(string nombre);
 
         [Transactional]
         long crearConsumo(long ubicacionId, double consumoActual, DateTime fechaActual, TimeSpan horaActual);
@@ -89,5 +95,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Transactional]
         int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        double consumoEnEsteInstante(long ubicacionId);
     }
 }
