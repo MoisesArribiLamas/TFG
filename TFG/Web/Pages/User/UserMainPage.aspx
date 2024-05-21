@@ -1,10 +1,19 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserMainPage.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.UserMainPage"MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource2" uiculture="auto" Trace="false"%>
 
 
+
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 	
-	<form id="form1" runat="server">
+    <form id="form1" runat="server">
+       
+        <div id ="reloj"></div>
 
+        <asp:ScriptManager runat="server">
+        <Scripts>
+            <asp:ScriptReference Path="~/Pages/User/JavaScript.js" />
+        </Scripts>
+        </asp:ScriptManager>
+ 
         <div class="ubicacion">
 			<span class="precio">
 				<asp:Localize ID="Localize1Precio" runat="server" Text="Precio Actual" meta:resourcekey="Localize1PrecioResource1"></asp:Localize>
@@ -68,7 +77,7 @@
                 <asp:TextBox ID="BoxRatioUso" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="60px" style="text-align: right"></asp:TextBox>
             </span>
 
-            <asp:Label ID="lblhora" runat="server" Text="hora" Display="Dynamic" ></asp:Label>
+
             <br/>
             <br/>
             <asp:Button ID="btModificarRatios" runat="server" Text="Modificar Ratios" OnClick="btModificarRatios_Click" meta:resourcekey="btModificarRatiosBateriaResource1"  />
@@ -134,7 +143,7 @@
 
         
 
-
+        
 
 	</form>
 
