@@ -38,7 +38,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
 
 
-            //Conexion();
+            Conexion();
 
             //ControlCambioHoraODia();
 
