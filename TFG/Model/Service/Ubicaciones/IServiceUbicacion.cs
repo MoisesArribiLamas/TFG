@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
 using Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Ninject;
@@ -92,6 +93,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         [Transactional]
         List<ConsumoDTO> MostrarProporcionadoPorRedPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count);
+
+        [Transactional]
+        List<ConsumoPorDias> MostrarProporcionadoPorRedPorFechaPorDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        List<ConsumoPorDias> MostrarConsumosRedElectricaUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]
         int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
