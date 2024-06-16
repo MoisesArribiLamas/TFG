@@ -174,14 +174,18 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 {
                     // obtenemos el consumo actual de la ubicacion.
                     double? consumoActual;
-                    string bateriaSuministradora;
+                    string estado;
+                    string porcentaje;
+
+
                     if (u.ultimoConsumo == null)
                     {
                         // no tiene asociado un consumo
                         consumoActual = null;
 
                         //si no hay asociado un consumo tampoco hay bateria suministradora
-                        bateriaSuministradora = null;
+                        estado = null;
+                        porcentaje = null;
 
                     }
                     else
@@ -192,14 +196,19 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                         if (u.bateriaSuministradora != null)
                         {
-                            bateriaSuministradora = ServicioBateria.getNSerieById((long)u.bateriaSuministradora);
+                            estado = ServicioBateria.EstadoDeLaBateria((long)u.bateriaSuministradora);
+                            porcentaje = ServicioBateria.porcentajeDeCarga((long)u.bateriaSuministradora).ToString();
                         }
-                        else { bateriaSuministradora = ""; }
+                        else
+                        {
+                            estado = "";
+                            porcentaje = "";
+                        }
   
 
                     }
 
-                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.etiqueta, consumoActual, bateriaSuministradora));
+                    ubicacionesDTO.Add(new UbicacionProfileDetails(u.ubicacionId, u.etiqueta, consumoActual, estado, porcentaje));
 
                 }
                 return ubicacionesDTO;
@@ -556,9 +565,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 double kwhsuministradosFinal = 0;
 
                 //obtenemos la carga
-                Carga carga= ServicioBateria.UltimaCarga((long)u.bateriaSuministradora);
+                Carga carga = ServicioBateria.UltimaCarga((long)u.bateriaSuministradora);
 
-                if (carga != null) { // la carga que hay sin contabilizar en la bateria
+                if (carga != null)
+                { // la carga que hay sin contabilizar en la bateria
                     kwHcargadosFinal = carga.kwH;
                 }
 
@@ -571,7 +581,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 }
 
                 ServicioBateria.gestionDeRatios((long)u.bateriaSuministradora, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
-            }
+        }
             //devolvemos el id del nuevo consumo
             return consumoNuevo;
         }
@@ -721,6 +731,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
             }
             return ConsumosDTO;
+
+        }
+        #endregion
+
+
+        #region Consumos directamente de la red una ubicacion por fechas por dias
+        [Transactional]
+        public List<ConsumoPorDias> MostrarProporcionadoPorRedPorFechaPorDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+
+            return ConsumoDao.MostrarConsumosUbicacionPorFechaEnDias(ubicacionID, fecha, fecha2);
+
+        }
+        #endregion
+
+        #region Consumos directamente de la red una ubicacion por fechas por dias
+        [Transactional]
+        public List<ConsumoPorDias> MostrarConsumosRedElectricaUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+
+            return ConsumoDao.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacionID, fecha, fecha2);
 
         }
         #endregion

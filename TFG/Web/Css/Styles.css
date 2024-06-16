@@ -13,6 +13,23 @@ body {
     font-size: 12px;
     margin: 10px 20px;
     background-color: #dddde0;
+
+    /* prueba*/
+
+
+}
+
+
+#reloj {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid black;
+    color: black;
+    border-radius: 10%;
+    font-family: monospace;
+    font-size: 1.1rem;
 }
 
 /* Links. */
@@ -58,7 +75,6 @@ a {
 
 
 select {
-    width: 165px !important;
     padding-bottom: 2px;
     padding-top: 2px;
     border-top: 1px solid black;
@@ -119,7 +135,7 @@ p.info {
 
 form {
     width: 100%;
-    height: 273px;
+    height: 457px;
 }
 
 
@@ -151,6 +167,14 @@ div.field {
         width: 50.5%;
     margin-left: 0px;
 }
+
+    div.field span.button {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 42%;
+        height: 20px;
+    }
 
 div.button {
     clear: both;
@@ -206,8 +230,8 @@ table th, td {
     width: 20%;
     height: 15%;
     position: absolute;
-    top: 15%;
-    left: 75%;
+    top: 73%;
+    left: 25%;
 }
 
 
@@ -217,16 +241,92 @@ table th, td {
     width: 20%;
     height: 15%;
     position: absolute;
-    top: 15%;
+    top: 33%;
     left: 25%;
 }
 
 /* Pagina de inicio*/
 .cuadradoMarron {
-    border: 3px solid #751A04;
+    border: 3px solid #f7dc06;
     width: 20%;
     height: 15%;
     position: absolute;
-    top: 15%;
-    left: 50%;
+    top: 53%;
+    left: 25%;
+}
+
+/* Mostrar ubicacion y sus datos */
+div.ubicacion {
+    clear: both;
+    padding-top: 1em;
+    width: 100%;
+    height: 35px;
+    margin-left: 0px;
+}
+
+    div.ubicacion span.precio {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 12%;
+    }
+
+    div.ubicacion span.ubicacion {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 12%;
+    }
+
+    div.ubicacion span.bateria {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 14%;
+    }
+
+    div.ubicacion span.consumo {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 9%;
+    }
+
+    div.ubicacion span.coste {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 12%;
+    }
+
+    div.ubicacion span.ratioCarga {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 9%;
+    }
+
+    div.ubicacion span.ratioCompra {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 9%;
+    }
+
+    div.ubicacion span.ratioUso {
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        width: 9%;
+    }
+
+/* Mostrar de donde salen los datos */
+div.datosWeb {
+    clear: both;
+    padding-top: 1em;
+    width: 100%;
+    height: 35px;
+    margin-left: 0px;
+    float: left;
+    text-align: right;
 }

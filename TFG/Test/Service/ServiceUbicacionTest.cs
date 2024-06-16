@@ -24,6 +24,7 @@ using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using System.Threading;
+using System.Globalization;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -1004,7 +1005,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
-        public void ModificarConsumoSinActividadTest()
+        public void ModificarConsumoSinActividad_SinActividadTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -1018,8 +1019,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifas24H(fechaActual);
 
                 //Creamos Bateria
+                double ratioCarga1 = 3; // ratio de carga 3 < 5 = %bateria  //(nada)
+                // RatioCompra < Tarifa // no se compra
+                double ratioUso1 = 3000;// ratioUso >= Tarifa;  // consume de la red
+
                 long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga1, ratioCompra, ratioUso1, capacidadCargador);
                 long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
@@ -1090,6 +1095,96 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void ModificarConsumoSinActividad_Suministrando()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 6);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                double ratioCarga1 = 3; // ratio de carga 3 < 5 = %bateria  //(nada)
+                // RatioCompra < Tarifa // no se compra
+                // ratioUso < Tarifa;  // consume de la Bateria
+
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga1, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                double consumo = 1000;
+
+                int hour1 = 1;
+                //int hour2 = 1;
+                int minutes = 1;
+                int seconds = 1;
+                //int seconds2 = 2;
+
+                TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
+                //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
+
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual = 2000;
+
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoIdNuevo = servicio.modificarConsumoActual(ubicacionId, consumoActual);
+
+                // buscamos ubicacion
+                Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoIdNuevo, u.ultimoConsumo);
+
+                // buscamos el primer consumo
+                Consumo consumo1 = consumoDao.Find(consumoId);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo1.ubicacionId);
+                Assert.AreEqual(consumo, consumo1.consumoActual);
+                Assert.AreEqual(consumoId, consumo1.consumoId);
+                Assert.AreEqual(fechaActual, consumo1.fecha);
+                Assert.AreEqual(horaInicio, consumo1.horaIni);
+                Assert.AreEqual(horafinal, consumo1.horaFin);
+
+                // buscamos el consumo (entidad) actual
+                Consumo consumo2 = consumoDao.UltimoConsumoUbicacion(ubicacionId);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual, consumo2.consumoActual);
+                Assert.AreEqual(consumoIdNuevo, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(null, consumo2.horaFin);
+
+
+                // obtenemos la Carga
+                Carga c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "Suministrando"
+                Assert.AreEqual(c, null);
+
+                // obtenemos Suministra
+                Suministra s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos los cambios
+                Assert.AreEqual(s, null);
+            }
+        }
+
+        [TestMethod()]
         public void ModificarConsumoCargandoTest()
         {
             using (var scope = new TransactionScope())
@@ -1102,7 +1197,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //private const double ratioCompra = 50;
                 //private const double ratioUso = 45;
                 //private const double capacidadCargador = 10;
-                double kwHAlmacenados = 10000;
+                //double kwHAlmacenados = 10000;
 
 
                 //Creamos los estados usuario y ubicacion
@@ -1114,8 +1209,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifas24H(fechaActual);
 
                 //Creamos Bateria
+
+                // RatioCompra < Tarifa // 
+                // ratio de carga > %bateria  //(carga)
+                double ratioUso1 = 3000; // ratioUso > Tarifa;  // consume de la Red
+
                 long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso1, capacidadCargador);
                 long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
@@ -1229,7 +1329,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 // buscamos el segundo consumo
                 consumo2 = consumoDao.Find(consumoId2);
 
-                // comprobamos los cambios en consumo1
+                // comprobamos los cambios en consumo2
                 Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
                 Assert.AreEqual(consumoActual2, consumo2.consumoActual);
                 Assert.AreEqual(consumoId2, consumo2.consumoId);
@@ -1259,13 +1359,387 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 // obtenemos la Carga
                 c = servicioBateria.UltimaCarga(bateriaId);
 
-                //comprobamos que no hay cambios por que esta "sin actividad"
+                //comprobamos los cambios por que esta "cargando"
                 Assert.AreEqual(c.kwH, kwCargados + kwCargados2);
 
                 // obtenemos Suministra
                 s = servicioBateria.UltimaSuministra(bateriaId);
 
+                //comprobamos que no hay los cambios
+                Assert.AreEqual(s, null);
+            }
+        }
+
+
+        [TestMethod()]
+        public void ModificarConsumoCargando2Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                //private const double precioMedio = 100;
+                //private const double kwHAlmacenados = 1000;
+                //private const double almacenajeMaximoKwH = 20000;
+                //private const double ratioCarga = 10;
+                //private const double ratioCompra = 50;
+                //private const double ratioUso = 45;
+                //private const double capacidadCargador = 10;
+                //double kwHAlmacenados = 10000;
+
+
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 7);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+
+                double ratioCompra1 = 3000; // RatioCompra < Tarifa // 
+                // ratio de carga > %bateria  //(carga)
+                double ratioUso1 = 3000; // ratioUso > Tarifa;  // consume de la Red
+
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra1, ratioUso1, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //Ponemos el estado a "Cargando"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
+                Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
+
+                // -> cargando
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
+
+                double consumo = 1000;
+
+                int hour1 = 1;
+                //int hour2 = 1;
+                int minutes = 0;
+                int seconds = 0;
+                //int seconds2 = 2;
+
+                TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
+                //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
+
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual2 = 2000;
+
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId2 = servicio.modificarConsumoActual(ubicacionId, consumoActual2);        //consumo 1000 -> 2000
+
+                // buscamos ubicacion
+                Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId2, u.ultimoConsumo);
+
+                //+++++++
+                double capacidadCarga = servicioBateria.capacidadCargadorBateriaSuministradora(bateriaId);
+                double kwCargados = servicio.calcularConsumo(capacidadCarga, horaInicio, horafinal);
+                double kwRed = servicio.calcularConsumo(consumo, horaInicio, horafinal);
+                //++++++++++++
+
+                // buscamos el primer consumo
+                Consumo consumo1 = consumoDao.Find(consumoId);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo1.ubicacionId);
+                Assert.AreEqual(consumo, consumo1.consumoActual);
+                Assert.AreEqual(consumoId, consumo1.consumoId);
+                Assert.AreEqual(fechaActual, consumo1.fecha);
+                Assert.AreEqual(horaInicio, consumo1.horaIni);
+                Assert.AreEqual(horafinal, consumo1.horaFin);
+                Assert.AreEqual(kwCargados, consumo1.kwCargados);
+                Assert.AreEqual(0, consumo1.kwSuministrados);
+                Assert.AreEqual(kwRed, consumo1.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId2 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo2 = servicio.buscarConsumoById(ucId2);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(null, consumo2.horaFin);
+                Assert.AreEqual(0, consumo2.kwCargados);
+                Assert.AreEqual(0, consumo2.kwSuministrados);
+                Assert.AreEqual(0, consumo2.kwRed);
+
+
+                // obtenemos la Carga
+                Carga c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "sin actividad"
+                Assert.AreEqual(c.kwH, kwCargados);
+
+                // obtenemos Suministra
+                Suministra s = servicioBateria.UltimaSuministra(bateriaId);
+
                 //comprobamos los cambios
+                Assert.AreEqual(s, null);
+
+                //++++++++++++++++++++++++++++++
+                // tercer consumo,
+                // segundo consumo en "Cargando"
+                //++++++++++++++++++++++++++++++
+                Thread.Sleep(1000);
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual3 = 1000;
+
+                TimeSpan horafinal2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId3 = servicio.modificarConsumoActual(ubicacionId, consumoActual3);  //consumo 2000 -> 1000
+
+                // buscamos ubicacion
+                u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId3, u.ultimoConsumo);
+
+                //+++++++
+                double kwCargados2 = servicio.calcularConsumo(capacidadCarga, horafinal, horafinal2);
+                double kwRed2 = servicio.calcularConsumo(consumoActual2, horafinal, horafinal2);
+                //++++++++++++
+
+                // buscamos el segundo consumo
+                consumo2 = consumoDao.Find(consumoId2);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(horafinal2, consumo2.horaFin);
+                Assert.AreEqual(kwCargados2, consumo2.kwCargados);
+                Assert.AreEqual(0, consumo2.kwSuministrados);
+                Assert.AreEqual(kwRed2, consumo2.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId3 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo3 = servicio.buscarConsumoById(ucId3);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo3.ubicacionId);
+                Assert.AreEqual(consumoActual3, consumo3.consumoActual);
+                Assert.AreEqual(consumoId3, consumo3.consumoId);
+                Assert.AreEqual(fechaActual, consumo3.fecha);
+                Assert.AreEqual(horafinal2, consumo3.horaIni);
+                Assert.AreEqual(null, consumo3.horaFin);
+                Assert.AreEqual(0, consumo3.kwCargados);
+                Assert.AreEqual(0, consumo3.kwSuministrados);
+                Assert.AreEqual(0, consumo3.kwRed);
+
+
+                // obtenemos la Carga
+                c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos los cambios por que esta "cargando"
+                Assert.AreEqual(c.kwH, kwCargados + kwCargados2);
+
+                // obtenemos Suministra
+                s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos que no hay los cambios
+                Assert.AreEqual(s, null);
+            }
+        }
+
+
+        [TestMethod()]
+        public void ModificarConsumoCargando3Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                //private const double precioMedio = 100;
+                //private const double kwHAlmacenados = 1000;
+                //private const double almacenajeMaximoKwH = 20000;
+                //private const double ratioCarga = 10;
+                //private const double ratioCompra = 50;
+                //private const double ratioUso = 45;
+                //private const double capacidadCargador = 10;
+                //double kwHAlmacenados = 10000;
+
+
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 7);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+
+                double ratioCompra1 = 3000; // RatioCompra < Tarifa // (Carga)
+                double ratioCarga1 = 3;// ratio de carga < %bateria  //
+                double ratioUso1 = 3000; // ratioUso > Tarifa;  // consume de la Red
+
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga1, ratioCompra1, ratioUso1, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //Ponemos el estado a "Cargando"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("Cargando");
+                Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
+
+                // -> cargando
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdC, 0, 0, horaActual);
+
+                double consumo = 1000;
+
+                int hour1 = 1;
+                //int hour2 = 1;
+                int minutes = 0;
+                int seconds = 0;
+                //int seconds2 = 2;
+
+                TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
+                //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
+
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual2 = 2000;
+
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId2 = servicio.modificarConsumoActual(ubicacionId, consumoActual2);        //consumo 1000 -> 2000
+
+                // buscamos ubicacion
+                Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId2, u.ultimoConsumo);
+
+                //+++++++
+                double capacidadCarga = servicioBateria.capacidadCargadorBateriaSuministradora(bateriaId);
+                double kwCargados = servicio.calcularConsumo(capacidadCarga, horaInicio, horafinal);
+                double kwRed = servicio.calcularConsumo(consumo, horaInicio, horafinal);
+                //++++++++++++
+
+                // buscamos el primer consumo
+                Consumo consumo1 = consumoDao.Find(consumoId);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo1.ubicacionId);
+                Assert.AreEqual(consumo, consumo1.consumoActual);
+                Assert.AreEqual(consumoId, consumo1.consumoId);
+                Assert.AreEqual(fechaActual, consumo1.fecha);
+                Assert.AreEqual(horaInicio, consumo1.horaIni);
+                Assert.AreEqual(horafinal, consumo1.horaFin);
+                Assert.AreEqual(kwCargados, consumo1.kwCargados);
+                Assert.AreEqual(0, consumo1.kwSuministrados);
+                Assert.AreEqual(kwRed, consumo1.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId2 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo2 = servicio.buscarConsumoById(ucId2);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(null, consumo2.horaFin);
+                Assert.AreEqual(0, consumo2.kwCargados);
+                Assert.AreEqual(0, consumo2.kwSuministrados);
+                Assert.AreEqual(0, consumo2.kwRed);
+
+
+                // obtenemos la Carga
+                Carga c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "sin actividad"
+                Assert.AreEqual(c.kwH, kwCargados);
+
+                // obtenemos Suministra
+                Suministra s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos los cambios
+                Assert.AreEqual(s, null);
+
+                //++++++++++++++++++++++++++++++
+                // tercer consumo,
+                // segundo consumo en "Cargando"
+                //++++++++++++++++++++++++++++++
+                Thread.Sleep(1000);
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual3 = 1000;
+
+                TimeSpan horafinal2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId3 = servicio.modificarConsumoActual(ubicacionId, consumoActual3);  //consumo 2000 -> 1000
+
+                // buscamos ubicacion
+                u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId3, u.ultimoConsumo);
+
+                //+++++++
+                double kwCargados2 = servicio.calcularConsumo(capacidadCarga, horafinal, horafinal2);
+                double kwRed2 = servicio.calcularConsumo(consumoActual2, horafinal, horafinal2);
+                //++++++++++++
+
+                // buscamos el segundo consumo
+                consumo2 = consumoDao.Find(consumoId2);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(horafinal2, consumo2.horaFin);
+                Assert.AreEqual(kwCargados2, consumo2.kwCargados);
+                Assert.AreEqual(0, consumo2.kwSuministrados);
+                Assert.AreEqual(kwRed2, consumo2.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId3 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo3 = servicio.buscarConsumoById(ucId3);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo3.ubicacionId);
+                Assert.AreEqual(consumoActual3, consumo3.consumoActual);
+                Assert.AreEqual(consumoId3, consumo3.consumoId);
+                Assert.AreEqual(fechaActual, consumo3.fecha);
+                Assert.AreEqual(horafinal2, consumo3.horaIni);
+                Assert.AreEqual(null, consumo3.horaFin);
+                Assert.AreEqual(0, consumo3.kwCargados);
+                Assert.AreEqual(0, consumo3.kwSuministrados);
+                Assert.AreEqual(0, consumo3.kwRed);
+
+
+                // obtenemos la Carga
+                c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos los cambios por que esta "cargando"
+                Assert.AreEqual(c.kwH, kwCargados + kwCargados2);
+
+                // obtenemos Suministra
+                s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos que no hay los cambios
                 Assert.AreEqual(s, null);
             }
         }
@@ -1468,7 +1942,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //private const double ratioCompra = 50;
                 //private const double ratioUso = 45;
                 //private const double capacidadCargador = 10;
-                double kwHAlmacenados = 10000;
+                //double kwHAlmacenados = 10000;
 
 
                 //Creamos los estados usuario y ubicacion
@@ -1480,8 +1954,393 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 crearTarifas24H(fechaActual);
 
                 //Creamos Bateria
+                // RatioCompra < Tarifa // 
+                // ratio de carga > %bateria  //(carga)
+                // ratioUso < Tarifa;  // consume de la bateria
+
                 long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //Ponemos el estado a "carga y suministra"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
+
+                // -> cargando
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
+
+                double consumo = 1000;
+
+                int hour1 = 1;
+                //int hour2 = 1;
+                int minutes = 0;
+                int seconds = 0;
+                //int seconds2 = 2;
+
+                TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
+                //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
+
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual2 = 2000;
+
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId2 = servicio.modificarConsumoActual(ubicacionId, consumoActual2);        //consumo 1000 -> 2000
+
+                // buscamos ubicacion
+                Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId2, u.ultimoConsumo);
+
+                //+++++++
+                double capacidadCarga = servicioBateria.capacidadCargadorBateriaSuministradora(bateriaId);
+                double kwCargados = servicio.calcularConsumo(capacidadCarga, horaInicio, horafinal);
+                double kwSuministrados = servicio.calcularConsumo(consumo, horaInicio, horafinal);
+                //double kwRed = servicio.calcularConsumo(consumo, horaInicio, horafinal);
+                //++++++++++++
+
+                // buscamos el primer consumo
+                Consumo consumo1 = consumoDao.Find(consumoId);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo1.ubicacionId);
+                Assert.AreEqual(consumo, consumo1.consumoActual);
+                Assert.AreEqual(consumoId, consumo1.consumoId);
+                Assert.AreEqual(fechaActual, consumo1.fecha);
+                Assert.AreEqual(horaInicio, consumo1.horaIni);
+                Assert.AreEqual(horafinal, consumo1.horaFin);
+                Assert.AreEqual(kwCargados, consumo1.kwCargados);
+                Assert.AreEqual(kwSuministrados, consumo1.kwSuministrados);
+                Assert.AreEqual(0, consumo1.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId2 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo2 = servicio.buscarConsumoById(ucId2);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(null, consumo2.horaFin);
+                Assert.AreEqual(0, consumo2.kwCargados);
+                Assert.AreEqual(0, consumo2.kwSuministrados);
+                Assert.AreEqual(0, consumo2.kwRed);
+
+
+                // obtenemos la Carga
+                Carga c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "sin actividad"
+                Assert.AreEqual(c.kwH, kwCargados);
+
+                // obtenemos Suministra
+                Suministra s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos los cambios
+                Assert.AreEqual(s.kwH, kwSuministrados);
+
+                //++++++++++++++++++++++++++++++
+                // tercer consumo,
+                // segundo consumo en "Cargando"
+                //++++++++++++++++++++++++++++++
+                Thread.Sleep(1000);
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual3 = 1000;
+
+                TimeSpan horafinal2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId3 = servicio.modificarConsumoActual(ubicacionId, consumoActual3);  //consumo 2000 -> 1000
+
+                // buscamos ubicacion
+                u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId3, u.ultimoConsumo);
+
+                //+++++++
+                double kwCargados2 = servicio.calcularConsumo(capacidadCarga, horafinal, horafinal2);
+                double kwSuministrados2 = servicio.calcularConsumo(consumoActual2, horafinal, horafinal2);
+                //double kwRed2 = servicio.calcularConsumo(consumoActual2, horafinal, horafinal2);
+                //++++++++++++
+
+                // buscamos el segundo consumo
+                consumo2 = consumoDao.Find(consumoId2);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(horafinal2, consumo2.horaFin);
+                Assert.AreEqual(kwCargados2, consumo2.kwCargados);
+                Assert.AreEqual(kwSuministrados2, consumo2.kwSuministrados);
+                Assert.AreEqual(0, consumo2.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId3 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo3 = servicio.buscarConsumoById(ucId3);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo3.ubicacionId);
+                Assert.AreEqual(consumoActual3, consumo3.consumoActual);
+                Assert.AreEqual(consumoId3, consumo3.consumoId);
+                Assert.AreEqual(fechaActual, consumo3.fecha);
+                Assert.AreEqual(horafinal2, consumo3.horaIni);
+                Assert.AreEqual(null, consumo3.horaFin);
+                Assert.AreEqual(0, consumo3.kwCargados);
+                Assert.AreEqual(0, consumo3.kwSuministrados);
+                Assert.AreEqual(0, consumo3.kwRed);
+
+
+                // obtenemos la Carga
+                c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "sin actividad"
+                Assert.AreEqual(c.kwH, kwCargados + kwCargados2);
+
+                // obtenemos Suministra
+                s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos los cambios
+                Assert.AreEqual(s.kwH, kwSuministrados + kwSuministrados2);
+            }
+        }
+
+        [TestMethod()]
+        public void ModificarConsumoCargaYSuministra2Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                //private const double precioMedio = 100;
+                //private const double kwHAlmacenados = 1000;
+                //private const double almacenajeMaximoKwH = 20000;
+                //private const double ratioCarga = 10;
+                //private const double ratioCompra = 50;
+                //private const double ratioUso = 45;
+                //private const double capacidadCargador = 10;
+                //double kwHAlmacenados = 10000;
+
+
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 9);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                
+                double ratioCarga1 = 3; // ratio de carga 3 < 5 = %bateria  //(nada)
+                double ratioCompra1 = 3000; // RatioCompra > Tarifa // se carga
+                // ratioUso < Tarifa;  // consume de la bateria
+
+               
+
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga1, ratioCompra1, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                // Ponemos la bateria en la ubicacion
+                servicio.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+
+                //Ponemos el estado a "carga y suministra"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
+
+                // -> cargando
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
+
+                double consumo = 1000;
+
+                int hour1 = 1;
+                //int hour2 = 1;
+                int minutes = 0;
+                int seconds = 0;
+                //int seconds2 = 2;
+
+                TimeSpan horaInicio = new TimeSpan(hour1, minutes, seconds);
+                //TimeSpan horafinal = new TimeSpan(hour2, minutes, seconds2);
+
+                //creamos el consumo
+                long consumoId = servicio.crearConsumo(ubicacionId, consumo, fechaActual, horaInicio);
+
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual2 = 2000;
+
+                TimeSpan horafinal = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId2 = servicio.modificarConsumoActual(ubicacionId, consumoActual2);        //consumo 1000 -> 2000
+
+                // buscamos ubicacion
+                Ubicacion u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId2, u.ultimoConsumo);
+
+                //+++++++
+                double capacidadCarga = servicioBateria.capacidadCargadorBateriaSuministradora(bateriaId);
+                double kwCargados = servicio.calcularConsumo(capacidadCarga, horaInicio, horafinal);
+                double kwSuministrados = servicio.calcularConsumo(consumo, horaInicio, horafinal);
+                //double kwRed = servicio.calcularConsumo(consumo, horaInicio, horafinal);
+                //++++++++++++
+
+                // buscamos el primer consumo
+                Consumo consumo1 = consumoDao.Find(consumoId);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo1.ubicacionId);
+                Assert.AreEqual(consumo, consumo1.consumoActual);
+                Assert.AreEqual(consumoId, consumo1.consumoId);
+                Assert.AreEqual(fechaActual, consumo1.fecha);
+                Assert.AreEqual(horaInicio, consumo1.horaIni);
+                Assert.AreEqual(horafinal, consumo1.horaFin);
+                Assert.AreEqual(kwCargados, consumo1.kwCargados);
+                Assert.AreEqual(kwSuministrados, consumo1.kwSuministrados);
+                Assert.AreEqual(0, consumo1.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId2 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo2 = servicio.buscarConsumoById(ucId2);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(null, consumo2.horaFin);
+                Assert.AreEqual(0, consumo2.kwCargados);
+                Assert.AreEqual(0, consumo2.kwSuministrados);
+                Assert.AreEqual(0, consumo2.kwRed);
+
+
+                // obtenemos la Carga
+                Carga c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "sin actividad"
+                Assert.AreEqual(c.kwH, kwCargados);
+
+                // obtenemos Suministra
+                Suministra s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos los cambios
+                Assert.AreEqual(s.kwH, kwSuministrados);
+
+                //++++++++++++++++++++++++++++++
+                // tercer consumo,
+                // segundo consumo en "Cargando"
+                //++++++++++++++++++++++++++++++
+                Thread.Sleep(1000);
+                //modificamos el consumo ,finalizamos el consumo creado
+                double consumoActual3 = 1000;
+
+                TimeSpan horafinal2 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                long consumoId3 = servicio.modificarConsumoActual(ubicacionId, consumoActual3);  //consumo 2000 -> 1000
+
+                // buscamos ubicacion
+                u = servicio.buscarUbicacionById(ubicacionId);
+
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Assert.AreEqual(consumoId3, u.ultimoConsumo);
+
+                //+++++++
+                double kwCargados2 = servicio.calcularConsumo(capacidadCarga, horafinal, horafinal2);
+                double kwSuministrados2 = servicio.calcularConsumo(consumoActual2, horafinal, horafinal2);
+                //double kwRed2 = servicio.calcularConsumo(consumoActual2, horafinal, horafinal2);
+                //++++++++++++
+
+                // buscamos el segundo consumo
+                consumo2 = consumoDao.Find(consumoId2);
+
+                // comprobamos los cambios en consumo1
+                Assert.AreEqual(ubicacionId, consumo2.ubicacionId);
+                Assert.AreEqual(consumoActual2, consumo2.consumoActual);
+                Assert.AreEqual(consumoId2, consumo2.consumoId);
+                Assert.AreEqual(fechaActual, consumo2.fecha);
+                Assert.AreEqual(horafinal, consumo2.horaIni);
+                Assert.AreEqual(horafinal2, consumo2.horaFin);
+                Assert.AreEqual(kwCargados2, consumo2.kwCargados);
+                Assert.AreEqual(kwSuministrados2, consumo2.kwSuministrados);
+                Assert.AreEqual(0, consumo2.kwRed);
+
+                // buscamos el consumo (entidad) actual
+                long ucId3 = (long)servicio.UltimoConsumoEnUbicacion(ubicacionId);
+                Consumo consumo3 = servicio.buscarConsumoById(ucId3);
+
+                // comprobamos los cambios en consumo2
+                Assert.AreEqual(ubicacionId, consumo3.ubicacionId);
+                Assert.AreEqual(consumoActual3, consumo3.consumoActual);
+                Assert.AreEqual(consumoId3, consumo3.consumoId);
+                Assert.AreEqual(fechaActual, consumo3.fecha);
+                Assert.AreEqual(horafinal2, consumo3.horaIni);
+                Assert.AreEqual(null, consumo3.horaFin);
+                Assert.AreEqual(0, consumo3.kwCargados);
+                Assert.AreEqual(0, consumo3.kwSuministrados);
+                Assert.AreEqual(0, consumo3.kwRed);
+
+
+                // obtenemos la Carga
+                c = servicioBateria.UltimaCarga(bateriaId);
+
+                //comprobamos que no hay cambios por que esta "sin actividad"
+                Assert.AreEqual(c.kwH, kwCargados + kwCargados2);
+
+                // obtenemos Suministra
+                s = servicioBateria.UltimaSuministra(bateriaId);
+
+                //comprobamos los cambios
+                Assert.AreEqual(s.kwH, kwSuministrados + kwSuministrados2);
+            }
+        }
+
+
+        [TestMethod()]
+        public void ModificarConsumoCargaYSuministra3Test()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                //private const double precioMedio = 100;
+                //private const double kwHAlmacenados = 1000;
+                //private const double almacenajeMaximoKwH = 20000;
+                //private const double ratioCarga = 10;
+                //private const double ratioCompra = 50;
+                //private const double ratioUso = 45;
+                //private const double capacidadCargador = 10;
+                //double kwHAlmacenados = 10000;
+
+
+                //Creamos los estados usuario y ubicacion
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = servicio.crearUbicacion(codigoPostal, localidad, calle, portal, numero, etiqueta, 9);
+                //Creamos Tarifa
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
+
+                //Creamos Bateria
+                
+                // ratio de carga >  %bateria  //(se carga)
+                double ratioCompra1 = 3000; // RatioCompra > Tarifa // se carga
+                                            // ratioUso < Tarifa;  // consume de la bateria
+
+
+
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra1, ratioUso, capacidadCargador);
                 long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
                 fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
@@ -1878,6 +2737,217 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
             }
         }
+
+        [TestMethod()]
+        public void MostrarProporcionadoPorRedPorFechaPorDiasTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos Ubicacion
+                long codigoPostal = 15000;
+                string localidad = "Coruña";
+                string calle = "San Juan";
+                string portal = "";
+                long numero = 100;
+                //string etiqueta = "bichito";
+                //long bateriaSuministradora = 1;
+                //crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+                TimeSpan cincoMinutos = new TimeSpan(0, 5, 0);
+
+                // Creamos Consumos
+                double consumoActual = 10;
+                //double kwCargados = 100;
+                //double kwSuministrados = 100;
+                //double kwRed = 0;
+                DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                TimeSpan horaFin = horaIni.Add(tresMinutos);
+
+
+                Consumo c0 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 0
+
+                DateTime fechaBusquedaInicial = fecha = fecha.AddDays(1); // dia siguiente
+
+                Consumo c1 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 1
+
+                consumoActual = 15;
+                TimeSpan horaFin2 = horaIni.Add(cincoMinutos);
+
+                // consumo 2
+                Consumo c2 = crearConsumo(ubicacionId, consumoActual, horaFin, horaFin2, fecha); //dia 1
+
+
+                DateTime fechaBusquedaFinal = fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 3
+                Consumo c3 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 2
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 4
+                Consumo c4 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 3
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 5
+                Consumo c5 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 4
+
+                //COMPROBAMOS   
+
+                List<ConsumoPorDias> consumoResult = servicio.MostrarProporcionadoPorRedPorFechaPorDias(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal);
+
+                Assert.AreEqual(consumoResult[0].fecha, fechaBusquedaInicial);
+                Assert.AreEqual(consumoResult[0].Count, 10+15); //c1+c2
+
+                Assert.AreEqual(consumoResult[1].fecha, fechaBusquedaFinal);
+                Assert.AreEqual(consumoResult[1].Count, consumoActual); // c3
+
+                Assert.AreEqual(consumoResult.Count(), 2);
+
+
+            }
+        }
+
+        [TestMethod()]
+        public void MostrarConsumosRedElectricaUbicacionPorFechaEnDiasTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos Ubicacion
+                long codigoPostal = 15000;
+                string localidad = "Coruña";
+                string calle = "San Juan";
+                string portal = "";
+                long numero = 100;
+                //string etiqueta = "bichito";
+                //long bateriaSuministradora = 1;
+                //crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+                TimeSpan cincoMinutos = new TimeSpan(0, 5, 0);
+
+                // Creamos Consumos
+                double consumoActual = 10;
+                //double kwCargados = 100;
+                //double kwSuministrados = 100;
+                //double kwRed = 0;
+                DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                TimeSpan horaFin = horaIni.Add(tresMinutos);
+
+
+                Consumo c0 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 0
+
+                // ponemos lo consumido de la red
+                c0.kwRed = 1;
+
+                DateTime fechaBusquedaInicial = fecha = fecha.AddDays(1); // dia siguiente
+
+                Consumo c1 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 1
+
+                // ponemos lo consumido de la red
+                c1.kwRed = 10;
+
+                consumoActual = 15;
+                TimeSpan horaFin2 = horaIni.Add(cincoMinutos);
+
+                // consumo 2
+                Consumo c2 = crearConsumo(ubicacionId, consumoActual, horaFin, horaFin2, fecha); //dia 1
+
+                // ponemos lo consumido de la red
+                c2.kwRed = 100;
+
+                DateTime fechaBusquedaFinal = fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 3
+                Consumo c3 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 2
+
+                // ponemos lo consumido de la red
+                c3.kwRed = 1000;
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 4
+                Consumo c4 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 3
+
+                // ponemos lo consumido de la red
+                c4.kwRed = 10000;
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 5
+                Consumo c5 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 4
+
+                // ponemos lo consumido de la red
+                c5.kwRed = 100000;
+
+                //COMPROBAMOS   
+
+                List<ConsumoPorDias> consumoResult = servicio.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal);
+
+                Assert.AreEqual(consumoResult[0].fecha, fechaBusquedaInicial);
+                Assert.AreEqual(consumoResult[0].Count, 10 + 100); //c1+c2
+
+                Assert.AreEqual(consumoResult[1].fecha, fechaBusquedaFinal);
+                Assert.AreEqual(consumoResult[1].Count, 1000); // c3
+
+                Assert.AreEqual(consumoResult.Count(), 2);
+
+
+            }
+        }
+        //[TestMethod()]
+        //public void BORRARESTETest()
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+
+        //        string txtFecha = "27/05/2024";
+        //        string txtFecha2 = "09/06/2024";
+
+        //        DateTime fechauno = Convert.ToDateTime(txtFecha);
+        //        DateTime fechados = Convert.ToDateTime(txtFecha2);
+
+        //        DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+        //        //string format = "dd/mm/yyyy";
+
+        //        //DateTime fechaIni = DateTime.ParseExact(txtFecha, format, CultureInfo.InvariantCulture);
+        //        //DateTime fechaFin = DateTime.ParseExact(txtFecha2, format, CultureInfo.InvariantCulture);
+
+        //        int diasIni = (fechauno - fecha).Days;
+        //        int diasFin = (fechados - fecha).Days;
+
+        //        DateTime fechaI = fecha.AddDays(diasIni);
+        //        DateTime fechaF = fecha.AddDays(diasFin);
+
+        //        //COMPROBAMOS   (date_2 - date_1).Days);
+
+        //        DateTime fecha2 = new DateTime(fecha.Year, fecha.Month,fecha.Day);
+
+        //        DateTime dechaIp = fecha.AddDays(-13);
+
+        //        List<ConsumoPorDias> consumoResult = servicio.MostrarProporcionadoPorRedPorFechaPorDias(704, fechauno, fechados);
+
+        //        //Assert.AreEqual(consumoResult[0].fecha, fechaBusquedaInicial);
+        //        //Assert.AreEqual(consumoResult[0].Count, 10 + 15); //c1+c2
+
+        //        //Assert.AreEqual(consumoResult[1].fecha, fechaBusquedaFinal);
+        //        //Assert.AreEqual(consumoResult[1].Count, consumoActual); // c3
+
+
+
+        //        Assert.AreEqual(consumoResult.Count(), 2);
+
+
+        //    }
+        //}
 
         //[TestMethod()]
         //public void CalcularConsumoParaCalculoRatiosSinActividadTest()

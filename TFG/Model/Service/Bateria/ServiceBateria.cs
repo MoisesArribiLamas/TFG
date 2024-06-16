@@ -1090,6 +1090,29 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 }
                 else
                 {
+                    // Comprobamos si sale de la condicion de que no carga por que esta llena la bateria
+                    // lo ponemos con el 90%, para que no este 100% ->99% -> 100% -> ...
+
+                    if (b.ratioCarga >= (total * 90 / b.almacenajeMaximoKwH))
+                    {
+                        // Fecha y hora actual
+                        DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        TimeSpan hora = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                        // Tarifa actual (hora)
+                        int horaTarifa = hora.Hours;
+
+                        // Buscar la tarifa actual
+                        TarifaDTO tarifa = TarifaEstado.TarifaActual(fechaActual, horaTarifa);
+
+                        if (b.ratioUso < tarifa.precio)
+                        {
+                            gestionRatios = true;
+                        }
+
+                            
+                    }
+
                     //comprobamos que no se pase del 100% de carga
                     if (b.almacenajeMaximoKwH < total)
                     {
