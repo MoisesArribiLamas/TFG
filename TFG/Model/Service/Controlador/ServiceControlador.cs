@@ -74,11 +74,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         #region sockets
 
+        Socket conexion; // s_client
+        Socket listen;   // s_server
+
         public void ConexionClientes()
         {
-            Socket listen = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Socket conexion;
-            IPEndPoint connect = new IPEndPoint(IPAddress.Parse("127.0.0.1"),6500);
+
+            listen = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //Socket conexion;
+            IPEndPoint connect = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6500);
 
             listen.Bind(connect);
 
@@ -89,23 +93,83 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             conexion = listen.Accept();
 
             Console.WriteLine(" Conexion aceptada ");
+            while (true)
+            {
+                // almacena la informacion recibida
+                byte[] recibir_info = new byte[100];
 
-            // almacena la informacion recibida
-            byte[] recibir_info = new byte[100];
+                string data = "";
+                int array_size = 0;
 
-            string data = "";
-            int array_size = 0;
+                // guardamos el nº de bytes que envio (donde se almacena la informacion, desde donde va a guardar la informacion, hasta donde)
+                array_size = conexion.Receive(recibir_info, 0, recibir_info.Length, 0);
 
-            // guardamos el nº de bytes que envio (donde se almacena la informacion, desde donde va a guardar la informacion, hasta donde)
-            array_size = conexion.Receive(recibir_info, 0, recibir_info.Length, 0);
+                // nos quedamos sólo con la información quitamos los blancos sobrantes
+                Array.Resize(ref recibir_info, array_size);
 
-            // nos quedamos sólo con la información quitamos los blancos sobrantes
-            Array.Resize(ref recibir_info, array_size);
+                data = Encoding.Default.GetString(recibir_info);
+                //if (data != "")
+                //{
+                double consumo = Convert.ToDouble(data);
+                ServicioUbicacion.modificarConsumoActual(704, consumo);
+                //}
+                //Console.WriteLine("La informacion recibida {0}", data);
 
-            data = Encoding.Default.GetString(recibir_info);
+                //byte[] msg = Encoding.ASCII.GetBytes("Recibido");
+                //listen.Send(msg);
+                //Console.ReadKey();
+            }
 
-            Console.WriteLine(data);
-            Console.ReadKey();
+        }
+        #endregion
+
+        #region
+        public void Start()
+        {
+            Thread t;
+            while (true)
+            {
+                Console.Write("Esperando Conexion");
+                conexion = listen.Accept();
+                t = new Thread(clientConnection);
+                t.Start(conexion);
+                Console.WriteLine("Conectado");
+            }
+        }
+
+
+        #endregion
+
+        #region
+        public void clientConnection(object s)
+        {
+            Socket conexion = (Socket)s;
+            while (true)
+            {
+                // almacena la informacion recibida
+                byte[] recibir_info = new byte[100];
+
+                string data = "";
+                int array_size = 0;
+
+                // guardamos el nº de bytes que envio (donde se almacena la informacion, desde donde va a guardar la informacion, hasta donde)
+                array_size = conexion.Receive(recibir_info, 0, recibir_info.Length, 0);
+
+                // nos quedamos sólo con la información quitamos los blancos sobrantes
+                Array.Resize(ref recibir_info, array_size);
+
+                data = Encoding.Default.GetString(recibir_info);
+                //if (data != "")
+                //{
+                double consumo = Convert.ToDouble(data);
+                ServicioUbicacion.modificarConsumoActual(704, consumo);
+                //}
+                //Console.WriteLine("La informacion recibida {0}", data);
+
+                //byte[] msg = Encoding.ASCII.GetBytes("Recibido");
+                //listen.Send(msg);
+                //Console.ReadKey();
+            }
         }
         #endregion
 

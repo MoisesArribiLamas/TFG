@@ -21,12 +21,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         }
 
-        public UbicacionProfileDetails(long ubicacionId, string etiqueta, double? consumoActual, string bateriaSuministradora)
+        public UbicacionProfileDetails(long ubicacionId, string etiqueta, double? consumoActual, string estado, string porcentaje)
         {
             this.ubicacionId = ubicacionId;
             this.etiqueta = etiqueta;
             this.consumoActual = consumoActual;
-            this.bateriaSuministradora = bateriaSuministradora;
+            this.estado = estado;
+            this.porcentaje = porcentaje;
         }
 
         public UbicacionProfileDetails(long ubicacionId, long codigoPostal, string localidad, string calle, string portal, long numero, string etiqueta, double? consumoActual, string bateriaSuministradora)
@@ -57,6 +58,11 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         public double? consumoActual { get; private set; }
 
         public string bateriaSuministradora { get; set; }
+
+        public string estado { get; set; }
+
+        public string porcentaje { get; set; }
+        
 
         public override bool Equals(object obj)
         {

@@ -868,102 +868,102 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         //}
 
 
-        //[TestMethod()]
-        //public void gestionDeRatiosTest7()
-        //{
-        //    // Estado: "sin actividad" 
-        //    // ratioCompra >=  Tarifa
-        //    //  ratioCarga >=  %Bateria
-        //    //    ratioUso < Tarifa 
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        //kwHAlmacenados = 1000;
-        //        //almacenajeMaximoKwH = 20000;   => 5% de carga
+        [TestMethod()]
+        public void gestionDeRatiosTest7()
+        {
+            // Estado: "sin actividad" 
+            // ratioCompra >=  Tarifa
+            //  ratioCarga >=  %Bateria
+            //    ratioUso < Tarifa 
+            using (var scope = new TransactionScope())
+            {
+                //kwHAlmacenados = 1000;
+                //almacenajeMaximoKwH = 20000;   => 5% de carga
 
-        //        /*
-        //            precioMedio = 100;
-        //            kwHAlmacenados = 1000;
-        //            almacenajeMaximoKwH = 20000;
-        //            ratioCompra = 50;                 =>  ratioCompra <   Tarifa
-        //            ratioCarga = 40;                  =>   ratioCarga >=  %Bateria
-        //            ratioUso = 45;                    =>     ratioUso <   Tarifa
-        //         */
-        //        crearEstados();
-        //        long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
-        //        long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+                /*
+                    precioMedio = 100;
+                    kwHAlmacenados = 1000;
+                    almacenajeMaximoKwH = 20000;
+                    ratioCompra = 50;                 =>  ratioCompra <   Tarifa
+                    ratioCarga = 40;                  =>   ratioCarga >=  %Bateria
+                    ratioUso = 45;                    =>     ratioUso <   Tarifa
+                 */
+                crearEstados();
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
 
-        //        //Creamos Tarifaz
-        //        DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        //        crearTarifas24H(fechaActual);
+                //Creamos Tarifaz
+                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                crearTarifas24H(fechaActual);
 
-        //        //Creamos Bateria
-        //        long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-        //        fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
-        //        long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
-        //        fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                //Creamos Bateria
+                long bateriaId = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicioBateria.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
 
-        //        //Ponemos el estado a "sin actividad"
-        //        long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
-        //        Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
-        //        //  hora actual
-        //        TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                //Ponemos el estado a "sin actividad"
+                long estadoIdS = servicioEstado.BuscarEstadoPorNombre("sin actividad");
+                Bateria bateria = servicioBateria.BuscarBateriaById(bateriaId);
+                //  hora actual
+                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-        //        servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
+                servicioBateria.CambiarEstadoEnBateria(bateriaId, estadoIdS, 0, 0, horaActual);
 
-        //        //comprobamos que el estado es "sin actividad"
-        //        SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
-        //        Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
+                //comprobamos que el estado es "sin actividad"
+                SeEncuentraDTO estadoBateria = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateria.estadoId, estadoIdS);
 
-        //        //obtenemos la bateria
-        //        var b = bateriaDao.Find(bateriaId);
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
 
-        //        // El ratio menor valor que el precio de la tarifa
-        //        double? ratioCompraNuevo = 2500;
-        //        double? ratioCargaNuevo = 5;
-        //        double? ratioUsoNuevo = null;
+                // El ratio menor valor que el precio de la tarifa
+                double? ratioCompraNuevo = 2500;
+                double? ratioCargaNuevo = 5;
+                double? ratioUsoNuevo = null;
 
 
-        //        servicioBateria.ModificarRatios(bateriaId, ratioCargaNuevo, ratioCompraNuevo, ratioUsoNuevo);
+                servicioBateria.ModificarRatios(bateriaId, ratioCargaNuevo, ratioCompraNuevo, ratioUsoNuevo);
 
-        //        // hora actual
-        //        horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-        //        // Tarifa actual
-        //        int horaTarifa = horaActual.Hours;
-        //        TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
-        //        //ponemos la bateria suministradora
-        //        servicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaId);
+                // hora actual
+                horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                // Tarifa actual
+                int horaTarifa = horaActual.Hours;
+                TarifaDTO tarifa = servicioTarifa.TarifaActual(fechaActual, horaTarifa);
+                //ponemos la bateria suministradora
+                servicioUbicacion.CambiarBateriaSuministradora(ubicacionId, bateriaId);
 
-        //        //creamos el consumo de la ubicacion
-        //        TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
-        //        double consumoActual = 0;
-        //        long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+                //creamos el consumo de la ubicacion
+                TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, 0, 0); // ponemos asi para no poner un sleep
+                double consumoActual = 0;
+                long consumoId = servicioUbicacion.crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
-        //        //comprobamos que la ubicacion tiene el ultimo consumo
-        //        Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
-        //        Assert.AreEqual(consumoId, u.ultimoConsumo);
+                //comprobamos que la ubicacion tiene el ultimo consumo
+                Ubicacion u = servicioUbicacion.buscarUbicacionById(ubicacionId);
+                Assert.AreEqual(consumoId, u.ultimoConsumo);
 
-        //        // gestion de :   Estado: "sin actividad"
-        //        servicio.gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
+                // gestion de :   Estado: "sin actividad"
+                servicio.gestionDeRatiosBateriaSuministradora(bateriaId, fechaActual, horaActual);
 
-        //        //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "carga y suministra"
-        //        long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
-        //        SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
-        //        Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
+                //comprobamos que se ha cometido el cambio de estado: "sin actividad" -> "carga y suministra"
+                long estadoIdC = servicioEstado.BuscarEstadoPorNombre("carga y suministra");
+                SeEncuentraDTO estadoBateriaNuevo = servicioEstado.BuscarEstadoBateriaById(bateria.estadoBateria);
+                Assert.AreEqual(estadoBateriaNuevo.estadoId, estadoIdC);
 
-        //        //obtenemos la bateria
-        //        b = bateriaDao.Find(bateriaId);
+                //obtenemos la bateria
+                b = bateriaDao.Find(bateriaId);
 
-        //        // Comprobamos kwh almacenados 
-        //        Assert.AreEqual(b.kwHAlmacenados, 1000);
-        //        // Comprobamos precio medio
-        //        Assert.AreEqual(b.precioMedio, 100);
+                // Comprobamos kwh almacenados 
+                Assert.AreEqual(b.kwHAlmacenados, 1000);
+                // Comprobamos precio medio
+                Assert.AreEqual(b.precioMedio, 100);
 
-        //        //comprobamos el ultimo consumo
-        //        u = servicioUbicacion.buscarUbicacionById(ubicacionId);
-        //        Consumo c = consumoDao.Find((long)u.ultimoConsumo);
-        //        Assert.AreEqual(consumoActual, c.consumoActual);
-        //    }
-        //}
+                //comprobamos el ultimo consumo
+                u = servicioUbicacion.buscarUbicacionById(ubicacionId);
+                Consumo c = consumoDao.Find((long)u.ultimoConsumo);
+                Assert.AreEqual(consumoActual, c.consumoActual);
+            }
+        }
 
 
         //[TestMethod()]

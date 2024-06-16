@@ -28,7 +28,9 @@
                 </asp:BoundField>
                 <asp:hyperlinkfield headertext="Etiqueta" datatextfield="etiqueta" datanavigateurlformatstring="" meta:resourcekey="HyperLinkFieldResource1" />
                 <asp:BoundField DataField="consumoActual" HeaderText="Consumo Actual" meta:resourcekey="BoundFieldResource2" />
-                <asp:BoundField DataField="bateriaSuministradora" HeaderText="Batería Suministradora" meta:resourcekey="BoundFieldResource3" />
+                <asp:BoundField DataField="estado" HeaderText="Estado" meta:resourcekey="BoundFieldResource3" />
+                <asp:BoundField DataField="porcentaje" HeaderText="% Bateria" meta:resourcekey="BoundFieldResource4" />
+
 
 
             </Columns>
