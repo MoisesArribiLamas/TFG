@@ -13,7 +13,7 @@
         var data = google.visualization.arrayToDataTable(<%=obtenerDatosSuministradoXBateria()%>);
 
         var options = {
-          title: 'Suministrou'
+          title: '<%=titulo()%>'
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));

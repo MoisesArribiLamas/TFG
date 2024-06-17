@@ -88,14 +88,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");
 
-            //Response.Redirect(Response.
-            //    ApplyAppPathModifier("~/Pages/Graficas/WebForm1.aspx?idUbicacion=" + ubicacionId));
-            if (ddlListaCriterios.Text == "Electricity consumption" || ddlListaCriterios.Text == "Consumo")
-            {
-                String url = String.Format("~/Pages/Graficas/WebForm1.aspx?idUbicacion={0}" +
-                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-                Response.Redirect(Response.ApplyAppPathModifier(url));
-            }
+            
 
             //SuministradoXRed
             if (ddlListaCriterios.Text == "Supplied by the Network" || ddlListaCriterios.Text == "Suministrado por la Red")
@@ -109,6 +102,14 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             if (ddlListaCriterios.Text == "Supplied" || ddlListaCriterios.Text == "Suministrado" || ddlListaCriterios.Text == "Suministrou")
             {
                 String url = String.Format("~/Pages/Graficas/SuministradoXBateria.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargasDelSistema
+            if (ddlListaCriterios.Text == "Loaded" || ddlListaCriterios.Text == "Cargados" || ddlListaCriterios.Text == "Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargasDelSistema.aspx?idUbicacion={0}" +
                      "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
@@ -126,6 +127,28 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             Calendar2.Visible = !Calendar2.Visible;
         }
 
+        protected string titulo()
+        {
+            
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+            if (idioma == "es") // castellano
+            {
+                return "Watios Suministrados por el sistema";
+
+
+            }
+            else if (idioma == "gl") // gallego
+            {
+                return "Watios Suministrados polo sistema";
+            }
+            else // (idioma == "en") ingles
+            {
+                return "Watts Supplied by the system";
+
+            }
+
+        }
 
 
         protected string obtenerDatosSuministradoXBateria()
@@ -151,7 +174,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             DateTime fechaFin = Convert.ToDateTime(txtFecha2.Text);
 
 
-            List<ConsumoPorDias> consumoRedDias = serviceUbicacion.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
+            List<ConsumoPorDias> consumoRedDias = serviceUbicacion.MostrarSuministradoXUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
 
             Trace.Warn("consumoRedDias", consumoRedDias.Count().ToString());
 

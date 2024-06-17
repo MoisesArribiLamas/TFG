@@ -95,7 +95,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<ConsumoDTO> MostrarProporcionadoPorRedPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count);
 
         [Transactional]
-        List<ConsumoPorDias> MostrarProporcionadoPorRedPorFechaPorDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+        List<ConsumoPorDias> MostrarSuministradoXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        List<ConsumoPorDias> MostrarLoCargadoPorElSistemaPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]
         List<ConsumoPorDias> MostrarConsumosRedElectricaUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);

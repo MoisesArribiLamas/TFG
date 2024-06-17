@@ -51,7 +51,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         #endregion
 
         #region consumos en un periodo de tiempo por dias grafica
-        public List<ConsumoPorDias> MostrarConsumosUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        public List<ConsumoPorDias> MostrarSuministradoXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
         {
             DbSet<Consumo> Consumos = Context.Set<Consumo>();
 
@@ -60,7 +60,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
                  where ((c.fecha >= fecha) && (c.fecha <= fecha2) && (c.ubicacionId == ubicacionID))
                  group c by c.fecha 
                  into g
-                 select new ConsumoPorDias() { fecha = g.Key, Count = g.Sum(c => c.consumoActual) } ).OrderBy(c => c.fecha).ToList();
+                 select new ConsumoPorDias() { fecha = g.Key, Count = g.Sum(c => c.kwSuministrados ?? 0) } ).OrderBy(c => c.fecha).ToList();
 
             return result;
         }
@@ -77,6 +77,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
                  group c by c.fecha
                  into g
                  select new ConsumoPorDias() { fecha = g.Key, Count = g.Sum(c => c.kwRed ?? 0) }).OrderBy(c => c.fecha).ToList();
+
+            return result;
+        }
+        #endregion
+
+        #region consumos por la red electrica en un periodo de tiempo por dias grafica
+        public List<ConsumoPorDias> MostrarLoCargadoPorElSistemaPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+            DbSet<Consumo> Consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in Consumos
+                 where ((c.fecha >= fecha) && (c.fecha <= fecha2) && (c.ubicacionId == ubicacionID))
+                 group c by c.fecha
+                 into g
+                 select new ConsumoPorDias() { fecha = g.Key, Count = g.Sum(c => c.kwCargados ?? 0) }).OrderBy(c => c.fecha).ToList();
 
             return result;
         }

@@ -13,7 +13,7 @@
         var data = google.visualization.arrayToDataTable(<%=obtenerDatosXRed()%>);
 
         var options = {
-          title: 'My Daily Activities'
+          title:  '<%=titulo()%>'
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
