@@ -10,7 +10,7 @@
 namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas {
     
     
-    public partial class WebForm1 {
+    public partial class CargasDelSistema {
         
         /// <summary>
         /// Control form1.

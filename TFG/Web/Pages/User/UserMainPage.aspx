@@ -39,10 +39,10 @@
 			</span>
 
 			<span class="coste">
-				<asp:Localize ID="Localize1Suministrando" runat="server" Text="Suministrando" meta:resourcekey="Localize1CosteResource1"></asp:Localize>
+				<asp:hyperlink id="hlsuministrador" Text="Bateria %" runat="server" meta:resourcekey="HyperLinksuministradorResource1" />
 				<br/>
 				<br/>
-				<asp:hyperlink id="hlsuministrador" Text="suministrador" runat="server" meta:resourcekey="HyperLinksuministradorResource1" />
+				<asp:Label ID="lblPorcentaje" runat="server" Text="%" Display="Dynamic" ></asp:Label>
 
 			</span>
 

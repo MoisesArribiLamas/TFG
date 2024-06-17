@@ -76,15 +76,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Label lblConsumo;
         
         /// <summary>
-        /// Control Localize1Suministrando.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize Localize1Suministrando;
-        
-        /// <summary>
         /// Control hlsuministrador.
         /// </summary>
         /// <remarks>
@@ -92,6 +83,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hlsuministrador;
+        
+        /// <summary>
+        /// Control lblPorcentaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPorcentaje;
         
         /// <summary>
         /// Control Localize1EstadoBateria.

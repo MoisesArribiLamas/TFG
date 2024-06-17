@@ -161,8 +161,9 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 if (ubicacion.bateriaSuministradora != null)
                 {
                     Bateria bateria = serviceBateria.BuscarBateriaById((long)ubicacion.bateriaSuministradora);
-                    this.hlsuministrador.Text = bateria.nSerie;
+                    //this.hlsuministrador.Text = bateria.nSerie;
                     this.hlsuministrador.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + bateria.bateriaId;
+                    lblPorcentaje.Text = serviceBateria.porcentajeDeCarga((long)ubicacion.bateriaSuministradora).ToString();
 
                     // estado de la Bateria
                     string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
@@ -231,7 +232,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 {
                     if (cons == 0)
                     {   // Sin Bateria suministradora y sin consumo
-                        Localize1Suministrando.Visible = false;
+                        lblPorcentaje.Visible = false;
                         hlsuministrador.Visible = false;
                     }
                     else
@@ -288,7 +289,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             // Bateria principal de la ubicacion
             if (ubicacion.bateriaSuministradora != null)
             {
-                Localize1Suministrando.Visible = true;
+                lblPorcentaje.Visible = true;
                 hlsuministrador.Visible = true;
                 Localize1EstadoBateria.Visible = true;
                 lblEstado.Visible = true;
@@ -320,7 +321,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
                 if (cons == 0)
                 {   // Sin Bateria suministradora y sin consumo
-                    Localize1Suministrando.Visible = false;
+                    lblPorcentaje.Visible = false;
                     hlsuministrador.Visible = false;
                 }
                 else
@@ -392,6 +393,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                     // Cambiamos de forma manual los ratios
                     servicioControlador.cambiarRatiosBateria(idBateria, Convert.ToDouble(BoxRatioCarga.Text), Convert.ToDouble(BoxRatioCompra.Text), Convert.ToDouble(BoxRatioUso.Text));
 
+                    actualizarEstadoYPorcentajeBateria(serviceUbicacion, serviceBateria);
+
                     string idioma = SessionManager.GetUserSession(Context).Idioma;
                     String mensaje;
                     String operacion;
@@ -411,7 +414,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                     {
                         mensaje = "Modified Ratios";
                         operacion = "Modify Ratios";
-
                     }
 
                     MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -424,20 +426,96 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
         }
 
+        protected void actualizarEstadoYPorcentajeBateria(IServiceUbicacion serviceUbicacion, IServiceBateria serviceBateria)
+        {
+
+            // obtenemos el USUARIO
+            long idUser = SessionManager.GetUserSession(Context).UserProfileId;
+
+
+            // ubicaciones del usuario
+            List<UbicacionProfileDetails> ubicaciones = serviceUbicacion.ubicacionesDelUsuario(idUser);
+
+            // desplegable con las ubicaciones 
+            foreach (UbicacionProfileDetails u in ubicaciones)
+            {
+                this.ListaUbicaciones.Items.Add(u.etiqueta);
+            }
+
+            // obtenemos la ubicacion que se muestra en el desplegble 
+            Ubicacion ubicacion = serviceUbicacion.primeraUbicacionDelUsuario(idUser);
+
+            if (ubicacion.bateriaSuministradora != null)
+            {
+                Bateria bateria = serviceBateria.BuscarBateriaById((long)ubicacion.bateriaSuministradora);
+                //this.hlsuministrador.Text = bateria.nSerie;
+                this.hlsuministrador.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + bateria.bateriaId;
+                lblPorcentaje.Text = serviceBateria.porcentajeDeCarga((long)ubicacion.bateriaSuministradora).ToString();
+
+                // estado de la Bateria
+                string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
+                this.lblEstado.Text = estado;
+                string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+                if (idioma == "es") // castellano
+                {
+                    this.lblEstado.Text = estado;
+
+
+                }
+                else if (idioma == "gl") // gallego
+                {
+                    if (estado == "sin actividad")
+                    {
+                        this.lblEstado.Text = "sen actividade";
+                    }
+                    else
+                    {
+                        if (estado == "carga y suministra")
+                        {
+                            this.lblEstado.Text = "carga e suministra";
+                        }
+                        else // cargando , Suministrando
+                        {
+                            this.lblEstado.Text = estado;
+                        }
+                    }
+                }
+                else // (idioma == "en") ingles
+                {
+                    if (estado == "sin actividad")
+                    {
+                        this.lblEstado.Text = "Without activity";
+                    }
+                    else
+                    {
+                        if (estado == "carga y suministra")
+                        {
+                            this.lblEstado.Text = "loads and supplies";
+                        }
+                        else
+                        {
+                            if (estado == "cargando")
+                            {
+                                this.lblEstado.Text = "charging";
+                            }
+                            else
+                            {
+                                if (estado == "suministrando")
+                                {
+                                    this.lblEstado.Text = "supplying";
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+
+            }
+        }
 
 
 
-        //public System.Timers.Timer timer = new System.Timers.Timer(200);
-        //private void Reloj()
-        //{
-        //    timer.Enabled = true;
-        //    timer.Elapsed += (s_, e_) => send();
-        //    timer.AutoReset = true;
-        //}
-
-        //public void send()
-        //{
-        //    this.lblhora.Text = DateTime.Now.ToLongTimeString();
-        //}
     }
 }

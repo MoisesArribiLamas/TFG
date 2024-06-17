@@ -111,18 +111,20 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");
 
-            //Response.Redirect(Response.
-            //    ApplyAppPathModifier("~/Pages/Graficas/WebForm1.aspx?idUbicacion={0}" + ubicacionId));
-            if (ddlListaCriterios.Text == "Electricity consumption" || ddlListaCriterios.Text == "Consumo")
-            {
-                String url = String.Format("~/Pages/Graficas/WebForm1.aspx?idUbicacion={0}" +
-                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-                Response.Redirect(Response.ApplyAppPathModifier(url));
-            } 
+   
 
+            //SuministradoXRed
             if (ddlListaCriterios.Text == "Supplied by the Network" || ddlListaCriterios.Text == "Suministrado por la Red")
             {
                 String url = String.Format("~/Pages/Graficas/SuministradoXRed.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //SuministradoXBateria
+            if (ddlListaCriterios.Text == "Supplied" || ddlListaCriterios.Text == "Suministrado" || ddlListaCriterios.Text == "Suministrou")
+            {
+                String url = String.Format("~/Pages/Graficas/SuministradoXBateria.aspx?idUbicacion={0}" +
                      "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }

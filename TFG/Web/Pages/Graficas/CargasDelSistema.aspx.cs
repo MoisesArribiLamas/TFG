@@ -15,9 +15,8 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 {
-    public partial class SuministradoXRed : System.Web.UI.Page
+    public partial class CargasDelSistema : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -89,7 +88,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");
 
-            
+
 
             //SuministradoXRed
             if (ddlListaCriterios.Text == "Supplied by the Network" || ddlListaCriterios.Text == "Suministrado por la Red")
@@ -135,23 +134,24 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
             if (idioma == "es") // castellano
             {
-                return "Watios Suministrados por la Red Electrica";
+                return "Watios Cargados al Sistema";
 
 
             }
             else if (idioma == "gl") // gallego
             {
-                return "Watios Suministrados pola Rede Electrica";
+                return "Watios Cargados polo Sistema";
             }
             else // (idioma == "en") ingles
             {
-                return "Watts Mains Supplied";
+                return "Watts Charged to System";
 
             }
 
         }
 
-        protected string obtenerDatosXRed()
+
+        protected string cargasDelSistema()
         {
 
             //Obtenemos parametro
@@ -174,7 +174,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             DateTime fechaFin = Convert.ToDateTime(txtFecha2.Text);
 
 
-            List<ConsumoPorDias> consumoRedDias = serviceUbicacion.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
+            List<ConsumoPorDias> consumoRedDias = serviceUbicacion.MostrarSuministradoXUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
 
             Trace.Warn("consumoRedDias", consumoRedDias.Count().ToString());
 
@@ -183,7 +183,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             {
                 string f = (dr.fecha).ToString();
                 string fecha = f.Substring(0, f.IndexOf(" "));
-                Trace.Warn("fecha", fecha); Trace.Warn("fecha", Math.Truncate(dr.Count*1000).ToString());
+                Trace.Warn("fecha", fecha); Trace.Warn("fecha", Math.Truncate(dr.Count * 1000).ToString());
             }
 
             string strDatos;
@@ -196,7 +196,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                 string fecha = f.Substring(0, f.IndexOf(" "));
 
                 strDatos = strDatos + "[";
-                strDatos = strDatos + "'" + fecha + "'" + "," + Math.Truncate(dr.Count*1000); ;
+                strDatos = strDatos + "'" + fecha + "'" + "," + Math.Truncate(dr.Count * 1000); ;
                 strDatos = strDatos + "],";
             }
 

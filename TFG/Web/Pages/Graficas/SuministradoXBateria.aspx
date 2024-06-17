@@ -1,6 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Graficas.WebForm1"MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource2" uiculture="auto" Trace="true"%>
-
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SuministradoXBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Graficas.SuministradoXBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource2" uiculture="auto" Trace="false" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
@@ -12,10 +10,10 @@
 
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable(<%=obtenerDatos()%>);
+        var data = google.visualization.arrayToDataTable(<%=obtenerDatosSuministradoXBateria()%>);
 
         var options = {
-          title: 'My Daily Activities'
+          title: '<%=titulo()%>'
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));

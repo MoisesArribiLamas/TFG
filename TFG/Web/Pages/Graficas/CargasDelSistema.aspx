@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SuministradoXRed.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Graficas.SuministradoXRed" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource2" uiculture="auto" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CargasDelSistema.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Graficas.CargasDelSistema"  MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource2" uiculture="auto" Trace="false" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
@@ -10,10 +10,10 @@
 
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable(<%=obtenerDatosXRed()%>);
+        var data = google.visualization.arrayToDataTable(<%=cargasDelSistema()%>);
 
         var options = {
-          title:  '<%=titulo()%>'
+          title: '<%=titulo()%>'
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
