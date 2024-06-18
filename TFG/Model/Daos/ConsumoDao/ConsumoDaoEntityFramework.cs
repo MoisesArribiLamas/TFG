@@ -98,6 +98,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         }
         #endregion
 
+        #region consumos por la red electrica en un Dia grafica
+        public List<ConsumoDiaConcreto> MostrarConsumosRedElectricaUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+            DbSet<Consumo> Consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in Consumos
+                 where ((c.fecha == fecha) && (c.ubicacionId == ubicacionID))
+                 group c by c.horaIni.Hours
+                 into g
+                 select new ConsumoDiaConcreto() { Hora = g.Key, Count = g.Sum(c => c.kwRed ?? 0) }).OrderBy(c => c.Hora).ToList();
+
+            return result;
+        }
+        #endregion
+
         #region consumos por la red electrica en un periodo de tiempo por dias grafica
         public List<ConsumoPorDias> MostrarLoCargadoPorElSistemaPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
         {

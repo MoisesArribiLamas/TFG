@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EstadisticasUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.EstadisticasUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EstadisticasUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.EstadisticasUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="false"%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
 
@@ -34,7 +34,7 @@
         </asp:Calendar>
                 
         <asp:Label ID="lblFecha1Error" runat="server" Text="Error Fecha" ForeColor="Red" Style="position: relative"
-                            Visible="False" meta:resourcekey="lblLoginError"> </asp:Label>
+                            Visible="False" meta:resourcekey="lblFecha1Error"> </asp:Label>
         <asp:TextBox ID="txtFecha"  runat="server" meta:resourcekey="txtFechaResource1" Width="70px" ReadOnly="True"></asp:TextBox>
                &nbsp;&nbsp;
         <asp:Label ID="lblFechaFin" runat="server" Text="Fecha Fin"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblFechaFin"></asp:Label>
@@ -53,7 +53,7 @@
         
 
         <asp:Label ID="lblFecha2Error" runat="server" Text="Error Fecha" ForeColor="Red" Style="position: relative"
-                            Visible="False" meta:resourcekey="lblLoginError"> </asp:Label>
+                            Visible="False" meta:resourcekey="lblFecha2Error"> </asp:Label>
         <asp:TextBox ID="txtFecha2" runat="server" meta:resourcekey="txtFecha2Resource1" Width="70px" ReadOnly="True"></asp:TextBox>
 
          &nbsp;&nbsp;
@@ -61,39 +61,48 @@
        
 
         <asp:DropDownList ID="ddlListaCriterios" runat="server" AutoPostBack="True"
-                            Width="110px" OnSelectedIndexChanged="ddlListaCriterios_SelectedIndexChanged" meta:resourcekey="ListaBateriasUbicacionResource1" ></asp:DropDownList>
+                            Width="110px" OnSelectedIndexChanged="ddlListaCriterios_SelectedIndexChanged" meta:resourcekey="ddlListaCriteriosResource1" ></asp:DropDownList>
 
          &nbsp;&nbsp;
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar2_Click" />
+        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
 
         <hr/>
 
-        <asp:GridView ID="gvUbicacionesEstadisticas" runat="server" AutoGenerateColumns="False" onrowcommand="gvUbicacionesEstadisticas_RowCommand"  OnPageIndexChanging="gvUbicacionesPageIndexChanging" ShowHeaderWhenEmpty="True"  BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" SelectedRowStyle-HorizontalAlign="Center" SelectedRowStyle-VerticalAlign="Middle" RowStyle-HorizontalAlign="Center" RowStyle-VerticalAlign="Middle" PagerStyle-HorizontalAlign="Left" PagerStyle-VerticalAlign="Bottom" HorizontalAlign="Center" meta:resourcekey="gvUbicacionesEstadisticasResource1" Height="200px" Width="420px">
-            <FooterStyle BackColor="White" ForeColor="#000066" />
-            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-            <RowStyle ForeColor="#000066" />
-            <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#F1F1F1" />
-            <SortedAscendingHeaderStyle BackColor="#007DBB" />
-            <SortedDescendingCellStyle BackColor="#CAC9C9" />
-            <SortedDescendingHeaderStyle BackColor="#00547E" />
+        <br/>
+       
+        <br/>
 
-             <Columns>
-                <asp:BoundField headertext="id" DataField="consumoId" ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol" meta:resourcekey="BoundFieldResource1" >
-                    <HeaderStyle CssClass="hiddencol"></HeaderStyle>
+        <asp:Label ID="lblFechaDia" runat="server" Text="Dia"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblFechaDia"></asp:Label>
+        <asp:Button ID="btnCalendario3" runat="server" Text="Calendario3" OnClick="btnCalendario3_Click" />
 
-                    <ItemStyle CssClass="hiddencol"></ItemStyle>
-                </asp:BoundField>
-                <asp:hyperlinkfield headertext="Criterio" datatextfield="criterio" datanavigateurlformatstring="" meta:resourcekey="HyperLinkFieldResource1" />
-                <asp:BoundField DataField="fecha" HeaderText="Fecha" meta:resourcekey="BoundFieldResource2" />
-                <asp:BoundField DataField="horaIni" HeaderText="Hora inicio" meta:resourcekey="BoundFieldResource3" />
-                <asp:BoundField DataField="horaFin" HeaderText="Hora fin" meta:resourcekey="BoundFieldResource4" />
+        <asp:Calendar ID="Calendar3" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" OnSelectionChanged="Calendar3_SelectionChanged">
+            <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+            <NextPrevStyle VerticalAlign="Bottom" />
+            <OtherMonthDayStyle ForeColor="#808080" />
+            <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+            <SelectorStyle BackColor="#CCCCCC" />
+            <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+            <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+            <WeekendDayStyle BackColor="#FFFFCC" />
+        </asp:Calendar>
 
+        <asp:Label ID="lblFecha3Error" runat="server" Text="Error Fecha" ForeColor="Red" Style="position: relative"
+                            Visible="False" meta:resourcekey="lblFecha3Error"> </asp:Label>
 
-            </Columns>
-           
-        </asp:GridView>
+        <asp:TextBox ID="txtFecha3" runat="server" meta:resourcekey="txtFecha3Resource1" Width="70px" ReadOnly="True"></asp:TextBox>
+
+         &nbsp;&nbsp;
+
+         <asp:Label ID="lblCriterio2" runat="server" Text="Criterio"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblCriterio2"></asp:Label>
+
+        <asp:DropDownList ID="ddlListaCriterios2" runat="server" AutoPostBack="True"
+                            Width="110px" OnSelectedIndexChanged="ddlListaCriterios2_SelectedIndexChanged" meta:resourcekey="ddlListaCriterios2Resource1" ></asp:DropDownList>
+
+         &nbsp;&nbsp;
+        <asp:Button ID="Button2" runat="server" Text="Buscar" OnClick="btnBuscar2_Click" />
+
+        <hr/>
+        
 
     </form>
         

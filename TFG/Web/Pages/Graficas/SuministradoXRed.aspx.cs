@@ -22,7 +22,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
         {
             if (!IsPostBack)
             {
-                //Obtenemos parametro
+                //Obtenemos parametros
                 String ubicacionId = Request.Params.Get("idUbicacion");
                 txtFecha.Text = Request.Params.Get("fechaIni");
                 txtFecha2.Text = Request.Params.Get("fechaFin");
@@ -113,22 +113,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
         protected void btnBuscar2_Click(object sender, EventArgs e)
         {
-            // obtenemso el datetime de los calendarios
-
-            if (txtFecha.Text != "")
-            {
-                string format = "dd/mm/yyyy";
-
-                DateTime dateTime = DateTime.ParseExact(txtFecha.Text, format, CultureInfo.InvariantCulture);
-
-            }
-
-            if (txtFecha2.Text != "")
-            {
-                string format = "dd/mm/yyyy";
-
-                DateTime dateTime = DateTime.ParseExact(txtFecha2.Text, format, CultureInfo.InvariantCulture);
-            }
 
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");

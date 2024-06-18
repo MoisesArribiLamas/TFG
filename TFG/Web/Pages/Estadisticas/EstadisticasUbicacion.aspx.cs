@@ -47,12 +47,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 // ocultamos los calendarios
                 Calendar1.Visible = false;
                 Calendar2.Visible = false;
+                Calendar3.Visible = false;
 
-                // Desplegable con los criterios
+                // Desplegables con los criterios
                 string idioma = SessionManager.GetUserSession(Context).Idioma;
                 this.ddlListaCriterios.DataSource = Statistics.GetStatistics(idioma);
                 this.ddlListaCriterios.DataBind();
-                
+
+                this.ddlListaCriterios2.DataSource = Statistics.GetStatistics(idioma);
+                this.ddlListaCriterios2.DataBind();
 
             }
 
@@ -70,6 +73,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
         {
             txtFecha.Text = Calendar1.SelectedDate.ToShortDateString();
             Calendar1.Visible = !Calendar1.Visible;
+            // quitamos el error
+            lblFecha1Error.Visible = false;
         }
 
         protected void btnCalendario2_Click(object sender, EventArgs e)
@@ -82,6 +87,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
         {
             txtFecha2.Text = Calendar2.SelectedDate.ToShortDateString();
             Calendar2.Visible = !Calendar2.Visible;
+            // quitamos el error
+            lblFecha2Error.Visible = false;
         }
 
         protected void ddlListaCriterios_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,7 +96,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
         }
 
-        protected void btnBuscar2_Click(object sender, EventArgs e)
+        protected void btnBuscar_Click(object sender, EventArgs e)
         {
             if (txtFecha.Text == "")
             {
@@ -100,22 +107,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 lblFecha1Error.Visible = true;
             }
             else { 
-                // obtenemso el datetime de los calendarios
-                if (txtFecha.Text != "")
-                {
-                    string format = "dd/mm/yyyy";
-
-                    DateTime dateTime = DateTime.ParseExact(txtFecha.Text, format, CultureInfo.InvariantCulture);
-                    Console.WriteLine(dateTime);
-                }
-
-                if (txtFecha2.Text != "")
-                {
-                    string format = "dd/mm/yyyy";
-
-                    DateTime dateTime = DateTime.ParseExact(txtFecha2.Text, format, CultureInfo.InvariantCulture);
-                    Console.WriteLine(dateTime);
-                }
+                
 
                 //Obtenemos parametro
                 String ubicacionId = Request.Params.Get("idUbicacion");
@@ -164,14 +156,81 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
         }
 
-        protected void gvUbicacionesEstadisticas_RowCommand(Object sender, GridViewCommandEventArgs e)
+        
+
+        protected void btnCalendario3_Click(object sender, EventArgs e)
         {
-
-
-
+            // Muestra u oculta el calendario
+            Calendar3.Visible = !Calendar3.Visible;
         }
-        protected void gvUbicacionesPageIndexChanging(object sender, GridViewPageEventArgs e)
+
+        protected void btnBuscar2_Click(object sender, EventArgs e)
         {
+            if (txtFecha3.Text == "")
+            {
+
+                lblFecha3Error.Visible = true;
+            }
+            else
+            {
+                //Obtenemos parametro
+                String ubicacionId = Request.Params.Get("idUbicacion");
+
+
+
+                //SuministradoRedDiaConcreto
+                if (ddlListaCriterios2.Text == "Supplied by the Network" || ddlListaCriterios2.Text == "Suministrado por la Red")
+                {
+                    String url = String.Format("~/Pages/Graficas/SuministradoRedDiaConcreto.aspx?idUbicacion={0}" +
+                         "&fecha={1}"  + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+
+                //SuministradoXBateria
+                //if (ddlListaCriterios.Text == "Supplied" || ddlListaCriterios.Text == "Suministrado" || ddlListaCriterios.Text == "Suministrou")
+                //{
+                //    String url = String.Format("~/Pages/Graficas/SuministradoXBateria.aspx?idUbicacion={0}" +
+                //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                //    Response.Redirect(Response.ApplyAppPathModifier(url));
+                //}
+
+                //CargasDelSistema
+                //if (ddlListaCriterios.Text == "Loaded" || ddlListaCriterios.Text == "Cargados" || ddlListaCriterios.Text == "Cargou")
+                //{
+                //    String url = String.Format("~/Pages/Graficas/CargasDelSistema.aspx?idUbicacion={0}" +
+                //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                //    Response.Redirect(Response.ApplyAppPathModifier(url));
+                //}
+
+                //AhorroXDias
+                //if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
+                //{
+                //    String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
+                //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                //    Response.Redirect(Response.ApplyAppPathModifier(url));
+                //}
+
+                //CargaSuministraVSRed
+                //if (ddlListaCriterios.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios.Text == "Red vs Suministrado Cargados" || ddlListaCriterios.Text == "Red vs Suministrou Cargou")
+                //{
+                //    String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
+                //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                //    Response.Redirect(Response.ApplyAppPathModifier(url));
+                //}
+            }
+        }
+
+        protected void Calendar3_SelectionChanged(object sender, EventArgs e)
+        {
+            txtFecha3.Text = Calendar3.SelectedDate.ToShortDateString();
+            Calendar3.Visible = !Calendar3.Visible;
+            // quitamos el error
+            lblFecha3Error.Visible = false;
+        }
+
+        protected void ddlListaCriterios2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

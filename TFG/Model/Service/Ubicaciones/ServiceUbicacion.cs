@@ -769,6 +769,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         #endregion
 
 
+        #region Consumos directamente de la red una ubicacion En una fecha concreta
+        [Transactional]
+        public List<ConsumoDiaConcreto> MostrarConsumosRedElectricaUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarConsumosRedElectricaUbicacionDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
+
         #region  suministros cargas del sistema y consumo por la red en un periodo de tiempo por dias
         [Transactional]
         public List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
