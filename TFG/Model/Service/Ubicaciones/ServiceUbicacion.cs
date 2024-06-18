@@ -757,6 +757,26 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion
 
+        #region kw suministrados en un día
+        [Transactional]
+        public List<ConsumoDiaConcreto> MostrarLoSuministradoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarLoSuministradoPorElSistemaDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
+        #region kw cargados en un día
+        [Transactional]
+        public List<ConsumoDiaConcreto> MostrarLoCargadoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarLoCargadoPorElSistemaDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
 
         #region Consumos directamente de la red una ubicacion por fechas por dias
         [Transactional]

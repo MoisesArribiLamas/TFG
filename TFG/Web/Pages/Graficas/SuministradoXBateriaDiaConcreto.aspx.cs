@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 {
-    public partial class SuministradoRedDiaConcreto : System.Web.UI.Page
+    public partial class SuministradoXBateriaDiaConcreto : System.Web.UI.Page
     {
         private static readonly ArrayList baterias = new ArrayList();
         protected void Page_Load(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
         protected void btnBuscar2_Click(object sender, EventArgs e)
         {
-            
+
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");
 
@@ -180,23 +180,23 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
             if (idioma == "es") // castellano
             {
-                return "Watios Suministrados por la Red Electrica";
+                return "Watios Suministrados por el sistema";
 
 
             }
             else if (idioma == "gl") // gallego
             {
-                return "Watios Suministrados pola Rede Electrica";
+                return "Watios Suministrados polo sistema";
             }
             else // (idioma == "en") ingles
             {
-                return "Watts Mains Supplied";
+                return "Watts Supplied by the system";
 
             }
 
         }
 
-        protected string obtenerDatosXRed()
+        protected string obtenerDatos()
         {
 
             //Obtenemos parametro
@@ -211,18 +211,18 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //Obtenemos el dia 
             DateTime fecha = Convert.ToDateTime(txtFecha3.Text);
 
-            List<ConsumoDiaConcreto> consumoRedDias = serviceUbicacion.MostrarConsumosRedElectricaUbicacionDiaConcreto(ubicacion.ubicacionId, fecha);
+            List<ConsumoDiaConcreto> suministradoSistema = serviceUbicacion.MostrarLoSuministradoPorElSistemaDiaConcreto(ubicacion.ubicacionId, fecha);
 
 
             string strDatos;
 
             strDatos = "[['Hora','(W)'],";
 
-            foreach (ConsumoDiaConcreto dr in consumoRedDias)
+            foreach (ConsumoDiaConcreto dr in suministradoSistema)
             {
 
                 strDatos = strDatos + "[";
-                strDatos = strDatos + "'" + dr.Hora +"H"+ "'" + "," + Math.Truncate(dr.Count * 1000); ;
+                strDatos = strDatos + "'" + dr.Hora + "H" + "'" + "," + Math.Truncate(dr.Count * 1000); ;
                 strDatos = strDatos + "],";
             }
 

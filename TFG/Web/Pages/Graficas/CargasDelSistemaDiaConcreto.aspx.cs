@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 {
-    public partial class SuministradoRedDiaConcreto : System.Web.UI.Page
+    public partial class CargasDelSistemaDiaConcreto : System.Web.UI.Page
     {
         private static readonly ArrayList baterias = new ArrayList();
         protected void Page_Load(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
         protected void btnBuscar2_Click(object sender, EventArgs e)
         {
-            
+
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");
 
@@ -180,23 +180,23 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
             if (idioma == "es") // castellano
             {
-                return "Watios Suministrados por la Red Electrica";
+                return "Watios Cargados al Sistema";
 
 
             }
             else if (idioma == "gl") // gallego
             {
-                return "Watios Suministrados pola Rede Electrica";
+                return "Watios Cargados polo Sistema";
             }
             else // (idioma == "en") ingles
             {
-                return "Watts Mains Supplied";
+                return "Watts Charged to System";
 
             }
 
         }
 
-        protected string obtenerDatosXRed()
+        protected string obtenerDatos()
         {
 
             //Obtenemos parametro
@@ -211,7 +211,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //Obtenemos el dia 
             DateTime fecha = Convert.ToDateTime(txtFecha3.Text);
 
-            List<ConsumoDiaConcreto> consumoRedDias = serviceUbicacion.MostrarConsumosRedElectricaUbicacionDiaConcreto(ubicacion.ubicacionId, fecha);
+            List<ConsumoDiaConcreto> consumoRedDias = serviceUbicacion.MostrarLoCargadoPorElSistemaDiaConcreto(ubicacion.ubicacionId, fecha);
 
 
             string strDatos;
@@ -222,7 +222,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             {
 
                 strDatos = strDatos + "[";
-                strDatos = strDatos + "'" + dr.Hora +"H"+ "'" + "," + Math.Truncate(dr.Count * 1000); ;
+                strDatos = strDatos + "'" + dr.Hora + "H" + "'" + "," + Math.Truncate(dr.Count * 1000); ;
                 strDatos = strDatos + "],";
             }
 

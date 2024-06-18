@@ -186,21 +186,21 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                     Response.Redirect(Response.ApplyAppPathModifier(url));
                 }
 
-                //SuministradoXBateria
-                //if (ddlListaCriterios.Text == "Supplied" || ddlListaCriterios.Text == "Suministrado" || ddlListaCriterios.Text == "Suministrou")
-                //{
-                //    String url = String.Format("~/Pages/Graficas/SuministradoXBateria.aspx?idUbicacion={0}" +
-                //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-                //    Response.Redirect(Response.ApplyAppPathModifier(url));
-                //}
+                //SuministradoXBateriaDiaConcreto
+                if (ddlListaCriterios2.Text == "Supplied" || ddlListaCriterios2.Text == "Suministrado" || ddlListaCriterios2.Text == "Suministrou")
+                {
+                    String url = String.Format("~/Pages/Graficas/SuministradoXBateriaDiaConcreto.aspx?idUbicacion={0}" +
+                         "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
 
-                //CargasDelSistema
-                //if (ddlListaCriterios.Text == "Loaded" || ddlListaCriterios.Text == "Cargados" || ddlListaCriterios.Text == "Cargou")
-                //{
-                //    String url = String.Format("~/Pages/Graficas/CargasDelSistema.aspx?idUbicacion={0}" +
-                //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-                //    Response.Redirect(Response.ApplyAppPathModifier(url));
-                //}
+                //CargasDelSistemaDiaConcreto
+                if (ddlListaCriterios2.Text == "Loaded" || ddlListaCriterios2.Text == "Cargados" || ddlListaCriterios2.Text == "Cargou")
+                {
+                    String url = String.Format("~/Pages/Graficas/CargasDelSistemaDiaConcreto.aspx?idUbicacion={0}" +
+                         "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
 
                 //AhorroXDias
                 //if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")

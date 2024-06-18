@@ -66,6 +66,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         }
         #endregion 
 
+        #region suministros en día
+        public List<ConsumoDiaConcreto> MostrarLoSuministradoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+            DbSet<Consumo> Consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in Consumos
+                 where ((c.fecha == fecha) && (c.ubicacionId == ubicacionID))
+                 group c by c.horaIni.Hours
+                 into g
+                 select new ConsumoDiaConcreto() { Hora = g.Key, Count = g.Sum(c => c.kwSuministrados ?? 0) }).OrderBy(c => c.Hora).ToList();
+
+            return result;
+        }
+        #endregion
+
         #region suministros cargas del sistema y consumo por la red en un periodo de tiempo por dias grafica
         public List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
         {
@@ -114,7 +130,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         }
         #endregion
 
-        #region consumos por la red electrica en un periodo de tiempo por dias grafica
+        #region Cargado por el sistema en un periodo de tiempo por dias grafica
         public List<ConsumoPorDias> MostrarLoCargadoPorElSistemaPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
         {
             DbSet<Consumo> Consumos = Context.Set<Consumo>();
@@ -129,6 +145,24 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
             return result;
         }
         #endregion
+
+        #region Cargado por el sistema en un día
+        public List<ConsumoDiaConcreto> MostrarLoCargadoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+            DbSet<Consumo> Consumos = Context.Set<Consumo>();
+
+            var result =
+                (from c in Consumos
+                 where ((c.fecha == fecha) && (c.ubicacionId == ubicacionID))
+                 group c by c.horaIni.Hours
+                 into g
+                 select new ConsumoDiaConcreto() { Hora = g.Key, Count = g.Sum(c => c.kwCargados ?? 0) }).OrderBy(c => c.Hora).ToList();
+
+            return result;
+        }
+        #endregion
+
+
 
         #region numero de consumos en un perriodo de tiempo
         public int numeroConsumosUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2)
