@@ -45,7 +45,9 @@
             <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
             <WeekendDayStyle BackColor="#FFFFCC" />
         </asp:Calendar>
-                
+        
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo obligatorio" ControlToValidate="txtFecha" Font-Italic="True" ForeColor="Red" Display="Dynamic" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+
         <asp:TextBox ID="txtFecha"  runat="server" meta:resourcekey="txtFechaResource1" Width="70px" ReadOnly="True"></asp:TextBox>
                &nbsp;&nbsp;
         <asp:Label ID="lblFechaFin" runat="server" Text="Fecha Fin"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblFechaFin"></asp:Label>
@@ -62,6 +64,8 @@
             <WeekendDayStyle BackColor="#FFFFCC" />
         </asp:Calendar>
         
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Campo obligatorio" ControlToValidate="txtFecha2" Font-Italic="True" ForeColor="Red" Display="Dynamic" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+
         <asp:TextBox ID="txtFecha2" runat="server" meta:resourcekey="txtFecha2Resource1" Width="70px" ReadOnly="True"></asp:TextBox>
 
          &nbsp;&nbsp;

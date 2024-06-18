@@ -33,6 +33,8 @@
             <WeekendDayStyle BackColor="#FFFFCC" />
         </asp:Calendar>
                 
+        <asp:Label ID="lblFecha1Error" runat="server" Text="Error Fecha" ForeColor="Red" Style="position: relative"
+                            Visible="False" meta:resourcekey="lblLoginError"> </asp:Label>
         <asp:TextBox ID="txtFecha"  runat="server" meta:resourcekey="txtFechaResource1" Width="70px" ReadOnly="True"></asp:TextBox>
                &nbsp;&nbsp;
         <asp:Label ID="lblFechaFin" runat="server" Text="Fecha Fin"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblFechaFin"></asp:Label>
@@ -49,6 +51,9 @@
             <WeekendDayStyle BackColor="#FFFFCC" />
         </asp:Calendar>
         
+
+        <asp:Label ID="lblFecha2Error" runat="server" Text="Error Fecha" ForeColor="Red" Style="position: relative"
+                            Visible="False" meta:resourcekey="lblLoginError"> </asp:Label>
         <asp:TextBox ID="txtFecha2" runat="server" meta:resourcekey="txtFecha2Resource1" Width="70px" ReadOnly="True"></asp:TextBox>
 
          &nbsp;&nbsp;
