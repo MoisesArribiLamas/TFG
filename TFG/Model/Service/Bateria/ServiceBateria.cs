@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
@@ -1386,6 +1387,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         }
 
+        #endregion
+
+        #region ahorro en un periodo de tiempo por dias grafica
+        [Transactional]
+        public List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+
+            return SuministroDao.MostrarAhorroXUbicacionPorFechaEnDias(ubicacionID, fecha, fecha2);
+
+        }
         #endregion
 
     }

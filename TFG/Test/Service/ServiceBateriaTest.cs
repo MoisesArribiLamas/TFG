@@ -21,6 +21,7 @@ using Es.Udc.DotNet.TFG.Model.Daos.CargaDao;
 using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Daos.EstadoDao;
 using Es.Udc.DotNet.TFG.Model.Service.Estados;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 
 namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 {
@@ -6144,6 +6145,82 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //Buscamos la carga
                 Assert.AreEqual(kwHcargados + kwHcargados2, carga.kwH);
 
+            }
+        }
+
+        [TestMethod()]
+        public void MostrarAhorroXUbicacionPorFechaEnDiasTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                string nSerie = "HDOSN24JSDC78";
+                string nSerie2 = "HDOSN24JSDC782";
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                //Creamos Bateria
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+                long bateriaId2 = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie2, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+                //Creamos Tarifa
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime fecha2 = fecha.AddDays(1); // dia siguiente
+                DateTime fecha3 = fecha2.AddDays(1); // dia siguiente
+                DateTime fecha4 = fecha3.AddDays(1); // dia siguiente
+
+                long tarifaId = crearTarifa(500, 0, fecha);
+                long tarifaId2 = crearTarifa(500, 0, fecha2);
+                long tarifaId3 = crearTarifa(500, 0, fecha3);
+                long tarifaId4 = crearTarifa(500, 0, fecha4);
+
+                //creamos Carga
+                int hour1 = 1;
+                int hour2 = 2;
+                int minutes = 0;
+                int seconds = 0;
+                TimeSpan horaIni = new TimeSpan(hour1, minutes, seconds);
+                TimeSpan horaFin = new TimeSpan(hour2, minutes, seconds);
+
+
+                long suministraId = servicio.IniciarSuministra(bateriaId, tarifaId, horaIni);
+                Suministra s= servicio.BuscarsuministraById(suministraId);
+                s.ahorro = 1;
+                suministraDao.Update(s);
+                //--
+                long suministraId2 = servicio.IniciarSuministra(bateriaId, tarifaId2, horaIni);
+                Suministra s2 = servicio.BuscarsuministraById(suministraId2);
+                s2.ahorro = 10;
+                suministraDao.Update(s2);
+
+                long suministraId3 = servicio.IniciarSuministra(bateriaId, tarifaId3, horaIni);
+                Suministra s3 = servicio.BuscarsuministraById(suministraId3);
+                s3.ahorro = 100;
+                suministraDao.Update(s3);
+
+                long suministraId4 = servicio.IniciarSuministra(bateriaId, tarifaId4, horaIni);
+                Suministra s4 = servicio.BuscarsuministraById(suministraId4);
+                s4.ahorro = 1000;
+                suministraDao.Update(s4);
+
+                long suministraId5 = servicio.IniciarSuministra(bateriaId2, tarifaId2, horaIni);
+                Suministra s5 = servicio.BuscarsuministraById(suministraId5);
+                s5.ahorro = 10000;
+                suministraDao.Update(s5);
+
+
+
+                List<AhorroPorDias> consumoResult = servicio.MostrarAhorroXUbicacionPorFechaEnDias(ubicacionId, fecha2, fecha3);
+
+
+                Assert.AreEqual(consumoResult[0].Count, 10 + 10000); //s2+s5
+                Assert.AreEqual(consumoResult[0].fecha, fecha2);
+
+                Assert.AreEqual(consumoResult[1].Count, 100); //c3
+                Assert.AreEqual(consumoResult[1].fecha, fecha3);
+                Assert.AreEqual(consumoResult.Count(), 2);
             }
         }
     }

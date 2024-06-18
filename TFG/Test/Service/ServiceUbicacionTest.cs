@@ -2770,9 +2770,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
 
                 Consumo c0 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 0
 
+                // ponemos lo que carga el sistema
+                c0.kwRed = 1;
+
                 DateTime fechaBusquedaInicial = fecha = fecha.AddDays(1); // dia siguiente
 
                 Consumo c1 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 1
+
+                // ponemos lo que carga el sistema
+                c1.kwRed = 10;
 
                 consumoActual = 15;
                 TimeSpan horaFin2 = horaIni.Add(cincoMinutos);
@@ -2780,31 +2786,42 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 // consumo 2
                 Consumo c2 = crearConsumo(ubicacionId, consumoActual, horaFin, horaFin2, fecha); //dia 1
 
+                // ponemos lo que carga el sistema
+                c2.kwRed = 100;
 
                 DateTime fechaBusquedaFinal = fecha = fecha.AddDays(1); // dia siguiente
 
                 // consumo 3
                 Consumo c3 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 2
 
+                // ponemos lo que carga el sistema
+                c3.kwRed = 1000;
+
                 fecha = fecha.AddDays(1); // dia siguiente
 
                 // consumo 4
                 Consumo c4 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 3
+
+                // ponemos lo que carga el sistema
+                c4.kwRed = 10000;
 
                 fecha = fecha.AddDays(1); // dia siguiente
 
                 // consumo 5
                 Consumo c5 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 4
 
+                // ponemos lo que carga el sistema
+                c5.kwRed = 100000;
+
                 //COMPROBAMOS   
 
-                List<ConsumoPorDias> consumoResult = servicio.MostrarProporcionadoPorRedPorFechaPorDias(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal);
+                List<ConsumoPorDias> consumoResult = servicio.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal);
 
                 Assert.AreEqual(consumoResult[0].fecha, fechaBusquedaInicial);
-                Assert.AreEqual(consumoResult[0].Count, 10+15); //c1+c2
+                Assert.AreEqual(consumoResult[0].Count, 10+100); //c1+c2
 
                 Assert.AreEqual(consumoResult[1].fecha, fechaBusquedaFinal);
-                Assert.AreEqual(consumoResult[1].Count, consumoActual); // c3
+                Assert.AreEqual(consumoResult[1].Count, 1000); // c3
 
                 Assert.AreEqual(consumoResult.Count(), 2);
 
@@ -2890,6 +2907,97 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
                 //COMPROBAMOS   
 
                 List<ConsumoPorDias> consumoResult = servicio.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal);
+
+                Assert.AreEqual(consumoResult[0].fecha, fechaBusquedaInicial);
+                Assert.AreEqual(consumoResult[0].Count, 10 + 100); //c1+c2
+
+                Assert.AreEqual(consumoResult[1].fecha, fechaBusquedaFinal);
+                Assert.AreEqual(consumoResult[1].Count, 1000); // c3
+
+                Assert.AreEqual(consumoResult.Count(), 2);
+
+
+            }
+        }
+
+        [TestMethod()]
+        public void MostrarSuministradoXUbicacionPorFechaEnDiasTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos Ubicacion
+                long codigoPostal = 15000;
+                string localidad = "Coruña";
+                string calle = "San Juan";
+                string portal = "";
+                long numero = 100;
+                //string etiqueta = "bichito";
+                //long bateriaSuministradora = 1;
+                //crearUbicacion(long codigoPostal, string localidad, string calle, string portal, long numero)
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                TimeSpan tresMinutos = new TimeSpan(0, 3, 0);
+                TimeSpan cincoMinutos = new TimeSpan(0, 5, 0);
+
+                // Creamos Consumos
+                double consumoActual = 10;
+                //double kwCargados = 100;
+                //double kwSuministrados = 100;
+                //double kwRed = 0;
+                DateTime fecha = fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                TimeSpan horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                TimeSpan horaFin = horaIni.Add(tresMinutos);
+
+
+                Consumo c0 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 0
+
+                // ponemos lo que carga el sistema
+                c0.kwSuministrados = 1;
+
+                DateTime fechaBusquedaInicial = fecha = fecha.AddDays(1); // dia siguiente
+
+                Consumo c1 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 1
+
+                // ponemos lo que carga el sistema
+                c1.kwSuministrados = 10;
+
+                consumoActual = 15;
+                TimeSpan horaFin2 = horaIni.Add(cincoMinutos);
+
+                // consumo 2
+                Consumo c2 = crearConsumo(ubicacionId, consumoActual, horaFin, horaFin2, fecha); //dia 1
+
+                // ponemos lo que carga el sistema
+                c2.kwSuministrados = 100;
+
+                DateTime fechaBusquedaFinal = fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 3
+                Consumo c3 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 2
+
+                // ponemos lo que carga el sistema
+                c3.kwSuministrados = 1000;
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 4
+                Consumo c4 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 3
+
+                // ponemos lo que carga el sistema
+                c4.kwSuministrados = 10000;
+
+                fecha = fecha.AddDays(1); // dia siguiente
+
+                // consumo 5
+                Consumo c5 = crearConsumo(ubicacionId, consumoActual, horaIni, horaFin, fecha); //dia 4
+
+                // ponemos lo que carga el sistema
+                c5.kwRed = 100000;
+
+                //COMPROBAMOS   
+
+                List<ConsumoPorDias> consumoResult = servicio.MostrarSuministradoXUbicacionPorFechaEnDias(ubicacionId, fechaBusquedaInicial, fechaBusquedaFinal);
 
                 Assert.AreEqual(consumoResult[0].fecha, fechaBusquedaInicial);
                 Assert.AreEqual(consumoResult[0].Count, 10 + 100); //c1+c2

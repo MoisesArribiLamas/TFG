@@ -18,6 +18,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
         List<ConsumoPorDias> MostrarSuministradoXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
         List<ConsumoPorDias> MostrarConsumosRedElectricaUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
         List<ConsumoPorDias> MostrarLoCargadoPorElSistemaPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+        List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
         int numeroConsumosUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
 
     }

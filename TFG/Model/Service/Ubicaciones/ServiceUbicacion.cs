@@ -768,6 +768,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion
 
+
+        #region  suministros cargas del sistema y consumo por la red en un periodo de tiempo por dias
+        [Transactional]
+        public List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+
+            return ConsumoDao.MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(ubicacionID, fecha, fecha2);
+
+        }
+        #endregion
+
         #region Consumos directamente de la Bateria una ubicacion por fechas
         [Transactional]
         public List<ConsumoDTO> MostrarProporcionadoPorPareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2, int startIndex, int count)

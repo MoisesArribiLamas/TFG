@@ -104,6 +104,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<ConsumoPorDias> MostrarConsumosRedElectricaUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]
+        List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
         int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]

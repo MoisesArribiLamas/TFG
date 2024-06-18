@@ -1,6 +1,8 @@
 ﻿using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.TFG.Model;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
+using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
 using Es.Udc.DotNet.TFG.Web.HTTP.Session;
 using Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects;
@@ -12,10 +14,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 {
-    public partial class SuministradoXBateria : System.Web.UI.Page
+    public partial class CargaSuministraVSRed : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -99,15 +100,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                      "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
-
-            //CargaSuministraVSRed
-            if (ddlListaCriterios.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios.Text == "Red vs Suministrado Cargados" || ddlListaCriterios.Text == "Red vs Suministrou Cargou")
-            {
-                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
-                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-                Response.Redirect(Response.ApplyAppPathModifier(url));
-            }
-
         }
 
         protected void btnBuscar2_Click(object sender, EventArgs e)
@@ -132,7 +124,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //Obtenemos parametro
             String ubicacionId = Request.Params.Get("idUbicacion");
 
-            
+
 
             //SuministradoXRed
             if (ddlListaCriterios.Text == "Supplied by the Network" || ddlListaCriterios.Text == "Suministrado por la Red")
@@ -173,6 +165,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                      "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
+
         }
 
         protected void btnCalendario2_Click(object sender, EventArgs e)
@@ -187,31 +180,148 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             Calendar2.Visible = !Calendar2.Visible;
         }
 
-        protected string titulo()
+
+        protected string dia()
         {
-            
+
             string idioma = SessionManager.GetUserSession(Context).Idioma;
 
             if (idioma == "es") // castellano
             {
-                return "Watios Suministrados por el sistema";
+                return "Día";
 
 
             }
             else if (idioma == "gl") // gallego
             {
-                return "Watios Suministrados polo sistema";
+                return "Día";
             }
             else // (idioma == "en") ingles
             {
-                return "Watts Supplied by the system";
+                return "Day";
+
+            }
+
+        }
+        protected string titulo()
+        {
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+            if (idioma == "es") // castellano
+            {
+                return "Comparación de Watios";
+
+
+            }
+            else if (idioma == "gl") // gallego
+            {
+                return "Comparación de Watios";
+            }
+            else // (idioma == "en") ingles
+            {
+                return "Watt Comparison";
+
+            }
+
+        }
+
+        protected string subtitulo()
+        {
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+            if (idioma == "es") // castellano
+            {
+                return "consumidos y suministrados por el sistema y lo consumido directamente de la red";
+
+
+            }
+            else if (idioma == "gl") // gallego
+            {
+                return "W consumidos e suministrados polo sistema e o consumido directamente da rede";
+            }
+            else // (idioma == "en") ingles
+            {
+                return "W consumed and supplied by the system and consumed Mains";
+
+            }
+
+        }
+
+        
+
+        protected string carga()
+        {
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+            if (idioma == "es") // castellano
+            {
+                return "Cargado";
+
+
+            }
+            else if (idioma == "gl") // gallego
+            {
+                return "cargado";
+            }
+            else // (idioma == "en") ingles
+            {
+                return "Loaded";
+
+            }
+
+        }
+
+        protected string suministra()
+        {
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+            if (idioma == "es") // castellano
+            {
+                return "Suministrado";
+
+
+            }
+            else if (idioma == "gl") // gallego
+            {
+                return "Suministrado";
+            }
+            else // (idioma == "en") ingles
+            {
+                return "supplied";
+
+            }
+
+        }
+
+        protected string red()
+        {
+
+            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+            if (idioma == "es") // castellano
+            {
+                return "Red eléctrica";
+
+
+            }
+            else if (idioma == "gl") // gallego
+            {
+                return "Rede eléctrica";
+            }
+            else // (idioma == "en") ingles
+            {
+                return "Mains";
 
             }
 
         }
 
 
-        protected string obtenerDatosSuministradoXBateria()
+        protected string suministradoCargadoyRed()
         {
 
             //Obtenemos parametro
@@ -220,47 +330,42 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             // obtenemos el servicio Ubicacion
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
+            IServiceBateria serviceBateria = iocManager.Resolve<IServiceBateria>();
 
             Ubicacion ubicacion = serviceUbicacion.buscarUbicacionById(Convert.ToInt64(ubicacionId));
 
-            //string format = "dd/mm/yyyy";
-
-            //DateTime fechaIni = DateTime.ParseExact(txtFecha.Text, format, CultureInfo.InvariantCulture).Date;
-
-            //DateTime fechaFin = DateTime.ParseExact(txtFecha2.Text, format, CultureInfo.InvariantCulture).Date;
+            
 
             DateTime fechaIni = Convert.ToDateTime(txtFecha.Text);
 
             DateTime fechaFin = Convert.ToDateTime(txtFecha2.Text);
 
+            
+            List<CargaSuministraYRed> cargasSuministrosYRed = serviceUbicacion.MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
 
-            List<ConsumoPorDias> consumoRedDias = serviceUbicacion.MostrarSuministradoXUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
-
-            Trace.Warn("consumoRedDias", consumoRedDias.Count().ToString());
-
-            Trace.Warn("consumoRedDias", consumoRedDias[0].Count.ToString());
-            foreach (ConsumoPorDias dr in consumoRedDias)
-            {
-                string f = (dr.fecha).ToString();
-                string fecha = f.Substring(0, f.IndexOf(" "));
-                Trace.Warn("fecha", fecha); Trace.Warn("fecha", Math.Truncate(dr.Count * 1000).ToString());
-            }
 
             string strDatos;
 
-            strDatos = "[['Dia','(W)'],";
+            strDatos = "";
 
-            foreach (ConsumoPorDias dr in consumoRedDias)
+            foreach (CargaSuministraYRed dr in cargasSuministrosYRed)
             {
                 string f = (dr.fecha).ToString();
                 string fecha = f.Substring(0, f.IndexOf(" "));
 
                 strDatos = strDatos + "[";
-                strDatos = strDatos + "'" + fecha + "'" + "," + Math.Truncate(dr.Count * 1000); ;
+                strDatos = strDatos + "'" + fecha + "'" + "," + Math.Truncate(dr.Cargado * 1000);
+                strDatos = strDatos + "," + Math.Truncate(dr.Suministrado * 1000);
+                strDatos = strDatos + "," + Math.Truncate(dr.Red * 1000);
                 strDatos = strDatos + "],";
             }
 
+           
+
             strDatos = strDatos + "]";
+
+
+            //string falso = "['2014', 1000, 400, 200],['2015', 1170, 460, 250],['2016', 660, 1120, 300],['2017', 1030, 540, 350]]";
 
             return strDatos;
         }

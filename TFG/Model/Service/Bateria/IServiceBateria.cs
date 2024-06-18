@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
 using Ninject;
 using System;
@@ -120,6 +121,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId);
+
+        [Transactional]
+        List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
     }
 }
