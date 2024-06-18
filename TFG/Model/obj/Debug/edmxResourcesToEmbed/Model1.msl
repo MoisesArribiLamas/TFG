@@ -13,11 +13,13 @@
           <ScalarProperty Name="fechaDeAdquisicion" ColumnName="fechaDeAdquisicion" />
           <ScalarProperty Name="marca" ColumnName="marca" />
           <ScalarProperty Name="modelo" ColumnName="modelo" />
+          <ScalarProperty Name="nSerie" ColumnName="nSerie" />
           <ScalarProperty Name="ratioCarga" ColumnName="ratioCarga" />
           <ScalarProperty Name="ratioCompra" ColumnName="ratioCompra" />
           <ScalarProperty Name="ratioUso" ColumnName="ratioUso" />
           <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
           <ScalarProperty Name="capacidadCargador" ColumnName="capacidadCargador" />
+          <ScalarProperty Name="BateriaActiva" ColumnName="BateriaActiva" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -38,7 +40,9 @@
         <MappingFragment StoreEntitySet="Consumo">
           <ScalarProperty Name="consumoId" ColumnName="consumoId" />
           <ScalarProperty Name="ubicacionId" ColumnName="ubicacionId" />
-          <ScalarProperty Name="kwTotal" ColumnName="kwTotal" />
+          <ScalarProperty Name="kwCargados" ColumnName="kwCargados" />
+          <ScalarProperty Name="kwSuministrados" ColumnName="kwSuministrados" />
+          <ScalarProperty Name="kwRed" ColumnName="kwRed" />
           <ScalarProperty Name="fecha" ColumnName="fecha" />
           <ScalarProperty Name="horaIni" ColumnName="horaIni" />
           <ScalarProperty Name="horaFin" ColumnName="horaFin" />
@@ -100,6 +104,8 @@
           <ScalarProperty Name="numero" ColumnName="numero" />
           <ScalarProperty Name="etiqueta" ColumnName="etiqueta" />
           <ScalarProperty Name="bateriaSuministradora" ColumnName="bateriaSuministradora" />
+          <ScalarProperty Name="ultimoConsumo" ColumnName="ultimoConsumo" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -116,6 +116,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]
+        List<CargaSuministraYRedDiaConcreto> MostrarSuministradoCargadoYRedXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
+
+        [Transactional]
         int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]

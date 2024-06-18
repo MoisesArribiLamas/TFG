@@ -13,11 +13,13 @@
     <Property Name="fechaDeAdquisicion" Type="datetime" Nullable="false" />
     <Property Name="marca" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="modelo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="nSerie" Type="varchar" MaxLength="40" Nullable="false" />
     <Property Name="ratioCarga" Type="float" Nullable="false" />
     <Property Name="ratioCompra" Type="float" Nullable="false" />
     <Property Name="ratioUso" Type="float" Nullable="false" />
     <Property Name="estadoBateria" Type="bigint" />
     <Property Name="capacidadCargador" Type="float" Nullable="false" />
+    <Property Name="BateriaActiva" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Carga">
     <Key>
@@ -36,7 +38,9 @@
     </Key>
     <Property Name="consumoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ubicacionId" Type="bigint" Nullable="false" />
-    <Property Name="kwTotal" Type="float" />
+    <Property Name="kwCargados" Type="float" />
+    <Property Name="kwSuministrados" Type="float" />
+    <Property Name="kwRed" Type="float" />
     <Property Name="fecha" Type="datetime" Nullable="false" />
     <Property Name="horaIni" Type="time" Precision="7" Nullable="false" />
     <Property Name="horaFin" Type="time" Precision="7" />
@@ -77,7 +81,7 @@
       <PropertyRef Name="tarifaId" />
     </Key>
     <Property Name="tarifaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="precio" Type="bigint" Nullable="false" />
+    <Property Name="precio" Type="float" Nullable="false" />
     <Property Name="hora" Type="bigint" Nullable="false" />
     <Property Name="fecha" Type="datetime" Nullable="false" />
   </EntityType>
@@ -93,6 +97,8 @@
     <Property Name="numero" Type="bigint" Nullable="false" />
     <Property Name="etiqueta" Type="varchar" MaxLength="50" />
     <Property Name="bateriaSuministradora" Type="bigint" />
+    <Property Name="ultimoConsumo" Type="bigint" />
+    <Property Name="usuario" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>

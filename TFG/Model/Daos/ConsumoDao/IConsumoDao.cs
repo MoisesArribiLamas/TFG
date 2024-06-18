@@ -35,6 +35,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao
 
         List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
+        List<CargaSuministraYRedDiaConcreto> MostrarSuministradoCargadoYRedXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
+
         int numeroConsumosUbicacionPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);
 
     }
