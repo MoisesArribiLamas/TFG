@@ -25,5 +25,8 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
         bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kwH, double ahorro);
 
         List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
+
     }
 }

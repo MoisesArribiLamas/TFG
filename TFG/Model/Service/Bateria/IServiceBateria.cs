@@ -2,6 +2,7 @@
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -124,6 +125,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
 
     }
 }

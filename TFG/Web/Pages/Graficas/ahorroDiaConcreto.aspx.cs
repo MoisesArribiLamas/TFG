@@ -3,6 +3,7 @@ using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.ModelUtil.Log;
 using Es.Udc.DotNet.TFG.Model;
 using Es.Udc.DotNet.TFG.Model.Daos.ConsumoDao;
+using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Es.Udc.DotNet.TFG.Model.Service;
 using Es.Udc.DotNet.TFG.Model.Service.Baterias;
 using Es.Udc.DotNet.TFG.Model.Service.Ubicaciones;
@@ -20,7 +21,7 @@ using System.Windows.Forms;
 
 namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 {
-    public partial class CargaSuministraVSRedDiaConcreto : System.Web.UI.Page
+    public partial class ahorroDiaConcreto : System.Web.UI.Page
     {
         private static readonly ArrayList baterias = new ArrayList();
         protected void Page_Load(object sender, EventArgs e)
@@ -111,7 +112,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             if (ddlListaCriterios2.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios2.Text == "Red vs Suministrado Cargados" || ddlListaCriterios2.Text == "Red vs Suministrou Cargou")
             {
                 String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
-                     "&fecha={1}"+ "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
+                     "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
 
@@ -172,28 +173,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
         }
-        protected string dia()
-        {
 
-            string idioma = SessionManager.GetUserSession(Context).Idioma;
-
-            if (idioma == "es") // castellano
-            {
-                return "Día";
-
-
-            }
-            else if (idioma == "gl") // gallego
-            {
-                return "Día";
-            }
-            else // (idioma == "en") ingles
-            {
-                return "Day";
-
-            }
-
-        }
         protected string titulo()
         {
 
@@ -201,117 +181,23 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
             if (idioma == "es") // castellano
             {
-                return "Comparación de Watios";
+                return "€ ahorrados";
 
 
             }
             else if (idioma == "gl") // gallego
             {
-                return "Comparación de Watios";
+                return "€ aforrados";
             }
             else // (idioma == "en") ingles
             {
-                return "Watt Comparison";
+                return "€ saved";
 
             }
 
         }
 
-        protected string subtitulo()
-        {
-
-            string idioma = SessionManager.GetUserSession(Context).Idioma;
-
-            if (idioma == "es") // castellano
-            {
-                return "consumidos y suministrados por el sistema y lo consumido directamente de la red";
-
-
-            }
-            else if (idioma == "gl") // gallego
-            {
-                return "W consumidos e suministrados polo sistema e o consumido directamente da rede";
-            }
-            else // (idioma == "en") ingles
-            {
-                return "W consumed and supplied by the system and consumed Mains";
-
-            }
-
-        }
-
-
-
-        protected string carga()
-        {
-
-            string idioma = SessionManager.GetUserSession(Context).Idioma;
-
-            if (idioma == "es") // castellano
-            {
-                return "Cargado";
-
-
-            }
-            else if (idioma == "gl") // gallego
-            {
-                return "cargado";
-            }
-            else // (idioma == "en") ingles
-            {
-                return "Loaded";
-
-            }
-
-        }
-
-        protected string suministra()
-        {
-
-            string idioma = SessionManager.GetUserSession(Context).Idioma;
-
-            if (idioma == "es") // castellano
-            {
-                return "Suministrado";
-
-
-            }
-            else if (idioma == "gl") // gallego
-            {
-                return "Suministrado";
-            }
-            else // (idioma == "en") ingles
-            {
-                return "supplied";
-
-            }
-
-        }
-
-        protected string red()
-        {
-
-            string idioma = SessionManager.GetUserSession(Context).Idioma;
-
-            if (idioma == "es") // castellano
-            {
-                return "Red eléctrica";
-
-
-            }
-            else if (idioma == "gl") // gallego
-            {
-                return "Rede eléctrica";
-            }
-            else // (idioma == "en") ingles
-            {
-                return "Mains";
-
-            }
-
-        }
-
-        protected string suministradoCargadoyRed()
+        protected string obtenerDatos()
         {
 
             //Obtenemos parametro
@@ -322,38 +208,43 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             IServiceUbicacion serviceUbicacion = iocManager.Resolve<IServiceUbicacion>();
             IServiceBateria serviceBateria = iocManager.Resolve<IServiceBateria>();
 
+
             Ubicacion ubicacion = serviceUbicacion.buscarUbicacionById(Convert.ToInt64(ubicacionId));
 
-
-
+            //Obtenemos el dia 
             DateTime fecha = Convert.ToDateTime(txtFecha3.Text);
 
-            
-
-
-            List<CargaSuministraYRedDiaConcreto> cargasSuministrosYRed = serviceUbicacion.MostrarSuministradoCargadoYRedXUbicacionDiaConcreto(ubicacion.ubicacionId, fecha);
+            List<AhorroDiaConcreto> consumoRedDias = serviceBateria.MostrarAhorroXUbicacionDiaConcreto(ubicacion.ubicacionId, fecha);
 
 
             string strDatos;
+            double ahorroTotal = 0;
 
-            strDatos = "";
+            strDatos = "[['Hora','(W)'],";
 
-            foreach (CargaSuministraYRedDiaConcreto dr in cargasSuministrosYRed)
+            foreach (AhorroDiaConcreto dr in consumoRedDias)
             {
-  
+                ahorroTotal = ahorroTotal + dr.Count;
+
+                string a = dr.Count.ToString();
+                string e = a.Substring(0, a.IndexOf(","));
+
+                int index = a.IndexOf(",") + 1;
+                string d = a.Substring(index);
+                // tenemos que ponerle un punto ya que no funciona con la coma decimal.
+                string ahorro = e + "." + d;
 
                 strDatos = strDatos + "[";
-                strDatos = strDatos + "'" + dr.Hora + "H" + "'" + "," + Math.Truncate(dr.Cargado * 1000);
-                strDatos = strDatos + "," + Math.Truncate(dr.Suministrado * 1000);
-                strDatos = strDatos + "," + Math.Truncate(dr.Red * 1000);
+                strDatos = strDatos + "'" + dr.Hora + "H" + "'" + "," + ahorro;
                 strDatos = strDatos + "],";
             }
 
-
-
             strDatos = strDatos + "]";
 
+            lblahorro.Text = ahorroTotal.ToString();
+
             return strDatos;
+            
         }
     }
 }

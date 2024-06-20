@@ -121,5 +121,22 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             return result;
         }
         #endregion
+
+        #region ahorro en un Dia concreto.
+        public List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+            DbSet<Suministra> suministros = Context.Set<Suministra>();
+
+            var result =
+                (from s in suministros
+                 where ((s.Tarifa.fecha == fecha)  && (s.Bateria.ubicacionId == ubicacionID))
+                 group s by s.Tarifa.hora
+                 into g
+                 select new AhorroDiaConcreto() { Hora = g.Key, Count = g.Sum(s => s.ahorro) }).OrderBy(s => s.Hora).ToList();
+
+            return result;
+        }
+        #endregion
+        
     }
 }

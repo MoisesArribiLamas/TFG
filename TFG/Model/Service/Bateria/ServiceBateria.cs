@@ -1399,6 +1399,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+
+        #region ahorro en un periodo de tiempo por dias grafica
+        [Transactional]
+        public List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return SuministroDao.MostrarAhorroXUbicacionDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
     }
 
 }

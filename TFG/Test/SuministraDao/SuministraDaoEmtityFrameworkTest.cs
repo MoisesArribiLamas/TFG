@@ -868,5 +868,172 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao.Tests
             Assert.AreEqual(consumoResult.Count(), 2);
 
         }
+
+
+        [TestMethod()]
+        public void MostrarAhorroXUbicacionDiaConcretoTest()
+        {
+            // CREAMOS UBICACION
+            Ubicacion u = new Ubicacion();
+            u.codigoPostal = 15405;
+            u.localidad = "Ferrol";
+            u.calle = "calle de Ferrol";
+            u.portal = "B";
+            u.numero = 1;
+            ubicacionDao.Create(u);
+
+
+            //CREAMOS LOS USUARIO
+            Usuario user = new Usuario();
+            user.nombre = "Dani";
+            user.email = "micorreo@gmail.com";
+            user.apellido1 = "Díaz";
+            user.apellido2 = "González";
+            user.contraseña = "unacontraseña";
+            user.telefono = "981123456";
+            user.pais = "España";
+            user.idioma = "es-ES";
+            usuarioDao.Create(user);
+
+
+            //CREAMOS LAS BATERIAS
+            Bateria b = new Bateria();
+            b.ubicacionId = u.ubicacionId;
+            b.usuarioId = user.usuarioId;
+            b.precioMedio = 111;
+            b.almacenajeMaximoKwH = 1000;
+            b.almacenajeMaximoKwH = 1000;
+            b.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b.marca = "MARCA 1";
+            b.modelo = "MODELO 1";
+            b.ratioCarga = 10;
+            b.ratioCompra = 10;
+            b.ratioUso = 10;
+            b.nSerie = "HDOSN24JSDC63";
+            bateriaDao.Create(b);
+
+            Bateria b2 = new Bateria();
+            b2.ubicacionId = u.ubicacionId;
+            b2.usuarioId = user.usuarioId;
+            b2.precioMedio = 111;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.almacenajeMaximoKwH = 1000;
+            b2.fechaDeAdquisicion = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            b2.marca = "MARCA 1";
+            b2.modelo = "MODELO 1";
+            b2.ratioCarga = 10;
+            b2.ratioCompra = 10;
+            b2.ratioUso = 10;
+            b2.nSerie = "HDOSN24JSDC62";
+            bateriaDao.Create(b2);
+
+            //CREAMOS LAS TARIFAS
+            Tarifa t = new Tarifa();
+            t.precio = 100;
+            t.hora = 1;
+            t.fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            tarifaDao.Create(t);
+
+            DateTime fecha1 = t.fecha.AddDays(1); // dia siguiente
+
+            //DateTime busquedaIni = fecha1;
+
+            //-------------------------------- fecha 1
+
+            Tarifa t2 = new Tarifa();
+            t2.precio = 200;
+            t2.hora = 2;
+            t2.fecha = fecha1;
+            tarifaDao.Create(t2);
+
+            Tarifa t3 = new Tarifa();
+            t3.precio = 300;
+            t3.hora = 3;
+            t3.fecha = fecha1;
+            tarifaDao.Create(t3);
+
+            DateTime fecha2 = fecha1.AddDays(1); // dia siguiente
+
+            //-------------------------------- fecha 2
+
+            Tarifa t4 = new Tarifa();
+            t4.precio = 400;
+            t4.hora = 4;
+            t4.fecha = fecha2;
+            tarifaDao.Create(t4);
+
+            //DateTime busquedaFin = fecha2;
+
+            DateTime fecha3 = fecha2.AddDays(1); // dia siguiente
+
+            //-------------------------------- fecha 3
+
+            Tarifa t5 = new Tarifa();
+            t5.precio = 500;
+            t5.hora = 5;
+            t5.fecha = fecha3;
+            tarifaDao.Create(t5);
+
+
+            //CREAMOS Suministras
+            Suministra c = new Suministra();
+            c.kwH = 1000;
+            c.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            c.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(1).Minute, DateTime.Now.Second);
+            c.tarifaId = t.tarifaId;
+            c.bateriaId = b.bateriaId;
+            c.ahorro = 10;
+            suministraDao.Create(c);
+
+            Suministra c2 = new Suministra();
+            c2.kwH = 2000;
+            c2.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(2).Minute, DateTime.Now.Second);
+            c2.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(3).Minute, DateTime.Now.Second);
+            c2.tarifaId = t2.tarifaId;
+            c2.bateriaId = b.bateriaId;
+            c2.ahorro = 100;
+            suministraDao.Create(c2);
+
+            Suministra c3 = new Suministra();
+            c3.kwH = 3000;
+            c3.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
+            c3.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c3.tarifaId = t3.tarifaId;
+            c3.bateriaId = b2.bateriaId;
+            c3.ahorro = 1000;
+            suministraDao.Create(c3);
+
+            Suministra c4 = new Suministra();
+            c4.kwH = 4000;
+            c4.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
+            c4.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c4.tarifaId = t4.tarifaId;
+            c4.bateriaId = b.bateriaId;
+            c4.ahorro = 10000;
+            suministraDao.Create(c4);
+
+            Suministra c5 = new Suministra();
+            c5.kwH = 4000;
+            c5.horaIni = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(4).Minute, DateTime.Now.Second);
+            c5.horaFin = new TimeSpan(DateTime.Now.Hour, DateTime.Now.AddMinutes(5).Minute, DateTime.Now.Second);
+            c5.tarifaId = t5.tarifaId;
+            c5.bateriaId = b.bateriaId;
+            c5.ahorro = 1;
+            suministraDao.Create(c5);
+
+
+            //COMPROBAMOS   
+
+            List<AhorroDiaConcreto> consumoResult = suministraDao.MostrarAhorroXUbicacionDiaConcreto(u.ubicacionId, fecha1);
+
+
+            Assert.AreEqual(consumoResult[0].Count, 100); //c2
+            Assert.AreEqual(consumoResult[0].Hora, 2);
+
+            Assert.AreEqual(consumoResult[1].Count, 1000); //c3
+            Assert.AreEqual(consumoResult[1].Hora, 3);
+            Assert.AreEqual(consumoResult.Count(), 2);
+
+        }
     }
 }

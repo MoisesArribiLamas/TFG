@@ -99,13 +99,13 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
 
-            //AhorroXDias
-            //if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
-            //{
-            //    String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
-            //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-            //    Response.Redirect(Response.ApplyAppPathModifier(url));
-            //}
+            //ahorroDiaConcreto
+            if (ddlListaCriterios2.Text == "Saving money" || ddlListaCriterios2.Text == "Ahorro" || ddlListaCriterios2.Text == "Aforro")
+            {
+                String url = String.Format("~/Pages/Graficas/ahorroDiaConcreto.aspx?idUbicacion={0}" +
+                     "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
             //CargaSuministraVSRedDiaConcreto
             if (ddlListaCriterios2.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios2.Text == "Red vs Suministrado Cargados" || ddlListaCriterios2.Text == "Red vs Suministrou Cargou")
@@ -156,13 +156,13 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
 
-            //AhorroXDias
-            //if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
-            //{
-            //    String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
-            //         "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
-            //    Response.Redirect(Response.ApplyAppPathModifier(url));
-            //}
+            //ahorroDiaConcreto
+            if (ddlListaCriterios2.Text == "Saving money" || ddlListaCriterios2.Text == "Ahorro" || ddlListaCriterios2.Text == "Aforro")
+            {
+                String url = String.Format("~/Pages/Graficas/ahorroDiaConcreto.aspx?idUbicacion={0}" +
+                     "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
             //CargaSuministraVSRedDiaConcreto
             if (ddlListaCriterios2.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios2.Text == "Red vs Suministrado Cargados" || ddlListaCriterios2.Text == "Red vs Suministrou Cargou")

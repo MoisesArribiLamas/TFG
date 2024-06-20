@@ -190,13 +190,13 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             // Si cambiamos de hora
             if (minutos == 0 || minutos == 1) {
 
-
-                // Si cambiamos de dia, nuevas tarifas
-                if (hora == 0 && (minutos == 0 || minutos == 1))
-                {
-                    CrearTarifasDeHoy(fechaActual);
-                }
             }
+            // Si cambiamos de dia, nuevas tarifas
+            if (hora == 0 && (minutos == 0 || minutos == 1))
+            {
+                CrearTarifasDeHoy(fechaActual);
+            }
+           
 
             // obtenemos todas las baterias suministradoras
             List<long?> bS = ServicioUbicacion.todasLasBateriasSuministradoras();
@@ -204,16 +204,26 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
             foreach (long? bateriaId in bS)
             {
+                Bateria b = ServicioBateria.BuscarBateriaById((long)bateriaId);
+
                 if (!corto)
                 { // si hay baterias con poca energia, hacemos un timer mas corto
-                    Bateria b = ServicioBateria.BuscarBateriaById((long)bateriaId);
                     if (ServicioBateria.porcentajeDeCarga((long)bateriaId)-b.ratioCarga < 7) {
                         corto = true;
                     }
                 }
-                //pasar los datos de consumo a carga y suministra
-                //crear un nuevo consumo
-                // crear un nuevo estado actualizando los datos
+                // Si cambiamos de hora
+                if (minutos == 0 || minutos == 1)
+                {
+                    // buscamos el consumo (entidad) actual
+                    Consumo c = ConsumoDao.UltimoConsumoUbicacion(b.bateriaId);
+                    double consumoActual = c.consumoActual;
+                    // en caso de que exista consumo
+                    //pasar los datos de consumo a carga y suministra
+                    //crear un nuevo consumo
+                    // crear un nuevo estado actualizando los datos
+                }
+                
 
                 gestionDeRatiosBateriaSuministradora( (long)bateriaId, fechaActual, horaActual);
             }
