@@ -24,8 +24,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
             if (SessionManager.IsUserAuthenticated(Context))
             {
-                if (lblInicioMainPage != null)
-                    lblInicioMainPage.Visible = false;
+                //if (lblInicioMainPage != null)
+                //    lblInicioMainPage.Visible = false;
             }
 
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
