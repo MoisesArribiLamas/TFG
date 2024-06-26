@@ -40,7 +40,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
             Conexion();
 
-            //ControlCambioHoraODia();
+            ControlCambioHoraODia();
 
         }
         public void ControlCambioHoraODia()

@@ -12,10 +12,13 @@
         <br/>
        
         <br/>
-        
+        <hr/>
+        <br/>
+                
+        <asp:Label ID="lblBusquedaEnUnRango" runat="server" Text="Búsqueda Por Rango (Días)"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblUbicacionesBusqueda1"></asp:Label>
 
-        
-
+        <br/>
+        <br/>
 
         
         <asp:Label ID="lblFechaIni" runat="server" Text="Fecha Inicio"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblFechaIni"></asp:Label>
@@ -66,7 +69,15 @@
          &nbsp;&nbsp;
         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
 
+        <br/>
+
+        <br/>
+
         <hr/>
+
+        <br/>
+                
+        <asp:Label ID="lblBusquedaDia" runat="server" Text="Búsqueda en un día (Horas)"  Display="Dynamic" Font-Size="Large" meta:resourcekey="lblUbicacionesBusqueda2"></asp:Label>
 
         <br/>
        
@@ -100,6 +111,9 @@
 
          &nbsp;&nbsp;
         <asp:Button ID="Button2" runat="server" Text="Buscar" OnClick="btnBuscar2_Click" />
+
+        <br/>
+        <br/>
 
         <hr/>
         

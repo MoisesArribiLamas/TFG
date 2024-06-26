@@ -167,7 +167,25 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
                     // estado de la Bateria
                     string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
-                    this.lblEstado.Text = estado;
+                    //this.lblEstado.Text = estado;
+
+                    if (cons == 0)
+                    {
+                        if (estado == "suministrando")
+                        {
+                            estado = "sin actividad";
+
+                        }
+                        else
+                        {
+                            if (estado == "carga y suministra")
+                            {
+                                estado = "cargando";
+                            }
+                        }
+
+                    }
+
                     string idioma = SessionManager.GetUserSession(Context).Idioma;
 
                     if (idioma == "es") // castellano
