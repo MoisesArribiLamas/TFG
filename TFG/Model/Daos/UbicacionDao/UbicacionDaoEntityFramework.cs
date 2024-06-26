@@ -170,7 +170,7 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UbicacionDao
 
             var result =
                 (from b in baterias
-                 where b.ubicacionId == ubicacionId
+                 where (b.ubicacionId == ubicacionId && b.BateriaActiva == true)
                  select b).Distinct().OrderByDescending(b => b.ubicacionId).ToList();
 
             return result;

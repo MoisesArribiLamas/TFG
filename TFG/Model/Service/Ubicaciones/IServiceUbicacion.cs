@@ -77,6 +77,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         long modificarConsumoActual(long ubicacionId, double consumoActual);
 
         [Transactional]
+        long modificarConsumoActualPorCambioDeHora(long ubicacionId);
+
+        [Transactional]
         long? UltimoConsumoEnUbicacion(long ubicacionId);
 
         [Transactional]

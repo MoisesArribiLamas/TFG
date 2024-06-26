@@ -40,7 +40,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados, TimeSpan horaActual);
 
         [Transactional]
-        void CambiarEstadoEnBateriaPorCambioDeHora(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados);
+        void ActualizarBateriaPorCambioDeHora(long bateriaId);
 
 
         [Transactional]
