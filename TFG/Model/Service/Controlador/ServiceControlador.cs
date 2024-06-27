@@ -66,7 +66,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         {
             //ThreadStaticAttribute 
             while (true) {
-                int milisegundos = Asincrono();
+                int milisegundos = ControladorCambioHoraYPocaBateria();
                 Thread.Sleep(milisegundos);
             };
         }
@@ -176,7 +176,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
         #region Parte Controla los cambios de hora para los calculos internos
 
         [Transactional]
-        public int Asincrono()
+        public int ControladorCambioHoraYPocaBateria()
         {
             // Fecha y hora actual
             DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -185,17 +185,17 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             int minutos = horaActual.Minutes;
             int segundos = horaActual.Seconds;
 
-            
+            if (segundos == 0) // lo hacemos para los calculos posteriores
+            {
+                segundos = 1;
+            }
 
-            // Si cambiamos de hora
-            if (minutos == 0 || minutos == 1) {
+            // Si cambiamos de dia, nuevas tarifas
+            if ((minutos == 0) && (hora == 0))
+            {
 
-
-                // Si cambiamos de dia, nuevas tarifas
-                if (hora == 0 && (minutos == 0 || minutos == 1))
-                {
-                    CrearTarifasDeHoy(fechaActual);
-                }
+                CrearTarifasDeHoy(fechaActual);
+               
             }
 
             // obtenemos todas las baterias suministradoras
@@ -204,18 +204,38 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
             foreach (long? bateriaId in bS)
             {
+                Bateria b = ServicioBateria.BuscarBateriaById((long)bateriaId);
+
                 if (!corto)
                 { // si hay baterias con poca energia, hacemos un timer mas corto
-                    Bateria b = ServicioBateria.BuscarBateriaById((long)bateriaId);
                     if (ServicioBateria.porcentajeDeCarga((long)bateriaId)-b.ratioCarga < 7) {
                         corto = true;
                     }
                 }
-                //pasar los datos de consumo a carga y suministra
-                //crear un nuevo consumo
-                // crear un nuevo estado actualizando los datos
+                // Si cambiamos de hora.
+                if (minutos == 0)
+                {
 
-                gestionDeRatiosBateriaSuministradora( (long)bateriaId, fechaActual, horaActual);
+                    //pasar los datos de consumo a carga y suministra
+                    //crear un nuevo consumo
+                    ServicioUbicacion.modificarConsumoActualPorCambioDeHora(b.ubicacionId);
+
+                    // cerrar carga y suministra y los calculos en bateria
+                    ServicioBateria.ActualizarBateriaPorCambioDeHora((long)bateriaId);
+
+                    //gestionDeRatiosBateriaSuministradora( (long)bateriaId, fechaActual, horaActual);
+                    ServicioBateria.gestionDeRatios((long)bateriaId, 0, 0, fechaActual, horaActual);
+                }
+                else 
+                {  // miramos si la bateria tiene el minimo % de carga
+                    if ( b.ratioCarga >= ServicioBateria.porcentajeDeCarga((long)bateriaId))
+                    {
+                        ServicioBateria.gestionDeRatios((long)bateriaId, 0, 0, fechaActual, horaActual);
+                    }
+                }
+                
+
+                
             }
 
             if (corto)
@@ -224,7 +244,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
                 if ((cambioHora) < 10)
                 {
-                    return ((cambioHora+1)*60000)+((segundos+1)*1000); // un segundo despues del cambio de hora
+                    
+                    return ((cambioHora+1)*60000)-((segundos-1)*1000); // un segundo despues del cambio de hora
 
                 } else {
                     return (600000); // 10 minutos
@@ -237,7 +258,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
                 if ((cambioHora) < 30)
                 {
-                    return ((cambioHora + 1) * 60000) + ((segundos + 1) * 1000); // un segundo despues del cambio de hora
+                    return ((cambioHora + 1) * 60000) - ((segundos - 1) * 1000); // un segundo despues del cambio de hora
 
                 }
                 else
@@ -318,7 +339,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             Ubicacion ubicacion = ubicacionDao.Find(ubicacionId);
 
             // Obtenemos el consumo
-            Consumo consumo = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+            //Consumo consumo = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
 
             // si hay bateriaSuministradora previa
             long? bateriaSuministradoraPrevia = ubicacion.bateriaSuministradora;
@@ -333,10 +354,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 // Cerramos el consumo
 
                 if (ubicacion.ultimoConsumo != null)
-                {  //en el caso de que no exista consumo, no hace falta cerrarlo
-                    //ServicioUbicacion.finalizarConsumo(ubicacionId, consumo.consumoActual, horaActual, estado, (long)bateriaSuministradoraPrevia);
+                {  
+
                     ServicioUbicacion.actualizarConsumoActual(ubicacionId, horaActual, (bateriaSuministradora==null));
-                }
+
+                }//en el caso de que no exista consumo, no hace falta cerrarlo
+
                 if (estado != "sin actividad")
                 {
                     //ponemos el estado a "sin actividad"

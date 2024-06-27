@@ -5,75 +5,33 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawStuff);
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
 
-      function drawStuff() {
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(<%=suministradoCargadoyRed()%>);
 
-        var button = document.getElementById('change-chart');
-        var chartDiv = document.getElementById('chart_div');
-
-        var data = google.visualization.arrayToDataTable([
-          ['Galaxy', 'Distance', 'Brightness'],
-          ['Canis Major Dwarf', 8000, 23.3],
-          ['Sagittarius Dwarf', 24000, 4.5],
-          ['Ursa Major II Dwarf', 30000, 14.3],
-          ['Lg. Magellanic Cloud', 50000, 0.9],
-          ['Bootes I', 60000, 13.1]
-        ]);
-
-        var materialOptions = {
-          width: 900,
+        var options = {
           chart: {
-            title: 'Nearby galaxies',
-            subtitle: 'distance on the left, brightness on the right'
-          },
-          series: {
-            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-            1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
-          },
-          axes: {
-            y: {
-              distance: {label: 'parsecs'}, // Left y-axis.
-              brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            }, series: {
+                0: { axis: 'distance' }
+            }, axes: {
+                y: {
+                    distance: { label: 'parsecs' }
+                }
             }
-          }
         };
 
-        var classicOptions = {
-          width: 900,
-          series: {
-            0: {targetAxisIndex: 0},
-            1: {targetAxisIndex: 1}
-          },
-          title: 'Nearby galaxies - distance on the left, brightness on the right',
-          vAxes: {
-            // Adds titles to each axis.
-            0: {title: 'parsecs'},
-            1: {title: 'apparent magnitude'}
-          }
-        };
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-        function drawMaterialChart() {
-          var materialChart = new google.charts.Bar(chartDiv);
-          materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
-          button.innerText = 'Change to Classic';
-          button.onclick = drawClassicChart;
-        }
-
-        function drawClassicChart() {
-          var classicChart = new google.visualization.ColumnChart(chartDiv);
-          classicChart.draw(data, classicOptions);
-          button.innerText = 'Change to Material';
-          button.onclick = drawMaterialChart;
-        }
-
-        drawMaterialChart();
-    };
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
     </script>
     <form id="form1" runat="server">
         <div>
-            <div id="chart_div" style="width: 800px; height: 400px;"></div>
+            <div id="columnchart_material" style="width: 800px; height: 400px;"></div>
         </div>
     </form>
 

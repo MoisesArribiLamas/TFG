@@ -66,7 +66,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
         #endregion 
 
-        #region Obtener  Bateria suministradora
+        #region Obtener capacidad cargador de la Bateria suministradora
         [Transactional]
         public double obtenerCapacidadCargadorBateriaSuministradora(long ubicacionId)
         {
@@ -197,6 +197,24 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                         if (u.bateriaSuministradora != null)
                         {
                             estado = ServicioBateria.EstadoDeLaBateria((long)u.bateriaSuministradora);
+
+                            if (consumoActual == 0)
+                            {
+                                if (estado == "suministrando")
+                                {
+                                    estado = "sin actividad";
+
+                                }
+                                else
+                                {
+                                    if (estado == "carga y suministra")
+                                    {
+                                        estado = "cargando";
+                                    }
+                                }
+
+                            }
+
                             porcentaje = ServicioBateria.porcentajeDeCarga((long)u.bateriaSuministradora).ToString();
                         }
                         else
@@ -559,6 +577,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
             // creamos el nuevo consumo
             long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
 
+
             if (gestionRatios)// ratio de carga >= %Bateria => gestion de ratios
             {
                 double kwHcargadosFinal = 0;
@@ -581,7 +600,46 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
                 }
 
                 ServicioBateria.gestionDeRatios((long)u.bateriaSuministradora, kwHcargadosFinal, kwhsuministradosFinal, fechaActual, horaActual);
+            }
+            //devolvemos el id del nuevo consumo
+            return consumoNuevo;
         }
+
+        #endregion modificar Consumo
+
+        #region modificar Consumo por el cambio de hora (cierra el consumo previo y crea uno nuevo) sin gestion de ratios
+        [Transactional]
+        public long modificarConsumoActualPorCambioDeHora(long ubicacionId)
+        {
+
+            // hora actual
+            TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, 0); // Nos aseguramos que sea segundo 0 aunque no deberia hacer falta
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            // buscamos el consumo (entidad) actual
+            Consumo c = ConsumoDao.UltimoConsumoUbicacion(ubicacionId);
+            double consumoActual = c.consumoActual;
+
+            // cogemos el digito de la hora
+            int DigitoHoraConsumoAnterior = c.horaIni.Hours;
+
+            // Le pasamos la hora en el ultimo segundo de esa hora
+            TimeSpan horaFinConsumoAnterior = new TimeSpan(DigitoHoraConsumoAnterior, 59, 59);
+
+            // buscamos ubicacion
+            Ubicacion u = buscarUbicacionById(ubicacionId);
+
+            // obtenemos el estado
+            string estado = ServicioBateria.EstadoDeLaBateria((long)u.bateriaSuministradora);
+
+
+            // finalizar consumo en la hora anterior
+            finalizarConsumo(ubicacionId, consumoActual, horaFinConsumoAnterior, estado, (long)u.bateriaSuministradora);
+
+            // creamos el nuevo consumo de la nueva hora
+            long consumoNuevo = crearConsumo(ubicacionId, consumoActual, fechaActual, horaActual);
+
+            
             //devolvemos el id del nuevo consumo
             return consumoNuevo;
         }
@@ -757,6 +815,26 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         }
         #endregion
 
+        #region kw suministrados en un día
+        [Transactional]
+        public List<ConsumoDiaConcreto> MostrarLoSuministradoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarLoSuministradoPorElSistemaDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
+        #region kw cargados en un día
+        [Transactional]
+        public List<ConsumoDiaConcreto> MostrarLoCargadoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarLoCargadoPorElSistemaDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
 
         #region Consumos directamente de la red una ubicacion por fechas por dias
         [Transactional]
@@ -764,6 +842,38 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         {
 
             return ConsumoDao.MostrarConsumosRedElectricaUbicacionPorFechaEnDias(ubicacionID, fecha, fecha2);
+
+        }
+        #endregion
+
+
+        #region Consumos directamente de la red una ubicacion En una fecha concreta
+        [Transactional]
+        public List<ConsumoDiaConcreto> MostrarConsumosRedElectricaUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarConsumosRedElectricaUbicacionDiaConcreto(ubicacionID, fecha);
+
+        }
+        #endregion
+
+
+        #region  suministros cargas del sistema y consumo por la red en un periodo de tiempo por dias
+        [Transactional]
+        public List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+
+            return ConsumoDao.MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(ubicacionID, fecha, fecha2);
+
+        }
+        #endregion
+
+        #region  suministros cargas del sistema y consumo por la red en un día
+        [Transactional]
+        public List<CargaSuministraYRedDiaConcreto> MostrarSuministradoCargadoYRedXUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+
+            return ConsumoDao.MostrarSuministradoCargadoYRedXUbicacionDiaConcreto(ubicacionID, fecha);
 
         }
         #endregion

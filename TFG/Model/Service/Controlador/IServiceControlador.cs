@@ -43,5 +43,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         [Transactional]
         void ControlCambioHoraODia();
+
+        [Transactional]
+        int ControladorCambioHoraYPocaBateria();
     }
 }

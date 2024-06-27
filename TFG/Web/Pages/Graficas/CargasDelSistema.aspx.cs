@@ -63,6 +63,50 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
         protected void ddlListaCriterios_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Obtenemos parametro
+            String ubicacionId = Request.Params.Get("idUbicacion");
+
+
+
+            //SuministradoXRed
+            if (ddlListaCriterios.Text == "Supplied by the Network" || ddlListaCriterios.Text == "Suministrado por la Red")
+            {
+                String url = String.Format("~/Pages/Graficas/SuministradoXRed.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //SuministradoXBateria
+            if (ddlListaCriterios.Text == "Supplied" || ddlListaCriterios.Text == "Suministrado" || ddlListaCriterios.Text == "Suministrou")
+            {
+                String url = String.Format("~/Pages/Graficas/SuministradoXBateria.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargasDelSistema
+            if (ddlListaCriterios.Text == "Loaded" || ddlListaCriterios.Text == "Cargados" || ddlListaCriterios.Text == "Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargasDelSistema.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //AhorroXDias
+            if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
+            {
+                String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargaSuministraVSRed
+            if (ddlListaCriterios.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios.Text == "Red vs Suministrado Cargados" || ddlListaCriterios.Text == "Red vs Suministrou Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
         }
 
@@ -113,6 +157,23 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
                      "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
+
+            //AhorroXDias
+            if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
+            {
+                String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargaSuministraVSRed
+            if (ddlListaCriterios.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios.Text == "Red vs Suministrado Cargados" || ddlListaCriterios.Text == "Red vs Suministrou Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
         }
 
         protected void btnCalendario2_Click(object sender, EventArgs e)
@@ -163,34 +224,19 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
             Ubicacion ubicacion = serviceUbicacion.buscarUbicacionById(Convert.ToInt64(ubicacionId));
 
-            //string format = "dd/mm/yyyy";
-
-            //DateTime fechaIni = DateTime.ParseExact(txtFecha.Text, format, CultureInfo.InvariantCulture).Date;
-
-            //DateTime fechaFin = DateTime.ParseExact(txtFecha2.Text, format, CultureInfo.InvariantCulture).Date;
-
             DateTime fechaIni = Convert.ToDateTime(txtFecha.Text);
 
             DateTime fechaFin = Convert.ToDateTime(txtFecha2.Text);
 
 
-            List<ConsumoPorDias> consumoRedDias = serviceUbicacion.MostrarSuministradoXUbicacionPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
+            List<ConsumoPorDias> cargadoSistemaDias = serviceUbicacion.MostrarLoCargadoPorElSistemaPorFechaEnDias(ubicacion.ubicacionId, fechaIni, fechaFin);
 
-            Trace.Warn("consumoRedDias", consumoRedDias.Count().ToString());
-
-            Trace.Warn("consumoRedDias", consumoRedDias[0].Count.ToString());
-            foreach (ConsumoPorDias dr in consumoRedDias)
-            {
-                string f = (dr.fecha).ToString();
-                string fecha = f.Substring(0, f.IndexOf(" "));
-                Trace.Warn("fecha", fecha); Trace.Warn("fecha", Math.Truncate(dr.Count * 1000).ToString());
-            }
 
             string strDatos;
 
             strDatos = "[['Dia','(W)'],";
 
-            foreach (ConsumoPorDias dr in consumoRedDias)
+            foreach (ConsumoPorDias dr in cargadoSistemaDias)
             {
                 string f = (dr.fecha).ToString();
                 string fecha = f.Substring(0, f.IndexOf(" "));

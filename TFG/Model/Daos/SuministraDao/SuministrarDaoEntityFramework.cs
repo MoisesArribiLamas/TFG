@@ -1,4 +1,5 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -104,5 +105,38 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
             return false;
         }
         #endregion
+
+        #region ahorro en un periodo de tiempo por dias grafica
+        public List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2)
+        {
+            DbSet<Suministra> suministros = Context.Set<Suministra>();
+
+            var result =
+                (from s in suministros
+                 where ((s.Tarifa.fecha >= fecha) && (s.Tarifa.fecha <= fecha2) && (s.Bateria.ubicacionId == ubicacionID))
+                 group s by s.Tarifa.fecha
+                 into g
+                 select new AhorroPorDias() { fecha = g.Key, Count = g.Sum(s => s.ahorro) }).OrderBy(s => s.fecha).ToList();
+
+            return result;
+        }
+        #endregion
+
+        #region ahorro en un Dia concreto.
+        public List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha)
+        {
+            DbSet<Suministra> suministros = Context.Set<Suministra>();
+
+            var result =
+                (from s in suministros
+                 where ((s.Tarifa.fecha == fecha)  && (s.Bateria.ubicacionId == ubicacionID))
+                 group s by s.Tarifa.hora
+                 into g
+                 select new AhorroDiaConcreto() { Hora = g.Key, Count = g.Sum(s => s.ahorro) }).OrderBy(s => s.Hora).ToList();
+
+            return result;
+        }
+        #endregion
+        
     }
 }

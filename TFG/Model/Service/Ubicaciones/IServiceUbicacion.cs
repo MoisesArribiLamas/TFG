@@ -77,6 +77,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         long modificarConsumoActual(long ubicacionId, double consumoActual);
 
         [Transactional]
+        long modificarConsumoActualPorCambioDeHora(long ubicacionId);
+
+        [Transactional]
         long? UltimoConsumoEnUbicacion(long ubicacionId);
 
         [Transactional]
@@ -101,7 +104,22 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
         List<ConsumoPorDias> MostrarLoCargadoPorElSistemaPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
 
         [Transactional]
+        List<ConsumoDiaConcreto> MostrarLoSuministradoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha);
+
+        [Transactional]
+        List<ConsumoDiaConcreto> MostrarLoCargadoPorElSistemaDiaConcreto(long ubicacionID, DateTime fecha);
+
+        [Transactional]
         List<ConsumoPorDias> MostrarConsumosRedElectricaUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        List<ConsumoDiaConcreto> MostrarConsumosRedElectricaUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
+
+        [Transactional]
+        List<CargaSuministraYRed> MostrarSuministradoCargadoYRedXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        List<CargaSuministraYRedDiaConcreto> MostrarSuministradoCargadoYRedXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
 
         [Transactional]
         int numeroCargasBareriaPorFecha(long ubicacionID, DateTime fecha, DateTime fecha2);

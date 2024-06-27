@@ -13,11 +13,13 @@
     <Property Name="fechaDeAdquisicion" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="marca" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="modelo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nSerie" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ratioCarga" Type="Double" Nullable="false" />
     <Property Name="ratioCompra" Type="Double" Nullable="false" />
     <Property Name="ratioUso" Type="Double" Nullable="false" />
     <Property Name="estadoBateria" Type="Int64" />
     <Property Name="capacidadCargador" Type="Double" Nullable="false" />
+    <Property Name="BateriaActiva" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Cargas" Relationship="Self.FK_BATERIA_CARGA" FromRole="Bateria" ToRole="Carga" />
     <NavigationProperty Name="SeEncuentras" Relationship="Self.FK_BATERIA_SEENCUENTRA" FromRole="Bateria" ToRole="SeEncuentra" />
     <NavigationProperty Name="Suministras" Relationship="Self.FK_BATERIA_SUMINISTRA" FromRole="Bateria" ToRole="Suministra" />
@@ -43,7 +45,9 @@
     </Key>
     <Property Name="consumoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ubicacionId" Type="Int64" Nullable="false" />
-    <Property Name="kwTotal" Type="Double" />
+    <Property Name="kwCargados" Type="Double" />
+    <Property Name="kwSuministrados" Type="Double" />
+    <Property Name="kwRed" Type="Double" />
     <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="horaIni" Type="Time" Nullable="false" Precision="7" />
     <Property Name="horaFin" Type="Time" Precision="7" />
@@ -90,7 +94,7 @@
       <PropertyRef Name="tarifaId" />
     </Key>
     <Property Name="tarifaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="precio" Type="Int64" Nullable="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
     <Property Name="hora" Type="Int64" Nullable="false" />
     <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Cargas" Relationship="Self.FK_TARIFA_CARGA" FromRole="Tarifa" ToRole="Carga" />
@@ -108,6 +112,8 @@
     <Property Name="numero" Type="Int64" Nullable="false" />
     <Property Name="etiqueta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="bateriaSuministradora" Type="Int64" />
+    <Property Name="ultimoConsumo" Type="Int64" />
+    <Property Name="usuario" Type="Int64" Nullable="false" />
     <NavigationProperty Name="Baterias" Relationship="Self.FK_BATERIA_UBICACION" FromRole="Ubicacion" ToRole="Bateria" />
     <NavigationProperty Name="Consumoes" Relationship="Self.FK_UBICACION_BATERIA_CONSUMO" FromRole="Ubicacion" ToRole="Consumo" />
   </EntityType>

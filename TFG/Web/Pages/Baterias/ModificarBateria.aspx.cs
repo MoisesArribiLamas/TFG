@@ -53,12 +53,18 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 lblPrecioMedioNumero.Text = bateria.precioMedio.ToString();
 
                 string idioma = SessionManager.GetUserSession(Context).Idioma;
-                lblEstado.Text = MostrarEstadoIdioma(estado, idioma);
+                
 
                 // buscamos la ubicacion
                 IServiceUbicacion servicioUbicacion = iocManager.Resolve<IServiceUbicacion>();
                 Ubicacion ubicacion = servicioUbicacion.buscarUbicacionById(bateria.ubicacionId);
                 lblValorBateriaSuministradora.Text = BateriaSuministradora(ubicacion, idioma, bateria.bateriaId);
+
+                // consumo en la ubicacion
+                double cons = servicioUbicacion.consumoEnEsteInstante(ubicacion.ubicacionId);
+
+                lblEstado.Text = MostrarEstadoIdioma(estado, idioma, cons);
+
             }
         }
 
@@ -115,9 +121,26 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             }
         }
 
-        protected string MostrarEstadoIdioma(string estado, string idioma)
+        protected string MostrarEstadoIdioma(string estado, string idioma,double cons)
         {
+            
+            if (cons == 0)
+            {
+                if (estado == "suministrando")
+                {
+                    estado = "sin actividad";
 
+                }
+                else
+                {
+                    if (estado == "carga y suministra")
+                    {
+                        estado = "cargando";
+                    }
+                }
+
+            }
+             
             if (idioma == "es") // castellano
             {
                 if (estado == "carga y suministra")
@@ -173,10 +196,10 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             {
                 if (isSupplyingBattery)
                 {
-                    return "SUMINISTRADORA";
+                    return "PRINCIPAL";
                 } else
                 {
-                 return "NO SUMINISTRADORA";
+                 return "NO PRINCIPAL";
                 }
                
             }
@@ -184,11 +207,11 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             {
                 if (isSupplyingBattery)
                 {
-                    return "SUMINISTRADORA";
+                    return "PRINCIPAL";
                 }
                 else
                 {
-                    return "NON SUMINISTRADORA";
+                    return "NON PRINCIPAL";
                 }
             }
             else // (idioma == "en") ingles

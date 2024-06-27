@@ -462,6 +462,7 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b.ratioCompra = 10;
             b.ratioUso = 10;
             b.nSerie = "HDOSN24JSDC61";
+            b.BateriaActiva = true;
             bateriaDao.Create(b);
 
             Bateria b2 = new Bateria();
@@ -477,6 +478,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b2.ratioCompra = 10;
             b2.ratioUso = 10;
             b2.nSerie = "HDOSN24JSDC62";
+            b2.BateriaActiva = true;
+
             bateriaDao.Create(b2);
 
             Bateria b3 = new Bateria();
@@ -492,6 +495,8 @@ namespace Es.Udc.DotNet.TFG.Model.UbicacionDao.Tests
             b3.ratioCompra = 10;
             b3.ratioUso = 10;
             b3.nSerie = "ZDOSN24JSDC63";
+            b3.BateriaActiva = true;
+
             bateriaDao.Create(b3);
 
 

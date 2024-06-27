@@ -63,6 +63,50 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
 
         protected void ddlListaCriterios_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Obtenemos parametro
+            String ubicacionId = Request.Params.Get("idUbicacion");
+
+
+
+            //SuministradoXRed
+            if (ddlListaCriterios.Text == "Supplied by the Network" || ddlListaCriterios.Text == "Suministrado por la Red")
+            {
+                String url = String.Format("~/Pages/Graficas/SuministradoXRed.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //SuministradoXBateria
+            if (ddlListaCriterios.Text == "Supplied" || ddlListaCriterios.Text == "Suministrado" || ddlListaCriterios.Text == "Suministrou")
+            {
+                String url = String.Format("~/Pages/Graficas/SuministradoXBateria.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargasDelSistema
+            if (ddlListaCriterios.Text == "Loaded" || ddlListaCriterios.Text == "Cargados" || ddlListaCriterios.Text == "Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargasDelSistema.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //AhorroXDias
+            if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
+            {
+                String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargaSuministraVSRed
+            if (ddlListaCriterios.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios.Text == "Red vs Suministrado Cargados" || ddlListaCriterios.Text == "Red vs Suministrou Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
         }
 
@@ -110,6 +154,22 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             if (ddlListaCriterios.Text == "Loaded" || ddlListaCriterios.Text == "Cargados" || ddlListaCriterios.Text == "Cargou")
             {
                 String url = String.Format("~/Pages/Graficas/CargasDelSistema.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //AhorroXDias
+            if (ddlListaCriterios.Text == "Saving money" || ddlListaCriterios.Text == "Ahorro" || ddlListaCriterios.Text == "Aforro")
+            {
+                String url = String.Format("~/Pages/Graficas/AhorroXDias.aspx?idUbicacion={0}" +
+                     "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            //CargaSuministraVSRed
+            if (ddlListaCriterios.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios.Text == "Red vs Suministrado Cargados" || ddlListaCriterios.Text == "Red vs Suministrou Cargou")
+            {
+                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
                      "&fechaIni={1}" + "&fechaFin={2}" + "&criterio={3}", ubicacionId, txtFecha.Text, txtFecha2.Text, ddlListaCriterios.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }

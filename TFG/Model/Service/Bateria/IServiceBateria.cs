@@ -1,6 +1,8 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using Es.Udc.DotNet.TFG.Model.Daos.BateriaDao;
+using Es.Udc.DotNet.TFG.Model.Daos.SuministraDao;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         void CambiarEstadoEnBateria(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados, TimeSpan horaActual);
 
         [Transactional]
-        void CambiarEstadoEnBateriaPorCambioDeHora(long bateriaId, long estadoId, double kwHCargados, double kwHSuministrados);
+        void ActualizarBateriaPorCambioDeHora(long bateriaId);
 
 
         [Transactional]
@@ -120,6 +122,12 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
 
         [Transactional]
         double capacidadCargadorBateriaSuministradora(long bateriaSuministradoraId);
+
+        [Transactional]
+        List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        [Transactional]
+        List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
 
     }
 }

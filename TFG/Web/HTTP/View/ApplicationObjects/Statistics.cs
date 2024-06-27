@@ -35,19 +35,19 @@ namespace Es.Udc.DotNet.TFG.Web.HTTP.View.ApplicationObjects
             statistics_es.Add(new ListItem("Suministrado por la Red"));
             statistics_es.Add(new ListItem("Cargados"));
             statistics_es.Add(new ListItem("Suministrado"));
-            statistics_es.Add(new ListItem("Consumo"));
+            statistics_es.Add(new ListItem("Red vs Suministrado Cargados"));
 
             statistics_en.Add(new ListItem("Saving money"));
             statistics_en.Add(new ListItem("Supplied by the Network"));
             statistics_en.Add(new ListItem("Loaded"));
             statistics_en.Add(new ListItem("Supplied"));
-            statistics_en.Add(new ListItem("Electricity consumption"));
+            statistics_en.Add(new ListItem("Network vs Loaded vs Supplied"));
 
             statistics_gl.Add(new ListItem("Aforro"));
             statistics_gl.Add(new ListItem("Suministrado pola Red"));
             statistics_gl.Add(new ListItem("Cargou"));
             statistics_gl.Add(new ListItem("Suministrou"));
-            statistics_gl.Add(new ListItem("Consumo"));
+            statistics_gl.Add(new ListItem("Red vs Suministrou Cargou"));
 
 
             statistics.Add("es", statistics_es);

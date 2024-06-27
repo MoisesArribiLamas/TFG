@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.TFG.Model.Daos.AhorroDao;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,5 +23,10 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.SuministraDao
         double ahorroUsuarioPorFecha(long usuarioId, DateTime fecha, DateTime fecha2);
 
         bool FinalizarSuministra(long cargaID, TimeSpan horaFin, double kwH, double ahorro);
+
+        List<AhorroPorDias> MostrarAhorroXUbicacionPorFechaEnDias(long ubicacionID, DateTime fecha, DateTime fecha2);
+
+        List<AhorroDiaConcreto> MostrarAhorroXUbicacionDiaConcreto(long ubicacionID, DateTime fecha);
+
     }
 }

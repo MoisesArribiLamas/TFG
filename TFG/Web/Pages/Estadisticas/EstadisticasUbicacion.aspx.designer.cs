@@ -49,6 +49,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Label lblNombreUbicacion;
         
         /// <summary>
+        /// Control lblBusquedaEnUnRango.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBusquedaEnUnRango;
+        
+        /// <summary>
         /// Control lblFechaIni.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        
+        /// <summary>
+        /// Control lblFecha1Error.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFecha1Error;
         
         /// <summary>
         /// Control txtFecha.
@@ -112,6 +130,15 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Calendar Calendar2;
         
         /// <summary>
+        /// Control lblFecha2Error.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFecha2Error;
+        
+        /// <summary>
         /// Control txtFecha2.
         /// </summary>
         /// <remarks>
@@ -148,12 +175,84 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Button btnBuscar;
         
         /// <summary>
-        /// Control gvUbicacionesEstadisticas.
+        /// Control lblBusquedaDia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvUbicacionesEstadisticas;
+        protected global::System.Web.UI.WebControls.Label lblBusquedaDia;
+        
+        /// <summary>
+        /// Control lblFechaDia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFechaDia;
+        
+        /// <summary>
+        /// Control btnCalendario3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCalendario3;
+        
+        /// <summary>
+        /// Control Calendar3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calendar3;
+        
+        /// <summary>
+        /// Control lblFecha3Error.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFecha3Error;
+        
+        /// <summary>
+        /// Control txtFecha3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFecha3;
+        
+        /// <summary>
+        /// Control lblCriterio2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCriterio2;
+        
+        /// <summary>
+        /// Control ddlListaCriterios2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlListaCriterios2;
+        
+        /// <summary>
+        /// Control Button2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
     }
 }
