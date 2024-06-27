@@ -110,6 +110,7 @@
     <Compile Include="Daos\EstadoBateriaDao\IEstadoBateriaDao.cs" />
     <Compile Include="Daos\EstadoDao\EstadoDaoEntityFramework.cs" />
     <Compile Include="Daos\EstadoDao\IEstadoDao.cs" />
+    <Compile Include="Daos\SuministraDao\AhorroDiaConcreto.cs" />
     <Compile Include="Daos\SuministraDao\AhorroPorDias.cs" />
     <Compile Include="Daos\SuministraDao\SuministrarDaoEntityFramework.cs" />
     <Compile Include="Daos\SuministraDao\ISuministrarDao.cs" />
