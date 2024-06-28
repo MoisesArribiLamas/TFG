@@ -117,6 +117,27 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
         }
         #endregion
 
+
+
+        #region modificar ratios
+
+        [Transactional]
+        public void ModificarporcentajeEmpiezaCargarCambioConsumo(long bateriaId, double? porcentajeEmpiezaCargarCambioConsumo)
+        {
+
+            //buscamos la bateria
+            Bateria b = bateriaDao.Find(bateriaId);
+
+            b.porcentajeEmpiezaCargarCambioConsumo = porcentajeEmpiezaCargarCambioConsumo;
+
+
+
+            bateriaDao.Update(b);
+            
+
+        }
+        #endregion
+
         #region mostrar ratios
 
         [Transactional]

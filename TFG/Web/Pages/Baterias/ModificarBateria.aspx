@@ -136,6 +136,26 @@
 
         </div>
          <br />
+
+        <hr/>
+         <br />
+         <br />
+        <div>
+            <asp:Label ID="lblLimite" runat="server" Text="Porcentaje máximo para cargar"  Display="Dynamic"  meta:resourcekey="lblPorcentajeMaximo" Font-Bold="True"></asp:Label>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidatorPorcentajeMaximo" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="tbPorcentajeMaximoDeCarga" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
+            <asp:TextBox ID="tbPorcentajeMaximoDeCarga" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="60px" style="text-align: right"></asp:TextBox>
+        
+            <asp:Button ID="btnPorcentajeMaximoDeCarga" runat="server" Text="Modificar" OnClick="btModificarRatios_Click" meta:resourcekey="btnPorcentajeMaximoDeCargaResource1"  />
+
+
+            <br />
+
+            <asp:Label ID="lblErrorPorcentajeMaximoDeCarga" runat="server" ForeColor="Red" Style="position: relative"
+                    Visible="False" text="Error Al modificar" meta:resourcekey="lblErrorPorcentajeMaximoDeCargaResource1"></asp:Label>
+        
+        </div>
+
+         <br />
         <hr/>
         <div class="button"> 
 

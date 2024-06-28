@@ -115,173 +115,233 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 // ubicaciones del usuario
                 List<UbicacionProfileDetails> ubicaciones = serviceUbicacion.ubicacionesDelUsuario(idUser);
 
-                // desplegable con las ubicaciones 
-                foreach (UbicacionProfileDetails u in ubicaciones)
-                {
-                    this.ListaUbicaciones.Items.Add(u.etiqueta);
-                }
+                Trace.Warn("INFOr0", Convert.ToString(ubicaciones.Count()==0));
 
-                // obtenemos la ubicacion que se muestra en el desplegble 
-                Ubicacion ubicacion = serviceUbicacion.primeraUbicacionDelUsuario(idUser);
+                if (ubicaciones.Count() == 0) 
+                { // El usuario no tiene ubicaciones
 
-                //long ubicacionId = Convert.ToInt64(ubicacionMorstrada);
-                hlUbicacion.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + ubicacion.ubicacionId;
 
-                // El consumo que tiene la ubicacion en este instante
-                double cons = serviceUbicacion.consumoEnEsteInstante(ubicacion.ubicacionId);
-                this.lblConsumo.Text = cons.ToString();
+                    // Tarifa actual
+                    DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-                // Tarifa actual
-                DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                    int horaTarifa = horaActual.Hours;
+                    TarifaDTO tarifa = serviceTarifa.TarifaActual(fechaActual, horaTarifa);
 
-                int horaTarifa = horaActual.Hours;
-                TarifaDTO tarifa = serviceTarifa.TarifaActual(fechaActual, horaTarifa);
+                    this.lblPrecioActual.Text = Convert.ToString(tarifa.precio);
 
-                this.lblPrecioActual.Text = Convert.ToString(tarifa.precio);
-
-                if (tarifa.precio < verdeAmarillo)
-                {
-                    this.lblPrecioActual.BackColor = ColorTranslator.FromHtml("#07DC10");
-
-                }
-                else
-                {
-                    if (tarifa.precio < amarilloRojo)
+                    if (tarifa.precio < verdeAmarillo)
                     {
-                        this.lblPrecioActual.BackColor = Color.Yellow;
+                        this.lblPrecioActual.BackColor = ColorTranslator.FromHtml("#07DC10");
+
                     }
                     else
                     {
-                        this.lblPrecioActual.BackColor = ColorTranslator.FromHtml("#FE2E2E");
+                        if (tarifa.precio < amarilloRojo)
+                        {
+                            this.lblPrecioActual.BackColor = Color.Yellow;
+                        }
+                        else
+                        {
+                            this.lblPrecioActual.BackColor = ColorTranslator.FromHtml("#FE2E2E");
+                        }
                     }
+
+                    hlUbicacion.Visible = false;
+                    ListaUbicaciones.Visible = false;
+                    Localize1Consumo.Visible = false;
+                    lblConsumo.Visible = false;
+                    lblPorcentaje.Visible = false;
+                    hlsuministrador.Visible = false;
+                    Localize1EstadoBateria.Visible = false;
+                    lblEstado.Visible = false;
+                    Localize1ratioCompra.Visible = false;
+                    BoxRatioCompra.Visible = false;
+                    Localize1ratioCarga.Visible = false;
+                    BoxRatioCarga.Visible = false;
+                    Localize1ratioUso.Visible = false;
+                    BoxRatioUso.Visible = false;
+                    btModificarRatios.Visible = false;
                 }
+                else{
 
-                // Bateria principal de la ubicacion
-                if (ubicacion.bateriaSuministradora != null)
-                {
-                    Bateria bateria = serviceBateria.BuscarBateriaById((long)ubicacion.bateriaSuministradora);
-                    //this.hlsuministrador.Text = bateria.nSerie;
-                    this.hlsuministrador.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + bateria.bateriaId;
-                    lblPorcentaje.Text = serviceBateria.porcentajeDeCarga((long)ubicacion.bateriaSuministradora).ToString();
-
-                    // estado de la Bateria
-                    string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
-                    //this.lblEstado.Text = estado;
-
-                    if (cons == 0)
+                    // desplegable con las ubicaciones 
+                    foreach (UbicacionProfileDetails u in ubicaciones)
                     {
-                        if (estado == "suministrando")
-                        {
-                            estado = "sin actividad";
+                        this.ListaUbicaciones.Items.Add(u.etiqueta);
+                    }
 
+                    // obtenemos la ubicacion que se muestra en el desplegble 
+                    Ubicacion ubicacion = serviceUbicacion.primeraUbicacionDelUsuario(idUser);
+
+                    //long ubicacionId = Convert.ToInt64(ubicacionMorstrada);
+                    hlUbicacion.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + ubicacion.ubicacionId;
+
+                    // El consumo que tiene la ubicacion en este instante
+                    double cons = serviceUbicacion.consumoEnEsteInstante(ubicacion.ubicacionId);
+                    this.lblConsumo.Text = cons.ToString();
+
+                    // Tarifa actual
+                    DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    TimeSpan horaActual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                    int horaTarifa = horaActual.Hours;
+                    TarifaDTO tarifa = serviceTarifa.TarifaActual(fechaActual, horaTarifa);
+
+                    this.lblPrecioActual.Text = Convert.ToString(tarifa.precio);
+
+                    if (tarifa.precio < verdeAmarillo)
+                    {
+                        this.lblPrecioActual.BackColor = ColorTranslator.FromHtml("#07DC10");
+
+                    }
+                    else
+                    {
+                        if (tarifa.precio < amarilloRojo)
+                        {
+                            this.lblPrecioActual.BackColor = Color.Yellow;
                         }
                         else
                         {
-                            if (estado == "carga y suministra")
-                            {
-                                estado = "cargando";
-                            }
-                        }
-
-                    }
-
-                    string idioma = SessionManager.GetUserSession(Context).Idioma;
-
-                    if (idioma == "es") // castellano
-                    {
-                        this.lblEstado.Text = estado;
-
-
-                    }
-                    else if (idioma == "gl") // gallego
-                    {
-                        if (estado == "sin actividad")
-                        {
-                            this.lblEstado.Text = "sen actividade";
-                        }
-                        else
-                        {
-                            if (estado == "carga y suministra")
-                            {
-                                this.lblEstado.Text = "carga e suministra";
-                            }
-                            else // cargando , Suministrando
-                            {
-                                this.lblEstado.Text = estado;
-                            }
+                            this.lblPrecioActual.BackColor = ColorTranslator.FromHtml("#FE2E2E");
                         }
                     }
-                    else // (idioma == "en") ingles
+
+                    // Bateria principal de la ubicacion
+                    if (ubicacion.bateriaSuministradora != null)
                     {
-                        if (estado == "sin actividad")
+                        Bateria bateria = serviceBateria.BuscarBateriaById((long)ubicacion.bateriaSuministradora);
+                        //this.hlsuministrador.Text = bateria.nSerie;
+                        this.hlsuministrador.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + bateria.bateriaId;
+
+                        // ponemos el porcentaje de la bateria
+                        lblPorcentaje.Text = serviceBateria.porcentajeDeCarga((long)ubicacion.bateriaSuministradora).ToString();
+
+                        // estado de la Bateria
+                        string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
+                        //this.lblEstado.Text = estado;
+
+                        if (cons == 0)
                         {
-                            this.lblEstado.Text = "Without activity";
-                        }
-                        else
-                        {
-                            if (estado == "carga y suministra")
+                            if (estado == "suministrando")
                             {
-                                this.lblEstado.Text = "loads and supplies";
+                                estado = "sin actividad";
+
                             }
                             else
                             {
-                                if (estado == "cargando")
+                                if (estado == "carga y suministra")
                                 {
-                                    this.lblEstado.Text = "charging";
+                                    estado = "cargando";
                                 }
-                                else
-                                {
-                                    if (estado == "suministrando")
-                                    {
-                                        this.lblEstado.Text = "supplying";
-                                    }
-                                }
-                            } 
+                            }
+
                         }
-
-                    }
-
-                    this.BoxRatioCompra.Text = bateria.ratioCompra.ToString();
-                    this.BoxRatioCarga.Text = bateria.ratioCarga.ToString();
-                    this.BoxRatioUso.Text = bateria.ratioUso.ToString();
-                }
-                else
-                {
-                    if (cons == 0)
-                    {   // Sin Bateria suministradora y sin consumo
-                        lblPorcentaje.Visible = false;
-                        hlsuministrador.Visible = false;
-                    }
-                    else
-                    { // Sin Bateria suministradora y con consumo Mains
 
                         string idioma = SessionManager.GetUserSession(Context).Idioma;
 
                         if (idioma == "es") // castellano
                         {
-                            hlsuministrador.Text = "Red Electrica";
-                            
+                            this.lblEstado.Text = estado;
+
 
                         }
                         else if (idioma == "gl") // gallego
                         {
-                            hlsuministrador.Text = "Red Electrica";
+                            if (estado == "sin actividad")
+                            {
+                                this.lblEstado.Text = "sen actividade";
+                            }
+                            else
+                            {
+                                if (estado == "carga y suministra")
+                                {
+                                    this.lblEstado.Text = "carga e suministra";
+                                }
+                                else // cargando , Suministrando
+                                {
+                                    this.lblEstado.Text = estado;
+                                }
+                            }
                         }
                         else // (idioma == "en") ingles
                         {
-                            hlsuministrador.Text = "Mains";
+                            if (estado == "sin actividad")
+                            {
+                                this.lblEstado.Text = "Without activity";
+                            }
+                            else
+                            {
+                                if (estado == "carga y suministra")
+                                {
+                                    this.lblEstado.Text = "loads and supplies";
+                                }
+                                else
+                                {
+                                    if (estado == "cargando")
+                                    {
+                                        this.lblEstado.Text = "charging";
+                                    }
+                                    else
+                                    {
+                                        if (estado == "suministrando")
+                                        {
+                                            this.lblEstado.Text = "supplying";
+                                        }
+                                    }
+                                }
+                            }
 
                         }
-                        
+
+                        this.BoxRatioCompra.Text = bateria.ratioCompra.ToString();
+                        this.BoxRatioCarga.Text = bateria.ratioCarga.ToString();
+                        this.BoxRatioUso.Text = bateria.ratioUso.ToString();
+                    }
+                    else
+                    {
+                        if (cons == 0)
+                        {   // Sin Bateria suministradora y sin consumo
+
+                            lblPorcentaje.Visible = false;
+                        }
+                        else
+                        { // Sin Bateria suministradora y con consumo Mains
+
+                            string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+                            if (idioma == "es") // castellano
+                            {
+                                lblPorcentaje.Text = "Red Electrica";
+
+
+                            }
+                            else if (idioma == "gl") // gallego
+                            {
+                                lblPorcentaje.Text = "Red Electrica";
+                            }
+                            else // (idioma == "en") ingles
+                            {
+                                lblPorcentaje.Text = "Mains";
+
+                            }
+
+                        }
+
+                        hlsuministrador.Visible = false;
+                        Localize1EstadoBateria.Visible = false;
+                        lblEstado.Visible = false;
+                        Localize1ratioCompra.Visible = false;
+                        BoxRatioCompra.Visible = false;
+                        Localize1ratioCarga.Visible = false;
+                        BoxRatioCarga.Visible = false;
+                        Localize1ratioUso.Visible = false;
+                        BoxRatioUso.Visible = false;
+                        btModificarRatios.Visible = false;
+
                     }
 
                 }
-                //var time = new System.Threading.Timer(obj => 
-                //{ this.lblhora.Text = DateTime.Now.ToLongTimeString(); },null,TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
-                
-                //Reloj();
-
             }
 
         }
@@ -304,6 +364,9 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             // obtenemos la ubicacion seleccionada
             Ubicacion ubicacion = serviceUbicacion.buscarUbicacionByNombre(etiqueta);
 
+            //long ubicacionId = Convert.ToInt64(ubicacionMorstrada);
+            hlUbicacion.NavigateUrl = "~/Pages/Ubicaciones/ModificarUbicacion.aspx?idUbicacion=" + ubicacion.ubicacionId;
+
             // Bateria principal de la ubicacion
             if (ubicacion.bateriaSuministradora != null)
             {
@@ -320,9 +383,11 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 btModificarRatios.Visible = true;
 
                 Bateria bateria = serviceBateria.BuscarBateriaById((long)ubicacion.bateriaSuministradora);
-                this.hlsuministrador.Text = bateria.nSerie;
+                //this.hlsuministrador.Text = bateria.nSerie;
                 this.hlsuministrador.NavigateUrl = "~/Pages/Baterias/ModificarBateria.aspx?idBateria=" + bateria.bateriaId;
 
+                // ponemos el porcentaje de la bateria
+                lblPorcentaje.Text = serviceBateria.porcentajeDeCarga((long)ubicacion.bateriaSuministradora).ToString();
 
                 // estado de la Bateria
                 string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
@@ -340,7 +405,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 if (cons == 0)
                 {   // Sin Bateria suministradora y sin consumo
                     lblPorcentaje.Visible = false;
-                    hlsuministrador.Visible = false;
+                    
                 }
                 else
                 { // Sin Bateria suministradora y con consumo Mains
@@ -349,22 +414,23 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
                     if (idioma == "es") // castellano
                     {
-                        hlsuministrador.Text = "Red Electrica";
+                        lblPorcentaje.Text = "Red Electrica";
 
 
                     }
                     else if (idioma == "gl") // gallego
                     {
-                        hlsuministrador.Text = "Red Electrica";
+                        lblPorcentaje.Text = "Red Electrica";
                     }
                     else // (idioma == "en") ingles
                     {
-                        hlsuministrador.Text = "Mains";
+                        lblPorcentaje.Text = "Mains";
 
                     }
 
                 }
 
+                hlsuministrador.Visible = false;
                 Localize1EstadoBateria.Visible = false;
                 lblEstado.Visible = false;
                 Localize1ratioCompra.Visible = false;

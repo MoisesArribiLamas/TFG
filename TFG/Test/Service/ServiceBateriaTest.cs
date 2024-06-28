@@ -3580,6 +3580,43 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Tests
         }
 
         [TestMethod()]
+        public void ModificarporcentajeEmpiezaCargarCambioConsumoTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                crearEstados();
+                string nSerie = "HDOSN24JSDC01";
+                long usuarioId = crearUsuario(nombre, email, apellido1, apellido2, contraseña, telefono, pais, idioma);
+                long ubicacionId = crearUbicacion(codigoPostal, localidad, calle, portal, numero);
+
+                long bateriaId = servicio.CrearBateria(ubicacionId, usuarioId, precioMedio, kwHAlmacenados, almacenajeMaximoKwH,
+                fechaDeAdquisicion, marca, modelo, nSerie, ratioCarga, ratioCompra, ratioUso, capacidadCargador);
+
+
+                //obtenemos la bateria
+                var b = bateriaDao.Find(bateriaId);
+
+                //Modificamos 
+                double porcentajeEmpiezaCargarCambioConsumo = 100; 
+
+                servicio.ModificarporcentajeEmpiezaCargarCambioConsumo(bateriaId, porcentajeEmpiezaCargarCambioConsumo);
+
+                //comprobamos los ratios nuevos
+                Assert.AreEqual(b.porcentajeEmpiezaCargarCambioConsumo, porcentajeEmpiezaCargarCambioConsumo);
+
+
+                //Modificamos 
+                porcentajeEmpiezaCargarCambioConsumo = 100;
+                servicio.ModificarporcentajeEmpiezaCargarCambioConsumo(bateriaId, porcentajeEmpiezaCargarCambioConsumo);
+
+
+                //comprobamos los ratios nuevos
+                Assert.AreEqual(b.porcentajeEmpiezaCargarCambioConsumo, porcentajeEmpiezaCargarCambioConsumo);
+
+            }
+        }
+
+        [TestMethod()]
         public void ModificarRatiossTest()
         {
             using (var scope = new TransactionScope())
