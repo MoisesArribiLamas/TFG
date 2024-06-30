@@ -51,6 +51,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 lblAlmacenajeMaximoN.Text = bateria.almacenajeMaximoKwH.ToString();
                 lblKwAlmacenadosNumero.Text = bateria.kwHAlmacenados.ToString();
                 lblPrecioMedioNumero.Text = bateria.precioMedio.ToString();
+                tbPorcentajeMaximoDeCarga.Text = bateria.porcentajeEmpiezaCargarCambioConsumo.ToString();
 
                 string idioma = SessionManager.GetUserSession(Context).Idioma;
                 
@@ -234,6 +235,8 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             {
                 try
                 {
+                    lblErrorModificarRatios.Visible = false;
+
                     IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
                     IServiceControlador servicioControlador = iocManager.Resolve<IServiceControlador>();
 
@@ -278,6 +281,10 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                     //    ApplyAppPathModifier("~/Pages/SuccesfulOperation.aspx"));
                 }
                 catch (FormatException)
+                {
+                    lblErrorModificarRatios.Visible = true;
+                }
+                catch (Exception)
                 {
                     lblErrorModificarRatios.Visible = true;
                 }
@@ -363,6 +370,59 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 }
 
                 MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        protected void btnPorcentajeMaximoDeCarga_Click(object sender, EventArgs e)
+        {
+            lblErrorPorcentajeMaximoDeCarga.Visible = false;
+            IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IServiceBateria servicioBateria = iocManager.Resolve<IServiceBateria>();
+
+            //Obtenemos parametro
+            String bateriaId = Request.Params.Get("idBateria");
+
+            // obtenemos la bateria
+            long IdBateria = Convert.ToInt64(bateriaId);
+            Bateria bateria = servicioBateria.BuscarBateriaById(IdBateria);
+
+            try
+            {
+                double p = Convert.ToDouble(tbPorcentajeMaximoDeCarga.Text);
+                if (p > 100 || p < 75)
+                {
+                    throw new FormatException();
+                }
+                servicioBateria.ModificarporcentajeEmpiezaCargarCambioConsumo(IdBateria, (double?)p);
+                tbPorcentajeMaximoDeCarga.Text = p.ToString();
+
+                string idioma = SessionManager.GetUserSession(Context).Idioma;
+                String mensaje;
+                String operacion;
+
+                if (idioma == "es") // castellano
+                {
+                    mensaje = "Modificado con éxito";
+                    operacion = "Modificar";
+
+                }
+                else if (idioma == "gl") // gallego
+                {
+                    mensaje = "Modificado con éxito";
+                    operacion = "Modificar";
+                }
+                else // (idioma == "en") ingles
+                {
+                    mensaje = "successfully modified";
+                    operacion = "Modify ";
+
+                }
+
+                MessageBox.Show(mensaje, operacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (FormatException)
+            {
+                lblErrorPorcentajeMaximoDeCarga.Visible = true;
             }
         }
     }

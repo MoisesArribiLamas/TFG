@@ -111,7 +111,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 //if (data != "")
                 //{
                 double consumo = Convert.ToDouble(data);
-                ServicioUbicacion.modificarConsumoActual(704, consumo);
+                ServicioUbicacion.modificarConsumoActual(228, consumo);
                 //}
                 //Console.WriteLine("La informacion recibida {0}", data);
 
@@ -162,7 +162,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                 //if (data != "")
                 //{
                 double consumo = Convert.ToDouble(data);
-                ServicioUbicacion.modificarConsumoActual(704, consumo);
+                ServicioUbicacion.modificarConsumoActual(227, consumo);
                 //}
                 //Console.WriteLine("La informacion recibida {0}", data);
 
@@ -839,6 +839,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service
                     //Obtenemos la etiquetad de la ubicacion
                     Ubicacion u = ServicioUbicacion.buscarUbicacionById(b.ubicacionId);
                     double porcentajeCarga = 100 * b.kwHAlmacenados / b.almacenajeMaximoKwH;
+
+                    // quitamos los decimales
+                    porcentajeCarga = Convert.ToDouble(porcentajeCarga.ToString("N0"));
+
                     bateriaDTOEtiquetaUbicacion.Add(new BateriaDTOEtiquetaUbicacion(b.bateriaId, u.etiqueta, b.precioMedio, porcentajeCarga,
                         b.nSerie, b.ratioCarga, b.ratioCompra, b.ratioUso));
                 }

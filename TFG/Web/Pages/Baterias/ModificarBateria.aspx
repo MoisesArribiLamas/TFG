@@ -1,6 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace ="True "%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace ="false "%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
+    <div id="form" style="height: 520px">
 
     <form id="form1" runat="server" >
         
@@ -139,13 +140,14 @@
 
         <hr/>
          <br />
-         <br />
+         
+
         <div>
             <asp:Label ID="lblLimite" runat="server" Text="Porcentaje máximo para cargar"  Display="Dynamic"  meta:resourcekey="lblPorcentajeMaximo" Font-Bold="True"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidatorPorcentajeMaximo" runat="server" ErrorMessage="Este campo es obligatorio"  Font-Italic="True" ForeColor="Red" Display="Dynamic"  ControlToValidate="tbPorcentajeMaximoDeCarga" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="tbPorcentajeMaximoDeCarga" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="60px" style="text-align: right"></asp:TextBox>
-        
-            <asp:Button ID="btnPorcentajeMaximoDeCarga" runat="server" Text="Modificar" OnClick="btModificarRatios_Click" meta:resourcekey="btnPorcentajeMaximoDeCargaResource1"  />
+            <asp:TextBox ID="tbPorcentajeMaximoDeCarga" runat="server" meta:resourcekey="BoxRatioUsoResource1" Width="30px" style="text-align: right"></asp:TextBox>
+            &nbsp
+            &nbsp
+            <asp:Button ID="btnPorcentajeMaximoDeCarga" runat="server" Text="Modificar" OnClick="btnPorcentajeMaximoDeCarga_Click" meta:resourcekey="btnPorcentajeMaximoDeCargaResource1"  />
 
 
             <br />
@@ -164,6 +166,7 @@
         </div>
     </form>
         
+    </div>
 
 
 </asp:Content>

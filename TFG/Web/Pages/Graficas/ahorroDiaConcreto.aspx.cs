@@ -111,7 +111,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //CargaSuministraVSRedDiaConcreto
             if (ddlListaCriterios2.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios2.Text == "Red vs Suministrado Cargados" || ddlListaCriterios2.Text == "Red vs Suministrou Cargou")
             {
-                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
+                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRedDiaConcreto.aspx?idUbicacion={0}" +
                      "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
@@ -168,7 +168,7 @@ namespace Es.Udc.DotNet.TFG.Web.Pages.Graficas
             //CargaSuministraVSRedDiaConcreto
             if (ddlListaCriterios2.Text == "Network vs Loaded vs Supplied" || ddlListaCriterios2.Text == "Red vs Suministrado Cargados" || ddlListaCriterios2.Text == "Red vs Suministrou Cargou")
             {
-                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRed.aspx?idUbicacion={0}" +
+                String url = String.Format("~/Pages/Graficas/CargaSuministraVSRedDiaConcreto.aspx?idUbicacion={0}" +
                      "&fecha={1}" + "&criterio={2}", ubicacionId, txtFecha3.Text, ddlListaCriterios2.Text);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }

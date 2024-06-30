@@ -115,8 +115,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
                 // ubicaciones del usuario
                 List<UbicacionProfileDetails> ubicaciones = serviceUbicacion.ubicacionesDelUsuario(idUser);
 
-                Trace.Warn("INFOr0", Convert.ToString(ubicaciones.Count()==0));
-
                 if (ubicaciones.Count() == 0) 
                 { // El usuario no tiene ubicaciones
 
@@ -391,7 +389,87 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
                 // estado de la Bateria
                 string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
-                this.lblEstado.Text = estado;
+                //this.lblEstado.Text = estado;
+
+                // El consumo que tiene la ubicacion en este instante
+                double cons = serviceUbicacion.consumoEnEsteInstante(ubicacion.ubicacionId);
+                this.lblConsumo.Text = cons.ToString();
+
+                if (cons == 0)
+                {
+                    if (estado == "suministrando")
+                    {
+                        estado = "sin actividad";
+
+                    }
+                    else
+                    {
+                        if (estado == "carga y suministra")
+                        {
+                            estado = "cargando";
+                        }
+                    }
+
+                }
+
+                string idioma = SessionManager.GetUserSession(Context).Idioma;
+
+                if (idioma == "es") // castellano
+                {
+                    this.lblEstado.Text = estado;
+
+
+                }
+                else 
+                
+                if (idioma == "gl") // gallego
+                {
+                    if (estado == "sin actividad")
+                    {
+                        this.lblEstado.Text = "sen actividade";
+                    }
+                    else
+                    {
+                        if (estado == "carga y suministra")
+                        {
+                            this.lblEstado.Text = "carga e suministra";
+                        }
+                        else // cargando , Suministrando
+                        {
+                            this.lblEstado.Text = estado;
+                        }
+                    }
+                }
+                else // (idioma == "en") ingles
+                {
+                    if (estado == "sin actividad")
+                    {
+                        this.lblEstado.Text = "Without activity";
+                    }
+                    else
+                    {
+                        if (estado == "carga y suministra")
+                        {
+                            this.lblEstado.Text = "loads and supplies";
+                        }
+                        else
+                        {
+                            if (estado == "cargando")
+                            {
+                                this.lblEstado.Text = "charging";
+                            }
+                            else
+                            {
+                                if (estado == "suministrando")
+                                {
+                                    this.lblEstado.Text = "supplying";
+                                }
+                            }
+                        }
+                    }
+
+                }
+
                 this.BoxRatioCompra.Text = bateria.ratioCompra.ToString();
                 this.BoxRatioCarga.Text = bateria.ratioCarga.ToString();
                 this.BoxRatioUso.Text = bateria.ratioUso.ToString();
@@ -517,15 +595,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
             long idUser = SessionManager.GetUserSession(Context).UserProfileId;
 
 
-            // ubicaciones del usuario
-            List<UbicacionProfileDetails> ubicaciones = serviceUbicacion.ubicacionesDelUsuario(idUser);
-
-            // desplegable con las ubicaciones 
-            foreach (UbicacionProfileDetails u in ubicaciones)
-            {
-                this.ListaUbicaciones.Items.Add(u.etiqueta);
-            }
-
             // obtenemos la ubicacion que se muestra en el desplegble 
             Ubicacion ubicacion = serviceUbicacion.primeraUbicacionDelUsuario(idUser);
 
@@ -538,7 +607,29 @@ namespace Es.Udc.DotNet.TFG.Web.Pages
 
                 // estado de la Bateria
                 string estado = serviceBateria.EstadoDeLaBateria((long)ubicacion.bateriaSuministradora);
-                this.lblEstado.Text = estado;
+                //this.lblEstado.Text = estado;
+
+                // El consumo que tiene la ubicacion en este instante
+                double cons = serviceUbicacion.consumoEnEsteInstante(ubicacion.ubicacionId);
+                this.lblConsumo.Text = cons.ToString();
+
+                if (cons == 0)
+                {
+                    if (estado == "suministrando")
+                    {
+                        estado = "sin actividad";
+
+                    }
+                    else
+                    {
+                        if (estado == "carga y suministra")
+                        {
+                            estado = "cargando";
+                        }
+                    }
+
+                }
+
                 string idioma = SessionManager.GetUserSession(Context).Idioma;
 
                 if (idioma == "es") // castellano

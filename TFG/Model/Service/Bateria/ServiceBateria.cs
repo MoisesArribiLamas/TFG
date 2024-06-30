@@ -870,6 +870,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
             b.estadoBateria = 0;
             b.capacidadCargador = capacidadCargador;
             b.BateriaActiva = true;
+            b.porcentajeEmpiezaCargarCambioConsumo = 90;
 
             bateriaDao.Create(b);
 
@@ -1098,10 +1099,10 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Baterias
                 else
                 {
                     // Comprobamos si sale la condicion de que no carga por que esta llena la bateria
-                    // lo ponemos con el 90%, para que cuando se cambia el consmo no este 100% ->99% -> 100% -> ...
-                    // pero si viene de cambio de hora no se tendra encuenta esto, cargaría.
+                    // lo ponemos con el 90% por defecto, para que cuando se cambia el consmo no este 100% ->99% -> 100% -> ...
+                    // pero si viene de cambio de hora o de ratios no se tendrá encuenta esto, cargaría.
 
-                    if (90 <= (total * 100 / b.almacenajeMaximoKwH))
+                    if (b.porcentajeEmpiezaCargarCambioConsumo <= (total * 100 / b.almacenajeMaximoKwH))
                     //if (total * 90 <= b.almacenajeMaximoKwH)
                     {
                         // Fecha y hora actual

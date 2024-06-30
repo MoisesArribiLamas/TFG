@@ -355,15 +355,6 @@ namespace Es.Udc.DotNet.TFG.Web.Pages {
         protected global::System.Web.UI.WebControls.Label lblLimite;
         
         /// <summary>
-        /// Control RequiredFieldValidatorPorcentajeMaximo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPorcentajeMaximo;
-        
-        /// <summary>
         /// Control tbPorcentajeMaximoDeCarga.
         /// </summary>
         /// <remarks>

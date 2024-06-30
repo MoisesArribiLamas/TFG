@@ -215,7 +215,7 @@ namespace Es.Udc.DotNet.TFG.Model.Service.Ubicaciones
 
                             }
 
-                            porcentaje = ServicioBateria.porcentajeDeCarga((long)u.bateriaSuministradora).ToString();
+                            porcentaje = ServicioBateria.porcentajeDeCarga((long)u.bateriaSuministradora).ToString("N0");
                         }
                         else
                         {
