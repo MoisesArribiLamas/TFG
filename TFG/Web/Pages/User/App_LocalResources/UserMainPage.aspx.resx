@@ -138,4 +138,37 @@
   <data name="lblInicioLowestPriceResource1.ToolTip" xml:space="preserve">
     <value>the lowest price of the day</value>
   </data>
+  <data name="btModificarRatiosBateriaResource1.Text" xml:space="preserve">
+    <value>Modify Ratios</value>
+  </data>
+  <data name="HyperLinkFieldResource1.Text" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="HyperLinksuministradorResource1Text" xml:space="preserve">
+    <value>Battery %</value>
+  </data>
+  <data name="lblErrorModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Error when modifying key figures</value>
+  </data>
+  <data name="Localize1ConsumoResource1.Text" xml:space="preserve">
+    <value>Consumption</value>
+  </data>
+  <data name="Localize1DatosResource1.Text" xml:space="preserve">
+    <value>Data obtained from :</value>
+  </data>
+  <data name="Localize1EstadoBateriaResource1.Text" xml:space="preserve">
+    <value>Battery Status</value>
+  </data>
+  <data name="Localize1PrecioResource1.Text" xml:space="preserve">
+    <value>Current Price</value>
+  </data>
+  <data name="Localize1ratioCargaResource1.Text" xml:space="preserve">
+    <value>Load R.</value>
+  </data>
+  <data name="Localize1ratioCompraResource1Text" xml:space="preserve">
+    <value>Purchase R.</value>
+  </data>
+  <data name="Localize1ratioUsoResource1.Text" xml:space="preserve">
+    <value>Usage  R.</value>
+  </data>
 </root>

@@ -117,28 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
-    <value>Crear</value>
+  <data name="Calle.HeaderText" xml:space="preserve">
+    <value>Calle</value>
   </data>
-  <data name="lblErrorCrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Erro ó crear Ubicación</value>
-  </data>
-  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
+  <data name="Etiqueta.HeaderText" xml:space="preserve">
     <value>Etiqueta</value>
   </data>
-  <data name="Localize2CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Localidade</value>
+  <data name="lblUbicacionesBoton.Text" xml:space="preserve">
+    <value>Crear Ubicación</value>
   </data>
-  <data name="Localize3CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Rúa</value>
+  <data name="lblUbicacionesTitulo.Text" xml:space="preserve">
+    <value>Elige la ubicación en la que crear la batería</value>
   </data>
-  <data name="Localize4CrearUbicacionResource1.Text" xml:space="preserve">
+  <data name="lblUbicacionesTitulo.ToolTip" xml:space="preserve">
+    <value>Presiona en la tabla de abajo en la columna de "Etiqueta" la ubicación en la cual crear la batería nueva o en el botón "Crear Ubicación" si se quiere crear una nueva ubicación.</value>
+  </data>
+  <data name="Localidad.HeaderText" xml:space="preserve">
+    <value>Localidad</value>
+  </data>
+  <data name="Número.HeaderText" xml:space="preserve">
     <value>Número</value>
   </data>
-  <data name="Localize5CrearUbicacionResource1.Text" xml:space="preserve">
+  <data name="Portal.HeaderText" xml:space="preserve">
     <value>Portal</value>
-  </data>
-  <data name="Localize8CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Código Postal</value>
   </data>
 </root>

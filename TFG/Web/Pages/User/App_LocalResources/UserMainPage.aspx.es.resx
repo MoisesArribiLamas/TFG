@@ -141,4 +141,37 @@
   <data name="PageResource2.Title1" xml:space="preserve">
     <value>TFG</value>
   </data>
+  <data name="btModificarRatiosBateriaResource1.Text" xml:space="preserve">
+    <value>Modificar Ratios</value>
+  </data>
+  <data name="HyperLinkFieldResource1.Text" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="HyperLinksuministradorResource1Text" xml:space="preserve">
+    <value>Batería %</value>
+  </data>
+  <data name="lblErrorModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Error Al modificar Ratios</value>
+  </data>
+  <data name="Localize1ConsumoResource1.Text" xml:space="preserve">
+    <value>Consumo</value>
+  </data>
+  <data name="Localize1DatosResource1.Text" xml:space="preserve">
+    <value>Datos obtenidos de :</value>
+  </data>
+  <data name="Localize1EstadoBateriaResource1.Text" xml:space="preserve">
+    <value>Estado Batería</value>
+  </data>
+  <data name="Localize1PrecioResource1.Text" xml:space="preserve">
+    <value>Precio Actual</value>
+  </data>
+  <data name="Localize1ratioCargaResource1.Text" xml:space="preserve">
+    <value>R. Carga</value>
+  </data>
+  <data name="Localize1ratioCompraResource1Text" xml:space="preserve">
+    <value>R. Compra</value>
+  </data>
+  <data name="Localize1ratioUsoResource1.Text" xml:space="preserve">
+    <value>R. Uso</value>
+  </data>
 </root>

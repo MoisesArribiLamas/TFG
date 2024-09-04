@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.TFG.Web.Pages {
+namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones {
     
     
     public partial class CrearUbicacion {

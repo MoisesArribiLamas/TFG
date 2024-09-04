@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace ="false "%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarBateria.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Baterias.ModificarBateria" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace ="false "%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
     <div id="form" style="height: 520px">
@@ -9,7 +9,7 @@
 
         <div class ="field">
             <span class="label">
-                        <asp:Localize ID="Localize1ModificarBateria" runat="server" Text="Numero de serie" meta:resourcekey="Localize1ModificarBateriaResource1"></asp:Localize>
+                        <asp:Localize ID="Localize1ModificarBateria" runat="server" Text="Número de serie" meta:resourcekey="Localize1ModificarBateriaResource1"></asp:Localize>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1ModificarBateria" runat="server" ErrorMessage="Este campo es obligatorio" Display="Dynamic"  Font-Italic="True" ForeColor="Red" ControlToValidate="BoxNSerieModificarBateria" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
             </span>
             <span class="entry">
@@ -114,12 +114,12 @@
 
         <div class = "field">
             
-            <asp:Label ID="lblAlmacenajeMaximo" runat="server" Text="Almacenaje Máximo (kwh) :" Display="Dynamic" meta:resourcekey="lblAlmacenajeMaximo"  Font-Size="Medium"></asp:Label>
+            <asp:Label ID="lblAlmacenajeMaximo" runat="server" Text="Almacenaje Máximo (kw) :" Display="Dynamic" meta:resourcekey="lblAlmacenajeMaximo"  Font-Size="Medium"></asp:Label>
             
              <asp:Label ID="lblAlmacenajeMaximoN" runat="server" Text="Almacenados"  Display="Dynamic"  Font-Bold="True" Font-Size="Medium"></asp:Label>
             &nbsp;
             &nbsp   
-            <asp:Label ID="lblKwAlmacenados" runat="server" Text="Almacenados (kwh) :"  Display="Dynamic"  meta:resourcekey="lblKwAlmacenados"  Font-Size="Medium"></asp:Label>   
+            <asp:Label ID="lblKwAlmacenados" runat="server" Text="Almacenados (kw) :"  Display="Dynamic"  meta:resourcekey="lblKwAlmacenados"  Font-Size="Medium"></asp:Label>   
             <asp:Label ID="lblKwAlmacenadosNumero" runat="server" Text="Almacenados"  Display="Dynamic"  Font-Bold="True" Font-Size="Medium"></asp:Label>
             &nbsp
             &nbsp

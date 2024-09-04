@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.ModificarUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModificarUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones.ModificarUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" trace="true"%>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
 

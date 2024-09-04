@@ -67,7 +67,7 @@
                             Width="110px" OnSelectedIndexChanged="ddlListaCriterios_SelectedIndexChanged" meta:resourcekey="ddlListaCriteriosResource1" ></asp:DropDownList>
 
          &nbsp;&nbsp;
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" meta:resourcekey="btbuscar" />
 
         <br/>
 
@@ -110,7 +110,7 @@
                             Width="110px" OnSelectedIndexChanged="ddlListaCriterios2_SelectedIndexChanged" meta:resourcekey="ddlListaCriterios2Resource1" ></asp:DropDownList>
 
          &nbsp;&nbsp;
-        <asp:Button ID="Button2" runat="server" Text="Buscar" OnClick="btnBuscar2_Click" />
+        <asp:Button ID="Button2" runat="server" Text="Buscar" OnClick="btnBuscar2_Click" meta:resourcekey="btbuscar2" />
 
         <br/>
         <br/>

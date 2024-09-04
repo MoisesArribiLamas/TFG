@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CrearUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.CrearUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CrearUbicacion.aspx.cs" Inherits="Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones.CrearUbicacion" MasterPageFile="~/TFG.Master" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
 <asp:Content ID="content" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
     <div id="form" style="height: 342px">

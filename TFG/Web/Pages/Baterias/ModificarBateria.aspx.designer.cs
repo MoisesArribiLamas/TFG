@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.TFG.Web.Pages {
+namespace Es.Udc.DotNet.TFG.Web.Pages.Baterias {
     
     
     public partial class ModificarBateria {

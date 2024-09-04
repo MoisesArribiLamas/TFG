@@ -92,7 +92,7 @@
         <div class = "field">
             <span class="label">
 
-                <asp:Localize ID="Localize7CrearBateria" runat="server" Text="Ratio Compra" meta:resourcekey="Localize5CrearBateriaResource1"></asp:Localize>
+                <asp:Localize ID="Localize7CrearBateria" runat="server" Text="Ratio Compra" meta:resourcekey="Localize6CrearBateriaResource1"></asp:Localize>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7CrearBateria" runat="server" ErrorMessage="Este campo es obligatorio" Font-Italic="True" ForeColor="Red" Display="Dynamic" ControlToValidate="BoxRatioCompraCrearBateria" Text="<%$ Resources:Comunes, campoObligatorio %>"></asp:RequiredFieldValidator>
 
 

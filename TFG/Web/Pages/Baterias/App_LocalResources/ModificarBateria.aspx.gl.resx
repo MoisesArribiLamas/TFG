@@ -117,28 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
-    <value>Crear</value>
+  <data name="lblErrorPorcentajeMaximoDeCargaResource1.Text" xml:space="preserve">
+    <value>Erro nos datos introducidos para modificar</value>
   </data>
-  <data name="lblErrorCrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Erro ó crear Ubicación</value>
+  <data name="btModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Trocar</value>
   </data>
-  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Etiqueta</value>
+  <data name="btModificarBateriaResource1.ToolTip" xml:space="preserve">
+    <value>Actualiza a batería cos valores novos.</value>
   </data>
-  <data name="Localize2CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Localidade</value>
+  <data name="btModificarRatiosBateriaResource1.Text" xml:space="preserve">
+    <value>Trocar</value>
   </data>
-  <data name="Localize3CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Rúa</value>
+  <data name="btModificarRatiosBateriaResource1.ToolTip" xml:space="preserve">
+    <value>Actualiza os ratios cos valores novos.</value>
   </data>
-  <data name="Localize4CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Número</value>
+  <data name="btnEliminarBateriaResource1.Text" xml:space="preserve">
+    <value>Eliminar</value>
   </data>
-  <data name="Localize5CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Portal</value>
+  <data name="btnEliminarBateriaResource1.ToolTip" xml:space="preserve">
+    <value>Eliminar a batería.</value>
   </data>
-  <data name="Localize8CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Código Postal</value>
+  <data name="btnPorcentajeMaximoDeCargaResource1.Text" xml:space="preserve">
+    <value>Trocar</value>
+  </data>
+  <data name="btnPorcentajeMaximoDeCargaResource1.ToolTip" xml:space="preserve">
+    <value>Actualiza a porcentaxe.</value>
+  </data>
+  <data name="lblAlmacenajeMaximo.Text" xml:space="preserve">
+    <value>Almacenaxe Máximo (kw)</value>
+  </data>
+  <data name="lblBateriaSuministradora.Text" xml:space="preserve">
+    <value>Batería</value>
+  </data>
+  <data name="lblBateriaTitulo.Text" xml:space="preserve">
+    <value>Batería</value>
+  </data>
+  <data name="lblErrorModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Erro ó modificar Bateria</value>
+  </data>
+  <data name="lblEtiquetaEstado.Text" xml:space="preserve">
+    <value>Estado :</value>
+  </data>
+  <data name="lblKwAlmacenados.Text" xml:space="preserve">
+    <value>Almacenados (kw) :</value>
+  </data>
+  <data name="lblPorcentajeMaximo.Text" xml:space="preserve">
+    <value>Porcentaxe mínimo para volver a cargar despóis de alcanzar o 100%</value>
+  </data>
+  <data name="lblPorcentajeMaximo.ToolTip" xml:space="preserve">
+    <value>Cando a batería chega ó 100% non volverá a cargarse ata que non chegue a este %. Salvo que se cambien os ratios ou cambio de hora.</value>
+  </data>
+  <data name="lblPrecioMedio.Text" xml:space="preserve">
+    <value>Prezo Medio</value>
+  </data>
+  <data name="lblRatioCarga.Text" xml:space="preserve">
+    <value>Ratio Carga</value>
+  </data>
+  <data name="lblRatioCarga.ToolTip" xml:space="preserve">
+    <value>Se o prezo da tarifa é maior que este ratio, o consumo é suministrado pola batería.</value>
+  </data>
+  <data name="lblRatioUso.Text" xml:space="preserve">
+    <value>Ratio Carga</value>
+  </data>
+  <data name="lblRatioUso.ToolTip" xml:space="preserve">
+    <value>Se o valor de ratio é maior ou igual que o % da batería, carga se a batería.</value>
+  </data>
+  <data name="lbRatioCompra.Text" xml:space="preserve">
+    <value>Ratio Compra</value>
+  </data>
+  <data name="lbRatioCompra.ToolTip" xml:space="preserve">
+    <value>Se o prezo da tarifa é igual ou menor que este ratio, carga se a batería.</value>
+  </data>
+  <data name="Localize1ModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Número de serie</value>
+  </data>
+  <data name="Localize2ModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="Localize3ModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="Localize4ModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Capacidade Cargador</value>
   </data>
 </root>

@@ -117,46 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Etiqueta</value>
-  </data>
-  <data name="PageResource2.Title1" xml:space="preserve">
-    <value>TFG</value>
-  </data>
   <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
     <value>Crear</value>
   </data>
-  <data name="btRegistrarCreateUbicacionResource1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblErrorCrearUbicacionResource1.Text" xml:space="preserve">
+    <value>Error Al crear Ubicación</value>
   </data>
-  <data name="Localize1CreateUbicacionResource1.ToolTip" xml:space="preserve">
-    <value>Nombre o etiqueta por la cual se conocerá a la ubicacion.</value>
+  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
+    <value>Etiqueta</value>
   </data>
-  <data name="Localize2CreateUbicacionResource1.Text" xml:space="preserve">
+  <data name="Localize2CrearUbicacionResource1.Text" xml:space="preserve">
     <value>Localidad</value>
   </data>
-  <data name="Localize2CreateUbicacionResource1.ToolTip" xml:space="preserve">
-    <value>Ciudad en la que se encuentra la Ubicación.</value>
-  </data>
-  <data name="Localize3CreateUbicacionResource1.Text" xml:space="preserve">
+  <data name="Localize3CrearUbicacionResource1.Text" xml:space="preserve">
     <value>Calle</value>
   </data>
-  <data name="Localize3CreateUbicacionResource1.ToolTip" xml:space="preserve">
-    <value>Nombre de la calle en la que se encuentra la Ubicación.</value>
+  <data name="Localize4CrearUbicacionResource1.Text" xml:space="preserve">
+    <value>Número</value>
   </data>
-  <data name="Localize4CreateUbicacionResource1.Text" xml:space="preserve">
-    <value>Numero</value>
-  </data>
-  <data name="Localize4CreateUbicacionResource1.ToolTip" xml:space="preserve">
-    <value>Número de la calle en la que se encuentra la Ubicación.</value>
-  </data>
-  <data name="Localize5CreateUbicacionResource1.Text" xml:space="preserve">
+  <data name="Localize5CrearUbicacionResource1.Text" xml:space="preserve">
     <value>Portal</value>
   </data>
-  <data name="Localize5CreateUbicacionResource1.ToolTip" xml:space="preserve">
-    <value>En caso de que existan varios portales, poner el portal correspondiente</value>
-  </data>
-  <data name="Localize8CreateUbicacionResource1.Text" xml:space="preserve">
+  <data name="Localize8CrearUbicacionResource1.Text" xml:space="preserve">
     <value>Código Postal</value>
   </data>
 </root>

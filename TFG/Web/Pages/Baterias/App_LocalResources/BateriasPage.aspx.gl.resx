@@ -117,13 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblBateriasBoton.Text" xml:space="preserve">
+    <value>Crear Batería</value>
+  </data>
+  <data name="lblBateriasBoton.ToolTip" xml:space="preserve">
+    <value>Prema se quere crear unha batería nova.</value>
+  </data>
+  <data name="lblBateriasTitulo.Text" xml:space="preserve">
+    <value>BATERÍAS</value>
+  </data>
   <data name="PageResource1.Title" xml:space="preserve">
     <value>TFG</value>
   </data>
-  <data name="lblUbicacionesBoton.Text" xml:space="preserve">
-    <value>Create Location</value>
+  <data name="BoundFieldResource2.HeaderText" xml:space="preserve">
+    <value>Ubicación</value>
   </data>
-  <data name="lblUbicacionesTitulo.Text" xml:space="preserve">
-    <value>LOCATIONS</value>
+  <data name="BoundFieldResource3.HeaderText" xml:space="preserve">
+    <value>Ratio Carga</value>
+  </data>
+  <data name="BoundFieldResource4.HeaderText" xml:space="preserve">
+    <value>Ratio Compra</value>
+  </data>
+  <data name="BoundFieldResource5.HeaderText" xml:space="preserve">
+    <value>Ratio Uso</value>
+  </data>
+  <data name="BoundFieldResource6.HeaderText" xml:space="preserve">
+    <value>Prezo Medio</value>
+  </data>
+  <data name="BoundFieldResource7.HeaderText" xml:space="preserve">
+    <value>Porcentaxe Carga</value>
+  </data>
+  <data name="HyperLinkFieldResource1.HeaderText" xml:space="preserve">
+    <value>Nº Serie</value>
   </data>
 </root>

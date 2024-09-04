@@ -32,11 +32,11 @@
 
                     <ItemStyle CssClass="hiddencol"></ItemStyle>
                 </asp:BoundField>
-                <asp:hyperlinkfield headertext="Etiqueta" datatextfield="etiqueta" datanavigateurlformatstring="" meta:resourcekey="HyperLinkFieldResource1" />
-                <asp:BoundField DataField="localidad" HeaderText="Localidad" meta:resourcekey="BoundFieldResource2" />
-                <asp:BoundField DataField="calle" HeaderText="Calle" meta:resourcekey="BoundFieldResource3" />
-                <asp:BoundField DataField="numero" HeaderText="Numero" meta:resourcekey="BoundFieldResource4" />
-                <asp:BoundField DataField="portal" HeaderText="Portal" meta:resourcekey="BoundFieldResource5" />
+                <asp:hyperlinkfield headertext="Etiqueta" datatextfield="etiqueta" datanavigateurlformatstring="" meta:resourcekey="Etiqueta" />
+                <asp:BoundField DataField="localidad" HeaderText="Localidad" meta:resourcekey="Localidad" />
+                <asp:BoundField DataField="calle" HeaderText="Calle" meta:resourcekey="Calle" />
+                <asp:BoundField DataField="numero" HeaderText="Numero" meta:resourcekey="Numero" />
+                <asp:BoundField DataField="portal" HeaderText="Portal" meta:resourcekey="Portal" />
 
 
             </Columns>

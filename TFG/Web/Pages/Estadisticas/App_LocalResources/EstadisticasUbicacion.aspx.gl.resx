@@ -117,28 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
-    <value>Crear</value>
+  <data name="btbuscar.Text" xml:space="preserve">
+    <value>Buscar</value>
   </data>
-  <data name="lblErrorCrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Erro ó crear Ubicación</value>
+  <data name="btbuscar2.Text" xml:space="preserve">
+    <value>Buscar</value>
   </data>
-  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Etiqueta</value>
+  <data name="lblCriterio.Text" xml:space="preserve">
+    <value>Criterio</value>
   </data>
-  <data name="Localize2CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Localidade</value>
+  <data name="lblCriterio2.Text" xml:space="preserve">
+    <value>Criterio</value>
   </data>
-  <data name="Localize3CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Rúa</value>
+  <data name="lblFecha1Error.Text" xml:space="preserve">
+    <value>Erro en Data</value>
   </data>
-  <data name="Localize4CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Número</value>
+  <data name="lblFecha2Error.Text" xml:space="preserve">
+    <value>Erro en Data</value>
   </data>
-  <data name="Localize5CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Portal</value>
+  <data name="lblFecha3Error.Text" xml:space="preserve">
+    <value>Erro en Data</value>
   </data>
-  <data name="Localize8CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Código Postal</value>
+  <data name="lblFechaDia.Text" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="lblFechaFin.Text" xml:space="preserve">
+    <value>Data Final</value>
+  </data>
+  <data name="lblFechaIni.Text" xml:space="preserve">
+    <value>Data Inicial</value>
+  </data>
+  <data name="lblUbicacionesBusqueda1.Text" xml:space="preserve">
+    <value>Búsqueda Por Rango (Días)</value>
+  </data>
+  <data name="lblUbicacionesBusqueda2.Text" xml:space="preserve">
+    <value>Búsqueda nun día (Horas)</value>
+  </data>
+  <data name="lblUbicacionesTitulo.Text" xml:space="preserve">
+    <value>UBICACIÓN</value>
   </data>
 </root>

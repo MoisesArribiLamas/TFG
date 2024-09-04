@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PageResource2.Title" xml:space="preserve">
-    <value>TFG</value>
+  <data name="btModificarRatiosBateriaResource1.Text" xml:space="preserve">
+    <value>Modificar Ratios</value>
+  </data>
+  <data name="HyperLinkFieldResource1.Text" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="HyperLinksuministradorResource1Text" xml:space="preserve">
+    <value>Batería %</value>
+  </data>
+  <data name="lblErrorModificarBateriaResource1.Text" xml:space="preserve">
+    <value>Erro ó modificar os Ratios</value>
   </data>
   <data name="lblInicioAveragePriceResource1.Text" xml:space="preserve">
     <value>Prezo Medio</value>
@@ -137,5 +146,29 @@
   </data>
   <data name="lblInicioLowestPriceResource1.ToolTip" xml:space="preserve">
     <value>O prezo máis baixo do día.</value>
+  </data>
+  <data name="Localize1ConsumoResource1.Text" xml:space="preserve">
+    <value>Consumo</value>
+  </data>
+  <data name="Localize1DatosResource1.Text" xml:space="preserve">
+    <value>Datos obtidos de :</value>
+  </data>
+  <data name="Localize1EstadoBateriaResource1.Text" xml:space="preserve">
+    <value>Estado Batería</value>
+  </data>
+  <data name="Localize1PrecioResource1.Text" xml:space="preserve">
+    <value>Prezo Actual</value>
+  </data>
+  <data name="Localize1ratioCargaResource1.Text" xml:space="preserve">
+    <value>R. Carga</value>
+  </data>
+  <data name="Localize1ratioCompraResource1Text" xml:space="preserve">
+    <value>R. Compra</value>
+  </data>
+  <data name="Localize1ratioUsoResource1.Text" xml:space="preserve">
+    <value>R. Uso</value>
+  </data>
+  <data name="PageResource2.Title" xml:space="preserve">
+    <value>TFG</value>
   </data>
 </root>

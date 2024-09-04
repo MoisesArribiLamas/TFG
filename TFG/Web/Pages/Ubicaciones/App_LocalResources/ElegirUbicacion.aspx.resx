@@ -117,28 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
-    <value>Crear</value>
+  <data name="Calle.HeaderText" xml:space="preserve">
+    <value>Street</value>
   </data>
-  <data name="lblErrorCrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Erro ó crear Ubicación</value>
+  <data name="Etiqueta.HeaderText" xml:space="preserve">
+    <value>Label</value>
   </data>
-  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Etiqueta</value>
+  <data name="lblUbicacionesBoton.Text" xml:space="preserve">
+    <value>Create Location</value>
   </data>
-  <data name="Localize2CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Localidade</value>
+  <data name="lblUbicacionesTitulo.Text" xml:space="preserve">
+    <value>Choose the location where to create the battery</value>
   </data>
-  <data name="Localize3CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Rúa</value>
+  <data name="lblUbicacionesTitulo.ToolTip" xml:space="preserve">
+    <value>Click on the table below in the "Label" column on the location in which to create the new battery or on the "Create Location" button if you want to create a new location.</value>
   </data>
-  <data name="Localize4CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Número</value>
+  <data name="Localidad.HeaderText" xml:space="preserve">
+    <value>Locality</value>
   </data>
-  <data name="Localize5CrearUbicacionResource1.Text" xml:space="preserve">
+  <data name="Número.HeaderText" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Portal.HeaderText" xml:space="preserve">
     <value>Portal</value>
-  </data>
-  <data name="Localize8CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Código Postal</value>
   </data>
 </root>

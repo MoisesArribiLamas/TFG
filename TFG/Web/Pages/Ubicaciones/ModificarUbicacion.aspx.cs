@@ -17,7 +17,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
-namespace Es.Udc.DotNet.TFG.Web.Pages
+namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
 {
     public partial class ModificarUbicacion : SpecificCulturePage
     {

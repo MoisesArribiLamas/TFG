@@ -13,7 +13,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Es.Udc.DotNet.TFG.Web.Pages
+namespace Es.Udc.DotNet.TFG.Web.Pages.Ubicaciones
 {
     public partial class CrearUbicacion : SpecificCulturePage
     {

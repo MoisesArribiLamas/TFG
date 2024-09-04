@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btRegistrarCreateUbicacionResource1.Text" xml:space="preserve">
-    <value>Crear</value>
+  <data name="btRegistrarCreateBateriaResource1.Text" xml:space="preserve">
+    <value>Register</value>
   </data>
-  <data name="lblErrorCrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Erro ó crear Ubicación</value>
+  <data name="lblCrearBateriaTitulo.Text" xml:space="preserve">
+    <value>CREATE BATTERY</value>
   </data>
-  <data name="Localize1CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Etiqueta</value>
+  <data name="lblErrorCrearBateriaResource1.Text" xml:space="preserve">
+    <value>Error When Creating the Battery</value>
   </data>
-  <data name="Localize2CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Localidade</value>
+  <data name="Localize1CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Battery Brand</value>
   </data>
-  <data name="Localize3CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Rúa</value>
+  <data name="Localize2CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Model</value>
   </data>
-  <data name="Localize4CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Número</value>
+  <data name="Localize3CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Serial No.</value>
   </data>
-  <data name="Localize5CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Portal</value>
+  <data name="Localize4CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Maximum Storage</value>
   </data>
-  <data name="Localize8CrearUbicacionResource1.Text" xml:space="preserve">
-    <value>Código Postal</value>
+  <data name="Localize5CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Load Ratio</value>
+  </data>
+  <data name="Localize6CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Purchase Ratio</value>
+  </data>
+  <data name="Localize8CrearBateriaResource1.Text" xml:space="preserve">
+    <value>Usage Ratio</value>
   </data>
 </root>
