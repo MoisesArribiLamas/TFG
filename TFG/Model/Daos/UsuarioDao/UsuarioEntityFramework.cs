@@ -2,6 +2,7 @@
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -64,6 +65,21 @@ namespace Es.Udc.DotNet.TFG.Model.Daos.UsuarioDao
                 return true;
             }
             return false;
+        }
+
+
+        public List<Usuario> listaUsuarios()
+        {
+            DbSet<Usuario> usuarios = Context.Set<Usuario>();
+
+            var result =
+                (from u in usuarios
+                 select u).OrderBy(u => u.email).ToList();
+
+
+
+
+            return result;
         }
 
         #endregion IUsuarioDao Members. Specific Operations

@@ -32,5 +32,8 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         [Transactional]
         UserProfileDetails BuscarUsuarioPorID(long usuarioId);
+
+        [Transactional]
+        List<Usuario> ListaUsuarios();
     }
 }

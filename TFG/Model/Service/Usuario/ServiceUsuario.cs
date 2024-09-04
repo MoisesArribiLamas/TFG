@@ -157,5 +157,15 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         }
 
+
+        [Transactional]
+        public List<Usuario> ListaUsuarios()
+        {
+
+
+            return UsuarioDao.listaUsuarios();
+
+        }
+
     }
 }

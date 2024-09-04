@@ -18,6 +18,6 @@ namespace Es.Udc.DotNet.TFG.Model.Dao.UsuarioDao
         bool updateInformacion(long userId, string nombre, string apellido1, string apellido2, string contraseña, string tlf, string email, string language, string country);
 
 
-
+        List<Usuario> listaUsuarios();
     }
 }
