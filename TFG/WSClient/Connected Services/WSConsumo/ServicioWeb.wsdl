@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ModificarConsumo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="consumo" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModificarConsumoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="MostrarUsuarios">
+        <s:complexType />
+      </s:element>
+      <s:element name="MostrarUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MostrarUsuariosResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MostrarUbicacionesDelUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MostrarUbicacionesDelUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MostrarUbicacionesDelUsuarioResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsumoEnEsteInstante">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsumoEnEsteInstanteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConsumoEnEsteInstanteResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ModificarConsumoSoapIn">
+    <wsdl:part name="parameters" element="tns:ModificarConsumo" />
+  </wsdl:message>
+  <wsdl:message name="ModificarConsumoSoapOut">
+    <wsdl:part name="parameters" element="tns:ModificarConsumoResponse" />
+  </wsdl:message>
+  <wsdl:message name="MostrarUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:MostrarUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="MostrarUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:MostrarUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="MostrarUbicacionesDelUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:MostrarUbicacionesDelUsuario" />
+  </wsdl:message>
+  <wsdl:message name="MostrarUbicacionesDelUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:MostrarUbicacionesDelUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsumoEnEsteInstanteSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsumoEnEsteInstante" />
+  </wsdl:message>
+  <wsdl:message name="ConsumoEnEsteInstanteSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsumoEnEsteInstanteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServicioWebSoap">
+    <wsdl:operation name="ModificarConsumo">
+      <wsdl:input message="tns:ModificarConsumoSoapIn" />
+      <wsdl:output message="tns:ModificarConsumoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MostrarUsuarios">
+      <wsdl:input message="tns:MostrarUsuariosSoapIn" />
+      <wsdl:output message="tns:MostrarUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MostrarUbicacionesDelUsuario">
+      <wsdl:input message="tns:MostrarUbicacionesDelUsuarioSoapIn" />
+      <wsdl:output message="tns:MostrarUbicacionesDelUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsumoEnEsteInstante">
+      <wsdl:input message="tns:ConsumoEnEsteInstanteSoapIn" />
+      <wsdl:output message="tns:ConsumoEnEsteInstanteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServicioWebSoap" type="tns:ServicioWebSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ModificarConsumo">
+      <soap:operation soapAction="http://tempuri.org/ModificarConsumo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MostrarUsuarios">
+      <soap:operation soapAction="http://tempuri.org/MostrarUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MostrarUbicacionesDelUsuario">
+      <soap:operation soapAction="http://tempuri.org/MostrarUbicacionesDelUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumoEnEsteInstante">
+      <soap:operation soapAction="http://tempuri.org/ConsumoEnEsteInstante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicioWebSoap12" type="tns:ServicioWebSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ModificarConsumo">
+      <soap12:operation soapAction="http://tempuri.org/ModificarConsumo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MostrarUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/MostrarUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MostrarUbicacionesDelUsuario">
+      <soap12:operation soapAction="http://tempuri.org/MostrarUbicacionesDelUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumoEnEsteInstante">
+      <soap12:operation soapAction="http://tempuri.org/ConsumoEnEsteInstante" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioWeb">
+    <wsdl:port name="ServicioWebSoap" binding="tns:ServicioWebSoap">
+      <soap:address location="http://localhost:50685/ServicioWeb.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicioWebSoap12" binding="tns:ServicioWebSoap12">
+      <soap12:address location="http://localhost:50685/ServicioWeb.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,11 @@
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.csprojAssemblyReference.cache
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.Form1.resources
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.Properties.Resources.resources
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.csproj.GenerateResource.cache
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\bin\Debug\WSClient.exe.config
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\bin\Debug\WSClient.exe
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\bin\Debug\WSClient.pdb
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.exe
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.pdb
+C:\Users\Usuario\Desktop\Proyecto\TFG\TFG\TFG\WSClient\obj\Debug\WSClient.Form2.resources

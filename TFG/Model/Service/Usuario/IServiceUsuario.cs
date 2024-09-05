@@ -28,6 +28,9 @@ namespace Es.Udc.DotNet.TFG.Model.Service
 
         [Transactional]
         LoginResult logearUsuario(String email, String pass, bool passwordIsEncrypted);
+
+        [Transactional]
+        long IdUsuarioPorEmail(string email);
         #endregion
 
         [Transactional]

@@ -145,7 +145,16 @@ namespace Es.Udc.DotNet.TFG.Model.Service
             return new LoginResult(usuario.usuarioId, usuario.nombre, usuario.apellido1, usuario.apellido2,
                     storedPassword, usuario.email, usuario.telefono, usuario.idioma, usuario.pais);
 
-        } 
+        }
+
+        [Transactional]
+        public long IdUsuarioPorEmail(string email)
+        {
+            Usuario usuario = UsuarioDao.findUserByName(email);
+
+            return (usuario.usuarioId);
+
+        }
 
         [Transactional]
         public UserProfileDetails BuscarUsuarioPorID(long usuarioId)
